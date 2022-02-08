@@ -1,16 +1,94 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+@import url("https://cdn.jsdelivr.net/gh/SebastianAigner/twemoji-amazing@1.0.0/twemoji-amazing.css");
+@import url("https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*-----------------------
+BASE STYLES             
+-----------------------*/
+
+@layer base {
+  body {
+    @apply min-h-screen bg-white transition-all duration-150 ease-in-out;
+  }
+}
+/* Reset */
+@layer base {
+  * {
+    @apply antialiased box-border;
+  }
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+/* Typography Styles */
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-bold tracking-tight mb-2
+    transition-all duration-150 ease-in-out text-slate-700;
+  }
+  h1 {
+    @apply text-4xl md:text-5xl;
+  }
+  h2 {
+    @apply text-3xl md:text-4xl;
+  }
+  h3 {
+    @apply text-2xl md:text-3xl;
+  }
+  h4 {
+    @apply text-xl md:text-2xl;
+  }
+  h5 {
+    @apply text-lg md:text-xl;
+  }
+  h6 {
+    @apply text-sm md:text-base;
+  }
+  p {
+    @apply text-base mb-4 leading-relaxed
+    text-slate-500;
+  }
+  a {
+    @apply text-brand underline font-semibold hover:text-gray-700 transition-all duration-150 ease-in-out dark:hover:text-white;
+  }
 }
 
-* {
-  box-sizing: border-box;
+/*-----------------------
+SIDEBAR STYLES      
+-----------------------*/
+@layer components {
+  .menu-item {
+    @apply h-10 flex items-center p-2 bg-slate-50 border border-slate-200 text-sm font-semibold text-slate-500 rounded-sm hover:cursor-pointer;
+  }
+}
+
+/*-----------------------
+SECTION STYLES   
+-----------------------*/
+@layer components {
+  section.section-header {
+    @apply mb-4;
+  }
+  section.section-subhead {
+    @apply mb-6 text-base;
+  }
+}
+
+/*-----------------------
+FORM STYLES          
+-----------------------*/
+@layer components {
+  label.form-label {
+    @apply flex items-center text-xs text-slate-500 font-semibold uppercase pl-1.5 py-2 pr-2 bg-slate-100 rounded-t-sm self-start border-t border-slate-200 border-l border-r;
+  }
+
+  .input-field {
+    @apply h-10 focus:outline-none focus:placeholder:hidden text-sm flex items-center bg-white border rounded-tr-sm rounded-b-sm border-slate-200 p-2 placeholder:text-sm text-slate-500;
+  }
 }

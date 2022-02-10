@@ -162,14 +162,6 @@ function reducer(state, action) {
           [action.payload.title]: action.payload.value,
         },
       };
-    case ACTIONS.UPDATE_RENDERED_CODE:
-      return {
-        ...state,
-        rendered: {
-          ...state.rendered,
-          [action.payload.title]: action.payload.value,
-        },
-      };
     default:
       throw new Error();
   }

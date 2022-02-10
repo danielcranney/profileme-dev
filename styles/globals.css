@@ -75,8 +75,8 @@ SECTION STYLES
   section.section-header {
     @apply mb-4;
   }
-  section.section-subhead {
-    @apply mb-6 text-base;
+  .section-subhead {
+    @apply mb-0 text-base;
   }
 }
 
@@ -89,6 +89,12 @@ FORM STYLES
   }
 
   .input-field {
-    @apply h-10 focus:outline-none focus:placeholder:hidden text-sm flex items-center bg-white border rounded-tr-sm rounded-b-sm border-slate-200 p-2 placeholder:text-sm text-slate-500;
+    @apply h-10 focus:outline-none focus:placeholder:hidden text-sm flex items-center bg-white border rounded-tr-sm rounded-b-sm border-slate-200 p-2 placeholder:text-sm placeholder:text-slate-300 text-slate-600;
+  }
+}
+
+@layer base {
+  .previewContainer p {
+    @apply mb-0;
   }
 }

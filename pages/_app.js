@@ -20,54 +20,67 @@ export const ACTIONS = {
 export const frontendIcons = [
   {
     name: "HTML5",
+    folder: "html5",
     type: "html5-plain",
   },
   {
     name: "Javascript",
+    folder: "javascript",
     type: "javascript-plain",
   },
   {
     name: "Typescript",
+    folder: "typescript",
     type: "typescript-plain",
   },
   {
     name: "React",
+    folder: "react",
     type: "react-plain",
   },
   {
     name: "NextJs",
+    folder: "nextjs",
     type: "nextjs-plain",
   },
   {
     name: "Vue",
+    folder: "vuejs",
     type: "vuejs-plain",
   },
   {
     name: "Angular",
+    folder: "angularjs",
     type: "angularjs-plain",
   },
   {
     name: "JQuery",
+    folder: "jquery",
     type: "jquery-plain",
   },
   {
     name: "Swift",
+    folder: "swift",
     type: "swift-plain",
   },
   {
     name: "CSS3",
+    folder: "css3",
     type: "css3-plain",
   },
   {
     name: "Sass",
+    folder: "sass",
     type: "sass-plain",
   },
   {
     name: "TailwindCSS",
+    folder: "tailwindcss",
     type: "tailwindcss-plain",
   },
   {
     name: "Bootstrap",
+    folder: "bootstrap",
     type: "bootstrap-plain",
   },
 ];
@@ -78,34 +91,35 @@ const initialState = {
   renderMode: "preview",
   // Introduction State
   introduction: {
-    firstName: null,
-    surname: null,
-    location: null,
-    workingOn: null,
-    learning: null,
-    collaborateOn: null,
-    aboutMe: null,
-    additionalInfo: null,
-  },
-  // Profiles State
-  profiles: {
-    gitHub: null,
-    portfolio: null,
-    linkedIn: null,
-    medium: null,
-    hashnode: null,
-    twitter: null,
-    facebook: null,
-    instagram: null,
-    tiktok: null,
+    firstName: "",
+    surname: "",
+    location: "",
+    workingOn: "",
+    learning: "",
+    collaborateOn: "",
+    aboutMe: "",
+    additionalInfo: "",
   },
   // Skills State
   skills: {
     frontend: [],
   },
-  rendered: {
-    preview: null,
-    markdown: null,
+  // Profiles State
+  profiles: {
+    gitHub: "",
+    portfolio: "",
+    linkedIn: "",
+    medium: "",
+    hashnode: "",
+    twitter: "",
+    facebook: "",
+    instagram: "",
+    tiktok: "",
+  },
+  markdownContent: {
+    introduction: null,
+    profiles: null,
+    skills: null,
   },
 };
 // Color Reducer
@@ -162,6 +176,14 @@ function reducer(state, action) {
           [action.payload.title]: action.payload.value,
         },
       };
+    // case ACTIONS.UPDATE_MARKDOWN_CODE:
+    //   return {
+    //     ...state,
+    //     markdownContent: {
+    //       ...state.markdownContent,
+    //       [action.payload.title]: action.payload.value,
+    //     },
+    //   };
     default:
       throw new Error();
   }

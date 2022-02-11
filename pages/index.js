@@ -15,12 +15,17 @@ let TurndownService = require("turndown").default;
 
 export default function Home() {
   const { state, dispatch } = useContext(StateContext);
-  const [renderedMarkdown, setRenderedMarkdown] = useState("");
+  const [renderedMarkdown, setRenderedMarkdown] = useState({
+    introduction: "",
+    skills: "",
+    profiles: "",
+  });
   const [copySuccess, setCopySuccess] = useState("Copy");
 
-  // Content Refs
-  const previewRef = useRef(null);
-  const markdownRef = useRef(null);
+  // Section Refs
+  const introductionRef = useRef(null);
+  const skillsRef = useRef(null);
+  const profilesRef = useRef(null);
 
   // Introduction refs
   const firstNameRef = useRef();
@@ -44,7 +49,7 @@ export default function Home() {
 
   useEffect(() => {
     // If PreviewRef not showing, return
-    if (!previewRef.current && !markdownRef.current) return;
+    if (!introductionRef.current) return;
 
     // If PreviewRef shows, establish turndownService
     var turndownService = new TurndownService();
@@ -55,19 +60,35 @@ export default function Home() {
         return "\n" + content;
       },
     });
+
+    const sectionsRefs = [
+      { ref: introductionRef, title: "introduction" },
+      { ref: skillsRef, title: "skills" },
+      { ref: profilesRef, title: "profiles" },
+    ];
+
+    sectionsRefs.map((section, i) => {
+      if (i !== 1) {
+        console.log("The index is:", i, section.ref.current.innerHTML);
+        let htmlOfElement = section.ref.current.innerHTML;
+        // dispatch({
+        //   type: ACTIONS.UPDATE_MARKDOWN_CODE,
+        //   payload: { type: section.title, value: htmlOfElement },
+        // });
+        setRenderedMarkdown((renderedMarkdown) => ({
+          ...renderedMarkdown,
+          [section.title]: turndownService.turndown(htmlOfElement),
+        }));
+      }
+    });
+
     // Get the inner value of PreviewRef, store in variable
-    let htmlOfElement = previewRef.current.innerHTML;
     // console.log("The content of the previewRef is:", htmlOfElement);
 
-    console.log(turndownService.turndown(htmlOfElement));
+    // console.log(turndownService.turndown(htmlOfElement));
     // Store
-    setRenderedMarkdown(turndownService.turndown(htmlOfElement));
+    // setRenderedMarkdown(turndownService.turndown(htmlOfElement));
   }, [state]);
-
-  // useEffect(() => {
-  //   let markdownText = markdownRef.current.innerHTML;
-  //   console.log(markdownText);
-  // }, [renderedMarkdown]);
 
   const copyToClipBoard = async (copyMe) => {
     try {
@@ -291,7 +312,7 @@ export default function Home() {
               </article>
             </section>
           ) : state.section === "profiles" ? (
-            <section className="flex flex-col gap-y-5">
+            <section className="flex flex-col p-6 overflow-y-auto gap-y-5">
               <article className="flex flex-col flex-1 w-full">
                 <div className="flex flex-col flex-1 w-full">
                   <FormLabel
@@ -300,6 +321,7 @@ export default function Home() {
                   />
                   <FormInput
                     ref={gitHubRef}
+                    section={"profiles"}
                     type={"gitHub"}
                     placeholder={"https://www.github.com/danielcranney"}
                     action={ACTIONS.ADD_PROFILE}
@@ -316,6 +338,7 @@ export default function Home() {
                   />
                   <FormInput
                     ref={portfolioRef}
+                    section={"profiles"}
                     type={"portfolio"}
                     placeholder={"http://www.yourname.com"}
                     action={ACTIONS.ADD_PROFILE}
@@ -329,6 +352,7 @@ export default function Home() {
                 />
                 <FormInput
                   ref={mediumRef}
+                  section={"profiles"}
                   type={"medium"}
                   placeholder={"http://www.medium.com/profile/"}
                   action={ACTIONS.ADD_PROFILE}
@@ -341,6 +365,7 @@ export default function Home() {
                 />
                 <FormInput
                   ref={hashnodeRef}
+                  section={"profiles"}
                   type={"hashnode"}
                   placeholder={"http://www.hashnode.com/@danielcranney"}
                   action={ACTIONS.ADD_PROFILE}
@@ -353,6 +378,7 @@ export default function Home() {
                 />
                 <FormInput
                   ref={twitterRef}
+                  section={"profiles"}
                   type={"twitter"}
                   placeholder={"http://www.twitter.com/"}
                   action={ACTIONS.ADD_PROFILE}
@@ -365,6 +391,7 @@ export default function Home() {
                 />
                 <FormInput
                   ref={facebookRef}
+                  section={"profiles"}
                   type={"facebook"}
                   placeholder={"http://www.facebook.com/"}
                   action={ACTIONS.ADD_PROFILE}
@@ -377,6 +404,7 @@ export default function Home() {
                 />
                 <FormInput
                   ref={instagramRef}
+                  section={"profiles"}
                   type={"instagram"}
                   placeholder={"http://www.instagram.com/"}
                   action={ACTIONS.ADD_PROFILE}
@@ -457,7 +485,7 @@ export default function Home() {
               state.renderMode === "preview" ? "relative" : "hidden"
             }`}
           >
-            <div ref={previewRef}>
+            <div ref={introductionRef}>
               {!state.introduction.firstName &&
               !state.introduction.surname ? null : (
                 <h1>
@@ -487,14 +515,9 @@ export default function Home() {
               {state.introduction.additionalInfo ? (
                 <p>⚡&nbsp;{state.introduction.additionalInfo}</p>
               ) : null}
-
-              <p>{state.profiles.gitHub}</p>
-              <p>{state.profiles.portfolio}</p>
-              <p>{state.profiles.medium}</p>
-              <p>{state.profiles.hashnode}</p>
             </div>
 
-            <div className="flex">
+            <div ref={skillsRef} className="flex">
               <a
                 href="https://www.w3schools.com/css/"
                 target="_blank"
@@ -519,19 +542,29 @@ export default function Home() {
                   height="40"
                 />
               </a>
+            </div>
+
+            <div ref={profilesRef}>
+              {state.profiles.gitHub ? <p>{state.profiles.gitHub}</p> : null}
+              {state.profiles.portfolio ? (
+                <p>{state.profiles.portfolio}</p>
+              ) : null}
+              {state.profiles.medium ? <p>{state.profiles.medium}</p> : null}
+              {state.profiles.hashnode ? (
+                <p>{state.profiles.hashnode}</p>
+              ) : null}
             </div>
           </article>
 
           <article
             id="markdownElement"
-            ref={markdownRef}
             className={`px-6 mt-16 overflow-y-auto  ${
               state.renderMode === "markdown" ? "relative" : "hidden"
             }`}
           >
             <button
               className={`absolute bg-white top-0 right-6 text-xs font-semibold uppercase border-slate-200 border text-slate-500 p-3 flex items-center`}
-              onClick={() => copyToClipBoard(renderedMarkdown)}
+              // onClick={() => copyToClipBoard(renderedMarkdown)}
             >
               <svg
                 className="w-4 h-4 mr-1"
@@ -547,7 +580,14 @@ export default function Home() {
             {!renderedMarkdown ? (
               <div>You have not rendered any code yet</div>
             ) : (
-              <p className="whitespace-pre-line">{renderedMarkdown}</p>
+              <>
+                <p className="whitespace-pre-line">
+                  {renderedMarkdown.introduction}
+                </p>
+                <p className="whitespace-pre-line">
+                  {renderedMarkdown.profiles}
+                </p>
+              </>
             )}
           </article>
         </div>

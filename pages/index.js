@@ -17,7 +17,7 @@ export default function Home() {
   const { state, dispatch } = useContext(StateContext);
   const [renderedMarkdown, setRenderedMarkdown] = useState({
     introduction: "",
-    skills: "",
+    skills: [],
     profiles: "",
   });
   const [copySuccess, setCopySuccess] = useState("Copy");
@@ -71,10 +71,7 @@ export default function Home() {
       if (i !== 1) {
         console.log("The index is:", i, section.ref.current.innerHTML);
         let htmlOfElement = section.ref.current.innerHTML;
-        // dispatch({
-        //   type: ACTIONS.UPDATE_MARKDOWN_CODE,
-        //   payload: { type: section.title, value: htmlOfElement },
-        // });
+       
         setRenderedMarkdown((renderedMarkdown) => ({
           ...renderedMarkdown,
           [section.title]: turndownService.turndown(htmlOfElement),

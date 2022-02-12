@@ -17,7 +17,10 @@ export default function Home() {
   const { state, dispatch } = useContext(StateContext);
   const [renderedMarkdown, setRenderedMarkdown] = useState({
     introduction: "",
-    skills: [],
+    skills: {
+      frontend: [],
+      backend: [],
+    },
     profiles: "",
   });
   const [copySuccess, setCopySuccess] = useState("Copy");
@@ -71,21 +74,29 @@ export default function Home() {
       if (i !== 1) {
         console.log("The index is:", i, section.ref.current.innerHTML);
         let htmlOfElement = section.ref.current.innerHTML;
-       
+
         setRenderedMarkdown((renderedMarkdown) => ({
           ...renderedMarkdown,
           [section.title]: turndownService.turndown(htmlOfElement),
         }));
+      } else {
+        Object.entries(state.skills).forEach((entry) => {
+          const [key, value] = entry;
+          setRenderedMarkdown((renderedMarkdown) => ({
+            ...renderedMarkdown,
+            [section.title]: {
+              ...renderedMarkdown[section.title],
+              [key]: state.skills[key],
+            },
+          }));
+        });
       }
     });
-
-    // Get the inner value of PreviewRef, store in variable
-    // console.log("The content of the previewRef is:", htmlOfElement);
-
-    // console.log(turndownService.turndown(htmlOfElement));
-    // Store
-    // setRenderedMarkdown(turndownService.turndown(htmlOfElement));
   }, [state]);
+
+  useEffect(() => {
+    console.log(renderedMarkdown);
+  }, [renderedMarkdown]);
 
   const copyToClipBoard = async (copyMe) => {
     try {
@@ -296,7 +307,7 @@ export default function Home() {
                           </div>
                         ) : null}
                         <i
-                          className={`devicon-${icon.type} ${
+                          className={`devicon-${icon.iTag} ${
                             state.skills.frontend.includes(icon)
                               ? "colored"
                               : "text-slate-500 opacity-50"
@@ -515,30 +526,25 @@ export default function Home() {
             </div>
 
             <div ref={skillsRef} className="flex">
-              <a
-                href="https://www.w3schools.com/css/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <img
-                  src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg"
-                  alt="css3"
-                  width="40"
-                  height="40"
-                />
-              </a>
-              <a
-                href="https://www.w3schools.com/css/"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <img
-                  src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg"
-                  alt="css3"
-                  width="40"
-                  height="40"
-                />
-              </a>
+              {state.skills.frontend.length > 0 ? (
+                <div className="flex flex-wrap gap-x-2 gap-y-2">
+                  {state.skills.frontend.map((icon) => {
+                    console.log(icon);
+                    return (
+                      <p>
+                        <img
+                          src={`https://raw.githubusercontent.com/devicons/devicon/master/icons/${icon.folder}/${icon.type}.svg`}
+                          alt={`${icon.name}`}
+                          width="40"
+                          height="40"
+                        />
+                      </p>
+                    );
+                  })}
+                </div>
+              ) : (
+                <p>The length is less than 1</p>
+              )}
             </div>
 
             <div ref={profilesRef}>
@@ -580,6 +586,13 @@ export default function Home() {
               <>
                 <p className="whitespace-pre-line">
                   {renderedMarkdown.introduction}
+                </p>
+                <p className="whitespace-pre-line">
+                  {renderedMarkdown.skills.frontend.length > 0
+                    ? renderedMarkdown.skills.frontend.map((icon) => {
+                        console.log(icon);
+                      })
+                    : null}
                 </p>
                 <p className="whitespace-pre-line">
                   {renderedMarkdown.profiles}

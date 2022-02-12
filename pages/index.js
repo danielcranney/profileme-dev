@@ -17,6 +17,7 @@ export default function Home() {
   const { state, dispatch } = useContext(StateContext);
   const [renderedMarkdown, setRenderedMarkdown] = useState({
     introduction: "",
+    skillsTitle: "",
     skills: {
       frontend: [],
       backend: [],
@@ -27,7 +28,8 @@ export default function Home() {
 
   // Section Refs
   const introductionRef = useRef(null);
-  const skillsRef = useRef(null);
+  const skillsTitleRef = useRef(null);
+  const skillsContentRef = useRef(null);
   const profilesRef = useRef(null);
 
   // Introduction refs
@@ -50,29 +52,31 @@ export default function Home() {
   const instagramRef = useRef();
   const tiktokRef = useRef();
 
+  // Markdown Container
+  const markdownRef = useRef();
+
   useEffect(() => {
     // If PreviewRef not showing, return
     if (!introductionRef.current) return;
 
-    // If PreviewRef shows, establish turndownService
     var turndownService = new TurndownService();
-    // Setting Rule for P tags
     turndownService.addRule("pRemoval", {
       filter: "p",
       replacement: function (content) {
-        return "\n" + content;
+        return "\n" + content + "\n\n";
       },
     });
 
     const sectionsRefs = [
       { ref: introductionRef, title: "introduction" },
-      { ref: skillsRef, title: "skills" },
+      { ref: skillsTitleRef, title: "skillsTitle" },
+      { ref: skillsContentRef, title: "skills" },
       { ref: profilesRef, title: "profiles" },
     ];
 
     sectionsRefs.map((section, i) => {
-      if (i !== 1) {
-        console.log("The index is:", i, section.ref.current.innerHTML);
+      if (section.title !== "skills") {
+        // console.log("The index is:", i, section.ref.current.innerHTML);
         let htmlOfElement = section.ref.current.innerHTML;
 
         setRenderedMarkdown((renderedMarkdown) => ({
@@ -432,7 +436,7 @@ export default function Home() {
                   payload: "preview",
                 });
               }}
-              className={`flex items-center p-3 ml-auto text-xs font-semibold uppercase border-slate-200 border-l text-slate-500 ${
+              className={`flex items-center p-3 text-xs font-semibold uppercase border-slate-200 border-r text-slate-500 ${
                 state.renderMode === "preview" ? "bg-slate-100" : "bg-white"
               }`}
             >
@@ -466,7 +470,7 @@ export default function Home() {
                   payload: "markdown",
                 });
               }}
-              className={`flex items-center p-3 text-xs font-semibold uppercase border-l border-slate-200 text-slate-500 ${
+              className={`flex items-center p-3 text-xs font-semibold uppercase border-r border-slate-200 text-slate-500 mr-auto ${
                 state.renderMode === "markdown" ? "bg-slate-100" : "bg-white"
               }`}
             >
@@ -485,6 +489,29 @@ export default function Home() {
                 ></path>
               </svg>
               Markdown
+            </button>
+
+            <button
+              className={`flex items-center p-3 text-xs font-semibold uppercase border-l border-slate-200 text-slate-500`}
+              onClick={() => {
+                // console.log(
+                //   "The content in the markdownRef is:",
+                //   markdownRef.current.innerText
+                // );
+
+                copyToClipBoard(markdownRef.current.innerText);
+              }}
+            >
+              <svg
+                className="w-4 h-4 mr-1"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"></path>
+                <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"></path>
+              </svg>
+              {copySuccess}
             </button>
           </div>
 
@@ -525,11 +552,14 @@ export default function Home() {
               ) : null}
             </div>
 
-            <div ref={skillsRef} className="flex">
+            <div ref={skillsTitleRef} className="flex mt-8">
+              {state.skills.frontend.length === 0 ? null : <h3>My Skills</h3>}
+            </div>
+
+            <div ref={skillsContentRef} className="flex flex-col">
               {state.skills.frontend.length > 0 ? (
                 <div className="flex flex-wrap gap-x-2 gap-y-2">
                   {state.skills.frontend.map((icon) => {
-                    console.log(icon);
                     return (
                       <p>
                         <img
@@ -547,7 +577,8 @@ export default function Home() {
               )}
             </div>
 
-            <div ref={profilesRef}>
+            <div ref={profilesRef} className="mt-8">
+              {!state.profiles.gitHub ? null : <h3>My Profile</h3>}
               {state.profiles.gitHub ? <p>{state.profiles.gitHub}</p> : null}
               {state.profiles.portfolio ? (
                 <p>{state.profiles.portfolio}</p>
@@ -561,43 +592,39 @@ export default function Home() {
 
           <article
             id="markdownElement"
-            className={`px-6 mt-16 overflow-y-auto  ${
+            className={`px-6 mt-16 overflow-y-auto h-full text-xs ${
               state.renderMode === "markdown" ? "relative" : "hidden"
             }`}
           >
-            <button
-              className={`absolute bg-white top-0 right-6 text-xs font-semibold uppercase border-slate-200 border text-slate-500 p-3 flex items-center`}
-              // onClick={() => copyToClipBoard(renderedMarkdown)}
-            >
-              <svg
-                className="w-4 h-4 mr-1"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"></path>
-                <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"></path>
-              </svg>
-              {copySuccess}
-            </button>
             {!renderedMarkdown ? (
               <div>You have not rendered any code yet</div>
             ) : (
-              <>
+              <div ref={markdownRef}>
                 <p className="whitespace-pre-line">
                   {renderedMarkdown.introduction}
                 </p>
                 <p className="whitespace-pre-line">
-                  {renderedMarkdown.skills.frontend.length > 0
-                    ? renderedMarkdown.skills.frontend.map((icon) => {
-                        console.log(icon);
-                      })
-                    : null}
+                  {renderedMarkdown.skillsTitle}
+                </p>
+                <p className="break-all">
+                  {renderedMarkdown.skills.frontend.length > 0 ? (
+                    <>
+                      {`<p align="left">`}
+                      {renderedMarkdown.skills.frontend.map((icon) => {
+                        return (
+                          <>
+                            {`<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${icon.folder}/${icon.type}.svg" width="32" height="32" />`}
+                          </>
+                        );
+                      })}
+                      {`</p>`}
+                    </>
+                  ) : null}
                 </p>
                 <p className="whitespace-pre-line">
                   {renderedMarkdown.profiles}
                 </p>
-              </>
+              </div>
             )}
           </article>
         </div>

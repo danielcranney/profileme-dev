@@ -123,46 +123,40 @@ const initialState = {
     gitHub: {
       path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
       linkPrefix: "https://github.com/",
-      link: "",
+      linkSuffix: "",
     },
     portfolio: {
       path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
       linkPrefix: "http://www.",
-      link: "",
+      linkSuffix: "",
     },
     linkedIn: {
       path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
       linkPrefix: "https://www.linkedin.com/in/",
-      link: "",
+      linkSuffix: "",
     },
     medium: {
       path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
       linkPrefix: "http://www.medium.com/@",
-      link: "",
+      linkSuffix: "",
     },
     hashnode: {
       path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
       linkPrefix: "http://",
-      link: "",
+      linkSuffix: "",
     },
     twitter: {
       path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
       linkPrefix: "https://www.twitter.com/",
-      link: "",
+      linkSuffix: "",
     },
     facebook: {
       path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/facebook/facebook-original.svg",
       linkPrefix: "https://www.facebook.com/",
-      link: "",
+      linkSuffix: "",
     },
   },
-  markdownContent: {
-    introduction: null,
-    profiles: null,
-    skills: {
-      frontend: [],
-    },
-  },
+  profilesTitle: false,
 };
 // Color Reducer
 function reducer(state, action) {
@@ -217,9 +211,10 @@ function reducer(state, action) {
           ...state.profiles,
           [action.payload.title]: {
             ...state.profiles[action.payload.title],
-            link: action.payload.value,
+            linkSuffix: action.payload.value,
           },
         },
+        profilesTitle: true,
       };
     // case ACTIONS.ADD_PROFILE:
     //   return {

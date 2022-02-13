@@ -24,7 +24,15 @@ export default function Home() {
       backend: [],
     },
     profilesTitle: "",
-    profiles: {},
+    profiles: {
+      gitHub: "",
+      portfolio: "",
+      linkedIn: "",
+      medium: "",
+      hashnode: "",
+      twitter: "",
+      facebook: "",
+    },
   });
   const [copySuccess, setCopySuccess] = useState("Copy");
 
@@ -78,35 +86,27 @@ export default function Home() {
       { ref: profilesRef, title: "profiles" },
     ];
 
-    console.log(state);
-
     sectionsRefs.map((section, i) => {
-      if (section.title !== "skills") {
-        let htmlOfElement = section.ref.current.innerHTML;
-
-        setRenderedMarkdown((renderedMarkdown) => ({
-          ...renderedMarkdown,
-          [section.title]: turndownService.turndown(htmlOfElement),
-        }));
-      } else {
-        // Skills Section
-        Object.entries(state.skills).forEach((entry) => {
+      if (section.title === "skills" || section.title === "profiles") {
+        Object.entries(state[section.title]).forEach((entry) => {
           const [key, value] = entry;
           setRenderedMarkdown((renderedMarkdown) => ({
             ...renderedMarkdown,
             [section.title]: {
               ...renderedMarkdown[section.title],
-              [key]: state.skills[key],
+              [key]: state[section.title][key],
             },
           }));
         });
+      } else {
+        let htmlOfElement = section.ref.current.innerHTML;
+        setRenderedMarkdown((renderedMarkdown) => ({
+          ...renderedMarkdown,
+          [section.title]: turndownService.turndown(htmlOfElement),
+        }));
       }
     });
   }, [state]);
-
-  useEffect(() => {
-    console.log(renderedMarkdown);
-  }, [renderedMarkdown]);
 
   const copyToClipBoard = async (copyMe) => {
     try {
@@ -341,7 +341,7 @@ export default function Home() {
                     ref={gitHubRef}
                     section={"profiles"}
                     type={"gitHub"}
-                    link={"link"}
+                    linkSuffix={"linkSuffix"}
                     placeholder={"https://www.github.com/danielcranney"}
                     action={ACTIONS.ADD_PROFILE}
                   />
@@ -501,11 +501,6 @@ export default function Home() {
             <button
               className={`flex items-center p-3 text-xs font-semibold uppercase border-l border-slate-200 text-slate-500`}
               onClick={() => {
-                // console.log(
-                //   "The content in the markdownRef is:",
-                //   markdownRef.current.innerText
-                // );
-
                 copyToClipBoard(markdownRef.current.innerText);
               }}
             >
@@ -559,13 +554,15 @@ export default function Home() {
               ) : null}
             </div>
 
-            <div ref={skillsTitleRef} className="flex mt-8">
-              {state.skills.frontend.length === 0 ? null : <h3>My Skills</h3>}
+            <div ref={skillsTitleRef} className="flex">
+              {state.skills.frontend.length === 0 ? null : (
+                <h3 className="mt-8">My Skills</h3>
+              )}
             </div>
 
             <div ref={skillsRef} className="flex flex-col">
               {state.skills.frontend.length > 0 ? (
-                <div className="flex flex-wrap gap-x-2 gap-y-2">
+                <div className="flex flex-wrap mb-8 gap-x-2 gap-y-2">
                   {state.skills.frontend.map((icon) => {
                     return (
                       <p key={`${icon.folder}-${icon.type}`}>
@@ -579,31 +576,22 @@ export default function Home() {
                     );
                   })}
                 </div>
-              ) : (
-                <p>The length is less than 1</p>
-              )}
+              ) : null}
             </div>
 
-            <div ref={profilesTitleRef} className="flex mt-8">
-              <h3>My Profiles</h3>
+            <div ref={profilesTitleRef} className="flex">
+              {state.profilesTitle ? <h3>My Profiles</h3> : null}
             </div>
 
-            <div ref={profilesRef} className="mt-8">
-              {state.profiles.gitHub.link ? (
+            <div ref={profilesRef}>
+              {state.profiles.gitHub.linkSuffix ? (
                 <a
                   target="_blank"
-                  href={`${state.profiles.gitHub.linkPrefix}${state.profiles.gitHub.link}`}
+                  href={`${state.profiles.gitHub.linkPrefix}${state.profiles.gitHub.linkSuffix}`}
                 >
                   <i className="text-3xl text-blue-500 devicon-github-original"></i>
                 </a>
               ) : null}
-              {/* {state.profiles.portfolio ? (
-                <p>{state.profiles.portfolio}</p>
-              ) : null}
-              {state.profiles.medium ? <p>{state.profiles.medium}</p> : null}
-              {state.profiles.hashnode ? (
-                <p>{state.profiles.hashnode}</p>
-              ) : null} */}
             </div>
           </article>
 
@@ -629,9 +617,9 @@ export default function Home() {
                       {`<p align="left">`}
                       {renderedMarkdown.skills.frontend.map((icon) => {
                         return (
-                          <>
+                          <span key={`${icon.folder}-${icon.type}`}>
                             {`<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${icon.folder}/${icon.type}.svg" width="32" height="32" />`}
-                          </>
+                          </span>
                         );
                       })}
                       {`</p>`}
@@ -639,10 +627,25 @@ export default function Home() {
                   ) : null}
                 </p>
                 <p className="whitespace-pre-line">
-                  {renderedMarkdown.profilesTitle}
+                  {state.profilesTitle ? (
+                    <>{renderedMarkdown.profilesTitle}</>
+                  ) : (
+                    <></>
+                  )}
                 </p>
-                <p className="whitespace-pre-line">
-                  {renderedMarkdown.profiles.gitHub}
+                <p className="break-all whitespace-pre-line">
+                  {renderedMarkdown.profiles.gitHub.linkSuffix ? (
+                    <>
+                      {`<a
+                    target="_blank"
+                    href="${renderedMarkdown.profiles.gitHub.linkPrefix}${renderedMarkdown.profiles.gitHub.linkSuffix}"
+                  ><img
+                      src="${renderedMarkdown.profiles.gitHub.path}"
+                      width="32"
+                      height="32"
+                    /></a>`}
+                    </>
+                  ) : null}
                 </p>
               </div>
             )}

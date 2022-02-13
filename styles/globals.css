@@ -55,7 +55,7 @@ BASE STYLES
     text-slate-500;
   }
   a {
-    @apply text-brand underline font-semibold hover:text-gray-700 transition-all duration-150 ease-in-out dark:hover:text-white;
+    @apply text-brand no-underline font-semibold hover:text-gray-700 transition-all duration-150 ease-in-out dark:hover:text-white;
   }
 }
 

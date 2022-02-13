@@ -11,6 +11,7 @@ import { FormLabel } from "../components/FormLabel";
 import { MenuItem } from "../components/MenuItem";
 import { FormInput } from "../components/FormInput";
 import SectionHeader from "../components/SectionHeader";
+import { ProfileFormInput } from "../components/ProfileFormInput";
 let TurndownService = require("turndown").default;
 
 export default function Home() {
@@ -22,14 +23,16 @@ export default function Home() {
       frontend: [],
       backend: [],
     },
-    profiles: "",
+    profilesTitle: "",
+    profiles: {},
   });
   const [copySuccess, setCopySuccess] = useState("Copy");
 
   // Section Refs
   const introductionRef = useRef(null);
   const skillsTitleRef = useRef(null);
-  const skillsContentRef = useRef(null);
+  const skillsRef = useRef(null);
+  const profilesTitleRef = useRef(null);
   const profilesRef = useRef(null);
 
   // Introduction refs
@@ -70,13 +73,15 @@ export default function Home() {
     const sectionsRefs = [
       { ref: introductionRef, title: "introduction" },
       { ref: skillsTitleRef, title: "skillsTitle" },
-      { ref: skillsContentRef, title: "skills" },
+      { ref: skillsRef, title: "skills" },
+      { ref: profilesTitleRef, title: "profilesTitle" },
       { ref: profilesRef, title: "profiles" },
     ];
 
+    console.log(state);
+
     sectionsRefs.map((section, i) => {
       if (section.title !== "skills") {
-        // console.log("The index is:", i, section.ref.current.innerHTML);
         let htmlOfElement = section.ref.current.innerHTML;
 
         setRenderedMarkdown((renderedMarkdown) => ({
@@ -84,6 +89,7 @@ export default function Home() {
           [section.title]: turndownService.turndown(htmlOfElement),
         }));
       } else {
+        // Skills Section
         Object.entries(state.skills).forEach((entry) => {
           const [key, value] = entry;
           setRenderedMarkdown((renderedMarkdown) => ({
@@ -331,16 +337,17 @@ export default function Home() {
                     text={"GitHub profile:"}
                     icon={<i className="mr-1 twa twa-laptop twa-lg"></i>}
                   />
-                  <FormInput
+                  <ProfileFormInput
                     ref={gitHubRef}
                     section={"profiles"}
                     type={"gitHub"}
+                    link={"link"}
                     placeholder={"https://www.github.com/danielcranney"}
                     action={ACTIONS.ADD_PROFILE}
                   />
                 </div>
               </article>
-              <article className="flex flex-col flex-1 w-full">
+              {/* <article className="flex flex-col flex-1 w-full">
                 <div className="flex flex-col flex-1 w-full">
                   <FormLabel
                     text={"Portfolio:"}
@@ -421,7 +428,7 @@ export default function Home() {
                   placeholder={"http://www.instagram.com/"}
                   action={ACTIONS.ADD_PROFILE}
                 />
-              </article>
+              </article> */}
             </section>
           ) : null}
         </div>
@@ -556,12 +563,12 @@ export default function Home() {
               {state.skills.frontend.length === 0 ? null : <h3>My Skills</h3>}
             </div>
 
-            <div ref={skillsContentRef} className="flex flex-col">
+            <div ref={skillsRef} className="flex flex-col">
               {state.skills.frontend.length > 0 ? (
                 <div className="flex flex-wrap gap-x-2 gap-y-2">
                   {state.skills.frontend.map((icon) => {
                     return (
-                      <p>
+                      <p key={`${icon.folder}-${icon.type}`}>
                         <img
                           src={`https://raw.githubusercontent.com/devicons/devicon/master/icons/${icon.folder}/${icon.type}.svg`}
                           alt={`${icon.name}`}
@@ -577,16 +584,26 @@ export default function Home() {
               )}
             </div>
 
+            <div ref={profilesTitleRef} className="flex mt-8">
+              <h3>My Profiles</h3>
+            </div>
+
             <div ref={profilesRef} className="mt-8">
-              {!state.profiles.gitHub ? null : <h3>My Profile</h3>}
-              {state.profiles.gitHub ? <p>{state.profiles.gitHub}</p> : null}
-              {state.profiles.portfolio ? (
+              {state.profiles.gitHub.link ? (
+                <a
+                  target="_blank"
+                  href={`${state.profiles.gitHub.linkPrefix}${state.profiles.gitHub.link}`}
+                >
+                  <i className="text-3xl text-blue-500 devicon-github-original"></i>
+                </a>
+              ) : null}
+              {/* {state.profiles.portfolio ? (
                 <p>{state.profiles.portfolio}</p>
               ) : null}
               {state.profiles.medium ? <p>{state.profiles.medium}</p> : null}
               {state.profiles.hashnode ? (
                 <p>{state.profiles.hashnode}</p>
-              ) : null}
+              ) : null} */}
             </div>
           </article>
 
@@ -622,7 +639,10 @@ export default function Home() {
                   ) : null}
                 </p>
                 <p className="whitespace-pre-line">
-                  {renderedMarkdown.profiles}
+                  {renderedMarkdown.profilesTitle}
+                </p>
+                <p className="whitespace-pre-line">
+                  {renderedMarkdown.profiles.gitHub}
                 </p>
               </div>
             )}

@@ -120,15 +120,41 @@ const initialState = {
   },
   // Profiles State
   profiles: {
-    gitHub: "",
-    portfolio: "",
-    linkedIn: "",
-    medium: "",
-    hashnode: "",
-    twitter: "",
-    facebook: "",
-    instagram: "",
-    tiktok: "",
+    gitHub: {
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+      linkPrefix: "https://github.com/",
+      link: "",
+    },
+    portfolio: {
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+      linkPrefix: "http://www.",
+      link: "",
+    },
+    linkedIn: {
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+      linkPrefix: "https://www.linkedin.com/in/",
+      link: "",
+    },
+    medium: {
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+      linkPrefix: "http://www.medium.com/@",
+      link: "",
+    },
+    hashnode: {
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+      linkPrefix: "http://",
+      link: "",
+    },
+    twitter: {
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+      linkPrefix: "https://www.twitter.com/",
+      link: "",
+    },
+    facebook: {
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/facebook/facebook-original.svg",
+      linkPrefix: "https://www.facebook.com/",
+      link: "",
+    },
   },
   markdownContent: {
     introduction: null,
@@ -189,9 +215,23 @@ function reducer(state, action) {
         ...state,
         profiles: {
           ...state.profiles,
-          [action.payload.title]: action.payload.value,
+          [action.payload.title]: {
+            ...state.profiles[action.payload.title],
+            link: action.payload.value,
+          },
         },
       };
+    // case ACTIONS.ADD_PROFILE:
+    //   return {
+    //     ...state,
+    //     profiles: {
+    //       ...state.profiles,
+    //       [action.payload.title]: {
+    //         ...state.profiles[action.payload.title],
+    //         link: action.payload.value,
+    //       },
+    //     },
+    //   };
     // case ACTIONS.UPDATE_MARKDOWN_CODE:
     //   return {
     //     ...state,

@@ -125,11 +125,6 @@ const initialState = {
       linkPrefix: "https://github.com/",
       linkSuffix: "",
     },
-    portfolio: {
-      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
-      linkPrefix: "http://www.",
-      linkSuffix: "",
-    },
     linkedIn: {
       path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
       linkPrefix: "https://www.linkedin.com/in/",
@@ -216,25 +211,6 @@ function reducer(state, action) {
         },
         profilesTitle: true,
       };
-    // case ACTIONS.ADD_PROFILE:
-    //   return {
-    //     ...state,
-    //     profiles: {
-    //       ...state.profiles,
-    //       [action.payload.title]: {
-    //         ...state.profiles[action.payload.title],
-    //         link: action.payload.value,
-    //       },
-    //     },
-    //   };
-    // case ACTIONS.UPDATE_MARKDOWN_CODE:
-    //   return {
-    //     ...state,
-    //     markdownContent: {
-    //       ...state.markdownContent,
-    //       [action.payload.title]: action.payload.value,
-    //     },
-    //   };
     default:
       throw new Error();
   }

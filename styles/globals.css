@@ -1,5 +1,6 @@
 @import url("https://cdn.jsdelivr.net/gh/SebastianAigner/twemoji-amazing@1.0.0/twemoji-amazing.css");
 @import url("https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css");
+@import url("https://use.typekit.net/svx2izk.css");
 
 @tailwind base;
 @tailwind components;
@@ -30,7 +31,7 @@ BASE STYLES
   h5,
   h6 {
     @apply font-bold tracking-tight mb-2
-    transition-all duration-150 ease-in-out text-slate-700;
+    transition-all duration-150 ease-in-out text-white;
   }
   h1 {
     @apply text-4xl md:text-5xl;
@@ -51,11 +52,11 @@ BASE STYLES
     @apply text-sm md:text-base;
   }
   p {
-    @apply text-base mb-4 leading-relaxed
-    text-slate-500;
+    @apply mb-4 leading-relaxed
+    text-dark-300;
   }
   a {
-    @apply text-brand no-underline font-semibold hover:text-gray-700 transition-all duration-150 ease-in-out dark:hover:text-white;
+    @apply text-brand no-underline font-semibold hover:text-white transition-all duration-150 ease-in-out dark:hover:text-white;
   }
 }
 
@@ -64,7 +65,7 @@ SIDEBAR STYLES
 -----------------------*/
 @layer components {
   .menu-item {
-    @apply h-10 flex items-center p-2 bg-slate-50 border border-slate-200 text-sm font-semibold text-slate-500 rounded-sm hover:cursor-pointer;
+    @apply h-10 flex items-center p-2 bg-dark-700 border border-dark-600 font-semibold text-dark-300 rounded-sm hover:cursor-pointer uppercase text-xs tracking-wide;
   }
 }
 
@@ -85,11 +86,11 @@ FORM STYLES
 -----------------------*/
 @layer components {
   label.form-label {
-    @apply flex items-center text-xs text-slate-500 font-semibold uppercase pl-1.5 py-2 pr-2 bg-slate-100 rounded-t-sm self-start border-t border-slate-200 border-l border-r;
+    @apply flex items-center text-xs text-white font-semibold uppercase pl-1.5 py-2 pr-2 bg-dark-700 rounded-t-sm self-start border-t border-dark-600 border-l border-r;
   }
 
   .input-field {
-    @apply h-10 focus:outline-none focus:placeholder:hidden text-sm flex items-center bg-white border rounded-tr-sm rounded-b-sm border-slate-200 p-2 placeholder:text-sm placeholder:text-slate-300 text-slate-600;
+    @apply h-10 focus:outline-none focus:placeholder:hidden text-sm flex items-center bg-dark-900 border rounded-tr-sm rounded-b-sm border-dark-600 p-2 placeholder:text-sm placeholder:text-slate-500 text-slate-400;
   }
 }
 

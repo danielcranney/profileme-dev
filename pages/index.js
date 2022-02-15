@@ -26,7 +26,6 @@ export default function Home() {
     profilesTitle: "",
     profiles: {
       gitHub: "",
-      portfolio: "",
       linkedIn: "",
       medium: "",
       hashnode: "",
@@ -50,12 +49,12 @@ export default function Home() {
   const workingOnRef = useRef();
   const learningRef = useRef();
   const collaborateOnRef = useRef();
+  const portfolioRef = useRef();
   const aboutMeRef = useRef();
   const additionalInfoRef = useRef();
 
   // Profiles refs
   const gitHubRef = useRef();
-  const portfolioRef = useRef();
   const mediumRef = useRef();
   const hashnodeRef = useRef();
   const twitterRef = useRef();
@@ -126,12 +125,14 @@ export default function Home() {
       <Head>
         <title>GitHub Profile Generator</title>
       </Head>
-      <header className="flex items-center h-16 p-6 bg-white border-b border-slate-200">
-        ReadMe Generator
+      <header className="flex items-center h-16 p-6 border-b bg-dark-800 border-dark-600">
+        <h1 className="mb-0 text-xl">
+          ReadMe <span className="text-brand">Generator</span>
+        </h1>
       </header>
       <div className="flex flex-1 overflow-hidden">
         {/* Left Column */}
-        <aside className="flex flex-col p-6 overflow-auto bg-white border-r w-72 border-slate-200">
+        <aside className="flex flex-col p-6 overflow-auto border-r bg-dark-800 w-72 border-dark-600">
           <p className="mb-2 text-xs font-semibold uppercase text-slate-500">
             Sections
           </p>
@@ -142,8 +143,8 @@ export default function Home() {
           </ul>
         </aside>
         {/* Middle Column */}
-        <div className="flex flex-col flex-1 border-r border-slate-200">
-          <section className="flex flex-col p-6 border-b border-slate-200">
+        <div className="flex flex-col flex-1 border-r border-dark-600 bg-dark-800">
+          <section className="flex flex-col p-6 border-b border-dark-600">
             {state.section === "introduction" ? (
               <SectionHeader
                 header={"Introduction"}
@@ -276,7 +277,7 @@ export default function Home() {
                     <i className="mr-1 twa twa-desktop-computer twa-lg"></i>
                   }
                 />
-                <div className="flex flex-wrap p-2 text-4xl border rounded-sm gap-x-2 gap-y-2 border-slate-200">
+                <div className="flex flex-wrap p-2 text-4xl border rounded-sm gap-x-2 gap-y-2 border-dark-600">
                   {frontendIcons.map((icon) => {
                     return (
                       <button
@@ -320,7 +321,7 @@ export default function Home() {
                           className={`devicon-${icon.iTag} ${
                             state.skills.frontend.includes(icon)
                               ? "colored"
-                              : "text-slate-500 opacity-50"
+                              : "text-white opacity-30"
                           }`}
                         ></i>
                       </button>
@@ -347,7 +348,7 @@ export default function Home() {
                   />
                 </div>
               </article>
-              {/* <article className="flex flex-col flex-1 w-full">
+              <article className="flex flex-col flex-1 w-full">
                 <div className="flex flex-col flex-1 w-full">
                   <FormLabel
                     text={"Portfolio:"}
@@ -355,16 +356,17 @@ export default function Home() {
                       <i className="mr-1 twa twa-bust-in-silhouette twa-lg"></i>
                     }
                   />
-                  <FormInput
+                  <ProfileFormInput
                     ref={portfolioRef}
                     section={"profiles"}
                     type={"portfolio"}
-                    placeholder={"http://www.yourname.com"}
+                    linkSuffix={"linkSuffix"}
+                    placeholder={"https://www.yourname.dev"}
                     action={ACTIONS.ADD_PROFILE}
                   />
                 </div>
               </article>
-              <article className="flex flex-col flex-1 w-full">
+              {/* <article className="flex flex-col flex-1 w-full">
                 <FormLabel
                   text={"Medium profile:"}
                   icon={<i className="mr-1 twa twa-writing-hand twa-lg"></i>}
@@ -376,8 +378,8 @@ export default function Home() {
                   placeholder={"http://www.medium.com/profile/"}
                   action={ACTIONS.ADD_PROFILE}
                 />
-              </article>
-              <article className="flex flex-col flex-1 w-full">
+              </article> */}
+              {/* <article className="flex flex-col flex-1 w-full">
                 <FormLabel
                   text={"Hashnode profile:"}
                   icon={<i className="mr-1 twa twa-writing-hand twa-lg"></i>}
@@ -389,8 +391,8 @@ export default function Home() {
                   placeholder={"http://www.hashnode.com/@danielcranney"}
                   action={ACTIONS.ADD_PROFILE}
                 />
-              </article>
-              <article className="flex flex-col flex-1 w-full">
+              </article> */}
+              {/* <article className="flex flex-col flex-1 w-full">
                 <FormLabel
                   text={"Twitter profile:"}
                   icon={<i className="mr-1 twa twa-writing-hand twa-lg"></i>}
@@ -402,8 +404,8 @@ export default function Home() {
                   placeholder={"http://www.twitter.com/"}
                   action={ACTIONS.ADD_PROFILE}
                 />
-              </article>
-              <article className="flex flex-col flex-1 w-full">
+              </article> */}
+              {/* <article className="flex flex-col flex-1 w-full">
                 <FormLabel
                   text={"Facebook profile:"}
                   icon={<i className="mr-1 twa twa-writing-hand twa-lg"></i>}
@@ -415,8 +417,8 @@ export default function Home() {
                   placeholder={"http://www.facebook.com/"}
                   action={ACTIONS.ADD_PROFILE}
                 />
-              </article>
-              <article className="flex flex-col flex-1 w-full">
+              </article> */}
+              {/* <article className="flex flex-col flex-1 w-full">
                 <FormLabel
                   text={"Instagram profile:"}
                   icon={<i className="mr-1 twa twa-writing-hand twa-lg"></i>}
@@ -433,8 +435,8 @@ export default function Home() {
           ) : null}
         </div>
         {/* Right Column */}
-        <div className="relative flex flex-col flex-1 bg-slate-100">
-          <div className="absolute top-0 right-0 flex w-full bg-white border-b border-slate-200">
+        <div className="relative flex flex-col flex-1 bg-dark-800">
+          <div className="absolute top-0 right-0 flex w-full border-b bg-dark-900 border-dark-600">
             <button
               id="PreviewButton"
               onClick={() => {
@@ -443,8 +445,8 @@ export default function Home() {
                   payload: "preview",
                 });
               }}
-              className={`flex items-center p-3 text-xs font-semibold uppercase border-slate-200 border-r text-slate-500 ${
-                state.renderMode === "preview" ? "bg-slate-100" : "bg-white"
+              className={`flex items-center p-3 text-xs font-semibold uppercase border-dark-600 border-r text-dark-300 ${
+                state.renderMode === "preview" ? "bg-dark-700" : "bg-dark-800"
               }`}
             >
               <svg
@@ -477,8 +479,8 @@ export default function Home() {
                   payload: "markdown",
                 });
               }}
-              className={`flex items-center p-3 text-xs font-semibold uppercase border-r border-slate-200 text-slate-500 mr-auto ${
-                state.renderMode === "markdown" ? "bg-slate-100" : "bg-white"
+              className={`flex items-center p-3 text-xs font-semibold uppercase border-r border-dark-600 text-dark-300 mr-auto ${
+                state.renderMode === "markdown" ? "bg-dark-700" : "bg-dark-900"
               }`}
             >
               <svg
@@ -499,7 +501,7 @@ export default function Home() {
             </button>
 
             <button
-              className={`flex items-center p-3 text-xs font-semibold uppercase border-l border-slate-200 text-slate-500`}
+              className={`flex items-center p-3 text-xs font-semibold uppercase border-l border-dark-600 text-dark-300 bg-dark-700`}
               onClick={() => {
                 copyToClipBoard(markdownRef.current.innerText);
               }}
@@ -522,7 +524,7 @@ export default function Home() {
               state.renderMode === "preview" ? "relative" : "hidden"
             }`}
           >
-            <div ref={introductionRef}>
+            <div ref={introductionRef} className="mb-8">
               {!state.introduction.firstName &&
               !state.introduction.surname ? null : (
                 <h1>
@@ -555,9 +557,7 @@ export default function Home() {
             </div>
 
             <div ref={skillsTitleRef} className="flex">
-              {state.skills.frontend.length === 0 ? null : (
-                <h3 className="mt-8">My Skills</h3>
-              )}
+              {state.skills.frontend.length === 0 ? null : <h3>My Skills</h3>}
             </div>
 
             <div ref={skillsRef} className="flex flex-col">
@@ -584,6 +584,7 @@ export default function Home() {
             </div>
 
             <div ref={profilesRef}>
+              {/* GitHub Profile HTML */}
               {state.profiles.gitHub.linkSuffix ? (
                 <a
                   target="_blank"
@@ -597,7 +598,7 @@ export default function Home() {
 
           <article
             id="markdownElement"
-            className={`px-6 mt-16 overflow-y-auto h-full text-xs ${
+            className={`px-6 mt-16 overflow-y-auto h-full text-xs font-code ${
               state.renderMode === "markdown" ? "relative" : "hidden"
             }`}
           >
@@ -633,10 +634,10 @@ export default function Home() {
                     <></>
                   )}
                 </p>
-                <p className="break-all whitespace-pre-line">
-                  {renderedMarkdown.profiles.gitHub.linkSuffix ? (
-                    <>
-                      {`<a
+
+                {renderedMarkdown.profiles.gitHub.linkSuffix ? (
+                  <p className="break-all whitespace-pre-line">
+                    {`<a
                     target="_blank"
                     href="${renderedMarkdown.profiles.gitHub.linkPrefix}${renderedMarkdown.profiles.gitHub.linkSuffix}"
                   ><img
@@ -644,17 +645,13 @@ export default function Home() {
                       width="32"
                       height="32"
                     /></a>`}
-                    </>
-                  ) : null}
-                </p>
+                  </p>
+                ) : null}
               </div>
             )}
           </article>
         </div>
       </div>
-      {/* <footer className="flex items-center h-16 p-6 bg-white border-t border-slate-200">
-        Footer
-      </footer> */}
     </main>
   );
 }

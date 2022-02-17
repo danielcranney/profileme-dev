@@ -126,6 +126,20 @@ export default function Home() {
         <title>GitHub Profile Generator</title>
       </Head>
       <header className="flex items-center h-16 p-6 border-b bg-dark-800 border-dark-600">
+        <svg
+          class="w-6 h-6 text-brand mr-2"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
+            d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+          ></path>
+        </svg>
         <h1 className="mb-0 text-xl">
           ReadMe <span className="text-brand">Generator</span>
         </h1>
@@ -136,7 +150,7 @@ export default function Home() {
           <p className="mb-2 text-xs font-semibold uppercase text-slate-500">
             Sections
           </p>
-          <ul className="flex flex-col gap-y-1">
+          <ul className="menu">
             <MenuItem text={"Introduction"} section={"introduction"} />
             <MenuItem text={"Skills"} section={"skills"} />
             <MenuItem text={"Profiles"} section={"profiles"} />
@@ -171,7 +185,7 @@ export default function Home() {
                   <FormLabel
                     text={"First name:"}
                     icon={
-                      <i className="mr-1 twa twa-bust-in-silhouette twa-lg"></i>
+                      <i className="mr-2 twa twa-bust-in-silhouette twa-lg"></i>
                     }
                   />
                   <FormInput
@@ -186,7 +200,7 @@ export default function Home() {
                   <FormLabel
                     text={"Surname:"}
                     icon={
-                      <i className="mr-1 twa twa-bust-in-silhouette twa-lg"></i>
+                      <i className="mr-2 twa twa-bust-in-silhouette twa-lg"></i>
                     }
                   />
                   <FormInput
@@ -202,7 +216,7 @@ export default function Home() {
                 <FormLabel
                   text={"Location:"}
                   icon={
-                    <i className="mr-1 twa twa-globe-showing-europe-africa twa-lg"></i>
+                    <i className="mr-2 twa twa-globe-showing-europe-africa twa-lg"></i>
                   }
                 />
                 <FormInput
@@ -217,7 +231,7 @@ export default function Home() {
                 <FormLabel
                   text={"Currently working on:"}
                   icon={
-                    <i className="mr-1 twa twa-hammer-and-wrench twa-lg"></i>
+                    <i className="mr-2 twa twa-hammer-and-wrench twa-lg"></i>
                   }
                 />
                 <FormInput
@@ -231,7 +245,7 @@ export default function Home() {
               <article className="flex flex-col flex-1 w-full">
                 <FormLabel
                   text={"Learning:"}
-                  icon={<i className="mr-1 twa twa-graduation-cap twa-lg"></i>}
+                  icon={<i className="mr-2 twa twa-graduation-cap twa-lg"></i>}
                 />
                 <FormInput
                   ref={learningRef}
@@ -244,7 +258,7 @@ export default function Home() {
               <article className="flex flex-col flex-1 w-full">
                 <FormLabel
                   text={"Looking to collaborate on:"}
-                  icon={<i className="mr-1 twa twa-handshake twa-lg"></i>}
+                  icon={<i className="mr-2 twa twa-handshake twa-lg"></i>}
                 />
                 <FormInput
                   ref={collaborateOnRef}
@@ -257,7 +271,7 @@ export default function Home() {
               <article className="flex flex-col flex-1 w-full">
                 <FormLabel
                   text={"Additional info:"}
-                  icon={<i className="mr-1 twa twa-high-voltage twa-lg"></i>}
+                  icon={<i className="mr-2 twa twa-high-voltage twa-lg"></i>}
                 />
                 <FormInput
                   ref={additionalInfoRef}
@@ -274,15 +288,16 @@ export default function Home() {
                 <FormLabel
                   text={"Frontend:"}
                   icon={
-                    <i className="mr-1 twa twa-desktop-computer twa-lg"></i>
+                    <i className="mr-2 twa twa-desktop-computer twa-lg"></i>
                   }
                 />
-                <div className="flex flex-wrap p-2 text-4xl border rounded-sm gap-x-2 gap-y-2 border-dark-600">
+                <div className="flex flex-wrap p-4 text-4xl border rounded-sm gap-x-2 gap-y-2 border-dark-600">
                   {frontendIcons.map((icon) => {
                     return (
                       <button
                         key={`${icon.type}`}
-                        className="relative flex"
+                        className="relative flex group"
+                        alt={`${icon.name}`}
                         onClick={() => {
                           if (state.skills.frontend.includes(icon)) {
                             const iconToRemove =
@@ -301,6 +316,11 @@ export default function Home() {
                           }
                         }}
                       >
+                        <div className="absolute hidden h-10 p-3 border group-hover:flex bg-dark-700 border-dark-600 -top-12">
+                          <p className="mb-0 text-xs font-semibold tracking-wide text-white uppercase">
+                            {icon.name}
+                          </p>
+                        </div>
                         {state.skills.frontend.includes(icon) ? (
                           <div className="absolute top-0 left-0 w-4 h-4 p-0 overflow-hidden text-xs bg-white border-0 rounded-lg">
                             <svg
@@ -336,40 +356,30 @@ export default function Home() {
                 <div className="flex flex-col flex-1 w-full">
                   <FormLabel
                     text={"GitHub profile:"}
-                    icon={<i className="mr-1 twa twa-laptop twa-lg"></i>}
+                    icon={<i className="mr-2 twa twa-laptop twa-lg"></i>}
                   />
-                  <ProfileFormInput
-                    ref={gitHubRef}
-                    section={"profiles"}
-                    type={"gitHub"}
-                    linkSuffix={"linkSuffix"}
-                    placeholder={"https://www.github.com/danielcranney"}
-                    action={ACTIONS.ADD_PROFILE}
-                  />
+                  <div className="flex border bg-dark-900 border-dark-600">
+                    <div className="flex items-center text-sm font-semibold text-dark-300 bg-dark-900">
+                      <span className="py-3 pl-3 mt-0 mb-0 leading-4">
+                        http://www.github.com/
+                      </span>
+                    </div>
+                    <ProfileFormInput
+                      ref={gitHubRef}
+                      section={"profiles"}
+                      type={"gitHub"}
+                      linkSuffix={"linkSuffix"}
+                      placeholder={"yourname"}
+                      action={ACTIONS.ADD_PROFILE}
+                    />
+                  </div>
                 </div>
               </article>
-              <article className="flex flex-col flex-1 w-full">
-                <div className="flex flex-col flex-1 w-full">
-                  <FormLabel
-                    text={"Portfolio:"}
-                    icon={
-                      <i className="mr-1 twa twa-bust-in-silhouette twa-lg"></i>
-                    }
-                  />
-                  <ProfileFormInput
-                    ref={portfolioRef}
-                    section={"profiles"}
-                    type={"portfolio"}
-                    linkSuffix={"linkSuffix"}
-                    placeholder={"https://www.yourname.dev"}
-                    action={ACTIONS.ADD_PROFILE}
-                  />
-                </div>
-              </article>
+
               {/* <article className="flex flex-col flex-1 w-full">
                 <FormLabel
                   text={"Medium profile:"}
-                  icon={<i className="mr-1 twa twa-writing-hand twa-lg"></i>}
+                  icon={<i className="mr-2 twa twa-writing-hand twa-lg"></i>}
                 />
                 <FormInput
                   ref={mediumRef}
@@ -382,7 +392,7 @@ export default function Home() {
               {/* <article className="flex flex-col flex-1 w-full">
                 <FormLabel
                   text={"Hashnode profile:"}
-                  icon={<i className="mr-1 twa twa-writing-hand twa-lg"></i>}
+                  icon={<i className="mr-2 twa twa-writing-hand twa-lg"></i>}
                 />
                 <FormInput
                   ref={hashnodeRef}
@@ -395,7 +405,7 @@ export default function Home() {
               {/* <article className="flex flex-col flex-1 w-full">
                 <FormLabel
                   text={"Twitter profile:"}
-                  icon={<i className="mr-1 twa twa-writing-hand twa-lg"></i>}
+                  icon={<i className="mr-2 twa twa-writing-hand twa-lg"></i>}
                 />
                 <FormInput
                   ref={twitterRef}
@@ -408,7 +418,7 @@ export default function Home() {
               {/* <article className="flex flex-col flex-1 w-full">
                 <FormLabel
                   text={"Facebook profile:"}
-                  icon={<i className="mr-1 twa twa-writing-hand twa-lg"></i>}
+                  icon={<i className="mr-2 twa twa-writing-hand twa-lg"></i>}
                 />
                 <FormInput
                   ref={facebookRef}
@@ -421,7 +431,7 @@ export default function Home() {
               {/* <article className="flex flex-col flex-1 w-full">
                 <FormLabel
                   text={"Instagram profile:"}
-                  icon={<i className="mr-1 twa twa-writing-hand twa-lg"></i>}
+                  icon={<i className="mr-2 twa twa-writing-hand twa-lg"></i>}
                 />
                 <FormInput
                   ref={instagramRef}
@@ -436,7 +446,7 @@ export default function Home() {
         </div>
         {/* Right Column */}
         <div className="relative flex flex-col flex-1 bg-dark-800">
-          <div className="absolute top-0 right-0 flex w-full border-b bg-dark-900 border-dark-600">
+          <div className="relative flex w-full border-b bg-dark-900 border-dark-600">
             <button
               id="PreviewButton"
               onClick={() => {
@@ -445,8 +455,10 @@ export default function Home() {
                   payload: "preview",
                 });
               }}
-              className={`flex items-center p-3 text-xs font-semibold uppercase border-dark-600 border-r text-dark-300 ${
-                state.renderMode === "preview" ? "bg-dark-700" : "bg-dark-800"
+              className={`btn-sm border-r ${
+                state.renderMode === "preview"
+                  ? "bg-dark-700 text-white"
+                  : "bg-dark-900 text-dark-300"
               }`}
             >
               <svg
@@ -479,8 +491,10 @@ export default function Home() {
                   payload: "markdown",
                 });
               }}
-              className={`flex items-center p-3 text-xs font-semibold uppercase border-r border-dark-600 text-dark-300 mr-auto ${
-                state.renderMode === "markdown" ? "bg-dark-700" : "bg-dark-900"
+              className={`btn-sm border-r mr-auto ${
+                state.renderMode === "markdown"
+                  ? "bg-dark-700 text-white"
+                  : "bg-dark-900 text-dark-300"
               }`}
             >
               <svg
@@ -501,7 +515,9 @@ export default function Home() {
             </button>
 
             <button
-              className={`flex items-center p-3 text-xs font-semibold uppercase border-l border-dark-600 text-dark-300 bg-dark-700`}
+              className={`btn-sm border-l ${
+                copySuccess === "Copy" ? "text-dark-300" : "text-white"
+              }`}
               onClick={() => {
                 copyToClipBoard(markdownRef.current.innerText);
               }}
@@ -520,11 +536,18 @@ export default function Home() {
           </div>
 
           <article
-            className={`previewContainer px-6 mt-16 overflow-y-auto ${
+            className={`previewContainer p-6 bg-dark-900 h-full overflow-y-auto ${
               state.renderMode === "preview" ? "relative" : "hidden"
             }`}
           >
-            <div ref={introductionRef} className="mb-8">
+            <div
+              ref={introductionRef}
+              className={`${
+                !state.introduction.firstName && !state.introduction.surname
+                  ? ""
+                  : "mb-8"
+              }`}
+            >
               {!state.introduction.firstName &&
               !state.introduction.surname ? null : (
                 <h1>
@@ -565,14 +588,17 @@ export default function Home() {
                 <div className="flex flex-wrap mb-8 gap-x-2 gap-y-2">
                   {state.skills.frontend.map((icon) => {
                     return (
-                      <p key={`${icon.folder}-${icon.type}`}>
+                      <div
+                        key={`${icon.folder}-${icon.type}`}
+                        className="relative"
+                      >
                         <img
                           src={`https://raw.githubusercontent.com/devicons/devicon/master/icons/${icon.folder}/${icon.type}.svg`}
                           alt={`${icon.name}`}
                           width="40"
                           height="40"
                         />
-                      </p>
+                      </div>
                     );
                   })}
                 </div>
@@ -598,20 +624,25 @@ export default function Home() {
 
           <article
             id="markdownElement"
-            className={`px-6 mt-16 overflow-y-auto h-full text-xs font-code ${
+            ref={markdownRef}
+            className={`p-6 overflow-y-auto h-full bg-dark-900 text-xs font-code ${
               state.renderMode === "markdown" ? "relative" : "hidden"
             }`}
           >
             {!renderedMarkdown ? (
               <div>You have not rendered any code yet</div>
             ) : (
-              <div ref={markdownRef}>
-                <p className="whitespace-pre-line">
-                  {renderedMarkdown.introduction}
-                </p>
-                <p className="whitespace-pre-line">
-                  {renderedMarkdown.skillsTitle}
-                </p>
+              <>
+                {renderedMarkdown.introduction ? (
+                  <p className="whitespace-pre-line">
+                    {renderedMarkdown.introduction}
+                  </p>
+                ) : null}
+                {renderedMarkdown.skillsTitle ? (
+                  <p className="whitespace-pre-line">
+                    {renderedMarkdown.skillsTitle}
+                  </p>
+                ) : null}
                 <p className="break-all">
                   {renderedMarkdown.skills.frontend.length > 0 ? (
                     <>
@@ -619,7 +650,7 @@ export default function Home() {
                       {renderedMarkdown.skills.frontend.map((icon) => {
                         return (
                           <span key={`${icon.folder}-${icon.type}`}>
-                            {`<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${icon.folder}/${icon.type}.svg" width="32" height="32" />`}
+                            {`<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${icon.folder}/${icon.type}.svg" width="32" height="32" alt="${icon.name}" />`}
                           </span>
                         );
                       })}
@@ -647,7 +678,7 @@ export default function Home() {
                     /></a>`}
                   </p>
                 ) : null}
-              </div>
+              </>
             )}
           </article>
         </div>

@@ -7,7 +7,7 @@ export const MenuItem = ({ text, section }) => {
   const { state, dispatch } = useContext(StateContext);
   return (
     <li
-      className="menu-item"
+      className="bg-dark-700"
       onClick={() => {
         dispatch({
           type: ACTIONS.SHOW_SECTION,
@@ -15,23 +15,15 @@ export const MenuItem = ({ text, section }) => {
         });
       }}
     >
-      <svg
-        className={`${
+      <span
+        className={`border-l-4 h-full flex items-center p-3 transition-all duration-150 ease-in-out font-semibold uppercase tracking-wide text-xs ${
           state.section === section
-            ? "opacity-100 w-4 h-4"
-            : "opacity-0 transition-all duration-500 ease-in-out w-0 h-0"
+            ? "border-brand text-white"
+            : "border-dark-700 text-dark-300"
         }`}
-        fill="currentColor"
-        viewBox="0 0 20 20"
-        xmlns="http://www.w3.org/2000/svg"
       >
-        <path
-          fillRule="evenodd"
-          d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-          clipRule="evenodd"
-        ></path>
-      </svg>
-      {text}
+        {text}
+      </span>
     </li>
   );
 };

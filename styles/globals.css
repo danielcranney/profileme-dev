@@ -99,15 +99,15 @@ FORM STYLES
 -----------------------*/
 @layer components {
   .form-label {
-    @apply flex items-center text-xs text-white font-semibold uppercase px-3 h-10 bg-dark-700 rounded-t-sm self-start border-t border-dark-600 border-l border-r;
+    @apply flex items-center text-xs text-white font-semibold uppercase px-2 h-10 bg-dark-700 rounded-t-sm self-start border-t border-dark-600 border-l border-r;
   }
 
   .input-field {
-    @apply h-10 focus:outline-none focus:placeholder:hidden text-xs flex items-center bg-dark-900 border border-dark-600 px-2 placeholder:text-xs placeholder:text-dark-400 text-white flex-1;
+    @apply py-2 focus:outline-none focus:placeholder:hidden text-sm flex items-center bg-dark-900 border border-dark-600 px-2 placeholder:text-sm placeholder:text-dark-400 text-white flex-1;
   }
 
   .minimal-input-field {
-    @apply focus:outline-none focus:placeholder:hidden text-sm flex items-center bg-dark-900 pr-3 py-3 leading-3 placeholder:text-sm placeholder:text-dark-400 text-white flex-1;
+    @apply focus:outline-none focus:placeholder:hidden text-sm flex items-center bg-dark-900 pr-2 py-2 leading-3 placeholder:text-sm placeholder:text-dark-400 text-white flex-1;
   }
 }
 

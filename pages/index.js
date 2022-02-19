@@ -23,8 +23,8 @@ export default function Home() {
       frontend: [],
       backend: [],
     },
-    profilesTitle: "",
-    profiles: {
+    socialsTitle: "",
+    socials: {
       gitHub: "",
       linkedIn: "",
       medium: "",
@@ -39,21 +39,21 @@ export default function Home() {
   const introductionRef = useRef(null);
   const skillsTitleRef = useRef(null);
   const skillsRef = useRef(null);
-  const profilesTitleRef = useRef(null);
-  const profilesRef = useRef(null);
+  const socialsTitleRef = useRef(null);
+  const socialsRef = useRef(null);
 
   // Introduction refs
   const firstNameRef = useRef();
   const surnameRef = useRef();
+  const descriptionRef = useRef();
   const locationRef = useRef();
   const workingOnRef = useRef();
   const learningRef = useRef();
   const collaborateOnRef = useRef();
   const portfolioRef = useRef();
-  const aboutMeRef = useRef();
   const additionalInfoRef = useRef();
 
-  // Profiles refs
+  // Socials refs
   const gitHubRef = useRef();
   const mediumRef = useRef();
   const hashnodeRef = useRef();
@@ -81,12 +81,12 @@ export default function Home() {
       { ref: introductionRef, title: "introduction" },
       { ref: skillsTitleRef, title: "skillsTitle" },
       { ref: skillsRef, title: "skills" },
-      { ref: profilesTitleRef, title: "profilesTitle" },
-      { ref: profilesRef, title: "profiles" },
+      { ref: socialsTitleRef, title: "socialsTitle" },
+      { ref: socialsRef, title: "socials" },
     ];
 
     sectionsRefs.map((section, i) => {
-      if (section.title === "skills" || section.title === "profiles") {
+      if (section.title === "skills" || section.title === "socials") {
         Object.entries(state[section.title]).forEach((entry) => {
           const [key, value] = entry;
           setRenderedMarkdown((renderedMarkdown) => ({
@@ -127,7 +127,7 @@ export default function Home() {
       </Head>
       <header className="flex items-center h-16 p-6 border-b bg-dark-800 border-dark-600">
         <svg
-          class="w-6 h-6 text-brand mr-2"
+          className="w-6 h-6 mr-2 text-brand"
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -153,7 +153,7 @@ export default function Home() {
           <ul className="menu">
             <MenuItem text={"Introduction"} section={"introduction"} />
             <MenuItem text={"Skills"} section={"skills"} />
-            <MenuItem text={"Profiles"} section={"profiles"} />
+            <MenuItem text={"Socials"} section={"socials"} />
           </ul>
         </aside>
         {/* Middle Column */}
@@ -170,24 +170,20 @@ export default function Home() {
                 subhead={`Add some icons to your profile. Select the languages,
                 frameworks, software and tech that you use.`}
               />
-            ) : state.section === "profiles" ? (
+            ) : state.section === "socials" ? (
               <SectionHeader
-                header={"Profiles"}
-                subhead={`Include links to profiles you have on different platforms, from
+                header={"Socials"}
+                subhead={`Include links to socials you have on different platforms, from
                 social media to your portfolio.`}
               />
             ) : null}
           </section>
           {state.section === "introduction" ? (
             <section className="flex flex-col p-6 overflow-y-auto gap-y-5">
+              {/* First and Surname */}
               <article className="flex flex-wrap w-full gap-x-2 gap-y-4">
                 <div className="flex flex-col flex-1 w-full">
-                  <FormLabel
-                    text={"First name:"}
-                    icon={
-                      <i className="mr-2 twa twa-bust-in-silhouette twa-lg"></i>
-                    }
-                  />
+                  <FormLabel text={"First name:"} icon={"👤"} />
                   <FormInput
                     ref={firstNameRef}
                     section={"introduction"}
@@ -197,12 +193,7 @@ export default function Home() {
                   />
                 </div>
                 <div className="flex flex-col flex-1 w-full">
-                  <FormLabel
-                    text={"Surname:"}
-                    icon={
-                      <i className="mr-2 twa twa-bust-in-silhouette twa-lg"></i>
-                    }
-                  />
+                  <FormLabel text={"Surname:"} icon={"👤"} />
                   <FormInput
                     ref={surnameRef}
                     section={"introduction"}
@@ -212,13 +203,20 @@ export default function Home() {
                   />
                 </div>
               </article>
+              {/* Description */}
               <article className="flex flex-col flex-1 w-full">
-                <FormLabel
-                  text={"Location:"}
-                  icon={
-                    <i className="mr-2 twa twa-globe-showing-europe-africa twa-lg"></i>
-                  }
+                <FormLabel text={"Describe yourself:"} icon={"💡"} />
+                <FormInput
+                  ref={descriptionRef}
+                  section={"introduction"}
+                  type={"description"}
+                  placeholder={"I am a developer"}
+                  action={ACTIONS.ADD_INTRODUCTION}
                 />
+              </article>
+              {/* Location */}
+              <article className="flex flex-col flex-1 w-full">
+                <FormLabel text={"Location:"} icon={"🌍"} />
                 <FormInput
                   ref={locationRef}
                   section={"introduction"}
@@ -227,13 +225,9 @@ export default function Home() {
                   action={ACTIONS.ADD_INTRODUCTION}
                 />
               </article>
+              {/* Currently working on */}
               <article className="flex flex-col flex-1 w-full">
-                <FormLabel
-                  text={"Currently working on:"}
-                  icon={
-                    <i className="mr-2 twa twa-hammer-and-wrench twa-lg"></i>
-                  }
-                />
+                <FormLabel text={"Currently working on:"} icon={"🧰"} />
                 <FormInput
                   ref={workingOnRef}
                   section={"introduction"}
@@ -242,11 +236,9 @@ export default function Home() {
                   action={ACTIONS.ADD_INTRODUCTION}
                 />
               </article>
+              {/* Currently learning */}
               <article className="flex flex-col flex-1 w-full">
-                <FormLabel
-                  text={"Learning:"}
-                  icon={<i className="mr-2 twa twa-graduation-cap twa-lg"></i>}
-                />
+                <FormLabel text={"Learning:"} icon={"🎓"} />
                 <FormInput
                   ref={learningRef}
                   section={"introduction"}
@@ -255,11 +247,9 @@ export default function Home() {
                   action={ACTIONS.ADD_INTRODUCTION}
                 />
               </article>
+              {/* Collaborate on */}
               <article className="flex flex-col flex-1 w-full">
-                <FormLabel
-                  text={"Looking to collaborate on:"}
-                  icon={<i className="mr-2 twa twa-handshake twa-lg"></i>}
-                />
+                <FormLabel text={"Looking to collaborate on:"} icon={"🤝"} />
                 <FormInput
                   ref={collaborateOnRef}
                   section={"introduction"}
@@ -268,11 +258,9 @@ export default function Home() {
                   action={ACTIONS.ADD_INTRODUCTION}
                 />
               </article>
+              {/* Additional info */}
               <article className="flex flex-col flex-1 w-full">
-                <FormLabel
-                  text={"Additional info:"}
-                  icon={<i className="mr-2 twa twa-high-voltage twa-lg"></i>}
-                />
+                <FormLabel text={"Additional info:"} icon={"⚡"} />
                 <FormInput
                   ref={additionalInfoRef}
                   section={"introduction"}
@@ -285,12 +273,7 @@ export default function Home() {
           ) : state.section === "skills" ? (
             <section className="flex flex-col p-6 overflow-y-auto gap-y-5">
               <article className="flex flex-col flex-1 w-full">
-                <FormLabel
-                  text={"Frontend:"}
-                  icon={
-                    <i className="mr-2 twa twa-desktop-computer twa-lg"></i>
-                  }
-                />
+                <FormLabel text={"Frontend:"} icon={"💻"} />
                 <div className="flex flex-wrap p-4 text-4xl border rounded-sm gap-x-2 gap-y-2 border-dark-600">
                   {frontendIcons.map((icon) => {
                     return (
@@ -350,25 +333,62 @@ export default function Home() {
                 </div>
               </article>
             </section>
-          ) : state.section === "profiles" ? (
+          ) : state.section === "socials" ? (
             <section className="flex flex-col p-6 overflow-y-auto gap-y-5">
+              {/* GitHub */}
               <article className="flex flex-col flex-1 w-full">
                 <div className="flex flex-col flex-1 w-full">
-                  <FormLabel
-                    text={"GitHub profile:"}
-                    icon={<i className="mr-2 twa twa-laptop twa-lg"></i>}
-                  />
+                  <FormLabel text={"GitHub profile:"} icon={"💻"} />
                   <div className="flex border bg-dark-900 border-dark-600">
-                    <div className="flex items-center text-sm font-semibold text-dark-300 bg-dark-900">
-                      <span className="py-3 pl-3 mt-0 mb-0 leading-4">
+                    <div className="flex items-center text-sm text-dark-300 bg-dark-900">
+                      <span className="py-2 pl-2 mt-0 mb-0 leading-4">
                         http://www.github.com/
                       </span>
                     </div>
                     <ProfileFormInput
                       ref={gitHubRef}
-                      section={"profiles"}
+                      section={"socials"}
                       type={"gitHub"}
-                      linkSuffix={"linkSuffix"}
+                      placeholder={"yourname"}
+                      action={ACTIONS.ADD_PROFILE}
+                    />
+                  </div>
+                </div>
+              </article>
+
+              <article className="flex flex-col flex-1 w-full">
+                <div className="flex flex-col flex-1 w-full">
+                  <FormLabel text={"Medium profile:"} icon={"✍️"} />
+                  <div className="flex border bg-dark-900 border-dark-600">
+                    <div className="flex items-center text-sm text-dark-300 bg-dark-900">
+                      <span className="py-2 pl-2 mt-0 mb-0 leading-4">
+                        http://www.medium.com/
+                      </span>
+                    </div>
+                    <ProfileFormInput
+                      ref={mediumRef}
+                      section={"socials"}
+                      type={"medium"}
+                      placeholder={"yourname"}
+                      action={ACTIONS.ADD_PROFILE}
+                    />
+                  </div>
+                </div>
+              </article>
+
+              <article className="flex flex-col flex-1 w-full">
+                <div className="flex flex-col flex-1 w-full">
+                  <FormLabel text={"Hashnode profile:"} icon={"✍️"} />
+                  <div className="flex border bg-dark-900 border-dark-600">
+                    <div className="flex items-center text-sm text-dark-300 bg-dark-900">
+                      <span className="py-2 pl-2 mt-0 mb-0 leading-4">
+                        http://www.hashnode.com/@
+                      </span>
+                    </div>
+                    <ProfileFormInput
+                      ref={hashnodeRef}
+                      section={"socials"}
+                      type={"hashnode"}
                       placeholder={"yourname"}
                       action={ACTIONS.ADD_PROFILE}
                     />
@@ -378,38 +398,12 @@ export default function Home() {
 
               {/* <article className="flex flex-col flex-1 w-full">
                 <FormLabel
-                  text={"Medium profile:"}
-                  icon={<i className="mr-2 twa twa-writing-hand twa-lg"></i>}
-                />
-                <FormInput
-                  ref={mediumRef}
-                  section={"profiles"}
-                  type={"medium"}
-                  placeholder={"http://www.medium.com/profile/"}
-                  action={ACTIONS.ADD_PROFILE}
-                />
-              </article> */}
-              {/* <article className="flex flex-col flex-1 w-full">
-                <FormLabel
-                  text={"Hashnode profile:"}
-                  icon={<i className="mr-2 twa twa-writing-hand twa-lg"></i>}
-                />
-                <FormInput
-                  ref={hashnodeRef}
-                  section={"profiles"}
-                  type={"hashnode"}
-                  placeholder={"http://www.hashnode.com/@danielcranney"}
-                  action={ACTIONS.ADD_PROFILE}
-                />
-              </article> */}
-              {/* <article className="flex flex-col flex-1 w-full">
-                <FormLabel
                   text={"Twitter profile:"}
                   icon={<i className="mr-2 twa twa-writing-hand twa-lg"></i>}
                 />
                 <FormInput
                   ref={twitterRef}
-                  section={"profiles"}
+                  section={"socials"}
                   type={"twitter"}
                   placeholder={"http://www.twitter.com/"}
                   action={ACTIONS.ADD_PROFILE}
@@ -422,7 +416,7 @@ export default function Home() {
                 />
                 <FormInput
                   ref={facebookRef}
-                  section={"profiles"}
+                  section={"socials"}
                   type={"facebook"}
                   placeholder={"http://www.facebook.com/"}
                   action={ACTIONS.ADD_PROFILE}
@@ -435,7 +429,7 @@ export default function Home() {
                 />
                 <FormInput
                   ref={instagramRef}
-                  section={"profiles"}
+                  section={"socials"}
                   type={"instagram"}
                   placeholder={"http://www.instagram.com/"}
                   action={ACTIONS.ADD_PROFILE}
@@ -556,6 +550,9 @@ export default function Home() {
                   {state.introduction.surname}
                 </h1>
               )}
+              {state.introduction.description ? (
+                <p>👋&nbsp; I am a {state.introduction.description}</p>
+              ) : null}
               {state.introduction.location ? (
                 <p>🌍&nbsp; I'm based in {state.introduction.location}</p>
               ) : null}
@@ -605,18 +602,37 @@ export default function Home() {
               ) : null}
             </div>
 
-            <div ref={profilesTitleRef} className="flex">
-              {state.profilesTitle ? <h3>My Profiles</h3> : null}
+            <div ref={socialsTitleRef} className="flex">
+              {state.socialsTitle ? <h3>Socials</h3> : null}
             </div>
 
-            <div ref={profilesRef}>
+            <div ref={socialsRef}>
               {/* GitHub Profile HTML */}
-              {state.profiles.gitHub.linkSuffix ? (
+              {state.socials.gitHub.linkSuffix ? (
                 <a
                   target="_blank"
-                  href={`${state.profiles.gitHub.linkPrefix}${state.profiles.gitHub.linkSuffix}`}
+                  href={`${state.socials.gitHub.linkPrefix}${state.socials.gitHub.linkSuffix}`}
                 >
-                  <i className="text-3xl text-blue-500 devicon-github-original"></i>
+                  <img
+                    height="32"
+                    width="32"
+                    src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/github.svg"
+                  />
+                </a>
+              ) : null}
+              {/* Medium Profile HTML */}
+              {/* Hashnode Profile HTML */}
+              {state.socials.hashnode.linkSuffix ? (
+                <a
+                  target="_blank"
+                  href={`${state.socials.hashnode.linkPrefix}${state.socials.hashnode.linkSuffix}`}
+                >
+                  <img
+                    height="32"
+                    width="32"
+                    src="https://cdn.jsdelivr.net/npm/simple-icons@v6/icons/hashnode.svg"
+                    className="fill-white"
+                  />
                 </a>
               ) : null}
             </div>
@@ -659,23 +675,16 @@ export default function Home() {
                   ) : null}
                 </p>
                 <p className="whitespace-pre-line">
-                  {state.profilesTitle ? (
-                    <>{renderedMarkdown.profilesTitle}</>
+                  {state.socialsTitle ? (
+                    <>{renderedMarkdown.socialsTitle}</>
                   ) : (
                     <></>
                   )}
                 </p>
 
-                {renderedMarkdown.profiles.gitHub.linkSuffix ? (
+                {renderedMarkdown.socials.gitHub.linkSuffix ? (
                   <p className="break-all whitespace-pre-line">
-                    {`<a
-                    target="_blank"
-                    href="${renderedMarkdown.profiles.gitHub.linkPrefix}${renderedMarkdown.profiles.gitHub.linkSuffix}"
-                  ><img
-                      src="${renderedMarkdown.profiles.gitHub.path}"
-                      width="32"
-                      height="32"
-                    /></a>`}
+                    {`<a target="_blank" href="${renderedMarkdown.socials.gitHub.linkPrefix}${renderedMarkdown.socials.gitHub.linkSuffix}"><img src="${renderedMarkdown.socials.gitHub.path}" width="32" height="32" /></a>`}
                   </p>
                 ) : null}
               </>

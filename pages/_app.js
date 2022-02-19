@@ -106,6 +106,7 @@ const initialState = {
   introduction: {
     firstName: "",
     surname: "",
+    description: "",
     location: "",
     workingOn: "",
     learning: "",
@@ -118,15 +119,15 @@ const initialState = {
     frontend: [],
     backend: [],
   },
-  // Profiles State
-  profiles: {
+  // Socials State
+  socials: {
     gitHub: {
-      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+      path: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/github.svg",
       linkPrefix: "https://github.com/",
       linkSuffix: "",
     },
     linkedIn: {
-      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
+      path: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/linkedin.svg",
       linkPrefix: "https://www.linkedin.com/in/",
       linkSuffix: "",
     },
@@ -136,8 +137,8 @@ const initialState = {
       linkSuffix: "",
     },
     hashnode: {
-      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
-      linkPrefix: "http://",
+      path: "https://cdn.jsdelivr.net/npm/simple-icons@v6/icons/hashnode.svg",
+      linkPrefix: "http://hashnode.com/@",
       linkSuffix: "",
     },
     twitter: {
@@ -151,7 +152,7 @@ const initialState = {
       linkSuffix: "",
     },
   },
-  profilesTitle: false,
+  socialsTitle: false,
 };
 // Color Reducer
 function reducer(state, action) {
@@ -198,18 +199,18 @@ function reducer(state, action) {
           ),
         },
       };
-    // Profiles
+    // Socials
     case ACTIONS.ADD_PROFILE:
       return {
         ...state,
-        profiles: {
-          ...state.profiles,
+        socials: {
+          ...state.socials,
           [action.payload.title]: {
-            ...state.profiles[action.payload.title],
+            ...state.socials[action.payload.title],
             linkSuffix: action.payload.value,
           },
         },
-        profilesTitle: true,
+        socialsTitle: true,
       };
     default:
       throw new Error();

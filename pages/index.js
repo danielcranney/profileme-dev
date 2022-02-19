@@ -25,12 +25,20 @@ export default function Home() {
     },
     socialsTitle: "",
     socials: {
-      gitHub: "",
-      linkedIn: "",
-      medium: "",
-      hashnode: "",
-      twitter: "",
+      codesandbox: "",
+      devdotto: "",
+      discord: "",
+      dribbble: "",
       facebook: "",
+      github: "",
+      hashnode: "",
+      instagram: "",
+      linkedin: "",
+      medium: "",
+      rss: "",
+      stackoverflow: "",
+      twitter: "",
+      youtube: "",
     },
   });
   const [copySuccess, setCopySuccess] = useState("Copy");
@@ -607,22 +615,22 @@ export default function Home() {
             </div>
 
             <div ref={socialsRef}>
-              {/* GitHub Profile HTML */}
-              {state.socials.gitHub.linkSuffix ? (
+              {/* GitHub HTML */}
+              {state.socials.github.linkSuffix ? (
                 <a
                   target="_blank"
-                  href={`${state.socials.gitHub.linkPrefix}${state.socials.gitHub.linkSuffix}`}
+                  href={`${state.socials.github.linkPrefix}${state.socials.github.linkSuffix}`}
                 >
                   <img
                     height="32"
                     width="32"
-                    src={`${state.socials.gitHub.path}`}
+                    src={`${state.socials.github.path}`}
                   />
                 </a>
               ) : null}
-              {/* Medium Profile HTML */}
+              {/* Medium HTML */}
               {/* Medium HTML to go here */}
-              {/* Hashnode Profile HTML */}
+              {/* Hashnode HTML */}
               {state.socials.hashnode.linkSuffix ? (
                 <a
                   target="_blank"
@@ -686,14 +694,14 @@ export default function Home() {
                 {/* GitHub Markdown Code */}
                 {renderedMarkdown.socials.gitHub.linkSuffix ? (
                   <p className="">
-                    {`<a target="_blank" href="${renderedMarkdown.socials.gitHub.linkPrefix}${renderedMarkdown.socials.gitHub.linkSuffix}"><img src="${renderedMarkdown.socials.gitHub.path}" width="32" height="32" /></a>`}
+                    {`<a href="${renderedMarkdown.socials.gitHub.linkPrefix}${renderedMarkdown.socials.gitHub.linkSuffix}" target="_blank" rel="noreferrer"><img src="${renderedMarkdown.socials.gitHub.path}" width="32" height="32" /></a>`}
                   </p>
                 ) : null}
 
                 {/* Hashnode Markdown Code */}
                 {renderedMarkdown.socials.hashnode.linkSuffix ? (
                   <p className="">
-                    {`<a target="_blank" href="${renderedMarkdown.socials.hashnode.linkPrefix}${renderedMarkdown.socials.hashnode.linkSuffix}"><img src="${renderedMarkdown.socials.hashnode.path}" width="32" height="32" /></a>`}
+                    {`<a href="${renderedMarkdown.socials.hashnode.linkPrefix}${renderedMarkdown.socials.hashnode.linkSuffix}" target="_blank" rel="noreferrer"><img src="${renderedMarkdown.socials.hashnode.path}" width="32" height="32" /></a>`}
                   </p>
                 ) : null}
               </>

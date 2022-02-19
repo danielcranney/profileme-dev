@@ -104,8 +104,7 @@ const initialState = {
   renderMode: "preview",
   // Introduction State
   introduction: {
-    firstName: "",
-    surname: "",
+    name: "",
     description: "",
     location: "",
     workingOn: "",
@@ -121,13 +120,18 @@ const initialState = {
   },
   // Socials State
   socials: {
+    behance: {
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/behance.svg",
+      linkPrefix: "https://www.behance.com/",
+      linkSuffix: "",
+    },
     codesandbox: {
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/codesandbox.svg",
       linkPrefix: "https://www.codesandbox.com/",
       linkSuffix: "",
     },
     devdotto: {
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/devdoto.svg",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/devdotto.svg",
       linkPrefix: "https://www.dev.to/",
       linkSuffix: "",
     },
@@ -173,7 +177,7 @@ const initialState = {
     },
     rss: {
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/rss.svg",
-      linkPrefix: "",
+      linkPrefix: "https://",
       linkSuffix: "",
     },
     stackoverflow: {

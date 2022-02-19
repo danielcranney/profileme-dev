@@ -616,11 +616,12 @@ export default function Home() {
                   <img
                     height="32"
                     width="32"
-                    src="https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/github.svg"
+                    src={`${state.socials.gitHub.path}`}
                   />
                 </a>
               ) : null}
               {/* Medium Profile HTML */}
+              {/* Medium HTML to go here */}
               {/* Hashnode Profile HTML */}
               {state.socials.hashnode.linkSuffix ? (
                 <a
@@ -630,7 +631,7 @@ export default function Home() {
                   <img
                     height="32"
                     width="32"
-                    src="https://cdn.jsdelivr.net/npm/simple-icons@v6/icons/hashnode.svg"
+                    src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/hashnode.svg"
                     className="fill-white"
                   />
                 </a>
@@ -682,9 +683,17 @@ export default function Home() {
                   )}
                 </p>
 
+                {/* GitHub Markdown Code */}
                 {renderedMarkdown.socials.gitHub.linkSuffix ? (
-                  <p className="break-all whitespace-pre-line">
+                  <p className="">
                     {`<a target="_blank" href="${renderedMarkdown.socials.gitHub.linkPrefix}${renderedMarkdown.socials.gitHub.linkSuffix}"><img src="${renderedMarkdown.socials.gitHub.path}" width="32" height="32" /></a>`}
+                  </p>
+                ) : null}
+
+                {/* Hashnode Markdown Code */}
+                {renderedMarkdown.socials.hashnode.linkSuffix ? (
+                  <p className="">
+                    {`<a target="_blank" href="${renderedMarkdown.socials.hashnode.linkPrefix}${renderedMarkdown.socials.hashnode.linkSuffix}"><img src="${renderedMarkdown.socials.hashnode.path}" width="32" height="32" /></a>`}
                   </p>
                 ) : null}
               </>

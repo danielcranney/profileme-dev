@@ -122,12 +122,12 @@ const initialState = {
   // Socials State
   socials: {
     gitHub: {
-      path: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/github.svg",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/github.svg",
       linkPrefix: "https://github.com/",
       linkSuffix: "",
     },
     linkedIn: {
-      path: "https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/linkedin.svg",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/linkedin.svg",
       linkPrefix: "https://www.linkedin.com/in/",
       linkSuffix: "",
     },
@@ -137,7 +137,7 @@ const initialState = {
       linkSuffix: "",
     },
     hashnode: {
-      path: "https://cdn.jsdelivr.net/npm/simple-icons@v6/icons/hashnode.svg",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/hashnode.svg",
       linkPrefix: "http://hashnode.com/@",
       linkSuffix: "",
     },

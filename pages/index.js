@@ -11,7 +11,8 @@ import { FormLabel } from "../components/FormLabel";
 import { MenuItem } from "../components/MenuItem";
 import { FormInput } from "../components/FormInput";
 import SectionHeader from "../components/SectionHeader";
-import { ProfileFormInput } from "../components/ProfileFormInput";
+import { SocialInput } from "../components/SocialInput";
+import { SocialArticle } from "../components/SocialArticle";
 let TurndownService = require("turndown").default;
 
 export default function Home() {
@@ -342,424 +343,139 @@ export default function Home() {
           ) : state.section === "socials" ? (
             <section className="flex flex-col p-6 overflow-y-auto gap-y-5">
               {/* GitHub Input */}
-              <article className="flex flex-col flex-1 w-full">
-                <FormLabel
-                  text={"GitHub profile:"}
-                  icon={
-                    <Image
-                      src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/github.svg"
-                      width={20}
-                      height={20}
-                    />
-                  }
-                />
-                <div className="flex border bg-dark-900 border-dark-600">
-                  <div className="flex items-center text-sm text-dark-300 bg-dark-900">
-                    <span className="py-2 pl-2 mt-0 mb-0 leading-4">
-                      http://www.github.com/
-                    </span>
-                  </div>
-                  <ProfileFormInput
-                    ref={githubRef}
-                    section={"socials"}
-                    type={"github"}
-                    placeholder={"yourname"}
-                    action={ACTIONS.ADD_PROFILE}
-                  />
-                </div>
-              </article>
+              <SocialArticle
+                ref={githubRef}
+                socialAccount={"github"}
+                inputPlaceholder={"yourname"}
+                formLabelText={"GitHub profile:"}
+                linkPrefix={state.socials.github.linkPrefix}
+              />
 
               {/* Twitter Input */}
-              <article className="flex flex-col flex-1 w-full">
-                <FormLabel
-                  text={"Twitter profile:"}
-                  icon={
-                    <Image
-                      src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/twitter.svg"
-                      width={20}
-                      height={20}
-                    />
-                  }
-                />
-                <div className="flex border bg-dark-900 border-dark-600">
-                  <div className="flex items-center text-sm text-dark-300 bg-dark-900">
-                    <span className="py-2 pl-2 mt-0 mb-0 leading-4">
-                      http://www.twitter.com/@
-                    </span>
-                  </div>
-                  <ProfileFormInput
-                    ref={twitterRef}
-                    section={"socials"}
-                    type={"twitter"}
-                    placeholder={"yourname"}
-                    action={ACTIONS.ADD_PROFILE}
-                  />
-                </div>
-              </article>
+              <SocialArticle
+                ref={twitterRef}
+                socialAccount={"twitter"}
+                inputPlaceholder={"yourname"}
+                formLabelText={"Twitter profile:"}
+                linkPrefix={state.socials.twitter.linkPrefix}
+              />
 
               {/* Medium Input */}
-              <article className="flex flex-col flex-1 w-full">
-                <FormLabel
-                  text={"Medium profile:"}
-                  icon={
-                    <Image
-                      src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/medium.svg"
-                      width={20}
-                      height={20}
-                    />
-                  }
-                />
-                <div className="flex border bg-dark-900 border-dark-600">
-                  <div className="flex items-center text-sm text-dark-300 bg-dark-900">
-                    <span className="py-2 pl-2 mt-0 mb-0 leading-4">
-                      http://www.medium.com/
-                    </span>
-                  </div>
-                  <ProfileFormInput
-                    ref={mediumRef}
-                    section={"socials"}
-                    type={"medium"}
-                    placeholder={"yourname"}
-                    action={ACTIONS.ADD_PROFILE}
-                  />
-                </div>
-              </article>
+              <SocialArticle
+                ref={mediumRef}
+                socialAccount={"medium"}
+                inputPlaceholder={"yourname"}
+                formLabelText={"Medium profile:"}
+                linkPrefix={state.socials.medium.linkPrefix}
+              />
 
               {/* Hashnode Input */}
-              <article className="flex flex-col flex-1 w-full">
-                <FormLabel
-                  text={"Hashnode profile:"}
-                  icon={
-                    <Image
-                      src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/hashnode.svg"
-                      width={20}
-                      height={20}
-                    />
-                  }
-                />
-                <div className="flex border bg-dark-900 border-dark-600">
-                  <div className="flex items-center text-sm text-dark-300 bg-dark-900">
-                    <span className="py-2 pl-2 mt-0 mb-0 leading-4">
-                      http://www.hashnode.com/@
-                    </span>
-                  </div>
-                  <ProfileFormInput
-                    ref={hashnodeRef}
-                    section={"socials"}
-                    type={"hashnode"}
-                    placeholder={"yourname"}
-                    action={ACTIONS.ADD_PROFILE}
-                  />
-                </div>
-              </article>
+              <SocialArticle
+                ref={hashnodeRef}
+                socialAccount={"hashnode"}
+                inputPlaceholder={"yourname"}
+                formLabelText={"Hashnode profile:"}
+                linkPrefix={state.socials.hashnode.linkPrefix}
+              />
 
               {/* DevDotTo Input */}
-              <article className="flex flex-col flex-1 w-full">
-                <FormLabel
-                  text={"Dev.to profile:"}
-                  icon={
-                    <Image
-                      src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/devdotto.svg"
-                      width={20}
-                      height={20}
-                    />
-                  }
-                />
-                <div className="flex border bg-dark-900 border-dark-600">
-                  <div className="flex items-center text-sm text-dark-300 bg-dark-900">
-                    <span className="py-2 pl-2 mt-0 mb-0 leading-4">
-                      http://www.dev.to/
-                    </span>
-                  </div>
-                  <ProfileFormInput
-                    ref={devdottoRef}
-                    section={"socials"}
-                    type={"devdotto"}
-                    placeholder={"yourname"}
-                    action={ACTIONS.ADD_PROFILE}
-                  />
-                </div>
-              </article>
+              <SocialArticle
+                ref={devdottoRef}
+                socialAccount={"devdotto"}
+                inputPlaceholder={"yourname"}
+                formLabelText={"Dev.to profile:"}
+                linkPrefix={state.socials.devdotto.linkPrefix}
+              />
 
               {/* LinkedIn Input */}
-              <article className="flex flex-col flex-1 w-full">
-                <FormLabel
-                  text={"LinkedIn profile:"}
-                  icon={
-                    <Image
-                      src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/linkedin.svg"
-                      width={20}
-                      height={20}
-                    />
-                  }
-                />
-                <div className="flex border bg-dark-900 border-dark-600">
-                  <div className="flex items-center text-sm text-dark-300 bg-dark-900">
-                    <span className="py-2 pl-2 mt-0 mb-0 leading-4">
-                      http://www.linkedin.com/in/
-                    </span>
-                  </div>
-                  <ProfileFormInput
-                    ref={linkedinRef}
-                    section={"socials"}
-                    type={"linkedin"}
-                    placeholder={"yourname"}
-                    action={ACTIONS.ADD_PROFILE}
-                  />
-                </div>
-              </article>
+              <SocialArticle
+                ref={linkedinRef}
+                socialAccount={"linkedin"}
+                inputPlaceholder={"yourname"}
+                formLabelText={"LinkedIn profile:"}
+                linkPrefix={state.socials.linkedin.linkPrefix}
+              />
 
               {/* YouTube Input */}
-              <article className="flex flex-col flex-1 w-full">
-                <FormLabel
-                  text={"YouTube channel:"}
-                  icon={
-                    <Image
-                      src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/youtube.svg"
-                      width={20}
-                      height={20}
-                    />
-                  }
-                />
-                <div className="flex border bg-dark-900 border-dark-600">
-                  <div className="flex items-center text-sm text-dark-300 bg-dark-900">
-                    <span className="py-2 pl-2 mt-0 mb-0 leading-4">
-                      http://www.youtube.com/c/
-                    </span>
-                  </div>
-                  <ProfileFormInput
-                    ref={youtubeRef}
-                    section={"socials"}
-                    type={"youtube"}
-                    placeholder={"channel"}
-                    action={ACTIONS.ADD_PROFILE}
-                  />
-                </div>
-              </article>
+              <SocialArticle
+                ref={youtubeRef}
+                socialAccount={"youtube"}
+                inputPlaceholder={"yourname"}
+                formLabelText={"YouTube channel:"}
+                linkPrefix={state.socials.youtube.linkPrefix}
+              />
 
               {/* Discord Input */}
-              <article className="flex flex-col flex-1 w-full">
-                <FormLabel
-                  text={"Discord code:"}
-                  icon={
-                    <Image
-                      src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/discord.svg"
-                      width={20}
-                      height={20}
-                    />
-                  }
-                />
-                <div className="flex border bg-dark-900 border-dark-600">
-                  <div className="flex items-center text-sm text-dark-300 bg-dark-900">
-                    <span className="py-2 pl-2 mt-0 mb-0 leading-4">
-                      http://www.discord.gg/
-                    </span>
-                  </div>
-                  <ProfileFormInput
-                    ref={discordRef}
-                    section={"socials"}
-                    type={"discord"}
-                    placeholder={"code"}
-                    action={ACTIONS.ADD_PROFILE}
-                  />
-                </div>
-              </article>
+              <SocialArticle
+                ref={discordRef}
+                socialAccount={"discord"}
+                inputPlaceholder={"yourname"}
+                formLabelText={"Discord code:"}
+                linkPrefix={state.socials.discord.linkPrefix}
+              />
 
               {/* Instagram Input */}
-              <article className="flex flex-col flex-1 w-full">
-                <FormLabel
-                  text={"Instagram profile:"}
-                  icon={
-                    <Image
-                      src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/instagram.svg"
-                      width={20}
-                      height={20}
-                    />
-                  }
-                />
-                <div className="flex border bg-dark-900 border-dark-600">
-                  <div className="flex items-center text-sm text-dark-300 bg-dark-900">
-                    <span className="py-2 pl-2 mt-0 mb-0 leading-4">
-                      http://www.instagram.com/
-                    </span>
-                  </div>
-                  <ProfileFormInput
-                    ref={instagramRef}
-                    section={"socials"}
-                    type={"instagram"}
-                    placeholder={"yourname"}
-                    action={ACTIONS.ADD_PROFILE}
-                  />
-                </div>
-              </article>
+              <SocialArticle
+                ref={instagramRef}
+                socialAccount={"instagram"}
+                inputPlaceholder={"yourname"}
+                formLabelText={"Instagram profile:"}
+                linkPrefix={state.socials.instagram.linkPrefix}
+              />
 
               {/* Facebook Input */}
-              <article className="flex flex-col flex-1 w-full">
-                <FormLabel
-                  text={"Facebook profile:"}
-                  icon={
-                    <Image
-                      src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/facebook.svg"
-                      width={20}
-                      height={20}
-                    />
-                  }
-                />
-                <div className="flex border bg-dark-900 border-dark-600">
-                  <div className="flex items-center text-sm text-dark-300 bg-dark-900">
-                    <span className="py-2 pl-2 mt-0 mb-0 leading-4">
-                      http://www.facebook.com/
-                    </span>
-                  </div>
-                  <ProfileFormInput
-                    ref={facebookRef}
-                    section={"socials"}
-                    type={"facebook"}
-                    placeholder={"yourname"}
-                    action={ACTIONS.ADD_PROFILE}
-                  />
-                </div>
-              </article>
+              <SocialArticle
+                ref={facebookRef}
+                socialAccount={"facebook"}
+                inputPlaceholder={"yourname"}
+                formLabelText={"Facebook profile:"}
+                linkPrefix={state.socials.facebook.linkPrefix}
+              />
 
               {/* Dribbble Input */}
-              <article className="flex flex-col flex-1 w-full">
-                <FormLabel
-                  text={"Dribbble profile:"}
-                  icon={
-                    <Image
-                      src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/dribbble.svg"
-                      width={20}
-                      height={20}
-                    />
-                  }
-                />
-                <div className="flex border bg-dark-900 border-dark-600">
-                  <div className="flex items-center text-sm text-dark-300 bg-dark-900">
-                    <span className="py-2 pl-2 mt-0 mb-0 leading-4">
-                      http://www.dribbble.com/
-                    </span>
-                  </div>
-                  <ProfileFormInput
-                    ref={dribbbleRef}
-                    section={"socials"}
-                    type={"dribbble"}
-                    placeholder={"yourname"}
-                    action={ACTIONS.ADD_PROFILE}
-                  />
-                </div>
-              </article>
+              <SocialArticle
+                ref={dribbbleRef}
+                socialAccount={"dribbble"}
+                inputPlaceholder={"yourname"}
+                formLabelText={"Dribbble profile:"}
+                linkPrefix={state.socials.dribbble.linkPrefix}
+              />
 
               {/* Behance Input */}
-              <article className="flex flex-col flex-1 w-full">
-                <FormLabel
-                  text={"Behance profile:"}
-                  icon={
-                    <Image
-                      src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/behance.svg"
-                      width={20}
-                      height={20}
-                    />
-                  }
-                />
-                <div className="flex border bg-dark-900 border-dark-600">
-                  <div className="flex items-center text-sm text-dark-300 bg-dark-900">
-                    <span className="py-2 pl-2 mt-0 mb-0 leading-4">
-                      http://www.behance.com/
-                    </span>
-                  </div>
-                  <ProfileFormInput
-                    ref={behanceRef}
-                    section={"socials"}
-                    type={"behance"}
-                    placeholder={"yourname"}
-                    action={ACTIONS.ADD_PROFILE}
-                  />
-                </div>
-              </article>
+              <SocialArticle
+                ref={behanceRef}
+                socialAccount={"behance"}
+                inputPlaceholder={"yourname"}
+                formLabelText={"Behance profile:"}
+                linkPrefix={state.socials.behance.linkPrefix}
+              />
 
               {/* Code Sandbox Input */}
-              <article className="flex flex-col flex-1 w-full">
-                <FormLabel
-                  text={"Code Sandbox profile:"}
-                  icon={
-                    <Image
-                      src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/codesandbox.svg"
-                      width={20}
-                      height={20}
-                    />
-                  }
-                />
-                <div className="flex border bg-dark-900 border-dark-600">
-                  <div className="flex items-center text-sm text-dark-300 bg-dark-900">
-                    <span className="py-2 pl-2 mt-0 mb-0 leading-4">
-                      http://www.codesandbox.com/
-                    </span>
-                  </div>
-                  <ProfileFormInput
-                    ref={codesandboxRef}
-                    section={"socials"}
-                    type={"codesandbox"}
-                    placeholder={"yourname"}
-                    action={ACTIONS.ADD_PROFILE}
-                  />
-                </div>
-              </article>
+              <SocialArticle
+                ref={codesandboxRef}
+                socialAccount={"codesandbox"}
+                inputPlaceholder={"yourname"}
+                formLabelText={"CodeSandbox profile:"}
+                linkPrefix={state.socials.codesandbox.linkPrefix}
+              />
 
               {/* Stack Overflow Input */}
-              <article className="flex flex-col flex-1 w-full">
-                <FormLabel
-                  text={"Stack Overflow profile:"}
-                  icon={
-                    <Image
-                      src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/stackoverflow.svg"
-                      width={20}
-                      height={20}
-                    />
-                  }
-                />
-                <div className="flex border bg-dark-900 border-dark-600">
-                  <div className="flex items-center text-sm text-dark-300 bg-dark-900">
-                    <span className="py-2 pl-2 mt-0 mb-0 leading-4">
-                      http://www.stackoverflow.com/
-                    </span>
-                  </div>
-                  <ProfileFormInput
-                    ref={stackoverflowRef}
-                    section={"socials"}
-                    type={"stackoverflow"}
-                    placeholder={"yourname"}
-                    action={ACTIONS.ADD_PROFILE}
-                  />
-                </div>
-              </article>
+              <SocialArticle
+                ref={stackoverflowRef}
+                socialAccount={"stackoverflow"}
+                inputPlaceholder={"yourname"}
+                formLabelText={"StackOverflow profile:"}
+                linkPrefix={state.socials.stackoverflow.linkPrefix}
+              />
 
               {/* RSS Input */}
-              <article className="flex flex-col flex-1 w-full">
-                <FormLabel
-                  text={"RSS link:"}
-                  icon={
-                    <Image
-                      src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/rss.svg"
-                      width={20}
-                      height={20}
-                    />
-                  }
-                />
-                <div className="flex border bg-dark-900 border-dark-600">
-                  <div className="flex items-center text-sm text-dark-300 bg-dark-900">
-                    <span className="py-2 pl-2 mt-0 mb-0 leading-4">
-                      https://
-                    </span>
-                  </div>
-                  <ProfileFormInput
-                    ref={stackoverflowRef}
-                    section={"socials"}
-                    type={"stackoverflow"}
-                    placeholder={"yourname"}
-                    action={ACTIONS.ADD_PROFILE}
-                  />
-                </div>
-              </article>
+              <SocialArticle
+                ref={rssRef}
+                socialAccount={"rss"}
+                inputPlaceholder={"yourname"}
+                formLabelText={"RSS url:"}
+                linkPrefix={state.socials.rss.linkPrefix}
+              />
             </section>
           ) : null}
         </section>
@@ -950,7 +666,7 @@ export default function Home() {
           <article
             id="markdownElement"
             ref={markdownRef}
-            className={`p-6 overflow-y-auto h-full bg-dark-900 text-xs font-code ${
+            className={`p-6 overflow-y-auto h-full bg-dark-900 text-xs font-code text-dark-300 ${
               state.renderMode === "markdown" ? "relative" : "hidden"
             }`}
           >
@@ -991,14 +707,16 @@ export default function Home() {
                   )}
                 </p>
 
+                {`<p align="left">`}
                 {Object.entries(renderedMarkdown.socials).map((profile) => {
                   console.log(profile[1]);
                   return profile[1].linkSuffix ? (
-                    <p className="">
+                    <>
                       {`<a href="${profile[1].linkPrefix}${profile[1].linkSuffix}" target="_blank" rel="noreferrer"><img src="${profile[1].path}" width="32" height="32" /></a>`}
-                    </p>
+                    </>
                   ) : null;
                 })}
+                {`</p>`}
               </>
             )}
           </article>

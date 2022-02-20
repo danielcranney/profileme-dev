@@ -12,7 +12,7 @@ export const ACTIONS = {
   ADD_SKILL: "add-skill",
   REMOVE_SKILL: "remove-skill",
   // Profile actions
-  ADD_PROFILE: "add-profile",
+  ADD_SOCIAL_PROFILE: "add-social-profile",
   // UPDATE MARKDOWN
   UPDATE_MARKDOWN_CODE: "update-markdown-code",
 };
@@ -244,7 +244,7 @@ function reducer(state, action) {
         },
       };
     // Socials
-    case ACTIONS.ADD_PROFILE:
+    case ACTIONS.ADD_SOCIAL_PROFILE:
       return {
         ...state,
         socials: {

@@ -1,7 +1,7 @@
 import React, { useContext, forwardRef } from "react";
 import { StateContext } from "../pages/_app";
 
-export const ProfileFormInput = forwardRef((props, ref) => {
+export const SocialInput = forwardRef((props, ref) => {
   const { placeholder, action, type, section } = props;
   const { state, dispatch } = useContext(StateContext);
   return (

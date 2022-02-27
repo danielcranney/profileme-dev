@@ -13,85 +13,98 @@ export const ACTIONS = {
   REMOVE_SKILL: "remove-skill",
   // Profile actions
   ADD_SOCIAL_PROFILE: "add-social-profile",
-  // UPDATE MARKDOWN
-  UPDATE_MARKDOWN_CODE: "update-markdown-code",
+  // Badge actions
+  TOGGLE_BADGE: "toggle-badge",
 };
 
 export const frontendIcons = [
   {
     name: "HTML5",
+    path: "https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-plain.svg",
     folder: "html5",
     type: "html5-plain",
     iTag: "html5-plain",
   },
   {
     name: "Javascript",
+    path: "https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-plain.svg",
     folder: "javascript",
     type: "javascript-plain",
     iTag: "javascript-plain",
   },
   {
     name: "Typescript",
+    path: "https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-plain.svg",
     folder: "typescript",
     type: "typescript-plain",
     iTag: "typescript-plain",
   },
   {
     name: "React",
+    path: "https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg",
     folder: "react",
     type: "react-original",
     iTag: "react-original",
   },
   {
     name: "NextJs",
+    path: "https://raw.githubusercontent.com/devicons/devicon/master/icons/nextjs/nextjs-original.svg",
     folder: "nextjs",
     type: "nextjs-original",
     iTag: "nextjs-original",
   },
   {
     name: "Vue",
+    path: "https://raw.githubusercontent.com/devicons/devicon/master/icons/vuejs/vuejs-plain.svg",
     folder: "vuejs",
     type: "vuejs-plain",
     iTag: "vuejs-plain",
   },
   {
     name: "Angular",
+    path: "https://raw.githubusercontent.com/devicons/devicon/master/icons/angularjs/angularjs-plain.svg",
     folder: "angularjs",
     type: "angularjs-plain",
     iTag: "angularjs-plain",
   },
   {
     name: "JQuery",
+    path: "https://raw.githubusercontent.com/devicons/devicon/master/icons/jquery/jquery-plain.svg",
     folder: "jquery",
     type: "jquery-plain",
     iTag: "jquery-plain",
   },
   {
     name: "Swift",
+    path: "https://raw.githubusercontent.com/devicons/devicon/master/icons/swift/swift-original.svg",
     folder: "swift",
     type: "swift-original",
     iTag: "swift-plain",
   },
   {
     name: "CSS3",
+    path: "https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-plain.svg",
     folder: "css3",
     type: "css3-plain",
     iTag: "css3-plain",
   },
   {
     name: "Sass",
+    path: "https://raw.githubusercontent.com/devicons/devicon/master/icons/sass/sass-original.svg",
     folder: "sass",
     type: "sass-original",
     iTag: "sass-original",
   },
   {
     name: "TailwindCSS",
+    path: "https://raw.githubusercontent.com/devicons/devicon/master/icons/tailwindcss/tailwindcss-plain.svg",
     folder: "tailwindcss",
     type: "tailwindcss-plain",
     iTag: "tailwindcss-plain",
   },
   {
     name: "Bootstrap",
+    path: "https://raw.githubusercontent.com/devicons/devicon/master/icons/bootstrap/bootstrap-plain.svg",
     folder: "bootstrap",
     type: "bootstrap-plain",
     iTag: "bootstrap-plain",
@@ -185,6 +198,11 @@ const initialState = {
       linkPrefix: "https://www.stackoverflow.com/users/",
       linkSuffix: "",
     },
+    twitch: {
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/twitch.svg",
+      linkPrefix: "https://www.twitch.tv/",
+      linkSuffix: "",
+    },
     twitter: {
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/twitter.svg",
       linkPrefix: "https://www.twitter.com/",
@@ -196,7 +214,12 @@ const initialState = {
       linkSuffix: "",
     },
   },
-  socialsTitle: false,
+  badges: {
+    twitterFollowers: false,
+    githubFollowers: false,
+    githubVisits: false,
+    twitchStatus: false,
+  },
 };
 // Color Reducer
 function reducer(state, action) {
@@ -243,7 +266,7 @@ function reducer(state, action) {
           ),
         },
       };
-    // Socials
+    // Socials Profiles Actions
     case ACTIONS.ADD_SOCIAL_PROFILE:
       return {
         ...state,
@@ -254,7 +277,15 @@ function reducer(state, action) {
             linkSuffix: action.payload.value,
           },
         },
-        socialsTitle: true,
+      };
+    // Badges Actions
+    case ACTIONS.TOGGLE_BADGE:
+      return {
+        ...state,
+        badges: {
+          ...state.badges,
+          [action.payload.title]: !state.badges[action.payload.title],
+        },
       };
     default:
       throw new Error();

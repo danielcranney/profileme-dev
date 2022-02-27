@@ -224,7 +224,7 @@ export default function Home() {
       <div className="flex flex-1 overflow-hidden">
         {/* COLUMN 1 - SIDEBAR */}
         <aside className="flex flex-col p-6 overflow-auto border-r bg-dark-800 w-72 border-dark-600">
-          <p className="mb-2 text-xs font-semibold uppercase text-slate-500">
+          <p className="mb-4 text-xs font-semibold text-white uppercase">
             Sections
           </p>
           <ul className="menu">
@@ -334,7 +334,7 @@ export default function Home() {
               <article className="flex flex-col flex-1 w-full">
                 <FormLabel text={"Frontend:"} icon={"💻"} />
                 <div className="flex flex-wrap p-4 text-4xl border rounded-sm gap-x-2 gap-y-2 border-dark-600">
-                  {frontendIcons.map((icon) => {
+                  {frontendIcons.map((icon, index) => {
                     return (
                       <button
                         key={`${icon.type}`}
@@ -347,13 +347,20 @@ export default function Home() {
                             if (iconToRemove > -1) {
                               dispatch({
                                 type: ACTIONS.REMOVE_SKILL,
-                                payload: { type: "frontend", icon },
+                                payload: {
+                                  type: "frontend",
+                                  icon,
+                                },
                               });
                             }
                           } else {
                             dispatch({
                               type: ACTIONS.ADD_SKILL,
-                              payload: { type: "frontend", icon },
+                              payload: {
+                                type: "frontend",
+                                icon,
+                                position: index,
+                              },
                             });
                           }
                         }}
@@ -582,6 +589,21 @@ export default function Home() {
                 />
                 <span className="text-xs text-white">GitHub Visitor Count</span>
               </label>
+
+              {/* Twitch Channel Badge */}
+              <label className="border select-none btn-sm bg-dark-700">
+                <input
+                  type="checkbox"
+                  name={`twitchStatus`}
+                  value={state.badges.twitchStatus}
+                  onChange={handleBadgeClick}
+                  className="checkbox-input"
+                  checked={state.badges.twitchStatus}
+                />
+                <span className="text-xs text-white">
+                  Twitch Streaming Status
+                </span>
+              </label>
             </section>
           ) : null}
         </section>
@@ -732,8 +754,8 @@ export default function Home() {
                         <img
                           src={`${icon.path}`}
                           alt={`${icon.name}`}
-                          width="40"
-                          height="40"
+                          width="32"
+                          height="32"
                         />
                       </div>
                     );
@@ -780,7 +802,14 @@ export default function Home() {
 
               {state.badges.githubVisits ? (
                 <img
-                  src={`https://komarev.com/ghpvc/?username=${state.socials.github.linkSuffix}&style=for-the-badge&label=GITHUB+PROFILE+VIEWS`}
+                  src={`https://komarev.com/ghpvc/?username=${state.socials.github.linkSuffix}&style=for-the-badge&label=GITHUB+PROFILE+VIEWS&color=2563eb&labelColor=29293b`}
+                  className="object-scale-down"
+                />
+              ) : null}
+
+              {state.badges.twitchStatus ? (
+                <img
+                  src={`https://img.shields.io/twitch/status/${state.socials.twitch.linkSuffix}?logo=twitchsx&style=for-the-badge&color=2563eb&labelColor=29293b&label=TWITCH+STATUS`}
                   className="object-scale-down"
                 />
               ) : null}

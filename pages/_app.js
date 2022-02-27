@@ -252,8 +252,12 @@ function reducer(state, action) {
         skills: {
           ...state.skills,
           [action.payload.type]: [
-            ...state.skills[action.payload.type],
+            ...state.skills[action.payload.type].slice(
+              0,
+              action.payload.position
+            ),
             action.payload.icon,
+            ...state.skills[action.payload.type].slice(action.payload.position),
           ],
         },
       };

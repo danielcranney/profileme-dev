@@ -1,17 +1,11 @@
-import React, {
-  useEffect,
-  useContext,
-  useRef,
-  useState,
-  useLayoutEffect,
-} from "react";
+import React, { useEffect, useContext, useRef, useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
 // Import state and actions
 import { ACTIONS } from "./_app";
 import { StateContext } from "./_app";
 // Import frontend icons
-import { frontendIcons } from "./_app";
+import { iconData } from "./_app";
 // Import components
 import { FormLabel } from "../components/FormLabel";
 import { MenuItem } from "../components/MenuItem";
@@ -20,6 +14,7 @@ import SectionHeader from "../components/SectionHeader";
 import { SocialInput } from "../components/SocialInput";
 import { SocialArticle } from "../components/SocialArticle";
 import { IntroductionArticle } from "../components/IntroductionArticle";
+import { ExtraSmallTick } from "../components/ExtraSmallTick";
 let TurndownService = require("turndown").default;
 
 export default function Home() {
@@ -28,6 +23,7 @@ export default function Home() {
     introduction: "",
     skillsTitle: "",
     skills: {
+      core: [],
       frontend: [],
       backend: [],
     },
@@ -100,6 +96,8 @@ export default function Home() {
 
   // Update Markdown
   useEffect(() => {
+    console.log("The updated state is: ", state);
+
     // If PreviewRef not showing, return
     if (!introductionRef.current) return;
 
@@ -195,6 +193,31 @@ export default function Home() {
         title: e.target.name,
       },
     });
+  }
+
+  function handleIconToggle(iconCategory, iconObj, i) {
+    if (state.skills[iconCategory].includes(iconObj)) {
+      const iconToRemove = state.skills[iconCategory].indexOf(iconObj);
+      if (iconToRemove > -1) {
+        console.log(iconCategory);
+        dispatch({
+          type: ACTIONS.REMOVE_SKILL,
+          payload: {
+            type: iconCategory,
+            icon: iconObj,
+          },
+        });
+      }
+    } else {
+      dispatch({
+        type: ACTIONS.ADD_SKILL,
+        payload: {
+          type: iconCategory,
+          icon: iconObj,
+          position: i,
+        },
+      });
+    }
   }
 
   return (
@@ -331,38 +354,18 @@ export default function Home() {
             </section>
           ) : state.section === "skills" ? (
             <section className="flex flex-col p-6 overflow-y-auto gap-y-5">
+              {/* Core */}
               <article className="flex flex-col flex-1 w-full">
-                <FormLabel text={"Frontend:"} icon={"💻"} />
+                <FormLabel text={"Core:"} icon={"💻"} />
                 <div className="flex flex-wrap p-4 text-4xl border rounded-sm gap-x-2 gap-y-2 border-dark-600">
-                  {frontendIcons.map((icon, index) => {
+                  {iconData.core.map((icon, index) => {
                     return (
                       <button
                         key={`${icon.type}`}
                         className="relative flex group"
                         alt={`${icon.name}`}
                         onClick={() => {
-                          if (state.skills.frontend.includes(icon)) {
-                            const iconToRemove =
-                              state.skills.frontend.indexOf(icon);
-                            if (iconToRemove > -1) {
-                              dispatch({
-                                type: ACTIONS.REMOVE_SKILL,
-                                payload: {
-                                  type: "frontend",
-                                  icon,
-                                },
-                              });
-                            }
-                          } else {
-                            dispatch({
-                              type: ACTIONS.ADD_SKILL,
-                              payload: {
-                                type: "frontend",
-                                icon,
-                                position: index,
-                              },
-                            });
-                          }
+                          handleIconToggle("core", icon, index);
                         }}
                       >
                         <div className="absolute hidden h-10 p-3 border group-hover:flex bg-dark-700 border-dark-600 -top-12">
@@ -370,22 +373,47 @@ export default function Home() {
                             {icon.name}
                           </p>
                         </div>
-                        {state.skills.frontend.includes(icon) ? (
+                        {/* {state.skills.core.includes(icon) ? (
                           <div className="absolute top-0 left-0 w-4 h-4 p-0 overflow-hidden text-xs bg-white border-0 rounded-lg">
-                            <svg
-                              className="w-4 h-4 text-brand"
-                              fill="currentColor"
-                              viewBox="0 0 20 20"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path
-                                fillRule="evenodd"
-                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                clipRule="evenodd"
-                              ></path>
-                            </svg>
+                            <ExtraSmallTick />
                           </div>
-                        ) : null}
+                        ) : null} */}
+                        <i
+                          className={`devicon-${icon.iTag} ${
+                            state.skills.core.includes(icon)
+                              ? "colored"
+                              : "text-white opacity-30"
+                          }`}
+                        ></i>
+                      </button>
+                    );
+                  })}
+                </div>
+              </article>
+              {/* Frontend */}
+              <article className="flex flex-col flex-1 w-full">
+                <FormLabel text={"Frontend:"} icon={"💻"} />
+                <div className="flex flex-wrap p-4 text-4xl border rounded-sm gap-x-2 gap-y-2 border-dark-600">
+                  {iconData.frontend.map((icon, index) => {
+                    return (
+                      <button
+                        key={`${icon.type}`}
+                        className="relative flex group"
+                        alt={`${icon.name}`}
+                        onClick={() => {
+                          handleIconToggle("frontend", icon, index);
+                        }}
+                      >
+                        <div className="absolute hidden h-10 p-3 border group-hover:flex bg-dark-700 border-dark-600 -top-12">
+                          <p className="mb-0 text-xs font-semibold tracking-wide text-white uppercase">
+                            {icon.name}
+                          </p>
+                        </div>
+                        {/* {state.skills.frontend.includes(icon) ? (
+                          <div className="absolute top-0 left-0 w-4 h-4 p-0 overflow-hidden text-xs bg-white border-0 rounded-lg">
+                            <ExtraSmallTick />
+                          </div>
+                        ) : null} */}
                         <i
                           className={`devicon-${icon.iTag} ${
                             state.skills.frontend.includes(icon)
@@ -741,12 +769,16 @@ export default function Home() {
 
             {/* Skills Section Preview */}
             <div ref={skillsTitleRef} className="flex">
-              {state.skills.frontend.length === 0 ? null : <h3>My Skills</h3>}
+              {!state.skills.frontend ||
+              state.skills.frontend.length === 0 ? null : (
+                <h3>My Skills</h3>
+              )}
             </div>
 
             {/* Skills Section Preview */}
             <div ref={skillsRef} className="flex flex-col">
-              {state.skills.frontend.length > 0 ? (
+              {!state.skills.frontend ||
+              state.skills.frontend.length < 1 ? null : (
                 <div className="flex flex-wrap mb-8 gap-x-2 gap-y-2">
                   {state.skills.frontend.map((icon) => {
                     return (
@@ -761,7 +793,7 @@ export default function Home() {
                     );
                   })}
                 </div>
-              ) : null}
+              )}
             </div>
 
             {/* Socials Title Preview */}

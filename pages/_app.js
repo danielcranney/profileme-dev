@@ -256,6 +256,7 @@ function reducer(state, action) {
       return {
         ...state,
         skills: {
+          ...state.skills,
           [action.payload.type]: state.skills[action.payload.type].filter(
             (item) => item !== action.payload.icon
           ),

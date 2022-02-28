@@ -373,11 +373,11 @@ export default function Home() {
                             {icon.name}
                           </p>
                         </div>
-                        {/* {state.skills.core.includes(icon) ? (
+                        {state.skills.core.includes(icon) ? (
                           <div className="absolute top-0 left-0 w-4 h-4 p-0 overflow-hidden text-xs bg-white border-0 rounded-lg">
                             <ExtraSmallTick />
                           </div>
-                        ) : null} */}
+                        ) : null}
                         <i
                           className={`devicon-${icon.iTag} ${
                             state.skills.core.includes(icon)
@@ -409,11 +409,11 @@ export default function Home() {
                             {icon.name}
                           </p>
                         </div>
-                        {/* {state.skills.frontend.includes(icon) ? (
+                        {state.skills.frontend.includes(icon) ? (
                           <div className="absolute top-0 left-0 w-4 h-4 p-0 overflow-hidden text-xs bg-white border-0 rounded-lg">
                             <ExtraSmallTick />
                           </div>
-                        ) : null} */}
+                        ) : null}
                         <i
                           className={`devicon-${icon.iTag} ${
                             state.skills.frontend.includes(icon)
@@ -777,21 +777,47 @@ export default function Home() {
 
             {/* Skills Section Preview */}
             <div ref={skillsRef} className="flex flex-col">
+              {/* Core Icons Display */}
+
+              {!state.skills.core || state.skills.core.length < 1 ? null : (
+                <div className="flex flex-col">
+                  <p>Core </p>
+                  <div className="flex flex-wrap mb-8 gap-x-2 gap-y-2">
+                    {state.skills.core.map((icon) => {
+                      return (
+                        <div key={`${icon.path}`} className="relative">
+                          <img
+                            src={`${icon.path}`}
+                            alt={`${icon.name}`}
+                            width="32"
+                            height="32"
+                          />
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* Frontend Icons Display */}
               {!state.skills.frontend ||
               state.skills.frontend.length < 1 ? null : (
-                <div className="flex flex-wrap mb-8 gap-x-2 gap-y-2">
-                  {state.skills.frontend.map((icon) => {
-                    return (
-                      <div key={`${icon.path}`} className="relative">
-                        <img
-                          src={`${icon.path}`}
-                          alt={`${icon.name}`}
-                          width="32"
-                          height="32"
-                        />
-                      </div>
-                    );
-                  })}
+                <div className="flex flex-col">
+                  <p>Frontend </p>
+                  <div className="flex flex-wrap mb-8 gap-x-2 gap-y-2">
+                    {state.skills.frontend.map((icon) => {
+                      return (
+                        <div key={`${icon.path}`} className="relative">
+                          <img
+                            src={`${icon.path}`}
+                            alt={`${icon.name}`}
+                            width="32"
+                            height="32"
+                          />
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               )}
             </div>
@@ -871,12 +897,26 @@ export default function Home() {
                   </p>
                 ) : null}
 
+                {renderedMarkdown.skills.core.length > 0 ? (
+                  <p className="break-all">
+                    {`<p align="left">`}
+                    {renderedMarkdown.skills.core.map((icon) => {
+                      return (
+                        <span key={`${icon.path}`}>
+                          {`<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${icon.folder}/${icon.type}.svg" width="32" height="32" alt="${icon.name}" />`}
+                        </span>
+                      );
+                    })}
+                    {`</p>`}
+                  </p>
+                ) : null}
+
                 {renderedMarkdown.skills.frontend.length > 0 ? (
                   <p className="break-all">
                     {`<p align="left">`}
                     {renderedMarkdown.skills.frontend.map((icon) => {
                       return (
-                        <span key={`${icon.folder}-${icon.type}`}>
+                        <span key={`${icon.path}`}>
                           {`<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${icon.folder}/${icon.type}.svg" width="32" height="32" alt="${icon.name}" />`}
                         </span>
                       );

@@ -14,7 +14,7 @@ export const IconSelector = ({ handleIconToggle, title, iconType }) => {
         {iconData[iconType].map((icon, index) => {
           return (
             <button
-              key={`${icon.type}`}
+              key={`${icon.path}`}
               className="relative flex w-auto group"
               alt={`${icon.name}`}
               onClick={() => {

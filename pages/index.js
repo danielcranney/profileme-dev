@@ -152,10 +152,21 @@ export default function Home() {
     let linkSuffixes = [];
     Object.entries(renderedMarkdown.socials).map((social) => {
       linkSuffixes.push(social[1].linkSuffix);
+      console.log(linkSuffixes);
     });
 
+    console.log(
+      linkSuffixes.some(
+        (x) => x !== null && x !== "" && typeof x !== "undefined"
+      )
+    );
+
     // True is ANY linkSuffixes are filled
-    setSocialsShowing(linkSuffixes.some((x) => x !== null && x !== ""));
+    setSocialsShowing(
+      linkSuffixes.some(
+        (x) => x !== null && x !== "" && typeof x !== "undefined"
+      )
+    );
   }, [renderedMarkdown.socials]);
 
   useEffect(() => {
@@ -359,41 +370,11 @@ export default function Home() {
           ) : state.section === "skills" ? (
             <section className="flex flex-col p-6 overflow-y-auto gap-y-5">
               {/* Core */}
-              <article className="flex flex-col flex-1 w-full">
-                <FormLabel text={"Core:"} icon={"💻"} />
-                <div className="flex flex-wrap p-4 text-4xl border rounded-sm gap-x-2 gap-y-2 border-dark-600">
-                  {iconData.core.map((icon, index) => {
-                    return (
-                      <button
-                        key={`${icon.type}`}
-                        className="relative flex group"
-                        alt={`${icon.name}`}
-                        onClick={() => {
-                          handleIconToggle("core", icon, index);
-                        }}
-                      >
-                        <div className="absolute hidden h-10 p-3 border group-hover:flex bg-dark-700 border-dark-600 -top-12">
-                          <p className="mb-0 text-xs font-semibold tracking-wide text-white uppercase">
-                            {icon.name}
-                          </p>
-                        </div>
-                        {state.skills.core.includes(icon) ? (
-                          <div className="absolute top-0 left-0 w-4 h-4 p-0 overflow-hidden text-xs bg-white border-0 rounded-lg">
-                            <ExtraSmallTick />
-                          </div>
-                        ) : null}
-                        <i
-                          className={`devicon-${icon.iTag} ${
-                            state.skills.core.includes(icon)
-                              ? "colored"
-                              : "text-white opacity-30"
-                          }`}
-                        ></i>
-                      </button>
-                    );
-                  })}
-                </div>
-              </article>
+              <IconSelector
+                handleIconToggle={handleIconToggle}
+                title={"Core"}
+                iconType={"core"}
+              />
               {/* Frontend */}
               <IconSelector
                 handleIconToggle={handleIconToggle}

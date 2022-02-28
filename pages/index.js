@@ -15,6 +15,8 @@ import { SocialInput } from "../components/SocialInput";
 import { SocialArticle } from "../components/SocialArticle";
 import { IntroductionArticle } from "../components/IntroductionArticle";
 import { ExtraSmallTick } from "../components/ExtraSmallTick";
+import { IconSelector } from "../components/IconSelector";
+import { BadgeSelector } from "../components/BadgeSelector";
 let TurndownService = require("turndown").default;
 
 export default function Home() {
@@ -26,6 +28,8 @@ export default function Home() {
       core: [],
       frontend: [],
       backend: [],
+      other: [],
+      software: [],
     },
     socials: {
       behance: "",
@@ -391,41 +395,29 @@ export default function Home() {
                 </div>
               </article>
               {/* Frontend */}
-              <article className="flex flex-col flex-1 w-full">
-                <FormLabel text={"Frontend:"} icon={"💻"} />
-                <div className="flex flex-wrap p-4 text-4xl border rounded-sm gap-x-2 gap-y-2 border-dark-600">
-                  {iconData.frontend.map((icon, index) => {
-                    return (
-                      <button
-                        key={`${icon.type}`}
-                        className="relative flex group"
-                        alt={`${icon.name}`}
-                        onClick={() => {
-                          handleIconToggle("frontend", icon, index);
-                        }}
-                      >
-                        <div className="absolute hidden h-10 p-3 border group-hover:flex bg-dark-700 border-dark-600 -top-12">
-                          <p className="mb-0 text-xs font-semibold tracking-wide text-white uppercase">
-                            {icon.name}
-                          </p>
-                        </div>
-                        {state.skills.frontend.includes(icon) ? (
-                          <div className="absolute top-0 left-0 w-4 h-4 p-0 overflow-hidden text-xs bg-white border-0 rounded-lg">
-                            <ExtraSmallTick />
-                          </div>
-                        ) : null}
-                        <i
-                          className={`devicon-${icon.iTag} ${
-                            state.skills.frontend.includes(icon)
-                              ? "colored"
-                              : "text-white opacity-30"
-                          }`}
-                        ></i>
-                      </button>
-                    );
-                  })}
-                </div>
-              </article>
+              <IconSelector
+                handleIconToggle={handleIconToggle}
+                title={"Frontend"}
+                iconType={"frontend"}
+              />
+              {/* Backend and DB */}
+              <IconSelector
+                handleIconToggle={handleIconToggle}
+                title={"Backend and Database"}
+                iconType={"backend"}
+              />
+              {/* Other */}
+              <IconSelector
+                handleIconToggle={handleIconToggle}
+                title={"Other"}
+                iconType={"other"}
+              />
+              {/* Software */}
+              <IconSelector
+                handleIconToggle={handleIconToggle}
+                title={"Software"}
+                iconType={"software"}
+              />
             </section>
           ) : state.section === "socials" ? (
             <section className="flex flex-col p-6 overflow-y-auto gap-y-5">
@@ -576,62 +568,36 @@ export default function Home() {
           ) : state.section === "badges" ? (
             <section className="flex flex-wrap p-6 overflow-y-auto gap-y-5 gap-x-5">
               {/* Twitter Followers Badge */}
-              <label className="border select-none btn-sm bg-dark-700">
-                <input
-                  type="checkbox"
-                  name={`twitterFollowers`}
-                  value={state.badges.twitterFollowers}
-                  onChange={handleBadgeClick}
-                  className="checkbox-input"
-                  checked={state.badges.twitterFollowers}
-                />
-                <span className="text-xs text-white">
-                  Twitter Followers Count
-                </span>
-              </label>
+              <BadgeSelector
+                badgeType={"twitterFollowers"}
+                profileLink={"twitter"}
+                badgeText={"Twitter Follower Count"}
+                handleBadgeClick={handleBadgeClick}
+              />
 
               {/* GitHub Followers Badge */}
-              <label className="border select-none btn-sm bg-dark-700">
-                <input
-                  type="checkbox"
-                  name={`githubFollowers`}
-                  value={state.badges.githubFollowers}
-                  onChange={handleBadgeClick}
-                  className="checkbox-input"
-                  checked={state.badges.githubFollowers}
-                />
-                <span className="text-xs text-white">
-                  GitHub Follower Count
-                </span>
-              </label>
+              <BadgeSelector
+                badgeType={"githubFollowers"}
+                profileLink={"github"}
+                badgeText={"GitHub Followerr Count"}
+                handleBadgeClick={handleBadgeClick}
+              />
 
               {/* GitHub Visits Badge */}
-              <label className="border select-none btn-sm bg-dark-700">
-                <input
-                  type="checkbox"
-                  name={`githubVisits`}
-                  value={state.badges.githubVisits}
-                  onChange={handleBadgeClick}
-                  className="checkbox-input"
-                  checked={state.badges.githubVisits}
-                />
-                <span className="text-xs text-white">GitHub Visitor Count</span>
-              </label>
+              <BadgeSelector
+                badgeType={"githubVisits"}
+                profileLink={"github"}
+                badgeText={"GitHub Visitor Count"}
+                handleBadgeClick={handleBadgeClick}
+              />
 
               {/* Twitch Channel Badge */}
-              <label className="border select-none btn-sm bg-dark-700">
-                <input
-                  type="checkbox"
-                  name={`twitchStatus`}
-                  value={state.badges.twitchStatus}
-                  onChange={handleBadgeClick}
-                  className="checkbox-input"
-                  checked={state.badges.twitchStatus}
-                />
-                <span className="text-xs text-white">
-                  Twitch Streaming Status
-                </span>
-              </label>
+              <BadgeSelector
+                badgeType={"twitchStatus"}
+                profileLink={"twitch"}
+                badgeText={"Twitch Streaming Status"}
+                handleBadgeClick={handleBadgeClick}
+              />
             </section>
           ) : null}
         </section>
@@ -820,6 +786,71 @@ export default function Home() {
                   </div>
                 </div>
               )}
+
+              {/* Backend Icons Display */}
+              {!state.skills.backend ||
+              state.skills.backend.length < 1 ? null : (
+                <div className="flex flex-col">
+                  <p>Backend &amp; Database</p>
+                  <div className="flex flex-wrap mb-8 gap-x-2 gap-y-2">
+                    {state.skills.backend.map((icon) => {
+                      return (
+                        <div key={`${icon.path}`} className="relative">
+                          <img
+                            src={`${icon.path}`}
+                            alt={`${icon.name}`}
+                            width="32"
+                            height="32"
+                          />
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* Other Icons Display */}
+              {!state.skills.other || state.skills.other.length < 1 ? null : (
+                <div className="flex flex-col">
+                  <p>Other</p>
+                  <div className="flex flex-wrap mb-8 gap-x-2 gap-y-2">
+                    {state.skills.other.map((icon) => {
+                      return (
+                        <div key={`${icon.path}`} className="relative">
+                          <img
+                            src={`${icon.path}`}
+                            alt={`${icon.name}`}
+                            width="32"
+                            height="32"
+                          />
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* Software Icons Display */}
+              {!state.skills.software ||
+              state.skills.software.length < 1 ? null : (
+                <div className="flex flex-col">
+                  <p>Software</p>
+                  <div className="flex flex-wrap mb-8 gap-x-2 gap-y-2">
+                    {state.skills.software.map((icon) => {
+                      return (
+                        <div key={`${icon.path}`} className="relative">
+                          <img
+                            src={`${icon.path}`}
+                            alt={`${icon.name}`}
+                            width="32"
+                            height="32"
+                          />
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Socials Title Preview */}
@@ -903,7 +934,7 @@ export default function Home() {
                     {renderedMarkdown.skills.core.map((icon) => {
                       return (
                         <span key={`${icon.path}`}>
-                          {`<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${icon.folder}/${icon.type}.svg" width="32" height="32" alt="${icon.name}" />`}
+                          {`<img src="${icon.path}" width="32" height="32" alt="${icon.name}" />`}
                         </span>
                       );
                     })}
@@ -917,7 +948,49 @@ export default function Home() {
                     {renderedMarkdown.skills.frontend.map((icon) => {
                       return (
                         <span key={`${icon.path}`}>
-                          {`<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${icon.folder}/${icon.type}.svg" width="32" height="32" alt="${icon.name}" />`}
+                          {`<img src="${icon.path}" width="32" height="32" alt="${icon.name}" />`}
+                        </span>
+                      );
+                    })}
+                    {`</p>`}
+                  </p>
+                ) : null}
+
+                {renderedMarkdown.skills.backend.length > 0 ? (
+                  <p className="break-all">
+                    {`<p align="left">`}
+                    {renderedMarkdown.skills.backend.map((icon) => {
+                      return (
+                        <span key={`${icon.path}`}>
+                          {`<img src="${icon.path}" width="32" height="32" alt="${icon.name}" />`}
+                        </span>
+                      );
+                    })}
+                    {`</p>`}
+                  </p>
+                ) : null}
+
+                {renderedMarkdown.skills.other.length > 0 ? (
+                  <p className="break-all">
+                    {`<p align="left">`}
+                    {renderedMarkdown.skills.other.map((icon) => {
+                      return (
+                        <span key={`${icon.path}`}>
+                          {`<img src="${icon.path}" width="32" height="32" alt="${icon.name}" />`}
+                        </span>
+                      );
+                    })}
+                    {`</p>`}
+                  </p>
+                ) : null}
+
+                {renderedMarkdown.skills.software.length > 0 ? (
+                  <p className="break-all">
+                    {`<p align="left">`}
+                    {renderedMarkdown.skills.software.map((icon) => {
+                      return (
+                        <span key={`${icon.path}`}>
+                          {`<img src="${icon.path}" width="32" height="32" alt="${icon.name}" />`}
                         </span>
                       );
                     })}

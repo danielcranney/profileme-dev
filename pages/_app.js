@@ -20,83 +20,267 @@ export const ACTIONS = {
 export const iconData = {
   core: [
     {
-      name: "HTML5",
-      path: "https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-plain.svg",
-      folder: "html5",
-      type: "html5-plain",
-      iTag: "html5-plain",
+      name: "C",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-plain.svg",
+      iTag: "c-plain",
     },
     {
-      name: "React",
-      path: "https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg",
-      folder: "react",
-      type: "react-original",
-      iTag: "react-original",
+      name: "C++",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-plain.svg",
+      iTag: "cplusplus-plain",
+    },
+    {
+      name: "C#",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/csharp/csharp-plain.svg",
+      iTag: "csharp-plain",
+    },
+    {
+      name: "Coffeescript",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/coffeescript/coffeescript-original.svg",
+      iTag: "coffeescript-original",
+    },
+    {
+      name: "Go",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original-wordmark.svg",
+      iTag: "go-original-wordmark",
+    },
+    {
+      name: "Java",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
+      iTag: "java-plain",
+    },
+    {
+      name: "Javascript",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+      iTag: "javascript-plain",
+    },
+    {
+      name: "Perl",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/perl/perl-original.svg",
+      iTag: "perl-plain",
+    },
+    {
+      name: "PHP",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-plain.svg",
+      iTag: "php-plain",
+    },
+    {
+      name: "Python",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+      iTag: "python-plain",
+    },
+    {
+      name: "Ruby",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ruby/ruby-plain.svg",
+      iTag: "ruby-plain",
+    },
+    {
+      name: "Rust",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rust/rust-plain.svg",
+      iTag: "rust-plain",
+    },
+    {
+      name: "Swift",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/swift/swift-original.svg",
+      iTag: "swift-plain",
+    },
+    {
+      name: "Typescript",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
+      iTag: "typescript-original",
     },
   ],
   frontend: [
     {
+      name: "HTML5",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-plain.svg",
+      iTag: "html5-plain",
+    },
+    {
+      name: "React",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+      iTag: "react-original",
+    },
+    {
       name: "NextJs",
-      path: "https://raw.githubusercontent.com/devicons/devicon/master/icons/nextjs/nextjs-original.svg",
-      folder: "nextjs",
-      type: "nextjs-original",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
       iTag: "nextjs-original",
     },
     {
       name: "Vue",
-      path: "https://raw.githubusercontent.com/devicons/devicon/master/icons/vuejs/vuejs-plain.svg",
-      folder: "vuejs",
-      type: "vuejs-plain",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-plain.svg",
       iTag: "vuejs-plain",
     },
     {
+      name: "Nuxtjs",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nuxtjs/nuxtjs-original.svg",
+      iTag: "nuxtjs-plain",
+    },
+    {
+      name: "Gatsby",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gatsby/gatsby-plain.svg",
+      iTag: "gatsby-plain",
+    },
+    {
       name: "Angular",
-      path: "https://raw.githubusercontent.com/devicons/devicon/master/icons/angularjs/angularjs-plain.svg",
-      folder: "angularjs",
-      type: "angularjs-plain",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-plain.svg",
       iTag: "angularjs-plain",
     },
     {
       name: "JQuery",
-      path: "https://raw.githubusercontent.com/devicons/devicon/master/icons/jquery/jquery-plain.svg",
-      folder: "jquery",
-      type: "jquery-plain",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jquery/jquery-plain.svg",
       iTag: "jquery-plain",
     },
     {
-      name: "Swift",
-      path: "https://raw.githubusercontent.com/devicons/devicon/master/icons/swift/swift-original.svg",
-      folder: "swift",
-      type: "swift-original",
-      iTag: "swift-plain",
-    },
-    {
       name: "CSS3",
-      path: "https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-plain.svg",
-      folder: "css3",
-      type: "css3-plain",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-plain.svg",
       iTag: "css3-plain",
     },
     {
       name: "Sass",
-      path: "https://raw.githubusercontent.com/devicons/devicon/master/icons/sass/sass-original.svg",
-      folder: "sass",
-      type: "sass-original",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sass/sass-original.svg",
       iTag: "sass-original",
     },
     {
       name: "TailwindCSS",
-      path: "https://raw.githubusercontent.com/devicons/devicon/master/icons/tailwindcss/tailwindcss-plain.svg",
-      folder: "tailwindcss",
-      type: "tailwindcss-plain",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg",
       iTag: "tailwindcss-plain",
     },
     {
       name: "Bootstrap",
-      path: "https://raw.githubusercontent.com/devicons/devicon/master/icons/bootstrap/bootstrap-plain.svg",
-      folder: "bootstrap",
-      type: "bootstrap-plain",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-plain.svg",
       iTag: "bootstrap-plain",
+    },
+    {
+      name: "Material UI",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/materialui/materialui-original.svg",
+      iTag: "materialui-plain",
+    },
+    {
+      name: "Redux",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg",
+      iTag: "redux-original",
+    },
+    {
+      name: "Webpack",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/webpack/webpack-original.svg",
+      iTag: "webpack-plain",
+    },
+    {
+      name: "Babel",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/babel/babel-original.svg",
+      iTag: "babel-plain",
+    },
+  ],
+  backend: [
+    {
+      name: "NodeJS",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+      iTag: "nodejs-plain",
+    },
+    {
+      name: "ExpressJS",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
+      iTag: "express-original",
+    },
+    {
+      name: "GraphQL",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg",
+      iTag: "graphql-plain",
+    },
+    {
+      name: "Oracle",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/oracle/oracle-plain.svg",
+      iTag: "oracle-plain",
+    },
+    {
+      name: "NestJS",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nestjs/nestjs-plain.svg",
+      iTag: "nestjs-plain",
+    },
+    {
+      name: "MongoDB",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
+      iTag: "mongodb-plain",
+    },
+    {
+      name: "MySQL",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
+      iTag: "mysql-plain",
+    },
+    {
+      name: "PostgreSQL",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-plain.svg",
+      iTag: "postgresql-plain",
+    },
+    {
+      name: "Firebase",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
+      iTag: "firebase-plain",
+    },
+    {
+      name: "Appwrite",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/appwrite/appwrite-original.svg",
+      iTag: "appwrite-plain",
+    },
+    {
+      name: "Heroku",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/heroku/heroku-original.svg",
+      iTag: "heroku-original",
+    },
+  ],
+  other: [
+    {
+      name: ".NET",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dot-net/dot-net-original.svg",
+      iTag: "dot-net-plain",
+    },
+    {
+      name: "Django",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-original.svg",
+      iTag: "django-plain",
+    },
+    {
+      name: "Lavarel",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-plain.svg",
+      iTag: "laravel-plain",
+    },
+  ],
+  software: [
+    {
+      name: "Photoshop",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg",
+      iTag: "photoshop-plain",
+    },
+    {
+      name: "Illustrator",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/illustrator/illustrator-plain.svg",
+      iTag: "illustrator-plain",
+    },
+    {
+      name: "After Effects",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/aftereffects/aftereffects-plain.svg",
+      iTag: "aftereffects-plain",
+    },
+    {
+      name: "Premiere Pro",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/premierepro/premierepro-plain.svg",
+      iTag: "premierepro-plain",
+    },
+    {
+      name: "XD",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/xd/xd-plain.svg",
+      iTag: "xd-plain",
+    },
+    {
+      name: "Figma",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
+      iTag: "figma-plain",
+    },
+    {
+      name: "Sketch",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sketch/sketch-original.svg",
+      iTag: "sketch-line-wordmark",
     },
   ],
 };
@@ -121,6 +305,8 @@ const initialState = {
     core: [],
     frontend: [],
     backend: [],
+    other: [],
+    software: [],
   },
   // Socials State
   socials: {

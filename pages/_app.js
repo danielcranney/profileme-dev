@@ -4,17 +4,13 @@ import "../styles/globals.css";
 export const StateContext = createContext(null);
 
 export const ACTIONS = {
-  // Introduction actions
   ADD_INTRODUCTION: "add-introduction",
-  // Select render
   SELECT_RENDER_MODE: "select-render-mode",
-  // Skills actions
   ADD_SKILL: "add-skill",
   REMOVE_SKILL: "remove-skill",
-  // Profile actions
   ADD_SOCIAL_PROFILE: "add-social-profile",
-  // Badge actions
   TOGGLE_BADGE: "toggle-badge",
+  TOGGLE_GITHUB_STATS: "toggle-github-stats",
 };
 
 export const iconData = {
@@ -393,11 +389,26 @@ const initialState = {
     },
   },
   badges: {
-    twitterFollowers: false,
-    githubFollowers: false,
-    githubVisits: false,
-    githubStatsCard: false,
-    twitchStatus: false,
+    twitterFollowers: {
+      selected: false,
+    },
+    githubFollowers: {
+      selected: false,
+    },
+    githubVisits: {
+      selected: false,
+    },
+    githubStatsCard: {
+      selected: false,
+      stars: true,
+      commits: true,
+      prs: true,
+      issues: true,
+      contribs: true,
+    },
+    twitchStatus: {
+      selected: false,
+    },
   },
 };
 // Color Reducer
@@ -468,7 +479,22 @@ function reducer(state, action) {
         ...state,
         badges: {
           ...state.badges,
-          [action.payload.title]: !state.badges[action.payload.title],
+          [action.payload.title]: {
+            ...state.badges[action.payload.title],
+            selected: !state.badges[action.payload.title].selected,
+          },
+        },
+      };
+    case ACTIONS.TOGGLE_GITHUB_STATS:
+      return {
+        ...state,
+        badges: {
+          ...state.badges,
+          githubStatsCard: {
+            ...state.badges.githubStatsCard,
+            [action.payload.keyToHide]:
+              !state.badges.githubStatsCard[action.payload.keyToHide],
+          },
         },
       };
     default:

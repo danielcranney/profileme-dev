@@ -20,10 +20,10 @@ export const BadgeSelector = ({
       <input
         type="checkbox"
         name={badgeType}
-        value={state.badges[badgeType]}
+        value={state.badges[badgeType].selected}
         onChange={handleBadgeClick}
         className="checkbox-input"
-        checked={state.badges[badgeType]}
+        checked={state.badges[badgeType].selected}
         disabled={
           !state.socials[profileLink].linkSuffix.length > 0 ? true : false
         }

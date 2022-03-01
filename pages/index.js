@@ -18,6 +18,7 @@ import { ExtraSmallTick } from "../components/ExtraSmallTick";
 import { IconSelector } from "../components/IconSelector";
 import { BadgeSelector } from "../components/BadgeSelector";
 import { IntroductionArticleWithLink } from "../components/IntroductionArticleWithLink";
+import { BadgeStyleSelector } from "../components/BadgeStyleSelector";
 let TurndownService = require("turndown").default;
 
 export default function Home() {
@@ -133,6 +134,7 @@ export default function Home() {
       ) {
         Object.entries(state[section.title]).forEach((entry) => {
           const [key, value] = entry;
+
           setRenderedMarkdown((renderedMarkdown) => ({
             ...renderedMarkdown,
             [section.title]: {
@@ -155,14 +157,7 @@ export default function Home() {
     let linkSuffixes = [];
     Object.entries(renderedMarkdown.socials).map((social) => {
       linkSuffixes.push(social[1].linkSuffix);
-      console.log(linkSuffixes);
     });
-
-    console.log(
-      linkSuffixes.some(
-        (x) => x !== null && x !== "" && typeof x !== "undefined"
-      )
-    );
 
     // True is ANY linkSuffixes are filled
     setSocialsShowing(
@@ -178,7 +173,7 @@ export default function Home() {
       badgesRef.current = false;
     } else {
       Object.entries(renderedMarkdown.badges).map((badge) => {
-        badgesList.push(badge[1]);
+        badgesList.push(badge[1].selected);
       });
     }
     // True is ANY badges are switched on are filled
@@ -209,6 +204,15 @@ export default function Home() {
       type: ACTIONS.TOGGLE_BADGE,
       payload: {
         title: e.target.name,
+      },
+    });
+  };
+
+  const handleCardStylingClick = (e) => {
+    dispatch({
+      type: ACTIONS.TOGGLE_GITHUB_STATS,
+      payload: {
+        keyToHide: e.target.name,
       },
     });
   };
@@ -605,6 +609,39 @@ export default function Home() {
                   badgeText={"GitHub Stats Card"}
                   handleBadgeClick={handleBadgeClick}
                 />
+
+                <section className="flex flex-col">
+                  <p className="mb-2 text-xs font-semibold uppercase">
+                    Style card:
+                  </p>
+                  <article className="grid grid-cols-1 gap-1 lg:grid-cols-2 xl:grid-cols-3">
+                    <BadgeStyleSelector
+                      badgeKeyToHide={"stars"}
+                      badgeText={"Stars"}
+                      handleCardStylingClick={handleCardStylingClick}
+                    />
+                    <BadgeStyleSelector
+                      badgeKeyToHide={"commits"}
+                      badgeText={"Commits"}
+                      handleCardStylingClick={handleCardStylingClick}
+                    />
+                    <BadgeStyleSelector
+                      badgeKeyToHide={"prs"}
+                      badgeText={"PRs"}
+                      handleCardStylingClick={handleCardStylingClick}
+                    />
+                    <BadgeStyleSelector
+                      badgeKeyToHide={"issues"}
+                      badgeText={"Issues"}
+                      handleCardStylingClick={handleCardStylingClick}
+                    />
+                    <BadgeStyleSelector
+                      badgeKeyToHide={"contribs"}
+                      badgeText={"Contribs"}
+                      handleCardStylingClick={handleCardStylingClick}
+                    />
+                  </article>
+                </section>
               </section>
             </>
           ) : null}
@@ -890,35 +927,43 @@ export default function Home() {
 
             {/* Badges Section Preview */}
             <div ref={badgesRef} className="flex flex-wrap gap-x-3 gap-y-3">
-              {state.badges.githubStatsCard ? (
+              {state.badges.githubStatsCard.selected ? (
                 <img
-                  src={`https://github-readme-stats.vercel.app/api?username=${state.socials.github.linkSuffix}&show_icons=true&hide_border=true`}
+                  src={`https://github-readme-stats.vercel.app/api?username=${
+                    state.socials.github.linkSuffix
+                  }&show_icons=true&hide_border=true&hide=${
+                    state.badges.githubStatsCard.stars ? "" : "stars,"
+                  }${state.badges.githubStatsCard.commits ? "" : "commits,"}${
+                    state.badges.githubStatsCard.prs ? "" : "prs,"
+                  }${state.badges.githubStatsCard.issues ? "" : "issues,"}${
+                    state.badges.githubStatsCard.contribs ? "" : "contribs"
+                  }`}
                   className="object-scale-down"
                 />
               ) : null}
 
-              {state.badges.twitterFollowers ? (
+              {state.badges.twitterFollowers.selected ? (
                 <img
                   src={`https://img.shields.io/twitter/follow/${state.socials.twitter.linkSuffix}?logo=twitter&style=for-the-badge&color=2563eb&labelColor=29293b`}
                   className="object-scale-down"
                 />
               ) : null}
 
-              {state.badges.githubFollowers ? (
+              {state.badges.githubFollowers.selected ? (
                 <img
                   src={`https://img.shields.io/github/followers/${state.socials.github.linkSuffix}?logo=github&style=for-the-badge&color=2563eb&labelColor=29293b`}
                   className="object-scale-down"
                 />
               ) : null}
 
-              {state.badges.githubVisits ? (
+              {state.badges.githubVisits.selected ? (
                 <img
                   src={`https://komarev.com/ghpvc/?username=${state.socials.github.linkSuffix}&style=for-the-badge&label=GITHUB+PROFILE+VIEWS&color=2563eb&labelColor=29293b`}
                   className="object-scale-down"
                 />
               ) : null}
 
-              {state.badges.twitchStatus ? (
+              {state.badges.twitchStatus.selected ? (
                 <img
                   src={`https://img.shields.io/twitch/status/${state.socials.twitch.linkSuffix}?logo=twitchsx&style=for-the-badge&color=2563eb&labelColor=29293b&label=TWITCH+STATUS`}
                   className="object-scale-down"
@@ -1036,26 +1081,26 @@ export default function Home() {
 
                 <p className="mt-4 whitespace-pre-line">
                   {badgesShowing ? <>{`<p align="left">`}</> : null}
-                  {!renderedMarkdown.badges.githubStatsCard ? null : (
+                  {!renderedMarkdown.badges.githubStatsCard.selected ? null : (
                     <span className="whitespace-pre-line">
                       {`[![${state.introduction.name}'s GitHub stats](https://github-readme-stats.vercel.app/api?username=${state.socials.github.linkSuffix})](https://github.com/anuraghazra/github-readme-stats)
 `}
                     </span>
                   )}
-                  {!renderedMarkdown.badges.twitterFollowers ? null : (
+                  {!renderedMarkdown.badges.twitterFollowers.selected ? null : (
                     <span className="whitespace-pre-line">
                       {`<a href="${state.socials.twitter.linkPrefix}${state.socials.twitter.linkSuffix}" target="_blank" rel="noreferrer"><img
                   src="https://img.shields.io/twitter/follow/${state.socials.twitter.linkSuffix}?logo=twitter&style=for-the-badge&color=ff0000"
                 /></a>`}
                     </span>
                   )}
-                  {!renderedMarkdown.badges.githubFollowers ? null : (
+                  {!renderedMarkdown.badges.githubFollowers.selected ? null : (
                     <span className="whitespace-pre-line">
                       {`<a href="${state.socials.github.linkPrefix}${state.socials.github.linkSuffix}" target="_blank" rel="noreferrer"><img
                   src="https://img.shields.io/github/followers/${state.socials.github.linkSuffix}?logo=github&style=for-the-badge&color=2563eb&labelColor=29293b" /></a>`}
                     </span>
                   )}
-                  {!renderedMarkdown.badges.githubVisits ? null : (
+                  {!renderedMarkdown.badges.githubVisits.selected ? null : (
                     <span className="whitespace-pre-line">
                       {`<a href="${state.socials.github.linkPrefix}${state.socials.github.linkSuffix}" target="_blank" rel="noreferrer"><img
                   src="https://komarev.com/ghpvc/?username=${state.socials.github.linkSuffix}&style=for-the-badge&label=GITHUB+PROFILE+VIEWS" /></a>`}

@@ -294,7 +294,8 @@ const initialState = {
     name: "",
     description: "",
     location: "",
-    workingOn: "",
+    workingOnTitle: "",
+    workingOnLink: "",
     learning: "",
     collaborateOn: "",
     aboutMe: "",
@@ -395,6 +396,7 @@ const initialState = {
     twitterFollowers: false,
     githubFollowers: false,
     githubVisits: false,
+    githubStatsCard: false,
     twitchStatus: false,
   },
 };

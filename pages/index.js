@@ -1000,9 +1000,12 @@ export default function Home() {
 
             {/* Skills Section Preview */}
             <div ref={skillsTitleRef} className="flex">
-              {!state.skills.frontend ||
-              state.skills.frontend.length === 0 ? null : (
-                <h3>My Skills</h3>
+              {state.skills.core.length === 0 &&
+              state.skills.frontend.length === 0 &&
+              state.skills.backend.length === 0 &&
+              state.skills.other.length === 0 &&
+              state.skills.software.length === 0 ? null : (
+                <h3>Skills</h3>
               )}
             </div>
 
@@ -1011,109 +1014,94 @@ export default function Home() {
               {/* Core Icons Display */}
 
               {!state.skills.core || state.skills.core.length < 1 ? null : (
-                <div className="flex flex-col">
-                  <p>Core </p>
-                  <div className="flex flex-wrap mb-8 gap-x-2 gap-y-2">
-                    {state.skills.core.map((icon) => {
-                      return (
-                        <div key={`${icon.path}`} className="relative">
-                          <img
-                            src={`${icon.path}`}
-                            alt={`${icon.name}`}
-                            width="32"
-                            height="32"
-                          />
-                        </div>
-                      );
-                    })}
-                  </div>
+                <div className="flex flex-wrap mb-8 gap-x-2 gap-y-2">
+                  {state.skills.core.map((icon) => {
+                    return (
+                      <div key={`${icon.path}`} className="relative">
+                        <img
+                          src={`${icon.path}`}
+                          alt={`${icon.name}`}
+                          width="32"
+                          height="32"
+                        />
+                      </div>
+                    );
+                  })}
                 </div>
               )}
 
               {/* Frontend Icons Display */}
               {!state.skills.frontend ||
               state.skills.frontend.length < 1 ? null : (
-                <div className="flex flex-col">
-                  <p>Frontend </p>
-                  <div className="flex flex-wrap mb-8 gap-x-2 gap-y-2">
-                    {state.skills.frontend.map((icon) => {
-                      return (
-                        <div key={`${icon.path}`} className="relative">
-                          <img
-                            src={`${icon.path}`}
-                            alt={`${icon.name}`}
-                            width="32"
-                            height="32"
-                          />
-                        </div>
-                      );
-                    })}
-                  </div>
+                <div className="flex flex-wrap mb-8 gap-x-2 gap-y-2">
+                  {state.skills.frontend.map((icon) => {
+                    return (
+                      <div key={`${icon.path}`} className="relative">
+                        <img
+                          src={`${icon.path}`}
+                          alt={`${icon.name}`}
+                          width="32"
+                          height="32"
+                        />
+                      </div>
+                    );
+                  })}
                 </div>
               )}
 
               {/* Backend Icons Display */}
               {!state.skills.backend ||
               state.skills.backend.length < 1 ? null : (
-                <div className="flex flex-col">
-                  <p>Backend &amp; Database</p>
-                  <div className="flex flex-wrap mb-8 gap-x-2 gap-y-2">
-                    {state.skills.backend.map((icon) => {
-                      return (
-                        <div key={`${icon.path}`} className="relative">
-                          <img
-                            src={`${icon.path}`}
-                            alt={`${icon.name}`}
-                            width="32"
-                            height="32"
-                          />
-                        </div>
-                      );
-                    })}
-                  </div>
+                <div className="flex flex-wrap mb-8 gap-x-2 gap-y-2">
+                  {state.skills.backend.map((icon) => {
+                    return (
+                      <div key={`${icon.path}`} className="relative">
+                        <img
+                          src={`${icon.path}`}
+                          alt={`${icon.name}`}
+                          width="32"
+                          height="32"
+                        />
+                      </div>
+                    );
+                  })}
                 </div>
               )}
 
               {/* Other Icons Display */}
               {!state.skills.other || state.skills.other.length < 1 ? null : (
-                <div className="flex flex-col">
-                  <p>Other</p>
-                  <div className="flex flex-wrap mb-8 gap-x-2 gap-y-2">
-                    {state.skills.other.map((icon) => {
-                      return (
-                        <div key={`${icon.path}`} className="relative">
-                          <img
-                            src={`${icon.path}`}
-                            alt={`${icon.name}`}
-                            width="32"
-                            height="32"
-                          />
-                        </div>
-                      );
-                    })}
-                  </div>
+                <div className="flex flex-wrap mb-8 gap-x-2 gap-y-2">
+                  {state.skills.other.map((icon) => {
+                    return (
+                      <div key={`${icon.path}`} className="relative">
+                        <img
+                          src={`${icon.path}`}
+                          alt={`${icon.name}`}
+                          width="32"
+                          height="32"
+                        />
+                      </div>
+                    );
+                  })}
                 </div>
               )}
 
               {/* Software Icons Display */}
               {!state.skills.software ||
               state.skills.software.length < 1 ? null : (
-                <div className="flex flex-col">
-                  <p>Software</p>
-                  <div className="flex flex-wrap mb-8 gap-x-2 gap-y-2">
-                    {state.skills.software.map((icon) => {
-                      return (
-                        <div key={`${icon.path}`} className="relative">
-                          <img
-                            src={`${icon.path}`}
-                            alt={`${icon.name}`}
-                            width="32"
-                            height="32"
-                          />
-                        </div>
-                      );
-                    })}
-                  </div>
+                <div className="flex flex-wrap mb-8 gap-x-2 gap-y-2">
+                  {state.skills.software.map((icon) => {
+                    return (
+                      <div key={`${icon.path}`} className="relative">
+                        <img
+                          src={`${icon.path}`}
+                          alt={`${icon.name}`}
+                          width="32"
+                          height="32"
+                        />
+                      </div>
+                    );
+                  })}
                 </div>
               )}
             </div>

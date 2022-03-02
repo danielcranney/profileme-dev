@@ -5,6 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      transitionProperty: {
+        height: "height",
+      },
       colors: {
         brand: "#f6dc3b",
         dark: {

@@ -11,7 +11,7 @@ export const BadgeSelector = ({
   const { state, dispatch } = useContext(StateContext);
   return (
     <label
-      className={`border select-none btn-sm bg-dark-700 ${
+      className={`min-h-12 border group select-none btn-sm bg-dark-700 ${
         !state.socials[profileLink].linkSuffix.length > 0
           ? "opacity-30"
           : "opacity-100"

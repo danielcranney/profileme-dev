@@ -11,6 +11,7 @@ export const ACTIONS = {
   ADD_SOCIAL_PROFILE: "add-social-profile",
   TOGGLE_BADGE: "toggle-badge",
   TOGGLE_GITHUB_STATS: "toggle-github-stats",
+  STYLE_GITHUB_CARD: "style-github-card",
 };
 
 export const iconData = {
@@ -405,6 +406,17 @@ const initialState = {
       prs: true,
       issues: true,
       contribs: true,
+      privateCommits: true,
+      titleColor: "3382ed",
+      titleColorEdit: false,
+      textColor: "444e59",
+      textColorEdit: false,
+      iconColor: "3382ed",
+      iconColorEdit: false,
+      bgColor: "ffffff",
+      bgColorEdit: false,
+      hideBorder: true,
+      showIcons: true,
     },
     twitchStatus: {
       selected: false,
@@ -494,6 +506,17 @@ function reducer(state, action) {
             ...state.badges.githubStatsCard,
             [action.payload.keyToHide]:
               !state.badges.githubStatsCard[action.payload.keyToHide],
+          },
+        },
+      };
+    case ACTIONS.STYLE_GITHUB_CARD:
+      return {
+        ...state,
+        badges: {
+          ...state.badges,
+          githubStatsCard: {
+            ...state.badges.githubStatsCard,
+            [action.payload.keyToStyle]: [action.payload.color],
           },
         },
       };

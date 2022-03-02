@@ -18,8 +18,161 @@ import { ExtraSmallTick } from "../components/ExtraSmallTick";
 import { IconSelector } from "../components/IconSelector";
 import { BadgeSelector } from "../components/BadgeSelector";
 import { IntroductionArticleWithLink } from "../components/IntroductionArticleWithLink";
+import { BadgeShowSelector } from "../components/BadgeShowSelector";
 import { BadgeStyleSelector } from "../components/BadgeStyleSelector";
 let TurndownService = require("turndown").default;
+
+const colorStore = {
+  lightColors: [
+    {
+      colorName: "white",
+      bgColor: "bg-[#ffffff]",
+      hex: "ffffff",
+    },
+    {
+      colorName: "black",
+      bgColor: "bg-[#000000]",
+      hex: "000000",
+    },
+    {
+      colorName: "red",
+      bgColor: "bg-[#ef4444]",
+      hex: "ef4444",
+    },
+    {
+      colorName: "orange",
+      bgColor: "bg-[#f97316]",
+      hex: "f97316",
+    },
+    {
+      colorName: "yellow",
+      bgColor: "bg-[#facc15]",
+      hex: "facc15",
+    },
+    {
+      colorName: "lime",
+      bgColor: "bg-[#84cc16]",
+      hex: "84cc16",
+    },
+    {
+      colorName: "green",
+      bgColor: "bg-[#22c55e]",
+      hex: "22c55e",
+    },
+    {
+      colorName: "green",
+      bgColor: "bg-[#14b8a6]",
+      hex: "14b8a6",
+    },
+    {
+      colorName: "blue",
+      bgColor: "bg-[#3382ed]",
+      hex: "3382ed",
+    },
+    {
+      colorName: "indigo",
+      bgColor: "bg-[#6366f1]",
+      hex: "6366f1",
+    },
+    {
+      colorName: "purple",
+      bgColor: "bg-[#a855f7]",
+      hex: "a855f7",
+    },
+    {
+      colorName: "pink",
+      bgColor: "bg-[#ec4899]",
+      hex: "ec4899",
+    },
+    {
+      colorName: "slate",
+      bgColor: "bg-[#64748b]",
+      hex: "64748b",
+    },
+    {
+      colorName: "default-grey",
+      bgColor: "bg-[#444e59]",
+      hex: "444e59",
+    },
+    {
+      colorName: "slate-dark",
+      bgColor: "bg-[#1e293b]",
+      hex: "1e293b",
+    },
+  ],
+  darkColors: [
+    {
+      colorName: "white",
+      bgColor: "bg-[#ffffff]",
+      hex: "ffffff",
+    },
+    {
+      colorName: "black",
+      bgColor: "bg-[#000000]",
+      hex: "000000",
+    },
+    {
+      colorName: "stone-dark",
+      bgColor: "bg-[#1c1917]",
+      hex: "1c1917",
+    },
+    {
+      colorName: "slate-dark",
+      bgColor: "bg-[#1e293b]",
+      hex: "1e293b",
+    },
+    {
+      colorName: "zinc-dark",
+      bgColor: "bg-[#27272a]",
+      hex: "27272a",
+    },
+    {
+      colorName: "red-dark",
+      bgColor: "bg-[#7f1d1d]",
+      hex: "7f1d1d",
+    },
+    {
+      colorName: "orange-dark",
+      bgColor: "bg-[#7c2d12]",
+      hex: "7c2d12",
+    },
+    {
+      colorName: "yellow-dark",
+      bgColor: "bg-[#713f12]",
+      hex: "713f12",
+    },
+    {
+      colorName: "lime-dark",
+      bgColor: "bg-[#365314]",
+      hex: "365314",
+    },
+    {
+      colorName: "green-dark",
+      bgColor: "bg-[#14532d]",
+      hex: "14532d",
+    },
+    {
+      colorName: "blue-dark",
+      bgColor: "bg-[#1e3a8a]",
+      hex: "1e3a8a",
+    },
+    {
+      colorName: "indigo-dark",
+      bgColor: "bg-[#312e81]",
+      hex: "312e81",
+    },
+    {
+      colorName: "purple-dark",
+      bgColor: "bg-[#581c87]",
+      hex: "581c87",
+    },
+    {
+      colorName: "pink-dark",
+      bgColor: "bg-[#831843]",
+      hex: "831843",
+    },
+  ],
+};
 
 export default function Home() {
   const { state, dispatch } = useContext(StateContext);
@@ -208,11 +361,21 @@ export default function Home() {
     });
   };
 
-  const handleCardStylingClick = (e) => {
+  const handleBadgeShowClick = (e) => {
     dispatch({
       type: ACTIONS.TOGGLE_GITHUB_STATS,
       payload: {
-        keyToHide: e.target.name,
+        keyToHide: e.currentTarget.name,
+      },
+    });
+  };
+
+  const handleBadgeStyleClick = (e) => {
+    dispatch({
+      type: ACTIONS.STYLE_GITHUB_CARD,
+      payload: {
+        keyToStyle: e.target.name,
+        color: color.hex,
       },
     });
   };
@@ -372,9 +535,9 @@ export default function Home() {
                   header={"Skills"}
                   subhead={`Add some icons to your profile. Select the languages,
                 frameworks, software and tech that you use.`}
-                />{" "}
+                />
               </section>
-              <section className="flex flex-col p-6 overflow-y-auto gap-y-5">
+              <section className="flex flex-col p-6 overflow-y-auto gap-y-3">
                 {/* Core */}
                 <IconSelector
                   handleIconToggle={handleIconToggle}
@@ -570,22 +733,99 @@ export default function Home() {
                   subhead={`Add some badges to your profile.`}
                 />
               </section>
-              <section className="flex flex-col p-6 mt-3 overflow-y-auto gap-y-3 gap-x-3">
-                {/* Twitter Followers Badge */}
-                <BadgeSelector
-                  badgeType={"twitterFollowers"}
-                  profileLink={"twitter"}
-                  badgeText={"Twitter Follower Count"}
-                  handleBadgeClick={handleBadgeClick}
-                />
+              <section className="flex flex-col p-6 overflow-y-auto gap-y-5">
+                {/* Customise */}
+                <article>
+                  <p className={`mb-2 text-xs font-semibold uppercase`}>
+                    Style badges:
+                  </p>
+                  <article className="grid grid-cols-1 gap-2 mb-4 xl:grid-cols-2">
+                    <BadgeStyleSelector
+                      colorList={colorStore.lightColors}
+                      badgeKeyToStyle={"titleColor"}
+                      badgeText={"Title"}
+                      handleBadgeShowClick={handleBadgeShowClick}
+                      badgeKeyToHide={"titleColorEdit"}
+                    />
 
-                {/* Twitch Channel Badge */}
-                <BadgeSelector
-                  badgeType={"twitchStatus"}
-                  profileLink={"twitch"}
-                  badgeText={"Twitch Streaming Status"}
-                  handleBadgeClick={handleBadgeClick}
-                />
+                    <BadgeStyleSelector
+                      colorList={colorStore.lightColors}
+                      badgeKeyToStyle={"textColor"}
+                      badgeText={"Text"}
+                      handleBadgeShowClick={handleBadgeShowClick}
+                      badgeKeyToHide={"textColorEdit"}
+                    />
+
+                    <BadgeStyleSelector
+                      colorList={colorStore.lightColors}
+                      badgeKeyToStyle={"iconColor"}
+                      badgeText={"Icons"}
+                      handleBadgeShowClick={handleBadgeShowClick}
+                      badgeKeyToHide={"iconColorEdit"}
+                    />
+
+                    <BadgeStyleSelector
+                      colorList={colorStore.darkColors}
+                      badgeKeyToStyle={"bgColor"}
+                      badgeText={"Background"}
+                      handleBadgeShowClick={handleBadgeShowClick}
+                      badgeKeyToHide={"bgColorEdit"}
+                    />
+                  </article>
+                </article>
+                {/* GitHub Stats Card */}
+                <article>
+                  <BadgeSelector
+                    badgeType={"githubStatsCard"}
+                    profileLink={"github"}
+                    badgeText={"GitHub Stats Card"}
+                    handleBadgeClick={handleBadgeClick}
+                  />
+
+                  <article
+                    className={`flex flex-col p-3 border-b border-l border-r border-dark-600 overflow-hidden transform ${
+                      state.badges.githubStatsCard.selected
+                        ? "block"
+                        : "hidden -translate-y-3"
+                    }`}
+                  >
+                    <p className={`mb-2 text-xs font-semibold uppercase`}>
+                      Show stats:
+                    </p>
+                    <article className="grid grid-cols-1 gap-2 lg:grid-cols-2">
+                      <BadgeShowSelector
+                        badgeKeyToHide={"stars"}
+                        badgeText={"Stars"}
+                        handleBadgeShowClick={handleBadgeShowClick}
+                      />
+                      <BadgeShowSelector
+                        badgeKeyToHide={"commits"}
+                        badgeText={"Commits"}
+                        handleBadgeShowClick={handleBadgeShowClick}
+                      />
+                      <BadgeShowSelector
+                        badgeKeyToHide={"prs"}
+                        badgeText={"PRs"}
+                        handleBadgeShowClick={handleBadgeShowClick}
+                      />
+                      <BadgeShowSelector
+                        badgeKeyToHide={"issues"}
+                        badgeText={"Issues"}
+                        handleBadgeShowClick={handleBadgeShowClick}
+                      />
+                      <BadgeShowSelector
+                        badgeKeyToHide={"contribs"}
+                        badgeText={"Contributions"}
+                        handleBadgeShowClick={handleBadgeShowClick}
+                      />
+                      <BadgeShowSelector
+                        badgeKeyToHide={"privateCommits"}
+                        badgeText={"Private Commits"}
+                        handleBadgeShowClick={handleBadgeShowClick}
+                      />
+                    </article>
+                  </article>
+                </article>
 
                 {/* GitHub Followers Badge */}
                 <BadgeSelector
@@ -601,47 +841,20 @@ export default function Home() {
                   badgeText={"GitHub Visitor Count"}
                   handleBadgeClick={handleBadgeClick}
                 />
-
-                {/* GitHub Stats Card */}
+                {/* Twitter Followers Badge */}
                 <BadgeSelector
-                  badgeType={"githubStatsCard"}
-                  profileLink={"github"}
-                  badgeText={"GitHub Stats Card"}
+                  badgeType={"twitterFollowers"}
+                  profileLink={"twitter"}
+                  badgeText={"Twitter Follower Count"}
                   handleBadgeClick={handleBadgeClick}
                 />
-
-                <section className="flex flex-col">
-                  <p className="mb-2 text-xs font-semibold uppercase">
-                    Style card:
-                  </p>
-                  <article className="grid grid-cols-1 gap-1 lg:grid-cols-2 xl:grid-cols-3">
-                    <BadgeStyleSelector
-                      badgeKeyToHide={"stars"}
-                      badgeText={"Stars"}
-                      handleCardStylingClick={handleCardStylingClick}
-                    />
-                    <BadgeStyleSelector
-                      badgeKeyToHide={"commits"}
-                      badgeText={"Commits"}
-                      handleCardStylingClick={handleCardStylingClick}
-                    />
-                    <BadgeStyleSelector
-                      badgeKeyToHide={"prs"}
-                      badgeText={"PRs"}
-                      handleCardStylingClick={handleCardStylingClick}
-                    />
-                    <BadgeStyleSelector
-                      badgeKeyToHide={"issues"}
-                      badgeText={"Issues"}
-                      handleCardStylingClick={handleCardStylingClick}
-                    />
-                    <BadgeStyleSelector
-                      badgeKeyToHide={"contribs"}
-                      badgeText={"Contribs"}
-                      handleCardStylingClick={handleCardStylingClick}
-                    />
-                  </article>
-                </section>
+                {/* Twitch Channel Badge */}
+                <BadgeSelector
+                  badgeType={"twitchStatus"}
+                  profileLink={"twitch"}
+                  badgeText={"Twitch Streaming Status"}
+                  handleBadgeClick={handleBadgeClick}
+                />
               </section>
             </>
           ) : null}
@@ -931,41 +1144,51 @@ export default function Home() {
                 <img
                   src={`https://github-readme-stats.vercel.app/api?username=${
                     state.socials.github.linkSuffix
-                  }&show_icons=true&hide_border=true&hide=${
-                    state.badges.githubStatsCard.stars ? "" : "stars,"
-                  }${state.badges.githubStatsCard.commits ? "" : "commits,"}${
-                    state.badges.githubStatsCard.prs ? "" : "prs,"
-                  }${state.badges.githubStatsCard.issues ? "" : "issues,"}${
-                    state.badges.githubStatsCard.contribs ? "" : "contribs"
-                  }`}
+                  }&hide=${state.badges.githubStatsCard.stars ? "" : "stars,"}${
+                    state.badges.githubStatsCard.commits ? "" : "commits,"
+                  }${state.badges.githubStatsCard.prs ? "" : "prs,"}${
+                    state.badges.githubStatsCard.issues ? "" : "issues,"
+                  }${state.badges.githubStatsCard.contribs ? "" : "contribs"}${
+                    state.badges.githubStatsCard.privateCommits
+                      ? "&count_private=true"
+                      : ""
+                  }&title_color=${
+                    state.badges.githubStatsCard.titleColor
+                  }&text_color=${
+                    state.badges.githubStatsCard.textColor
+                  }&icon_color=${
+                    state.badges.githubStatsCard.iconColor
+                  }&bg_color=${
+                    state.badges.githubStatsCard.bgColor
+                  }&hide_border=true&show_icons=true`}
                   className="object-scale-down"
                 />
               ) : null}
 
               {state.badges.twitterFollowers.selected ? (
                 <img
-                  src={`https://img.shields.io/twitter/follow/${state.socials.twitter.linkSuffix}?logo=twitter&style=for-the-badge&color=2563eb&labelColor=29293b`}
+                  src={`https://img.shields.io/twitter/follow/${state.socials.twitter.linkSuffix}?logo=twitter&style=for-the-badge&color=${state.badges.githubStatsCard.iconColor}&labelColor=${state.badges.githubStatsCard.bgColor}`}
                   className="object-scale-down"
                 />
               ) : null}
 
               {state.badges.githubFollowers.selected ? (
                 <img
-                  src={`https://img.shields.io/github/followers/${state.socials.github.linkSuffix}?logo=github&style=for-the-badge&color=2563eb&labelColor=29293b`}
+                  src={`https://img.shields.io/github/followers/${state.socials.github.linkSuffix}?logo=github&style=for-the-badge&color=${state.badges.githubStatsCard.iconColor}&labelColor=${state.badges.githubStatsCard.bgColor}`}
                   className="object-scale-down"
                 />
               ) : null}
 
               {state.badges.githubVisits.selected ? (
                 <img
-                  src={`https://komarev.com/ghpvc/?username=${state.socials.github.linkSuffix}&style=for-the-badge&label=GITHUB+PROFILE+VIEWS&color=2563eb&labelColor=29293b`}
+                  src={`https://komarev.com/ghpvc/?username=${state.socials.github.linkSuffix}&style=for-the-badge&label=GITHUB+PROFILE+VIEWS&color=${state.badges.githubStatsCard.iconColor}&labelColor=${state.badges.githubStatsCard.bgColor}`}
                   className="object-scale-down"
                 />
               ) : null}
 
               {state.badges.twitchStatus.selected ? (
                 <img
-                  src={`https://img.shields.io/twitch/status/${state.socials.twitch.linkSuffix}?logo=twitchsx&style=for-the-badge&color=2563eb&labelColor=29293b&label=TWITCH+STATUS`}
+                  src={`https://img.shields.io/twitch/status/${state.socials.twitch.linkSuffix}?logo=twitchsx&style=for-the-badge&color=${state.badges.githubStatsCard.iconColor}&labelColor=${state.badges.githubStatsCard.bgColor}&label=TWITCH+STATUS`}
                   className="object-scale-down"
                 />
               ) : null}
@@ -1080,30 +1303,62 @@ export default function Home() {
                 {socialsShowing ? <>{`</p>`}</> : null}
 
                 <p className="mt-4 whitespace-pre-line">
-                  {badgesShowing ? <>{`<p align="left">`}</> : null}
                   {!renderedMarkdown.badges.githubStatsCard.selected ? null : (
-                    <span className="whitespace-pre-line">
-                      {`[![${state.introduction.name}'s GitHub stats](https://github-readme-stats.vercel.app/api?username=${state.socials.github.linkSuffix})](https://github.com/anuraghazra/github-readme-stats)
+                    <span className="break-all whitespace-pre-line">
+                      {`[![${
+                        state.introduction.name
+                      }'s GitHub stats](https://github-readme-stats.vercel.app/api?username=${
+                        state.socials.github.linkSuffix
+                      }&show_icons=true&hide_border=true&hide=${
+                        state.badges.githubStatsCard.stars ? "" : "stars,"
+                      }${
+                        state.badges.githubStatsCard.commits ? "" : "commits,"
+                      }${state.badges.githubStatsCard.prs ? "" : "prs,"}${
+                        state.badges.githubStatsCard.issues ? "" : "issues,"
+                      }${
+                        state.badges.githubStatsCard.contribs ? "" : "contribs"
+                      }${
+                        state.badges.githubStatsCard.privateCommits
+                          ? "&count_private=true"
+                          : ""
+                      }&title_color=${
+                        state.badges.githubStatsCard.titleColor
+                      }&text_color=${
+                        state.badges.githubStatsCard.textColor
+                      }&icon_color=${
+                        state.badges.githubStatsCard.iconColor
+                      }&bg_color=${
+                        state.badges.githubStatsCard.bgColor
+                      }&hide_border=true&show_icons=true)](https://github.com/anuraghazra/github-readme-stats)
 `}
                     </span>
                   )}
+
+                  {badgesShowing ? <>{`<p align="left">`}</> : null}
+
                   {!renderedMarkdown.badges.twitterFollowers.selected ? null : (
                     <span className="whitespace-pre-line">
                       {`<a href="${state.socials.twitter.linkPrefix}${state.socials.twitter.linkSuffix}" target="_blank" rel="noreferrer"><img
-                  src="https://img.shields.io/twitter/follow/${state.socials.twitter.linkSuffix}?logo=twitter&style=for-the-badge&color=ff0000"
+                  src="https://img.shields.io/twitter/follow/${state.socials.twitter.linkSuffix}?logo=twitter&style=for-the-badge&color=${state.badges.githubStatsCard.iconColor}&labelColor=${state.badges.githubStatsCard.bgColor}"
                 /></a>`}
                     </span>
                   )}
                   {!renderedMarkdown.badges.githubFollowers.selected ? null : (
                     <span className="whitespace-pre-line">
                       {`<a href="${state.socials.github.linkPrefix}${state.socials.github.linkSuffix}" target="_blank" rel="noreferrer"><img
-                  src="https://img.shields.io/github/followers/${state.socials.github.linkSuffix}?logo=github&style=for-the-badge&color=2563eb&labelColor=29293b" /></a>`}
+                  src="https://img.shields.io/github/followers/${state.socials.github.linkSuffix}?logo=github&style=for-the-badge&color=${state.badges.githubStatsCard.iconColor}&labelColor=${state.badges.githubStatsCard.bgColor}" /></a>`}
                     </span>
                   )}
                   {!renderedMarkdown.badges.githubVisits.selected ? null : (
                     <span className="whitespace-pre-line">
                       {`<a href="${state.socials.github.linkPrefix}${state.socials.github.linkSuffix}" target="_blank" rel="noreferrer"><img
-                  src="https://komarev.com/ghpvc/?username=${state.socials.github.linkSuffix}&style=for-the-badge&label=GITHUB+PROFILE+VIEWS" /></a>`}
+                  src="https://komarev.com/ghpvc/?username=${state.socials.github.linkSuffix}&style=for-the-badge&label=GITHUB+PROFILE+VIEWS&color=${state.badges.githubStatsCard.iconColor}&labelColor=${state.badges.githubStatsCard.bgColor}" /></a>`}
+                    </span>
+                  )}
+                  {!renderedMarkdown.badges.twitchStatus.selected ? null : (
+                    <span className="whitespace-pre-line">
+                      {`<a href="${state.socials.twitch.linkPrefix}${state.socials.twitch.linkSuffix}" target="_blank" rel="noreferrer"><img
+                  src="https://img.shields.io/twitch/status/${state.socials.twitch.linkSuffix}?logo=twitchsx&style=for-the-badge&color=${state.badges.githubStatsCard.iconColor}&labelColor=${state.badges.githubStatsCard.bgColor}&label=TWITCH+STATUS" /></a>`}
                     </span>
                   )}
                   {badgesShowing ? <>{`</p>`}</> : null}

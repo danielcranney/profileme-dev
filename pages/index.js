@@ -370,15 +370,24 @@ export default function Home() {
     });
   };
 
-  const handleBadgeStyleClick = (e) => {
+  const handleColorToggle = (e) => {
     dispatch({
-      type: ACTIONS.STYLE_GITHUB_CARD,
+      type: ACTIONS.TOGGLE_STYLE_COLOR,
       payload: {
-        keyToStyle: e.target.name,
-        color: color.hex,
+        keyToToggle: e.currentTarget.name,
       },
     });
   };
+
+  // const handleBadgeStyleClick = (e) => {
+  //   dispatch({
+  //     type: ACTIONS.STYLE_GITHUB_CARD,
+  //     payload: {
+  //       keyToStyle: e.target.name,
+  //       color: color.hex,
+  //     },
+  //   });
+  // };
 
   const handleIconToggle = (iconCategory, iconObj, i) => {
     if (state.skills[iconCategory].includes(iconObj)) {
@@ -744,7 +753,7 @@ export default function Home() {
                       colorList={colorStore.lightColors}
                       badgeKeyToStyle={"titleColor"}
                       badgeText={"Title"}
-                      handleBadgeShowClick={handleBadgeShowClick}
+                      handleColorToggle={handleColorToggle}
                       badgeKeyToHide={"titleColorEdit"}
                     />
 
@@ -752,7 +761,7 @@ export default function Home() {
                       colorList={colorStore.lightColors}
                       badgeKeyToStyle={"textColor"}
                       badgeText={"Text"}
-                      handleBadgeShowClick={handleBadgeShowClick}
+                      handleColorToggle={handleColorToggle}
                       badgeKeyToHide={"textColorEdit"}
                     />
 
@@ -760,7 +769,7 @@ export default function Home() {
                       colorList={colorStore.lightColors}
                       badgeKeyToStyle={"iconColor"}
                       badgeText={"Icons"}
-                      handleBadgeShowClick={handleBadgeShowClick}
+                      handleColorToggle={handleColorToggle}
                       badgeKeyToHide={"iconColorEdit"}
                     />
 
@@ -768,7 +777,7 @@ export default function Home() {
                       colorList={colorStore.darkColors}
                       badgeKeyToStyle={"bgColor"}
                       badgeText={"Background"}
-                      handleBadgeShowClick={handleBadgeShowClick}
+                      handleColorToggle={handleColorToggle}
                       badgeKeyToHide={"bgColorEdit"}
                     />
                   </article>
@@ -1141,13 +1150,11 @@ export default function Home() {
                       ? "&count_private=true"
                       : ""
                   }&title_color=${
-                    state.badges.githubStatsCard.titleColor
-                  }&text_color=${
-                    state.badges.githubStatsCard.textColor
-                  }&icon_color=${
-                    state.badges.githubStatsCard.iconColor
+                    state.badges.cardStyle.titleColor
+                  }&text_color=${state.badges.cardStyle.textColor}&icon_color=${
+                    state.badges.cardStyle.iconColor
                   }&bg_color=${
-                    state.badges.githubStatsCard.bgColor
+                    state.badges.cardStyle.bgColor
                   }&hide_border=true&show_icons=true`}
                   className="object-scale-down"
                 />
@@ -1155,28 +1162,28 @@ export default function Home() {
 
               {state.badges.twitterFollowers.selected ? (
                 <img
-                  src={`https://img.shields.io/twitter/follow/${state.socials.twitter.linkSuffix}?logo=twitter&style=for-the-badge&color=${state.badges.githubStatsCard.iconColor}&labelColor=${state.badges.githubStatsCard.bgColor}`}
+                  src={`https://img.shields.io/twitter/follow/${state.socials.twitter.linkSuffix}?logo=twitter&style=for-the-badge&color=${state.badges.cardStyle.iconColor}&labelColor=${state.badges.cardStyle.bgColor}`}
                   className="object-scale-down"
                 />
               ) : null}
 
               {state.badges.githubFollowers.selected ? (
                 <img
-                  src={`https://img.shields.io/github/followers/${state.socials.github.linkSuffix}?logo=github&style=for-the-badge&color=${state.badges.githubStatsCard.iconColor}&labelColor=${state.badges.githubStatsCard.bgColor}`}
+                  src={`https://img.shields.io/github/followers/${state.socials.github.linkSuffix}?logo=github&style=for-the-badge&color=${state.badges.cardStyle.iconColor}&labelColor=${state.badges.cardStyle.bgColor}`}
                   className="object-scale-down"
                 />
               ) : null}
 
               {state.badges.githubVisits.selected ? (
                 <img
-                  src={`https://komarev.com/ghpvc/?username=${state.socials.github.linkSuffix}&style=for-the-badge&label=GITHUB+PROFILE+VIEWS&color=${state.badges.githubStatsCard.iconColor}&labelColor=${state.badges.githubStatsCard.bgColor}`}
+                  src={`https://komarev.com/ghpvc/?username=${state.socials.github.linkSuffix}&style=for-the-badge&label=GITHUB+PROFILE+VIEWS&color=${state.badges.cardStyle.iconColor}&labelColor=${state.badges.cardStyle.bgColor}`}
                   className="object-scale-down"
                 />
               ) : null}
 
               {state.badges.twitchStatus.selected ? (
                 <img
-                  src={`https://img.shields.io/twitch/status/${state.socials.twitch.linkSuffix}?logo=twitchsx&style=for-the-badge&color=${state.badges.githubStatsCard.iconColor}&labelColor=${state.badges.githubStatsCard.bgColor}&label=TWITCH+STATUS`}
+                  src={`https://img.shields.io/twitch/status/${state.socials.twitch.linkSuffix}?logo=twitchsx&style=for-the-badge&color=${state.badges.cardStyle.iconColor}&labelColor=${state.badges.cardStyle.bgColor}&label=TWITCH+STATUS`}
                   className="object-scale-down"
                 />
               ) : null}
@@ -1290,7 +1297,7 @@ export default function Home() {
                 })}
                 {socialsShowing ? <>{`</p>`}</> : null}
 
-                <p className="mt-4 whitespace-pre-line">
+                <p className="mt-4 break-all whitespace-pre-line">
                   {!renderedMarkdown.badges.githubStatsCard.selected ? null : (
                     <span className="break-all whitespace-pre-line">
                       {`[![${

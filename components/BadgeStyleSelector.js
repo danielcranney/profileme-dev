@@ -4,7 +4,7 @@ import { ACTIONS } from "../pages/_app";
 
 export const BadgeStyleSelector = ({
   badgeText,
-  handleBadgeShowClick,
+  handleColorToggle,
   badgeKeyToStyle,
   badgeKeyToHide,
   colorList,
@@ -13,17 +13,15 @@ export const BadgeStyleSelector = ({
   return (
     <article className="flex flex-col">
       <button
-        onClick={handleBadgeShowClick}
+        onClick={handleColorToggle}
         name={badgeKeyToHide}
         className={`border flex flex-col text-xs font-semibold uppercase border-dark-600 items-start group hover:bg-dark-700 ${
-          state.badges.githubStatsCard[badgeKeyToHide]
-            ? "bg-dark-700"
-            : "bg-dark-800"
+          state.badges.cardStyle[badgeKeyToHide] ? "bg-dark-700" : "bg-dark-800"
         }`}
       >
         <div className="flex items-center w-full p-3">
           <div
-            className={`mr-2 w-5 h-5 bg-[#${state.badges.githubStatsCard[badgeKeyToStyle]}]`}
+            className={`mr-2 w-5 h-5 bg-[#${state.badges.cardStyle[badgeKeyToStyle]}]`}
           >
             &nbsp;
           </div>
@@ -32,14 +30,14 @@ export const BadgeStyleSelector = ({
           </span>
           <div
             className={`flex ml-auto text-xs font-semibold text-white transition-all duration-150 ease-in-out ${
-              state.badges.githubStatsCard[badgeKeyToHide]
+              state.badges.cardStyle[badgeKeyToHide]
                 ? "opacity-100"
                 : "opacity-50 group-hover:opacity-100"
             }`}
           >
             <svg
               className={`w-4 h-4 mr-2 text-white ${
-                state.badges.githubStatsCard[badgeKeyToHide]
+                state.badges.cardStyle[badgeKeyToHide]
                   ? "opacity-100"
                   : "opacity-50 group-hover:opacity-100"
               }`}
@@ -62,9 +60,7 @@ export const BadgeStyleSelector = ({
 
       <div
         className={`gap-x-1.5 gap-y-1.5 border-b border-l border-r border-dark-600 w-full p-3 ${
-          state.badges.githubStatsCard[badgeKeyToHide]
-            ? "flex flex-wrap"
-            : "hidden"
+          state.badges.cardStyle[badgeKeyToHide] ? "flex flex-wrap" : "hidden"
         }`}
       >
         {colorList.map((color) => {
@@ -74,7 +70,7 @@ export const BadgeStyleSelector = ({
               name={badgeKeyToStyle}
               onClick={(e) => {
                 dispatch({
-                  type: ACTIONS.STYLE_GITHUB_CARD,
+                  type: ACTIONS.STYLE_BADGES,
                   payload: {
                     keyToStyle: e.target.name,
                     color: color.hex,

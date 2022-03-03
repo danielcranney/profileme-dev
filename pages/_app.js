@@ -11,7 +11,8 @@ export const ACTIONS = {
   ADD_SOCIAL_PROFILE: "add-social-profile",
   TOGGLE_BADGE: "toggle-badge",
   TOGGLE_GITHUB_STATS: "toggle-github-stats",
-  STYLE_GITHUB_CARD: "style-github-card",
+  STYLE_BADGES: "style-badges",
+  TOGGLE_STYLE_COLOR: "toggle-style-color",
 };
 
 export const iconData = {
@@ -407,6 +408,11 @@ const initialState = {
       issues: true,
       contribs: true,
       privateCommits: true,
+    },
+    twitchStatus: {
+      selected: false,
+    },
+    cardStyle: {
       titleColor: "3382ed",
       titleColorEdit: false,
       textColor: "444e59",
@@ -418,8 +424,12 @@ const initialState = {
       hideBorder: true,
       showIcons: true,
     },
-    twitchStatus: {
-      selected: false,
+  },
+  support: {
+    buyMeACoffee: {
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/behance.svg",
+      linkPrefix: "https://www.buymeacoffee.com/",
+      linkSuffix: "",
     },
   },
 };
@@ -509,13 +519,25 @@ function reducer(state, action) {
           },
         },
       };
-    case ACTIONS.STYLE_GITHUB_CARD:
+    case ACTIONS.TOGGLE_STYLE_COLOR:
       return {
         ...state,
         badges: {
           ...state.badges,
-          githubStatsCard: {
-            ...state.badges.githubStatsCard,
+          cardStyle: {
+            ...state.badges.cardStyle,
+            [action.payload.keyToToggle]:
+              !state.badges.cardStyle[action.payload.keyToToggle],
+          },
+        },
+      };
+    case ACTIONS.STYLE_BADGES:
+      return {
+        ...state,
+        badges: {
+          ...state.badges,
+          cardStyle: {
+            ...state.badges.cardStyle,
             [action.payload.keyToStyle]: [action.payload.color],
           },
         },

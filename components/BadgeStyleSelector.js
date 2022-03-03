@@ -15,7 +15,7 @@ export const BadgeStyleSelector = ({
       <button
         onClick={handleColorToggle}
         name={badgeKeyToHide}
-        className={`border flex flex-col text-xs font-semibold uppercase border-dark-600 items-start group hover:bg-dark-700 ${
+        className={`border flex flex-col text-xs font-semibold uppercase border-dark-600 items-start group ${
           state.badges.cardStyle[badgeKeyToHide] ? "bg-dark-700" : "bg-dark-800"
         }`}
       >
@@ -73,6 +73,7 @@ export const BadgeStyleSelector = ({
                   type: ACTIONS.STYLE_BADGES,
                   payload: {
                     keyToStyle: e.target.name,
+                    keyToToggle: badgeKeyToHide,
                     color: color.hex,
                   },
                 });

@@ -6,7 +6,14 @@ import { FormLabel } from "./FormLabel";
 import { SocialInput } from "./SocialInput";
 
 export const SocialArticle = forwardRef((props, ref) => {
-  const { formLabelText, linkPrefix, socialAccount, inputPlaceholder } = props;
+  const {
+    formLabelText,
+    linkPrefix,
+    account,
+    inputPlaceholder,
+    section,
+    action,
+  } = props;
   const { state, dispatch } = useContext(StateContext);
 
   return (
@@ -15,7 +22,7 @@ export const SocialArticle = forwardRef((props, ref) => {
         text={formLabelText}
         icon={
           <Image
-            src={`https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/${socialAccount}.svg`}
+            src={`https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/${section}/${account}.svg`}
             width={20}
             height={20}
           />
@@ -27,10 +34,10 @@ export const SocialArticle = forwardRef((props, ref) => {
         </div>
         <SocialInput
           ref={ref}
-          section={"socials"}
-          type={socialAccount}
+          section={section}
+          type={account}
           placeholder={inputPlaceholder}
-          action={ACTIONS.ADD_SOCIAL_PROFILE}
+          action={action}
         />
       </div>
     </article>

@@ -13,6 +13,7 @@ export const ACTIONS = {
   TOGGLE_GITHUB_STATS: "toggle-github-stats",
   STYLE_BADGES: "style-badges",
   TOGGLE_STYLE_COLOR: "toggle-style-color",
+  ADD_SUPPORT: "add-support",
 };
 
 export const iconData = {
@@ -412,6 +413,12 @@ const initialState = {
     twitchStatus: {
       selected: false,
     },
+    topLangsCard: {
+      selected: false,
+    },
+    reposCard: {
+      selected: false,
+    },
     cardStyle: {
       titleColor: "3382ed",
       titleColorEdit: false,
@@ -426,8 +433,8 @@ const initialState = {
     },
   },
   support: {
-    buyMeACoffee: {
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/behance.svg",
+    buymeacoffee: {
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/support/buymeacoffee.svg",
       linkPrefix: "https://www.buymeacoffee.com/",
       linkSuffix: "",
     },
@@ -539,6 +546,20 @@ function reducer(state, action) {
           cardStyle: {
             ...state.badges.cardStyle,
             [action.payload.keyToStyle]: [action.payload.color],
+            [action.payload.keyToToggle]:
+              !state.badges.cardStyle[action.payload.keyToToggle],
+          },
+        },
+      };
+    // BuyMeACoffee Actions
+    case ACTIONS.ADD_SUPPORT:
+      return {
+        ...state,
+        support: {
+          ...state.support,
+          [action.payload.title]: {
+            ...state.support[action.payload.title],
+            linkSuffix: action.payload.value,
           },
         },
       };

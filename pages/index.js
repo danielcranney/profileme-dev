@@ -210,6 +210,9 @@ export default function Home() {
       githubVisits: false,
       githubFollowers: false,
     },
+    support: {
+      buymeacoffee: "",
+    },
   });
   const [socialsShowing, setSocialsShowing] = useState(false);
   const [badgesShowing, setBadgesShowing] = useState(false);
@@ -222,6 +225,8 @@ export default function Home() {
   const socialsTitleRef = useRef(null);
   const socialsRef = useRef(null);
   const badgesRef = useRef(null);
+  const supportTitleRef = useRef(null);
+  const supportRef = useRef(null);
 
   // Introduction refs
   const nameRef = useRef();
@@ -252,6 +257,9 @@ export default function Home() {
   const twitterRef = useRef();
   const youtubeRef = useRef();
 
+  // Support Ref
+  const buymeacoffeeRef = useRef();
+
   // Markdown Container
   const markdownRef = useRef();
 
@@ -277,13 +285,15 @@ export default function Home() {
       { ref: socialsTitleRef, title: "socialsTitle" },
       { ref: socialsRef, title: "socials" },
       { ref: badgesRef, title: "badges" },
+      { ref: supportRef, title: "support" },
     ];
 
     sectionsRefs.map((section, i) => {
       if (
         section.title === "skills" ||
         section.title === "socials" ||
-        section.title === "badges"
+        section.title === "badges" ||
+        section.title === "support"
       ) {
         Object.entries(state[section.title]).forEach((entry) => {
           const [key, value] = entry;
@@ -449,6 +459,7 @@ export default function Home() {
             <MenuItem text={"Skills"} section={"skills"} />
             <MenuItem text={"Socials"} section={"socials"} />
             <MenuItem text={"Badges"} section={"badges"} />
+            <MenuItem text={"Support"} section={"support"} />
           </ul>
         </aside>
         {/* COLUMN 2 - INPUTS */}
@@ -592,145 +603,177 @@ export default function Home() {
                 {/* GitHub Input */}
                 <SocialArticle
                   ref={githubRef}
-                  socialAccount={"github"}
+                  section={"socials"}
+                  account={"github"}
                   inputPlaceholder={"yourname"}
                   formLabelText={"GitHub profile:"}
                   linkPrefix={state.socials.github.linkPrefix}
+                  action={ACTIONS.ADD_SOCIAL_PROFILE}
                 />
 
                 {/* Twitter Input */}
                 <SocialArticle
                   ref={twitterRef}
-                  socialAccount={"twitter"}
+                  section={"socials"}
+                  account={"twitter"}
                   inputPlaceholder={"yourname"}
                   formLabelText={"Twitter profile:"}
                   linkPrefix={state.socials.twitter.linkPrefix}
+                  action={ACTIONS.ADD_SOCIAL_PROFILE}
                 />
 
                 {/* Medium Input */}
                 <SocialArticle
                   ref={mediumRef}
-                  socialAccount={"medium"}
+                  section={"socials"}
+                  account={"medium"}
                   inputPlaceholder={"yourname"}
                   formLabelText={"Medium profile:"}
                   linkPrefix={state.socials.medium.linkPrefix}
+                  action={ACTIONS.ADD_SOCIAL_PROFILE}
                 />
 
                 {/* Hashnode Input */}
                 <SocialArticle
                   ref={hashnodeRef}
-                  socialAccount={"hashnode"}
+                  section={"socials"}
+                  account={"hashnode"}
                   inputPlaceholder={"yourname"}
                   formLabelText={"Hashnode profile:"}
                   linkPrefix={state.socials.hashnode.linkPrefix}
+                  action={ACTIONS.ADD_SOCIAL_PROFILE}
                 />
 
                 {/* DevDotTo Input */}
                 <SocialArticle
                   ref={devdottoRef}
-                  socialAccount={"devdotto"}
+                  section={"socials"}
+                  account={"devdotto"}
                   inputPlaceholder={"yourname"}
                   formLabelText={"Dev.to profile:"}
                   linkPrefix={state.socials.devdotto.linkPrefix}
+                  action={ACTIONS.ADD_SOCIAL_PROFILE}
                 />
 
                 {/* LinkedIn Input */}
                 <SocialArticle
                   ref={linkedinRef}
-                  socialAccount={"linkedin"}
+                  section={"socials"}
+                  account={"linkedin"}
                   inputPlaceholder={"yourname"}
                   formLabelText={"LinkedIn profile:"}
                   linkPrefix={state.socials.linkedin.linkPrefix}
+                  action={ACTIONS.ADD_SOCIAL_PROFILE}
                 />
 
                 {/* Twitch Input */}
                 <SocialArticle
                   ref={twitchRef}
-                  socialAccount={"twitch"}
+                  section={"socials"}
+                  account={"twitch"}
                   inputPlaceholder={"yourname"}
                   formLabelText={"Twitch channel:"}
                   linkPrefix={state.socials.twitch.linkPrefix}
+                  action={ACTIONS.ADD_SOCIAL_PROFILE}
                 />
 
                 {/* YouTube Input */}
                 <SocialArticle
                   ref={youtubeRef}
-                  socialAccount={"youtube"}
+                  section={"socials"}
+                  account={"youtube"}
                   inputPlaceholder={"yourname"}
                   formLabelText={"YouTube channel:"}
                   linkPrefix={state.socials.youtube.linkPrefix}
+                  action={ACTIONS.ADD_SOCIAL_PROFILE}
                 />
 
                 {/* Discord Input */}
                 <SocialArticle
                   ref={discordRef}
-                  socialAccount={"discord"}
+                  section={"socials"}
+                  account={"discord"}
                   inputPlaceholder={"yourname"}
                   formLabelText={"Discord code:"}
                   linkPrefix={state.socials.discord.linkPrefix}
+                  action={ACTIONS.ADD_SOCIAL_PROFILE}
                 />
 
                 {/* Instagram Input */}
                 <SocialArticle
                   ref={instagramRef}
-                  socialAccount={"instagram"}
+                  section={"socials"}
+                  account={"instagram"}
                   inputPlaceholder={"yourname"}
                   formLabelText={"Instagram profile:"}
                   linkPrefix={state.socials.instagram.linkPrefix}
+                  action={ACTIONS.ADD_SOCIAL_PROFILE}
                 />
 
                 {/* Facebook Input */}
                 <SocialArticle
                   ref={facebookRef}
-                  socialAccount={"facebook"}
+                  section={"socials"}
+                  account={"facebook"}
                   inputPlaceholder={"yourname"}
                   formLabelText={"Facebook profile:"}
                   linkPrefix={state.socials.facebook.linkPrefix}
+                  action={ACTIONS.ADD_SOCIAL_PROFILE}
                 />
 
                 {/* Dribbble Input */}
                 <SocialArticle
                   ref={dribbbleRef}
-                  socialAccount={"dribbble"}
+                  section={"socials"}
+                  account={"dribbble"}
                   inputPlaceholder={"yourname"}
                   formLabelText={"Dribbble profile:"}
                   linkPrefix={state.socials.dribbble.linkPrefix}
+                  action={ACTIONS.ADD_SOCIAL_PROFILE}
                 />
 
                 {/* Behance Input */}
                 <SocialArticle
                   ref={behanceRef}
-                  socialAccount={"behance"}
+                  section={"socials"}
+                  account={"behance"}
                   inputPlaceholder={"yourname"}
                   formLabelText={"Behance profile:"}
                   linkPrefix={state.socials.behance.linkPrefix}
+                  action={ACTIONS.ADD_SOCIAL_PROFILE}
                 />
 
                 {/* Code Sandbox Input */}
                 <SocialArticle
                   ref={codesandboxRef}
-                  socialAccount={"codesandbox"}
+                  section={"socials"}
+                  account={"codesandbox"}
                   inputPlaceholder={"yourname"}
                   formLabelText={"CodeSandbox profile:"}
                   linkPrefix={state.socials.codesandbox.linkPrefix}
+                  action={ACTIONS.ADD_SOCIAL_PROFILE}
                 />
 
                 {/* Stack Overflow Input */}
                 <SocialArticle
                   ref={stackoverflowRef}
-                  socialAccount={"stackoverflow"}
+                  section={"socials"}
+                  account={"stackoverflow"}
                   inputPlaceholder={"yourname"}
                   formLabelText={"StackOverflow profile:"}
                   linkPrefix={state.socials.stackoverflow.linkPrefix}
+                  action={ACTIONS.ADD_SOCIAL_PROFILE}
                 />
 
                 {/* RSS Input */}
                 <SocialArticle
                   ref={rssRef}
-                  socialAccount={"rss"}
+                  section={"socials"}
+                  account={"rss"}
                   inputPlaceholder={"yourname"}
                   formLabelText={"RSS url:"}
                   linkPrefix={state.socials.rss.linkPrefix}
+                  action={ACTIONS.ADD_SOCIAL_PROFILE}
                 />
               </section>
             </>
@@ -742,9 +785,9 @@ export default function Home() {
                   subhead={`Add some badges to your profile.`}
                 />
               </section>
-              <section className="flex flex-col p-6 overflow-y-auto gap-y-5">
+              <section className="flex flex-col p-6 overflow-y-auto">
                 {/* Customise */}
-                <article>
+                <article className="mb-4">
                   <p className={`mb-2 text-xs font-semibold uppercase`}>
                     Style badges:
                   </p>
@@ -782,87 +825,132 @@ export default function Home() {
                     />
                   </article>
                 </article>
-                {/* GitHub Stats Card */}
-                <article>
+
+                <article className="flex flex-col mb-6 gap-y-2">
+                  <h3 className="mb-0">GitHub</h3>
+                  {/* GitHub Stats Card */}
+                  <article>
+                    <BadgeSelector
+                      badgeType={"githubStatsCard"}
+                      profileLink={"github"}
+                      badgeText={"Stats Card"}
+                      handleBadgeClick={handleBadgeClick}
+                    />
+
+                    <article
+                      className={`flex flex-col p-3 border-b border-l border-r border-dark-600 overflow-hidden transform ${
+                        state.badges.githubStatsCard.selected
+                          ? "block"
+                          : "hidden -translate-y-3"
+                      }`}
+                    >
+                      <p className={`mb-2 text-xs font-semibold uppercase`}>
+                        Show stats:
+                      </p>
+                      <article className="grid grid-cols-1 gap-2 lg:grid-cols-2">
+                        <BadgeShowSelector
+                          badgeKeyToHide={"stars"}
+                          badgeText={"Stars"}
+                          handleBadgeShowClick={handleBadgeShowClick}
+                        />
+                        <BadgeShowSelector
+                          badgeKeyToHide={"commits"}
+                          badgeText={"Commits"}
+                          handleBadgeShowClick={handleBadgeShowClick}
+                        />
+                        <BadgeShowSelector
+                          badgeKeyToHide={"prs"}
+                          badgeText={"PRs"}
+                          handleBadgeShowClick={handleBadgeShowClick}
+                        />
+                        <BadgeShowSelector
+                          badgeKeyToHide={"issues"}
+                          badgeText={"Issues"}
+                          handleBadgeShowClick={handleBadgeShowClick}
+                        />
+                        <BadgeShowSelector
+                          badgeKeyToHide={"contribs"}
+                          badgeText={"Contributions"}
+                          handleBadgeShowClick={handleBadgeShowClick}
+                        />
+                        <BadgeShowSelector
+                          badgeKeyToHide={"privateCommits"}
+                          badgeText={"Private Commits"}
+                          handleBadgeShowClick={handleBadgeShowClick}
+                        />
+                      </article>
+                    </article>
+                  </article>
+
+                  {/* GitHub Followers Badge */}
                   <BadgeSelector
-                    badgeType={"githubStatsCard"}
+                    badgeType={"githubFollowers"}
                     profileLink={"github"}
-                    badgeText={"GitHub Stats Card"}
+                    badgeText={"Follower Count"}
+                    handleBadgeClick={handleBadgeClick}
+                  />
+                  {/* GitHub Visits Badge */}
+                  <BadgeSelector
+                    badgeType={"githubVisits"}
+                    profileLink={"github"}
+                    badgeText={"Visitor Count"}
                     handleBadgeClick={handleBadgeClick}
                   />
 
-                  <article
-                    className={`flex flex-col p-3 border-b border-l border-r border-dark-600 overflow-hidden transform ${
-                      state.badges.githubStatsCard.selected
-                        ? "block"
-                        : "hidden -translate-y-3"
-                    }`}
-                  >
-                    <p className={`mb-2 text-xs font-semibold uppercase`}>
-                      Show stats:
-                    </p>
-                    <article className="grid grid-cols-1 gap-2 lg:grid-cols-2">
-                      <BadgeShowSelector
-                        badgeKeyToHide={"stars"}
-                        badgeText={"Stars"}
-                        handleBadgeShowClick={handleBadgeShowClick}
-                      />
-                      <BadgeShowSelector
-                        badgeKeyToHide={"commits"}
-                        badgeText={"Commits"}
-                        handleBadgeShowClick={handleBadgeShowClick}
-                      />
-                      <BadgeShowSelector
-                        badgeKeyToHide={"prs"}
-                        badgeText={"PRs"}
-                        handleBadgeShowClick={handleBadgeShowClick}
-                      />
-                      <BadgeShowSelector
-                        badgeKeyToHide={"issues"}
-                        badgeText={"Issues"}
-                        handleBadgeShowClick={handleBadgeShowClick}
-                      />
-                      <BadgeShowSelector
-                        badgeKeyToHide={"contribs"}
-                        badgeText={"Contributions"}
-                        handleBadgeShowClick={handleBadgeShowClick}
-                      />
-                      <BadgeShowSelector
-                        badgeKeyToHide={"privateCommits"}
-                        badgeText={"Private Commits"}
-                        handleBadgeShowClick={handleBadgeShowClick}
-                      />
-                    </article>
-                  </article>
-                </article>
+                  <BadgeSelector
+                    badgeType={"topLangsCard"}
+                    profileLink={"github"}
+                    badgeText={"Top Languages"}
+                    handleBadgeClick={handleBadgeClick}
+                  />
 
-                {/* GitHub Followers Badge */}
-                <BadgeSelector
-                  badgeType={"githubFollowers"}
-                  profileLink={"github"}
-                  badgeText={"GitHub Follower Count"}
-                  handleBadgeClick={handleBadgeClick}
+                  <BadgeSelector
+                    badgeType={"reposCard"}
+                    profileLink={"github"}
+                    badgeText={"Top Repository"}
+                    handleBadgeClick={handleBadgeClick}
+                  />
+                </article>
+                <article className="flex flex-col mb-6 gap-y-2">
+                  <h3 className="mb-0">Twitter</h3>
+                  {/* Twitter Followers Badge */}
+                  <BadgeSelector
+                    badgeType={"twitterFollowers"}
+                    profileLink={"twitter"}
+                    badgeText={"Follower Count"}
+                    handleBadgeClick={handleBadgeClick}
+                  />
+                </article>
+                <article className="flex flex-col mb-6 gap-y-2">
+                  <h3 className="mb-0">Twitch</h3>
+                  {/* Twitch Channel Badge */}
+                  <BadgeSelector
+                    badgeType={"twitchStatus"}
+                    profileLink={"twitch"}
+                    badgeText={"Streaming Status"}
+                    handleBadgeClick={handleBadgeClick}
+                  />
+                </article>
+              </section>
+            </>
+          ) : state.section === "support" ? (
+            <>
+              <section className="flex flex-col p-6 border-b border-dark-600">
+                <SectionHeader
+                  header={"Support"}
+                  subhead={`Make it easy for people using your products to support you or give donations.`}
                 />
-                {/* GitHub Visits Badge */}
-                <BadgeSelector
-                  badgeType={"githubVisits"}
-                  profileLink={"github"}
-                  badgeText={"GitHub Visitor Count"}
-                  handleBadgeClick={handleBadgeClick}
-                />
-                {/* Twitter Followers Badge */}
-                <BadgeSelector
-                  badgeType={"twitterFollowers"}
-                  profileLink={"twitter"}
-                  badgeText={"Twitter Follower Count"}
-                  handleBadgeClick={handleBadgeClick}
-                />
-                {/* Twitch Channel Badge */}
-                <BadgeSelector
-                  badgeType={"twitchStatus"}
-                  profileLink={"twitch"}
-                  badgeText={"Twitch Streaming Status"}
-                  handleBadgeClick={handleBadgeClick}
+              </section>
+              <section className="flex flex-col p-6 overflow-y-auto gap-y-5">
+                {/* GitHub Input */}
+                <SocialArticle
+                  ref={buymeacoffeeRef}
+                  section={"support"}
+                  account={"buymeacoffee"}
+                  inputPlaceholder={"yourname"}
+                  formLabelText={"Buy Me a Coffee:"}
+                  linkPrefix={state.support.buymeacoffee.linkPrefix}
+                  action={ACTIONS.ADD_SUPPORT}
                 />
               </section>
             </>
@@ -1121,7 +1209,12 @@ export default function Home() {
             </div>
 
             {/* Socials Section Preview */}
-            <div ref={socialsRef} className={`flex flex-wrap gap-x-2 mb-8`}>
+            <div
+              ref={socialsRef}
+              className={`flex flex-wrap gap-x-2 ${
+                socialsShowing ? "mb-8" : ""
+              }`}
+            >
               {Object.entries(state.socials).map((profile) => {
                 return profile[1].linkSuffix ? (
                   <a
@@ -1155,37 +1248,61 @@ export default function Home() {
                     state.badges.cardStyle.iconColor
                   }&bg_color=${
                     state.badges.cardStyle.bgColor
-                  }&hide_border=true&show_icons=true`}
+                  }&hide_border=true&border_radius=0&show_icons=true`}
                   className="object-scale-down"
                 />
               ) : null}
 
+              {/* Repo Cards */}
+              {state.badges.reposCard.selected ? (
+                <img
+                  src={`https://github-readme-stats.vercel.app/api/pin/?username=danielcranney&repo=Portfolio&title_color=${state.badges.cardStyle.titleColor}&text_color=${state.badges.cardStyle.textColor}&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${state.badges.cardStyle.bgColor}&hide_border=true&locale=en`}
+                />
+              ) : null}
+
+              {/* Top Languages Cards */}
+              {state.badges.topLangsCard.selected ? (
+                <img
+                  src={`https://github-readme-stats.vercel.app/api/top-langs/?username=danielcranney&langs_count=10&title_color=${state.badges.cardStyle.titleColor}&text_color=${state.badges.cardStyle.textColor}&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${state.badges.cardStyle.bgColor}&hide_border=true&locale=en&custom_title=Top%20%Languages`}
+                />
+              ) : null}
               {state.badges.twitterFollowers.selected ? (
                 <img
                   src={`https://img.shields.io/twitter/follow/${state.socials.twitter.linkSuffix}?logo=twitter&style=for-the-badge&color=${state.badges.cardStyle.iconColor}&labelColor=${state.badges.cardStyle.bgColor}`}
                   className="object-scale-down"
                 />
               ) : null}
-
               {state.badges.githubFollowers.selected ? (
                 <img
                   src={`https://img.shields.io/github/followers/${state.socials.github.linkSuffix}?logo=github&style=for-the-badge&color=${state.badges.cardStyle.iconColor}&labelColor=${state.badges.cardStyle.bgColor}`}
                   className="object-scale-down"
                 />
               ) : null}
-
               {state.badges.githubVisits.selected ? (
                 <img
                   src={`https://komarev.com/ghpvc/?username=${state.socials.github.linkSuffix}&style=for-the-badge&label=GITHUB+PROFILE+VIEWS&color=${state.badges.cardStyle.iconColor}&labelColor=${state.badges.cardStyle.bgColor}`}
                   className="object-scale-down"
                 />
               ) : null}
-
               {state.badges.twitchStatus.selected ? (
                 <img
                   src={`https://img.shields.io/twitch/status/${state.socials.twitch.linkSuffix}?logo=twitchsx&style=for-the-badge&color=${state.badges.cardStyle.iconColor}&labelColor=${state.badges.cardStyle.bgColor}&label=TWITCH+STATUS`}
                   className="object-scale-down"
                 />
+              ) : null}
+            </div>
+
+            <div ref={supportRef} className="flex flex-wrap gap-x-3 gap-y-3">
+              {state.support.buymeacoffee.linkSuffix ? (
+                <a
+                  href={`${state.support.buymeacoffee.linkPrefix}${state.support.buymeacoffee.linkSuffix}`}
+                >
+                  <img
+                    src={`https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png`}
+                    className="object-scale-down"
+                    width="150"
+                  />
+                </a>
               ) : null}
             </div>
           </article>
@@ -1304,7 +1421,7 @@ export default function Home() {
                         state.introduction.name
                       }'s GitHub stats](https://github-readme-stats.vercel.app/api?username=${
                         state.socials.github.linkSuffix
-                      }&show_icons=true&hide_border=true&hide=${
+                      }&show_icons=true&hide=${
                         state.badges.githubStatsCard.stars ? "" : "stars,"
                       }${
                         state.badges.githubStatsCard.commits ? "" : "commits,"
@@ -1317,19 +1434,19 @@ export default function Home() {
                           ? "&count_private=true"
                           : ""
                       }&title_color=${
-                        state.badges.githubStatsCard.titleColor
+                        state.badges.cardStyle.titleColor
                       }&text_color=${
-                        state.badges.githubStatsCard.textColor
+                        state.badges.cardStyle.textColor
                       }&icon_color=${
-                        state.badges.githubStatsCard.iconColor
+                        state.badges.cardStyle.iconColor
                       }&bg_color=${
-                        state.badges.githubStatsCard.bgColor
+                        state.badges.cardStyle.bgColor
                       }&hide_border=true&show_icons=true)](https://github.com/anuraghazra/github-readme-stats)
 `}
                     </span>
                   )}
 
-                  {badgesShowing ? <>{`<p align="left">`}</> : null}
+                  {/* {badgesShowing ? <>{`<p align="left">`}</> : null} */}
 
                   {!renderedMarkdown.badges.twitterFollowers.selected ? null : (
                     <span className="whitespace-pre-line">
@@ -1356,7 +1473,20 @@ export default function Home() {
                   src="https://img.shields.io/twitch/status/${state.socials.twitch.linkSuffix}?logo=twitchsx&style=for-the-badge&color=${state.badges.githubStatsCard.iconColor}&labelColor=${state.badges.githubStatsCard.bgColor}&label=TWITCH+STATUS" /></a>`}
                     </span>
                   )}
-                  {badgesShowing ? <>{`</p>`}</> : null}
+                  {/* {badgesShowing ? <>{`</p>`}</> : null} */}
+
+                  {!renderedMarkdown.support.buymeacoffee.linkSuffix ? null : (
+                    <span className="whitespace-pre-line">
+                      {`<a
+                  href="${state.support.buymeacoffee.linkPrefix}${state.support.buymeacoffee.linkSuffix}"
+                >
+                  <img
+                    src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png"
+                    width="200"
+                  />
+                </a>`}
+                    </span>
+                  )}
                 </p>
               </>
             )}

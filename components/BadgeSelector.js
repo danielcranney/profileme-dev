@@ -11,10 +11,10 @@ export const BadgeSelector = ({
   const { state, dispatch } = useContext(StateContext);
   return (
     <label
-      className={`py-3 w-full flex uppercase font-semibold border-0 group select-none border-b border-dark-600 ${
+      className={`py-3 w-full flex uppercase font-semibold group select-none border border-dark-600 px-2 ${
         !state.socials[profileLink].linkSuffix.length > 0
           ? "opacity-30 hover:cursor-not-allowed"
-          : "opacity-100 hover:cursor-pointer "
+          : "opacity-100 hover:cursor-pointer"
       }`}
     >
       <input

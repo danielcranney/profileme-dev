@@ -66,6 +66,7 @@ export const BadgeStyleSelector = ({
         {colorList.map((color) => {
           return (
             <button
+              key={color.hex}
               className={`w-5 h-5 ${color.bgColor}`}
               name={badgeKeyToStyle}
               onClick={(e) => {

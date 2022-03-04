@@ -13,6 +13,7 @@ export const ACTIONS = {
   TOGGLE_GITHUB_STATS: "toggle-github-stats",
   STYLE_BADGES: "style-badges",
   TOGGLE_STYLE_COLOR: "toggle-style-color",
+  ADD_REPO: "add-repo",
   ADD_SUPPORT: "add-support",
 };
 
@@ -418,15 +419,19 @@ const initialState = {
     },
     reposCard: {
       selected: false,
+      repoOne: "",
+      repoTwo: null,
+      repoThree: null,
+      reporFour: null,
     },
     cardStyle: {
       titleColor: "3382ed",
       titleColorEdit: false,
-      textColor: "444e59",
+      textColor: "ffffff",
       textColorEdit: false,
       iconColor: "3382ed",
       iconColorEdit: false,
-      bgColor: "ffffff",
+      bgColor: "1c1917",
       bgColorEdit: false,
       hideBorder: true,
       showIcons: true,
@@ -551,7 +556,19 @@ function reducer(state, action) {
           },
         },
       };
-    // BuyMeACoffee Actions
+    case ACTIONS.ADD_REPO:
+      return {
+        ...state,
+        badges: {
+          ...state.badges,
+          reposCard: {
+            ...state.badges.reposCard,
+            [action.payload.title]: action.payload.value,
+          },
+        },
+      };
+
+    // Support Actions
     case ACTIONS.ADD_SUPPORT:
       return {
         ...state,

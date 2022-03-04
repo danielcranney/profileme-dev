@@ -20,6 +20,7 @@ import { BadgeSelector } from "../components/BadgeSelector";
 import { IntroductionArticleWithLink } from "../components/IntroductionArticleWithLink";
 import { BadgeShowSelector } from "../components/BadgeShowSelector";
 import { BadgeStyleSelector } from "../components/BadgeStyleSelector";
+import { AddButton } from "../components/AddButton";
 let TurndownService = require("turndown").default;
 
 const colorStore = {
@@ -257,6 +258,12 @@ export default function Home() {
   const twitterRef = useRef();
   const youtubeRef = useRef();
 
+  // Repo Card Refs
+  const repoOneRef = useRef();
+  const repoTwoRef = useRef();
+  const repoThreeRef = useRef();
+  const repoFourRef = useRef();
+
   // Support Ref
   const buymeacoffeeRef = useRef();
 
@@ -265,7 +272,7 @@ export default function Home() {
 
   // Update Markdown
   useEffect(() => {
-    console.log("The updated state is: ", state);
+    console.table("The updated state is: ", state);
 
     // If PreviewRef not showing, return
     if (!introductionRef.current) return;
@@ -882,21 +889,7 @@ export default function Home() {
                     </article>
                   </article>
 
-                  {/* GitHub Followers Badge */}
-                  <BadgeSelector
-                    badgeType={"githubFollowers"}
-                    profileLink={"github"}
-                    badgeText={"Follower Count"}
-                    handleBadgeClick={handleBadgeClick}
-                  />
-                  {/* GitHub Visits Badge */}
-                  <BadgeSelector
-                    badgeType={"githubVisits"}
-                    profileLink={"github"}
-                    badgeText={"Visitor Count"}
-                    handleBadgeClick={handleBadgeClick}
-                  />
-
+                  {/* Top Languages Card */}
                   <BadgeSelector
                     badgeType={"topLangsCard"}
                     profileLink={"github"}
@@ -904,10 +897,113 @@ export default function Home() {
                     handleBadgeClick={handleBadgeClick}
                   />
 
+                  <article>
+                    {/* Repository Card */}
+                    <BadgeSelector
+                      badgeType={"reposCard"}
+                      profileLink={"github"}
+                      badgeText={"Top Repositories"}
+                      handleBadgeClick={handleBadgeClick}
+                    />
+
+                    <article
+                      className={`flex flex-col p-3 border-b border-l border-r border-dark-600 overflow-hidden transform ${
+                        state.badges.reposCard.selected
+                          ? "block"
+                          : "hidden -translate-y-3"
+                      }`}
+                    >
+                      <p className={`mb-2 text-xs font-semibold uppercase`}>
+                        Find Repositories
+                      </p>
+                      <p className="text-xs">
+                        The repository must be the same as it is on your GitHub
+                        (including hyphens, NOT case-sensitive).
+                      </p>
+                      <article className="grid grid-cols-1 gap-2 mb-2">
+                        <FormInput
+                          ref={repoOneRef}
+                          section={"reposCard"}
+                          type={"repoOne"}
+                          placeholder={"repo-name"}
+                          action={ACTIONS.ADD_REPO}
+                        />
+
+                        {state.badges.reposCard.repoTwo != null ? (
+                          <FormInput
+                            ref={repoTwoRef}
+                            section={"reposCard"}
+                            type={"repoTwo"}
+                            placeholder={"repo-name"}
+                            action={ACTIONS.ADD_REPO}
+                          />
+                        ) : null}
+
+                        {state.badges.reposCard.repoThree != null ? (
+                          <FormInput
+                            ref={repoThreeRef}
+                            section={"reposCard"}
+                            type={"repoThree"}
+                            placeholder={"repo-name"}
+                            action={ACTIONS.ADD_REPO}
+                          />
+                        ) : null}
+
+                        {state.badges.reposCard.repoFour != null ? (
+                          <FormInput
+                            ref={repoFourRef}
+                            section={"reposCard"}
+                            type={"repoFour"}
+                            placeholder={"repo-name"}
+                            action={ACTIONS.ADD_REPO}
+                          />
+                        ) : null}
+                      </article>
+                      {state.badges.reposCard.repoTwo != null ? null : (
+                        <>
+                          <AddButton
+                            action={ACTIONS.ADD_REPO}
+                            repoNumberToAdd={"repoTwo"}
+                          />
+                        </>
+                      )}
+
+                      {state.badges.reposCard.repoThree != null ||
+                      state.badges.reposCard.repoTwo == null ? null : (
+                        <>
+                          <AddButton
+                            action={ACTIONS.ADD_REPO}
+                            repoNumberToAdd={"repoThree"}
+                          />
+                        </>
+                      )}
+
+                      {state.badges.reposCard.repoFour != null ||
+                      state.badges.reposCard.repoTwo == null ||
+                      state.badges.reposCard.repoThree == null ? null : (
+                        <>
+                          <AddButton
+                            action={ACTIONS.ADD_REPO}
+                            repoNumberToAdd={"repoFour"}
+                          />
+                        </>
+                      )}
+                    </article>
+                  </article>
+
+                  {/* GitHub Followers Badge */}
                   <BadgeSelector
-                    badgeType={"reposCard"}
+                    badgeType={"githubFollowers"}
                     profileLink={"github"}
-                    badgeText={"Top Repository"}
+                    badgeText={"Follower Count"}
+                    handleBadgeClick={handleBadgeClick}
+                  />
+
+                  {/* GitHub Visits Badge */}
+                  <BadgeSelector
+                    badgeType={"githubVisits"}
+                    profileLink={"github"}
+                    badgeText={"Visitor Count"}
                     handleBadgeClick={handleBadgeClick}
                   />
                 </article>
@@ -1254,10 +1350,56 @@ export default function Home() {
               ) : null}
 
               {/* Repo Cards */}
-              {state.badges.reposCard.selected ? (
-                <img
-                  src={`https://github-readme-stats.vercel.app/api/pin/?username=danielcranney&repo=Portfolio&title_color=${state.badges.cardStyle.titleColor}&text_color=${state.badges.cardStyle.textColor}&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${state.badges.cardStyle.bgColor}&hide_border=true&locale=en`}
-                />
+              {state.badges.reposCard.selected &&
+              state.badges.reposCard.repoOne ? (
+                <a
+                  href={`https://www.github.com/${state.socials.github.linkSuffix}/${state.badges.reposCard.repoOne}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img
+                    src={`https://github-readme-stats.vercel.app/api/pin/?username=${state.socials.github.linkSuffix}&repo=${state.badges.reposCard.repoOne}&title_color=${state.badges.cardStyle.titleColor}&text_color=${state.badges.cardStyle.textColor}&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${state.badges.cardStyle.bgColor}&hide_border=true&locale=en`}
+                  />
+                </a>
+              ) : null}
+
+              {state.badges.reposCard.selected &&
+              state.badges.reposCard.repoTwo ? (
+                <a
+                  href={`https://www.github.com/${state.socials.github.linkSuffix}/${state.badges.reposCard.repoTwo}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img
+                    src={`https://github-readme-stats.vercel.app/api/pin/?username=${state.socials.github.linkSuffix}&repo=${state.badges.reposCard.repoTwo}&title_color=${state.badges.cardStyle.titleColor}&text_color=${state.badges.cardStyle.textColor}&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${state.badges.cardStyle.bgColor}&hide_border=true&locale=en`}
+                  />
+                </a>
+              ) : null}
+
+              {state.badges.reposCard.selected &&
+              state.badges.reposCard.repoThree ? (
+                <a
+                  href={`https://www.github.com/${state.socials.github.linkSuffix}/${state.badges.reposCard.repoThree}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img
+                    src={`https://github-readme-stats.vercel.app/api/pin/?username=${state.socials.github.linkSuffix}&repo=${state.badges.reposCard.repoThree}&title_color=${state.badges.cardStyle.titleColor}&text_color=${state.badges.cardStyle.textColor}&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${state.badges.cardStyle.bgColor}&hide_border=true&locale=en`}
+                  />
+                </a>
+              ) : null}
+
+              {state.badges.reposCard.selected &&
+              state.badges.reposCard.repoFour ? (
+                <a
+                  href={`https://www.github.com/${state.socials.github.linkSuffix}/${state.badges.reposCard.repoFour}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img
+                    src={`https://github-readme-stats.vercel.app/api/pin/?username=${state.socials.github.linkSuffix}&repo=${state.badges.reposCard.repoFour}&title_color=${state.badges.cardStyle.titleColor}&text_color=${state.badges.cardStyle.textColor}&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${state.badges.cardStyle.bgColor}&hide_border=true&locale=en`}
+                  />
+                </a>
               ) : null}
 
               {/* Top Languages Cards */}
@@ -1266,30 +1408,33 @@ export default function Home() {
                   src={`https://github-readme-stats.vercel.app/api/top-langs/?username=danielcranney&langs_count=10&title_color=${state.badges.cardStyle.titleColor}&text_color=${state.badges.cardStyle.textColor}&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${state.badges.cardStyle.bgColor}&hide_border=true&locale=en&custom_title=Top%20%Languages`}
                 />
               ) : null}
-              {state.badges.twitterFollowers.selected ? (
-                <img
-                  src={`https://img.shields.io/twitter/follow/${state.socials.twitter.linkSuffix}?logo=twitter&style=for-the-badge&color=${state.badges.cardStyle.iconColor}&labelColor=${state.badges.cardStyle.bgColor}`}
-                  className="object-scale-down"
-                />
-              ) : null}
-              {state.badges.githubFollowers.selected ? (
-                <img
-                  src={`https://img.shields.io/github/followers/${state.socials.github.linkSuffix}?logo=github&style=for-the-badge&color=${state.badges.cardStyle.iconColor}&labelColor=${state.badges.cardStyle.bgColor}`}
-                  className="object-scale-down"
-                />
-              ) : null}
-              {state.badges.githubVisits.selected ? (
-                <img
-                  src={`https://komarev.com/ghpvc/?username=${state.socials.github.linkSuffix}&style=for-the-badge&label=GITHUB+PROFILE+VIEWS&color=${state.badges.cardStyle.iconColor}&labelColor=${state.badges.cardStyle.bgColor}`}
-                  className="object-scale-down"
-                />
-              ) : null}
-              {state.badges.twitchStatus.selected ? (
-                <img
-                  src={`https://img.shields.io/twitch/status/${state.socials.twitch.linkSuffix}?logo=twitchsx&style=for-the-badge&color=${state.badges.cardStyle.iconColor}&labelColor=${state.badges.cardStyle.bgColor}&label=TWITCH+STATUS`}
-                  className="object-scale-down"
-                />
-              ) : null}
+
+              <p>
+                {state.badges.twitterFollowers.selected ? (
+                  <img
+                    src={`https://img.shields.io/twitter/follow/${state.socials.twitter.linkSuffix}?logo=twitter&style=for-the-badge&color=${state.badges.cardStyle.iconColor}&labelColor=${state.badges.cardStyle.bgColor}`}
+                    className="object-scale-down"
+                  />
+                ) : null}
+                {state.badges.githubFollowers.selected ? (
+                  <img
+                    src={`https://img.shields.io/github/followers/${state.socials.github.linkSuffix}?logo=github&style=for-the-badge&color=${state.badges.cardStyle.iconColor}&labelColor=${state.badges.cardStyle.bgColor}`}
+                    className="object-scale-down"
+                  />
+                ) : null}
+                {state.badges.githubVisits.selected ? (
+                  <img
+                    src={`https://komarev.com/ghpvc/?username=${state.socials.github.linkSuffix}&style=for-the-badge&label=GITHUB+PROFILE+VIEWS&color=${state.badges.cardStyle.iconColor}&labelColor=${state.badges.cardStyle.bgColor}`}
+                    className="object-scale-down"
+                  />
+                ) : null}
+                {state.badges.twitchStatus.selected ? (
+                  <img
+                    src={`https://img.shields.io/twitch/status/${state.socials.twitch.linkSuffix}?logo=twitchsx&style=for-the-badge&color=${state.badges.cardStyle.iconColor}&labelColor=${state.badges.cardStyle.bgColor}&label=TWITCH+STATUS`}
+                    className="object-scale-down"
+                  />
+                ) : null}
+              </p>
             </div>
 
             <div ref={supportRef} className="flex flex-wrap gap-x-3 gap-y-3">

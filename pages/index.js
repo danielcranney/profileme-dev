@@ -210,6 +210,7 @@ export default function Home() {
       githubStatsCard: false,
       githubVisits: false,
       githubFollowers: false,
+      githubCommitsGraph: false,
     },
     support: {
       buymeacoffee: "",
@@ -991,6 +992,14 @@ export default function Home() {
                     </article>
                   </article>
 
+                  {/* GitHub Commits Graph Badge */}
+                  <BadgeSelector
+                    badgeType={"githubCommitsGraph"}
+                    profileLink={"github"}
+                    badgeText={"Commits Graph"}
+                    handleBadgeClick={handleBadgeClick}
+                  />
+
                   {/* GitHub Followers Badge */}
                   <BadgeSelector
                     badgeType={"githubFollowers"}
@@ -1326,6 +1335,11 @@ export default function Home() {
 
             {/* Badges Section Preview */}
             <div ref={badgesRef} className="flex flex-wrap gap-x-3 gap-y-3">
+              {state.badges.githubCommitsGraph.selected ? (
+                <img
+                  src={`https://activity-graph.herokuapp.com/graph?username=${state.socials.github.linkSuffix}`}
+                />
+              ) : null}
               {state.badges.githubStatsCard.selected ? (
                 <img
                   src={`https://github-readme-stats.vercel.app/api?username=${

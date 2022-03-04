@@ -411,6 +411,9 @@ const initialState = {
       contribs: true,
       privateCommits: true,
     },
+    githubCommitsGraph: {
+      selected: false,
+    },
     twitchStatus: {
       selected: false,
     },

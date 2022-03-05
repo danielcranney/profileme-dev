@@ -34,25 +34,25 @@ BASE STYLES
     transition-all duration-150 ease-in-out text-white;
   }
   h1 {
-    @apply text-4xl md:text-5xl;
+    @apply text-4xl;
   }
   h2 {
-    @apply text-3xl md:text-4xl;
+    @apply text-3xl;
   }
   h3 {
-    @apply text-2xl md:text-3xl;
+    @apply text-2xl;
   }
   h4 {
-    @apply text-xl md:text-2xl;
+    @apply text-xl;
   }
   h5 {
-    @apply text-lg md:text-xl;
+    @apply text-lg;
   }
   h6 {
-    @apply text-sm md:text-base;
+    @apply text-sm;
   }
   p {
-    @apply mb-4 leading-relaxed
+    @apply text-sm mb-4 leading-relaxed
     text-dark-300;
   }
   a {
@@ -103,7 +103,7 @@ FORM STYLES
   }
 
   .input-field {
-    @apply py-2 focus:outline-none focus:placeholder:hidden text-sm flex items-center bg-dark-900 border border-dark-600 px-2 placeholder:text-sm placeholder:text-dark-400 text-white flex-1;
+    @apply appearance-none py-2 focus:outline-none focus:placeholder:hidden text-sm flex items-center bg-dark-900 border border-dark-600 px-2 placeholder:text-sm placeholder:text-dark-400 text-white flex-1 focus:border-dark-400 focus:ring-offset-0 focus:ring-0;
   }
 
   .minimal-input-field {
@@ -126,5 +126,14 @@ CHECKBOX COMPONENT
 @layer components {
   .checkbox-input {
     @apply mr-2 border appearance-none border-dark-600 focus:outline-none focus:ring-0 group-hover:bg-dark-600 disabled:group-hover:bg-dark-900 checked:group-hover:bg-blue-500 focus:ring-offset-0 bg-dark-900;
+  }
+}
+
+/*-----------------------
+LIST     
+-----------------------*/
+@layer components {
+  li {
+    @apply text-white;
   }
 }

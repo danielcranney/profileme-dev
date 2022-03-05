@@ -21,6 +21,7 @@ import { IntroductionArticleWithLink } from "../components/IntroductionArticleWi
 import { BadgeShowSelector } from "../components/BadgeShowSelector";
 import { BadgeStyleSelector } from "../components/BadgeStyleSelector";
 import { AddButton } from "../components/AddButton";
+import { IntroductionTextarea } from "../components/IntroductionTextarea";
 let TurndownService = require("turndown").default;
 
 const colorStore = {
@@ -34,6 +35,11 @@ const colorStore = {
       colorName: "black",
       bgColor: "bg-[#000000]",
       hex: "000000",
+    },
+    {
+      colorName: "slate-dark",
+      bgColor: "bg-[#0f172a]",
+      hex: "0f172a",
     },
     {
       colorName: "red",
@@ -61,7 +67,12 @@ const colorStore = {
       hex: "22c55e",
     },
     {
-      colorName: "green",
+      colorName: "emerald",
+      bgColor: "bg-[#10b981]",
+      hex: "10b981",
+    },
+    {
+      colorName: "teal",
       bgColor: "bg-[#14b8a6]",
       hex: "14b8a6",
     },
@@ -86,19 +97,14 @@ const colorStore = {
       hex: "ec4899",
     },
     {
-      colorName: "slate",
-      bgColor: "bg-[#64748b]",
-      hex: "64748b",
-    },
-    {
       colorName: "default-grey",
       bgColor: "bg-[#444e59]",
       hex: "444e59",
     },
     {
-      colorName: "slate-dark",
-      bgColor: "bg-[#1e293b]",
-      hex: "1e293b",
+      colorName: "slate",
+      bgColor: "bg-[#64748b]",
+      hex: "64748b",
     },
   ],
   darkColors: [
@@ -113,19 +119,9 @@ const colorStore = {
       hex: "000000",
     },
     {
-      colorName: "stone-dark",
-      bgColor: "bg-[#1c1917]",
-      hex: "1c1917",
-    },
-    {
       colorName: "slate-dark",
-      bgColor: "bg-[#1e293b]",
-      hex: "1e293b",
-    },
-    {
-      colorName: "zinc-dark",
-      bgColor: "bg-[#27272a]",
-      hex: "27272a",
+      bgColor: "bg-[#0f172a]",
+      hex: "0f172a",
     },
     {
       colorName: "red-dark",
@@ -153,6 +149,11 @@ const colorStore = {
       hex: "14532d",
     },
     {
+      colorName: "emerald-dark",
+      bgColor: "bg-[#134e4a]",
+      hex: "134e4a",
+    },
+    {
       colorName: "blue-dark",
       bgColor: "bg-[#1e3a8a]",
       hex: "1e3a8a",
@@ -171,6 +172,21 @@ const colorStore = {
       colorName: "pink-dark",
       bgColor: "bg-[#831843]",
       hex: "831843",
+    },
+    {
+      colorName: "stone-dark",
+      bgColor: "bg-[#1c1917]",
+      hex: "1c1917",
+    },
+    {
+      colorName: "zinc-dark",
+      bgColor: "bg-[#27272a]",
+      hex: "27272a",
+    },
+    {
+      colorName: "gray-dark",
+      bgColor: "bg-[#171717]",
+      hex: "171717",
     },
   ],
 };
@@ -233,7 +249,8 @@ export default function Home() {
 
   // Introduction refs
   const nameRef = useRef();
-  const descriptionRef = useRef();
+  const shortDescriptionRef = useRef();
+  const longDescriptionRef = useRef();
   const locationRef = useRef();
   const workingOnTitleRef = useRef();
   const workingOnLinkRef = useRef();
@@ -459,7 +476,7 @@ export default function Home() {
       </header>
       <div className="flex flex-1 overflow-hidden">
         {/* COLUMN 1 - SIDEBAR */}
-        <aside className="flex flex-col p-6 overflow-auto border-r bg-dark-800 w-72 border-dark-600">
+        <aside className="flex flex-col w-64 p-6 overflow-auto border-r bg-dark-800 border-dark-600">
           <p className="mb-4 text-xs font-semibold text-white uppercase">
             Sections
           </p>
@@ -492,16 +509,29 @@ export default function Home() {
                   type={"name"}
                   inputPlaceholder={"Peter Parker"}
                 />
-                {/* Description */}
+                {/* Short Description */}
                 <IntroductionArticle
-                  ref={descriptionRef}
-                  formLabelText={"More about me:"}
+                  ref={shortDescriptionRef}
+                  formLabelText={"Subtitle:"}
                   formLabelIcon={"💡"}
                   section={"introduction"}
-                  type={"description"}
-                  inputPlaceholder={"I am a web developer and designer"}
+                  type={"shortDescription"}
+                  inputPlaceholder={"Web Developer and Designer"}
+                />
+                {/* Long Description */}
+                <IntroductionTextarea
+                  ref={longDescriptionRef}
+                  formLabelText={"Long Description:"}
+                  formLabelIcon={"✏️"}
+                  section={"introduction"}
+                  type={"longDescription"}
+                  inputPlaceholder={
+                    "eg: I've been learning to code for 5 years, after switching careers. I started with HTML, but have really found a passion for backend development..."
+                  }
                 />
                 {/* Location */}
+
+                <h4 className="mb-0">About me</h4>
                 <IntroductionArticle
                   ref={locationRef}
                   formLabelText={"I'm based in:"}
@@ -515,7 +545,7 @@ export default function Home() {
                   <IntroductionArticle
                     ref={workingOnTitleRef}
                     formLabelText={"I'm currently working on:"}
-                    formLabelIcon={"🧰"}
+                    formLabelIcon={"🚀"}
                     section={"introduction"}
                     type={"workingOnTitle"}
                     inputPlaceholder={"MyApp"}
@@ -532,7 +562,7 @@ export default function Home() {
                 <IntroductionArticle
                   ref={learningRef}
                   formLabelText={"I'm currently learning:"}
-                  formLabelIcon={"🎓"}
+                  formLabelIcon={"🧠"}
                   section={"introduction"}
                   type={"learning"}
                   inputPlaceholder={"a new framework"}
@@ -631,17 +661,6 @@ export default function Home() {
                   action={ACTIONS.ADD_SOCIAL_PROFILE}
                 />
 
-                {/* Medium Input */}
-                <SocialArticle
-                  ref={mediumRef}
-                  section={"socials"}
-                  account={"medium"}
-                  inputPlaceholder={"yourname"}
-                  formLabelText={"Medium profile:"}
-                  linkPrefix={state.socials.medium.linkPrefix}
-                  action={ACTIONS.ADD_SOCIAL_PROFILE}
-                />
-
                 {/* Hashnode Input */}
                 <SocialArticle
                   ref={hashnodeRef}
@@ -650,6 +669,17 @@ export default function Home() {
                   inputPlaceholder={"yourname"}
                   formLabelText={"Hashnode profile:"}
                   linkPrefix={state.socials.hashnode.linkPrefix}
+                  action={ACTIONS.ADD_SOCIAL_PROFILE}
+                />
+
+                {/* Medium Input */}
+                <SocialArticle
+                  ref={mediumRef}
+                  section={"socials"}
+                  account={"medium"}
+                  inputPlaceholder={"yourname"}
+                  formLabelText={"Medium profile:"}
+                  linkPrefix={state.socials.medium.linkPrefix}
                   action={ACTIONS.ADD_SOCIAL_PROFILE}
                 />
 
@@ -837,6 +867,11 @@ export default function Home() {
 
                 <article className="flex flex-col mb-6 gap-y-2">
                   <h3 className="mb-0">GitHub</h3>
+                  {!state.socials.github.linkSuffix ? (
+                    <p className="mb-2 text-xs">
+                      Please add your GitHub profile in the socials section.
+                    </p>
+                  ) : null}
                   {/* GitHub Stats Card */}
                   <article>
                     <BadgeSelector
@@ -1026,6 +1061,11 @@ export default function Home() {
                 </article>
                 <article className="flex flex-col mb-6 gap-y-2">
                   <h3 className="mb-0">Twitter</h3>
+                  {!state.socials.twitter.linkSuffix ? (
+                    <p className="mb-2 text-xs">
+                      Please add your Twitter profile in the socials section.
+                    </p>
+                  ) : null}
                   {/* Twitter Followers Badge */}
                   <BadgeSelector
                     badgeType={"twitterFollowers"}
@@ -1036,6 +1076,11 @@ export default function Home() {
                 </article>
                 <article className="flex flex-col mb-6 gap-y-2">
                   <h3 className="mb-0">Twitch</h3>
+                  {!state.socials.twitch.linkSuffix ? (
+                    <p className="mb-2 text-xs">
+                      Please add your Twitch profile in the socials section.
+                    </p>
+                  ) : null}
                   {/* Twitch Channel Badge */}
                   <BadgeSelector
                     badgeType={"twitchStatus"}
@@ -1170,42 +1215,72 @@ export default function Home() {
             {/* Introduce Section Preview */}
             <div
               ref={introductionRef}
-              className={`${!state.introduction.name ? "" : "mb-8"}`}
+              className={`${
+                state.introduction.name ||
+                state.introduction.shortDescription ||
+                state.introduction.longDescription ||
+                state.introduction.location ||
+                (state.introduction.workingOn &&
+                  state.introduction.workingOnLink) ||
+                state.introduction.learning ||
+                state.introduction.collaborateOn ||
+                state.introduction.additionalInfo
+                  ? "mb-4"
+                  : ""
+              }`}
             >
               {!state.introduction.name ? null : (
                 <h1>Hi 👋 My name is {state.introduction.name}</h1>
               )}
-              {state.introduction.description ? (
-                <h2>{state.introduction.description}</h2>
+              {state.introduction.shortDescription ? (
+                <h2>{state.introduction.shortDescription}</h2>
               ) : null}
-              {state.introduction.location ? (
-                <p>🌍&nbsp; I'm based in {state.introduction.location}</p>
+
+              {state.introduction.longDescription ? (
+                <p>{state.introduction.longDescription}</p>
               ) : null}
-              {state.introduction.workingOnTitle &&
-              state.introduction.workingOnLink ? (
-                <p>
-                  🧰&nbsp; I'm currently working on{" "}
-                  <a
-                    href={`http://www.${state.introduction.workingOnLink}`}
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {state.introduction.workingOnTitle}
-                  </a>
-                </p>
-              ) : null}
-              {state.introduction.learning ? (
-                <p>🎓&nbsp; I'm learning {state.introduction.learning}</p>
-              ) : null}
-              {state.introduction.collaborateOn ? (
-                <p>
-                  🤝&nbsp; I'm open to collaborating on{" "}
-                  {state.introduction.collaborateOn}
-                </p>
-              ) : null}
-              {state.introduction.additionalInfo ? (
-                <p>⚡&nbsp;{state.introduction.additionalInfo}</p>
-              ) : null}
+
+              <ul
+                className={`${
+                  state.introduction.location ||
+                  (state.introduction.workingOn &&
+                    state.introduction.workingOnLink) ||
+                  state.introduction.learning ||
+                  state.introduction.collaborateOn ||
+                  state.introduction.additionalInfo
+                    ? "mt-4 "
+                    : ""
+                }list-disc list-inside`}
+              >
+                {state.introduction.location ? (
+                  <li>🌍&nbsp; I'm based in {state.introduction.location}</li>
+                ) : null}
+                {state.introduction.workingOnTitle &&
+                state.introduction.workingOnLink ? (
+                  <li>
+                    🚀&nbsp; I'm currently working on{" "}
+                    <a
+                      href={`http://www.${state.introduction.workingOnLink}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {state.introduction.workingOnTitle}
+                    </a>
+                  </li>
+                ) : null}
+                {state.introduction.learning ? (
+                  <li>🧠&nbsp; I'm learning {state.introduction.learning}</li>
+                ) : null}
+                {state.introduction.collaborateOn ? (
+                  <li>
+                    🤝&nbsp; I'm open to collaborating on{" "}
+                    {state.introduction.collaborateOn}
+                  </li>
+                ) : null}
+                {state.introduction.additionalInfo ? (
+                  <li>⚡&nbsp;{state.introduction.additionalInfo}</li>
+                ) : null}
+              </ul>
             </div>
 
             {/* Skills Section Preview */}
@@ -1220,11 +1295,21 @@ export default function Home() {
             </div>
 
             {/* Skills Section Preview */}
-            <div ref={skillsRef} className="flex flex-col">
+            <div
+              ref={skillsRef}
+              className={`flex flex-wrap gap-x-2 gap-y-2 ${
+                state.skills.core.length < 1 &&
+                state.skills.frontend.length < 1 &&
+                state.skills.backend.length < 1 &&
+                state.skills.other.length < 1 &&
+                state.skills.software.length < 1
+                  ? "mb-0"
+                  : "mb-8"
+              }`}
+            >
               {/* Core Icons Display */}
-
               {!state.skills.core || state.skills.core.length < 1 ? null : (
-                <div className="flex flex-wrap mb-8 gap-x-2 gap-y-2">
+                <>
                   {state.skills.core.map((icon) => {
                     return (
                       <div key={`${icon.path}`} className="relative">
@@ -1237,13 +1322,13 @@ export default function Home() {
                       </div>
                     );
                   })}
-                </div>
+                </>
               )}
 
               {/* Frontend Icons Display */}
               {!state.skills.frontend ||
               state.skills.frontend.length < 1 ? null : (
-                <div className="flex flex-wrap mb-8 gap-x-2 gap-y-2">
+                <>
                   {state.skills.frontend.map((icon) => {
                     return (
                       <div key={`${icon.path}`} className="relative">
@@ -1256,13 +1341,13 @@ export default function Home() {
                       </div>
                     );
                   })}
-                </div>
+                </>
               )}
 
               {/* Backend Icons Display */}
               {!state.skills.backend ||
               state.skills.backend.length < 1 ? null : (
-                <div className="flex flex-wrap mb-8 gap-x-2 gap-y-2">
+                <>
                   {state.skills.backend.map((icon) => {
                     return (
                       <div key={`${icon.path}`} className="relative">
@@ -1275,12 +1360,12 @@ export default function Home() {
                       </div>
                     );
                   })}
-                </div>
+                </>
               )}
 
               {/* Other Icons Display */}
               {!state.skills.other || state.skills.other.length < 1 ? null : (
-                <div className="flex flex-wrap mb-8 gap-x-2 gap-y-2">
+                <>
                   {state.skills.other.map((icon) => {
                     return (
                       <div key={`${icon.path}`} className="relative">
@@ -1293,13 +1378,13 @@ export default function Home() {
                       </div>
                     );
                   })}
-                </div>
+                </>
               )}
 
               {/* Software Icons Display */}
               {!state.skills.software ||
               state.skills.software.length < 1 ? null : (
-                <div className="flex flex-wrap mb-8 gap-x-2 gap-y-2">
+                <>
                   {state.skills.software.map((icon) => {
                     return (
                       <div key={`${icon.path}`} className="relative">
@@ -1312,7 +1397,7 @@ export default function Home() {
                       </div>
                     );
                   })}
-                </div>
+                </>
               )}
             </div>
 
@@ -1324,7 +1409,7 @@ export default function Home() {
             {/* Socials Section Preview */}
             <div
               ref={socialsRef}
-              className={`flex flex-wrap gap-x-2 ${
+              className={`flex flex-wrap gap-x-2 gap-y-2 ${
                 socialsShowing ? "mb-8" : ""
               }`}
             >
@@ -1653,12 +1738,7 @@ export default function Home() {
                     <span className="whitespace-pre-line">
                       {`<a
                   href="${state.support.buymeacoffee.linkPrefix}${state.support.buymeacoffee.linkSuffix}"
-                >
-                  <img
-                    src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png"
-                    width="200"
-                  />
-                </a>`}
+                ><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" width="200" /></a>`}
                     </span>
                   )}
                 </p>

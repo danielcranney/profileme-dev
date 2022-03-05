@@ -228,6 +228,8 @@ export default function Home() {
       githubFollowers: false,
       githubCommitsGraph: false,
       githubStreak: false,
+      topLangsCard: false,
+      reposCard: false,
     },
     support: {
       buymeacoffee: "",
@@ -1790,6 +1792,18 @@ export default function Home() {
                     </span>
                   )}
 
+                  {!renderedMarkdown.badges.topLangsCard.selected ? null : (
+                    <span className="break-all whitespace-pre-line">
+                      {`[![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=${state.socials.github.linkSuffix}&langs_count=10&title_color=${state.badges.cardStyle.titleColor}&text_color=${state.badges.cardStyle.textColor}&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${state.badges.cardStyle.bgColor}&hide_border=true&locale=en&custom_title=Top%20%Languages)](https://github.com/anuraghazra/github-readme-stats)`}
+                    </span>
+                  )}
+
+                  {!renderedMarkdown.badges.reposCard.selected ? null : (
+                    <span className="break-all whitespace-pre-line">
+                      {`[![Repository](https://github-readme-stats.vercel.app/api/pin/?username=${state.socials.github.linkSuffix}&repo=${state.badges.reposCard.repoOne}&title_color=${state.badges.cardStyle.titleColor}&text_color=${state.badges.cardStyle.textColor}&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${state.badges.cardStyle.bgColor}&hide_border=true&locale=en)](https://github.com/anuraghazra/github-readme-stats)`}
+                    </span>
+                  )}
+
                   {/* {badgesShowing ? <>{`<p align="left">`}</> : null} */}
 
                   {!renderedMarkdown.badges.twitterFollowers.selected ? null : (
@@ -1821,7 +1835,9 @@ export default function Home() {
 
                   {!renderedMarkdown.support.buymeacoffee.linkSuffix ? null : (
                     <>
-                      <p className="mt-4 whitespace-pre-line">### Support Me</p>
+                      <span className="mt-4 whitespace-pre-line">
+                        ### Support Me
+                      </span>
                       {`<a
                   href="${state.support.buymeacoffee.linkPrefix}${state.support.buymeacoffee.linkSuffix}"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" width="200" /></a>`}
                     </>

@@ -1621,7 +1621,7 @@ export default function Home() {
             <div
               ref={supportRef}
               className={`flex flex-col gap-x-2 gap-y-2 ${
-                state.support.buymeacoffee.linkSuffix ? "mb-8" : ""
+                state.support.buymeacoffee.linkSuffix ? "mt-6" : ""
               }`}
             >
               {state.support.buymeacoffee.linkSuffix ? (

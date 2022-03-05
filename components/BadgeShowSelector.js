@@ -9,7 +9,7 @@ export const BadgeShowSelector = ({
   const { state, dispatch } = useContext(StateContext);
   return (
     <label
-      className={`border select-none btn-sm bg-dark-800 hover:bg-dark-700`}
+      className={`border select-none flex items-center px-2 py-2 text-xs font-semibold border-dark-600 transition-all duration-150 ease-in-out bg-dark-800 hover:bg-dark-700`}
     >
       <input
         type="checkbox"

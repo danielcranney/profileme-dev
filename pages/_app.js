@@ -414,6 +414,9 @@ const initialState = {
     githubCommitsGraph: {
       selected: false,
     },
+    githubStreak: {
+      selected: false,
+    },
     twitchStatus: {
       selected: false,
     },

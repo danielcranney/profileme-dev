@@ -211,6 +211,7 @@ export default function Home() {
       githubVisits: false,
       githubFollowers: false,
       githubCommitsGraph: false,
+      githubStreak: false,
     },
     support: {
       buymeacoffee: "",
@@ -853,7 +854,7 @@ export default function Home() {
                       }`}
                     >
                       <p className={`mb-2 text-xs font-semibold uppercase`}>
-                        Show stats:
+                        Show:
                       </p>
                       <article className="grid grid-cols-1 gap-2 lg:grid-cols-2">
                         <BadgeShowSelector
@@ -997,6 +998,13 @@ export default function Home() {
                     badgeType={"githubCommitsGraph"}
                     profileLink={"github"}
                     badgeText={"Commits Graph"}
+                    handleBadgeClick={handleBadgeClick}
+                  />
+
+                  <BadgeSelector
+                    badgeType={"githubStreak"}
+                    profileLink={"github"}
+                    badgeText={"Commit Streak"}
                     handleBadgeClick={handleBadgeClick}
                   />
 
@@ -1337,7 +1345,7 @@ export default function Home() {
             <div ref={badgesRef} className="flex flex-wrap gap-x-3 gap-y-3">
               {state.badges.githubCommitsGraph.selected ? (
                 <img
-                  src={`https://activity-graph.herokuapp.com/graph?username=${state.socials.github.linkSuffix}`}
+                  src={`https://activity-graph.herokuapp.com/graph?username=${state.socials.github.linkSuffix}&bg_color=${state.badges.cardStyle.bgColor}&color=${state.badges.cardStyle.textColor}&line=${state.badges.cardStyle.iconColor}&point=${state.badges.cardStyle.textColor}&area_color=${state.badges.cardStyle.bgColor}&area=true&hide_border=true`}
                 />
               ) : null}
               {state.badges.githubStatsCard.selected ? (
@@ -1359,6 +1367,13 @@ export default function Home() {
                   }&bg_color=${
                     state.badges.cardStyle.bgColor
                   }&hide_border=true&border_radius=0&show_icons=true`}
+                  className="object-scale-down"
+                />
+              ) : null}
+
+              {state.badges.githubStreak.selected ? (
+                <img
+                  src={`https://github-readme-streak-stats.herokuapp.com/?user=${state.socials.github.linkSuffix}&stroke=${state.badges.cardStyle.textColor}&background=${state.badges.cardStyle.bgColor}&ring=${state.badges.cardStyle.titleColor}&fire=${state.badges.cardStyle.titleColor}&currStreakNum=${state.badges.cardStyle.textColor}&currStreakLabel=${state.badges.cardStyle.titleColor}&sideNums=${state.badges.cardStyle.textColor}&sideLabels=${state.badges.cardStyle.textColor}&dates=${state.badges.cardStyle.textColor}&hide_border=true`}
                   className="object-scale-down"
                 />
               ) : null}

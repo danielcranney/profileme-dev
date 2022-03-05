@@ -52,11 +52,11 @@ BASE STYLES
     @apply text-sm;
   }
   p {
-    @apply text-sm mb-4 leading-relaxed
+    @apply mb-4 leading-relaxed
     text-dark-300;
   }
   a {
-    @apply text-brand no-underline font-semibold hover:text-white transition-all duration-150 ease-in-out dark:hover:text-white;
+    @apply text-brand hover:cursor-pointer underline font-semibold hover:text-white transition-all duration-150 ease-in-out dark:hover:text-white;
   }
 }
 
@@ -134,6 +134,6 @@ LIST
 -----------------------*/
 @layer components {
   li {
-    @apply text-white;
+    @apply text-dark-300;
   }
 }

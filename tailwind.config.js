@@ -9,7 +9,7 @@ module.exports = {
         height: "height",
       },
       colors: {
-        brand: "#f6dc3b",
+        brand: "#378df4",
         dark: {
           300: "#b5b9d6",
           400: "#53566b",

@@ -6,7 +6,7 @@ import { FormLabel } from "./FormLabel";
 import { SocialInput } from "./SocialInput";
 import { FormTextarea } from "./FormTextarea";
 
-export const IntroductionTextarea = forwardRef((props, ref) => {
+const IntroductionTextarea = forwardRef((props, ref) => {
   const { formLabelText, formLabelIcon, section, type, inputPlaceholder } =
     props;
   return (
@@ -22,3 +22,7 @@ export const IntroductionTextarea = forwardRef((props, ref) => {
     </article>
   );
 });
+
+IntroductionTextarea.displayName = "IntroductionTextarea";
+
+export default IntroductionTextarea;

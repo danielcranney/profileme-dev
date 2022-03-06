@@ -6,7 +6,7 @@ import { FormLabel } from "./FormLabel";
 import { FormInput } from "./FormInput";
 import { SocialInput } from "./SocialInput";
 
-export const IntroductionArticleWithLink = forwardRef((props, ref) => {
+const IntroductionArticleWithLink = forwardRef((props, ref) => {
   const { section, type, inputPlaceholder, linkPrefix } = props;
   return (
     <article className="flex flex-col flex-1 w-full">
@@ -25,3 +25,7 @@ export const IntroductionArticleWithLink = forwardRef((props, ref) => {
     </article>
   );
 });
+
+IntroductionArticleWithLink.displayName = "IntroductionArticleWithLink";
+
+export default IntroductionArticleWithLink;

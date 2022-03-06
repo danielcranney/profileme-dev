@@ -6,7 +6,7 @@ import { FormLabel } from "./FormLabel";
 import { FormInput } from "./FormInput";
 import { SocialInput } from "./SocialInput";
 
-export const IntroductionArticle = forwardRef((props, ref) => {
+const IntroductionArticle = forwardRef((props, ref) => {
   const { formLabelText, formLabelIcon, section, type, inputPlaceholder } =
     props;
   return (
@@ -22,3 +22,7 @@ export const IntroductionArticle = forwardRef((props, ref) => {
     </article>
   );
 });
+
+IntroductionArticle.displayName = "IntroductionArticle";
+
+export default IntroductionArticle;

@@ -5,7 +5,7 @@ import { ACTIONS } from "../pages/_app";
 import { FormLabel } from "./FormLabel";
 import { SocialInput } from "./SocialInput";
 
-export const SocialArticle = forwardRef((props, ref) => {
+const SocialArticle = forwardRef((props, ref) => {
   const {
     formLabelText,
     linkPrefix,
@@ -43,3 +43,7 @@ export const SocialArticle = forwardRef((props, ref) => {
     </article>
   );
 });
+
+SocialArticle.displayName = "SocialArticle";
+
+export default SocialArticle;

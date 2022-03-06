@@ -257,9 +257,11 @@ export default function Home() {
   const locationRef = useRef();
   const workingOnTitleRef = useRef();
   const workingOnLinkRef = useRef();
+  const portfolioTitleRef = useRef();
+  const portfolioLinkRef = useRef();
+  const emailMeRef = useRef();
   const learningRef = useRef();
   const collaborateOnRef = useRef();
-  const portfolioRef = useRef();
   const additionalInfoRef = useRef();
 
   // Socials refs
@@ -459,7 +461,7 @@ export default function Home() {
       <Head>
         <title>GitHub Profile Generator</title>
       </Head>
-      <header className="flex items-center h-16 p-6 border-b bg-dark-800 border-dark-600">
+      <header className="flex items-center h-16 px-6 border-b bg-dark-800 border-dark-600">
         <svg
           className="w-6 h-6 mr-2 text-brand"
           fill="none"
@@ -477,6 +479,12 @@ export default function Home() {
         <h1 className="mb-0 text-xl">
           ReadMe <span className="text-brand">Generator</span>
         </h1>
+        <a
+          href="mailto:danielcranney@gmail.com"
+          className="px-2 py-2 ml-auto text-xs font-semibold tracking-wide no-underline uppercase transition-all duration-150 ease-in-out border text-dark-300 border-dark-600 bg-dark-700 hover:text-white"
+        >
+          Give Feedback
+        </a>
       </header>
       <div className="flex flex-1 overflow-hidden">
         {/* COLUMN 1 - SIDEBAR */}
@@ -491,6 +499,15 @@ export default function Home() {
             <MenuItem text={"Badges"} section={"badges"} />
             <MenuItem text={"Support"} section={"support"} />
           </ul>
+          <p className="mt-auto mb-1 text-xs">&copy; 2022 Dan Cranney</p>
+          <a
+            href="https://www.buymeacoffee.com/danielcranney"
+            rel="noreferrer"
+            target="_blank"
+            className="flex mb-0 text-xs"
+          >
+            Buy Me a Coffee
+          </a>
         </aside>
         {/* COLUMN 2 - INPUTS */}
         <section className="flex flex-col flex-1 border-r border-dark-600 bg-dark-800">
@@ -500,7 +517,7 @@ export default function Home() {
               <section className="flex flex-col p-6 border-b border-dark-600">
                 <SectionHeader
                   header={"Introduction"}
-                  subhead={`Introduce yourself to visitors. Tell them a little bit about you and who you are as a developer.`}
+                  subhead={`Introduce yourself. Tell visitors about you and who you are.`}
                 />
               </section>
               <section className="flex flex-col p-6 overflow-y-auto gap-y-5">
@@ -544,6 +561,33 @@ export default function Home() {
                   type={"location"}
                   inputPlaceholder={"New York"}
                 />
+                {/* Portfolio  */}
+                <article>
+                  <IntroductionArticle
+                    ref={portfolioTitleRef}
+                    formLabelText={"See my portfolio:"}
+                    formLabelIcon={"🖥️"}
+                    section={"introduction"}
+                    type={"portfolioTitle"}
+                    inputPlaceholder={"MyPortfolio"}
+                  />
+                  <IntroductionArticleWithLink
+                    ref={portfolioLinkRef}
+                    section={"introduction"}
+                    linkPrefix={"http://www."}
+                    type={"portfolioLink"}
+                    inputPlaceholder={"myapp.com"}
+                  />
+                </article>
+                {/* Email  */}
+                <IntroductionArticle
+                  ref={emailMeRef}
+                  formLabelText={"Contact me at:"}
+                  formLabelIcon={"✉️"}
+                  section={"introduction"}
+                  type={"emailMe"}
+                  inputPlaceholder={"myemail@gmail.com"}
+                />
                 {/* Currently working on */}
                 <article>
                   <IntroductionArticle
@@ -562,6 +606,7 @@ export default function Home() {
                     inputPlaceholder={"myapp.com"}
                   />
                 </article>
+
                 {/* Currently learning */}
                 <IntroductionArticle
                   ref={learningRef}
@@ -583,12 +628,39 @@ export default function Home() {
                 {/* Additional info */}
                 <IntroductionArticle
                   ref={additionalInfoRef}
-                  formLabelText={"Additional information:"}
+                  formLabelText={"Anything else:"}
                   formLabelIcon={"⚡"}
                   section={"introduction"}
                   type={"additionalInfo"}
                   inputPlaceholder={"I can kick myself in the head"}
                 />
+              </section>
+              <section className="flex border-t border-dark-600">
+                <button
+                  className="flex px-6 py-3 ml-auto text-xs font-bold text-right underline track-wide text-brand hover:text-white"
+                  onClick={() => {
+                    dispatch({
+                      type: ACTIONS.SHOW_SECTION,
+                      payload: "skills",
+                    });
+                  }}
+                >
+                  Next section
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 5l7 7-7 7"
+                    ></path>
+                  </svg>
+                </button>
               </section>
             </>
           ) : state.section === "skills" ? (
@@ -596,11 +668,11 @@ export default function Home() {
               <section className="flex flex-col p-6 border-b border-dark-600">
                 <SectionHeader
                   header={"Skills"}
-                  subhead={`Add some icons to your profile. Select the languages,
+                  subhead={`Show off the languages,
                 frameworks, software and tech that you use.`}
                 />
               </section>
-              <section className="flex flex-col p-6 overflow-y-auto gap-y-3">
+              <section className="flex flex-col px-6 pt-6 pb-12 overflow-y-auto gap-y-3">
                 {/* Core */}
                 <IconSelector
                   handleIconToggle={handleIconToggle}
@@ -632,14 +704,65 @@ export default function Home() {
                   iconType={"software"}
                 />
               </section>
+              <section className="flex border-t border-dark-600">
+                <button
+                  className="flex px-6 py-3 mr-auto text-xs font-bold text-right underline track-wide text-brand hover:text-white"
+                  onClick={() => {
+                    dispatch({
+                      type: ACTIONS.SHOW_SECTION,
+                      payload: "introduction",
+                    });
+                  }}
+                >
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 19l-7-7 7-7"
+                    ></path>
+                  </svg>
+                  Previous section
+                </button>
+                <button
+                  className="flex px-6 py-3 ml-auto text-xs font-bold text-right underline track-wide text-brand hover:text-white"
+                  onClick={() => {
+                    dispatch({
+                      type: ACTIONS.SHOW_SECTION,
+                      payload: "socials",
+                    });
+                  }}
+                >
+                  Next section
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 5l7 7-7 7"
+                    ></path>
+                  </svg>
+                </button>
+              </section>
             </>
           ) : state.section === "socials" ? (
             <>
               <section className="flex flex-col p-6 border-b border-dark-600">
                 <SectionHeader
                   header={"Socials"}
-                  subhead={`Include links to socials you have on different platforms, from
-                social media to your portfolio.`}
+                  subhead={`Connect with your visitors by adding links to your socials.`}
                 />
               </section>
               <section className="flex flex-col p-6 overflow-y-auto gap-y-5">
@@ -819,13 +942,65 @@ export default function Home() {
                   action={ACTIONS.ADD_SOCIAL_PROFILE}
                 />
               </section>
+              <section className="flex border-t border-dark-600">
+                <button
+                  className="flex px-6 py-3 mr-auto text-xs font-bold text-right underline track-wide text-brand hover:text-white"
+                  onClick={() => {
+                    dispatch({
+                      type: ACTIONS.SHOW_SECTION,
+                      payload: "skills",
+                    });
+                  }}
+                >
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 19l-7-7 7-7"
+                    ></path>
+                  </svg>
+                  Previous section
+                </button>
+                <button
+                  className="flex px-6 py-3 ml-auto text-xs font-bold text-right underline track-wide text-brand hover:text-white"
+                  onClick={() => {
+                    dispatch({
+                      type: ACTIONS.SHOW_SECTION,
+                      payload: "badges",
+                    });
+                  }}
+                >
+                  Next section
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 5l7 7-7 7"
+                    ></path>
+                  </svg>
+                </button>
+              </section>
             </>
           ) : state.section === "badges" ? (
             <>
               <section className="flex flex-col p-6 border-b border-dark-600">
                 <SectionHeader
                   header={"Badges"}
-                  subhead={`Add some badges to your profile.`}
+                  subhead={`Add some badges and stats to your profile.`}
                 />
               </section>
               <section className="flex flex-col p-6 overflow-y-auto">
@@ -1136,6 +1311,58 @@ export default function Home() {
                   />
                 </article>
               </section>
+              <section className="flex border-t border-dark-600">
+                <button
+                  className="flex px-6 py-3 mr-auto text-xs font-bold text-right underline track-wide text-brand hover:text-white"
+                  onClick={() => {
+                    dispatch({
+                      type: ACTIONS.SHOW_SECTION,
+                      payload: "socials",
+                    });
+                  }}
+                >
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 19l-7-7 7-7"
+                    ></path>
+                  </svg>
+                  Previous section
+                </button>
+                <button
+                  className="flex px-6 py-3 ml-auto text-xs font-bold text-right underline track-wide text-brand hover:text-white"
+                  onClick={() => {
+                    dispatch({
+                      type: ACTIONS.SHOW_SECTION,
+                      payload: "support",
+                    });
+                  }}
+                >
+                  Next section
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 5l7 7-7 7"
+                    ></path>
+                  </svg>
+                </button>
+              </section>
             </>
           ) : state.section === "support" ? (
             <>
@@ -1156,6 +1383,33 @@ export default function Home() {
                   linkPrefix={state.support.buymeacoffee.linkPrefix}
                   action={ACTIONS.ADD_SUPPORT}
                 />
+              </section>
+              <section className="flex mt-auto border-t border-dark-600">
+                <button
+                  className="flex px-6 py-3 mr-auto text-xs font-bold text-right underline track-wide text-brand hover:text-white"
+                  onClick={() => {
+                    dispatch({
+                      type: ACTIONS.SHOW_SECTION,
+                      payload: "badges",
+                    });
+                  }}
+                >
+                  <svg
+                    class="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 19l-7-7 7-7"
+                    ></path>
+                  </svg>
+                  Previous section
+                </button>
               </section>
             </>
           ) : null}
@@ -1266,8 +1520,11 @@ export default function Home() {
                 state.introduction.shortDescription ||
                 state.introduction.longDescription ||
                 state.introduction.location ||
-                (state.introduction.workingOn &&
+                (state.introduction.workingOnTitle &&
                   state.introduction.workingOnLink) ||
+                (state.introduction.portfolioTitle &&
+                  state.introduction.portfolioLink) ||
+                state.introduction.emailMe ||
                 state.introduction.learning ||
                 state.introduction.collaborateOn ||
                 state.introduction.additionalInfo
@@ -1289,9 +1546,12 @@ export default function Home() {
               <ul
                 className={`${
                   state.introduction.location ||
-                  (state.introduction.workingOn &&
+                  (state.introduction.workingOnTitle &&
                     state.introduction.workingOnLink) ||
+                  (state.introduction.portfolioTitle &&
+                    state.introduction.portfolioLink) ||
                   state.introduction.learning ||
+                  state.introduction.emailMe ||
                   state.introduction.collaborateOn ||
                   state.introduction.additionalInfo
                     ? "mt-4 "
@@ -1313,6 +1573,27 @@ export default function Home() {
                       rel="noreferrer"
                     >
                       {state.introduction.workingOnTitle}
+                    </a>
+                  </li>
+                ) : null}
+                {state.introduction.portfolioTitle &&
+                state.introduction.portfolioLink ? (
+                  <li>
+                    🖥️&nbsp; See my portfolio at{" "}
+                    <a
+                      href={`http://www.${state.introduction.portfolioLink}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {state.introduction.portfolioTitle}
+                    </a>
+                  </li>
+                ) : null}
+                {state.introduction.emailMe ? (
+                  <li>
+                    ✉️&nbsp; You can contact me at{" "}
+                    <a href={`mailto:${state.introduction.emailMe}`}>
+                      {state.introduction.emailMe}
                     </a>
                   </li>
                 ) : null}

@@ -834,6 +834,11 @@ export default function Home() {
                   <p className={`mb-2 text-xs font-semibold uppercase`}>
                     Style badges:
                   </p>
+                  {!badgesShowing ? (
+                    <p className="text-xs">
+                      Select a badge below to customise.
+                    </p>
+                  ) : null}
                   <article className="grid grid-cols-1 gap-2 mb-4 xl:grid-cols-2">
                     <BadgeStyleSelector
                       colorList={colorStore.lightColors}
@@ -841,6 +846,7 @@ export default function Home() {
                       badgeText={"Title"}
                       handleColorToggle={handleColorToggle}
                       badgeKeyToHide={"titleColorEdit"}
+                      badgesShowing={badgesShowing}
                     />
 
                     <BadgeStyleSelector
@@ -849,6 +855,7 @@ export default function Home() {
                       badgeText={"Text"}
                       handleColorToggle={handleColorToggle}
                       badgeKeyToHide={"textColorEdit"}
+                      badgesShowing={badgesShowing}
                     />
 
                     <BadgeStyleSelector
@@ -857,6 +864,7 @@ export default function Home() {
                       badgeText={"Icons"}
                       handleColorToggle={handleColorToggle}
                       badgeKeyToHide={"iconColorEdit"}
+                      badgesShowing={badgesShowing}
                     />
 
                     <BadgeStyleSelector
@@ -865,6 +873,7 @@ export default function Home() {
                       badgeText={"Background"}
                       handleColorToggle={handleColorToggle}
                       badgeKeyToHide={"bgColorEdit"}
+                      badgesShowing={badgesShowing}
                     />
                   </article>
                 </article>

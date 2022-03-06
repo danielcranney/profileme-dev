@@ -8,14 +8,18 @@ export const BadgeStyleSelector = ({
   badgeKeyToStyle,
   badgeKeyToHide,
   colorList,
+  badgesShowing,
 }) => {
   const { state, dispatch } = useContext(StateContext);
   return (
-    <article className="flex flex-col">
+    <article className={`flex flex-col`}>
       <button
         onClick={handleColorToggle}
         name={badgeKeyToHide}
+        disabled={!badgesShowing ? true : false}
         className={`border flex flex-col text-xs font-semibold uppercase border-dark-600 items-start group ${
+          !badgesShowing ? "hover:cursor-not-allowed opacity-30" : ""
+        } ${
           state.badges.cardStyle[badgeKeyToHide] ? "bg-dark-700" : "bg-dark-800"
         }`}
       >
@@ -32,15 +36,15 @@ export const BadgeStyleSelector = ({
             className={`flex ml-auto text-xs font-semibold text-white transition-all duration-150 ease-in-out ${
               state.badges.cardStyle[badgeKeyToHide]
                 ? "opacity-100"
-                : "opacity-50 group-hover:opacity-100"
-            }`}
+                : "opacity-50"
+            } ${badgesShowing ? "group-hover:opacity-100" : ""}`}
           >
             <svg
               className={`w-4 h-4 mr-2 text-white ${
                 state.badges.cardStyle[badgeKeyToHide]
                   ? "opacity-100"
-                  : "opacity-50 group-hover:opacity-100"
-              }`}
+                  : "opacity-50"
+              } ${badgesShowing ? "group-hover:opacity-100" : ""}`}
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"

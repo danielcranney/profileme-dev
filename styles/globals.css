@@ -128,7 +128,7 @@ CHECKBOX COMPONENT
 -----------------------*/
 @layer components {
   .checkbox-input {
-    @apply mr-2 border appearance-none border-dark-600 focus:outline-none focus:ring-0 group-hover:bg-dark-600 disabled:group-hover:bg-dark-900 checked:group-hover:bg-blue-500 focus:ring-offset-0 bg-dark-900;
+    @apply mr-2 border appearance-none border-dark-600 focus:outline-none focus:ring-0 group-hover:bg-dark-600 disabled:group-hover:bg-dark-900 checked:group-hover:bg-blue-500 focus:ring-offset-0 bg-dark-900 disabled:cursor-not-allowed;
   }
 }
 

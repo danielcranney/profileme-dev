@@ -1324,6 +1324,35 @@ export default function Home() {
               </ul>
             </div>
 
+            {/* GitHub, Twitter and Titch Badges */}
+            <div
+              className={`flex flex-wrap gap-x-2 gap-y-2 ${
+                state.badges.githubFollowers.selected ||
+                state.badges.twitterFollowers.selected
+                  ? "mb-4"
+                  : "mb-0"
+              }`}
+            >
+              {state.badges.githubFollowers.selected ? (
+                <img
+                  src={`https://img.shields.io/github/followers/${state.socials.github.linkSuffix}?logo=github&style=for-the-badge&color=${state.badges.cardStyle.iconColor}&labelColor=${state.badges.cardStyle.bgColor}`}
+                  className="object-scale-down"
+                />
+              ) : null}
+              {state.badges.twitterFollowers.selected ? (
+                <img
+                  src={`https://img.shields.io/twitter/follow/${state.socials.twitter.linkSuffix}?logo=twitter&style=for-the-badge&color=${state.badges.cardStyle.iconColor}&labelColor=${state.badges.cardStyle.bgColor}`}
+                  className="object-scale-down"
+                />
+              ) : null}
+              {state.badges.twitchStatus.selected ? (
+                <img
+                  src={`https://img.shields.io/twitch/status/${state.socials.twitch.linkSuffix}?logo=twitchsx&style=for-the-badge&color=${state.badges.cardStyle.iconColor}&labelColor=${state.badges.cardStyle.bgColor}&label=TWITCH+STATUS`}
+                  className="object-scale-down"
+                />
+              ) : null}
+            </div>
+
             {/* Skills Section Preview */}
             <div ref={skillsTitleRef} className="flex">
               {state.skills.core.length === 0 &&
@@ -1345,7 +1374,7 @@ export default function Home() {
                 state.skills.other.length < 1 &&
                 state.skills.software.length < 1
                   ? "mb-0"
-                  : "mb-8"
+                  : "mb-4"
               }`}
             >
               {/* Core Icons Display */}
@@ -1470,27 +1499,6 @@ export default function Home() {
                   })}
                 </>
               )}
-            </div>
-
-            <div className="flex flex-wrap mb-4 gap-x-2 gap-y-2">
-              {state.badges.githubFollowers.selected ? (
-                <img
-                  src={`https://img.shields.io/github/followers/${state.socials.github.linkSuffix}?logo=github&style=for-the-badge&color=${state.badges.cardStyle.iconColor}&labelColor=${state.badges.cardStyle.bgColor}`}
-                  className="object-scale-down"
-                />
-              ) : null}
-              {state.badges.twitterFollowers.selected ? (
-                <img
-                  src={`https://img.shields.io/twitter/follow/${state.socials.twitter.linkSuffix}?logo=twitter&style=for-the-badge&color=${state.badges.cardStyle.iconColor}&labelColor=${state.badges.cardStyle.bgColor}`}
-                  className="object-scale-down"
-                />
-              ) : null}
-              {state.badges.twitchStatus.selected ? (
-                <img
-                  src={`https://img.shields.io/twitch/status/${state.socials.twitch.linkSuffix}?logo=twitchsx&style=for-the-badge&color=${state.badges.cardStyle.iconColor}&labelColor=${state.badges.cardStyle.bgColor}&label=TWITCH+STATUS`}
-                  className="object-scale-down"
-                />
-              ) : null}
             </div>
 
             {/* Socials Title Preview */}
@@ -1953,7 +1961,7 @@ export default function Home() {
                   ) : null}
 
                   {renderedMarkdown.badges.reposCard.selected ? (
-                    <>{`</div>`}</>
+                    <>{`</div><br /><br /><br /><br /><br /><br /><br />`}</>
                   ) : null}
                 </p>
 
@@ -1992,9 +2000,7 @@ export default function Home() {
 
                 {!renderedMarkdown.support.buymeacoffee.linkSuffix ? null : (
                   <>
-                    <span className="mt-4 whitespace-pre-line">
-                      ### Support Me
-                    </span>
+                    <p className="mt-4 whitespace-pre-line">### Support Me</p>
                     {`<a
                   href="${state.support.buymeacoffee.linkPrefix}${state.support.buymeacoffee.linkSuffix}"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" width="200" /></a>`}
                   </>

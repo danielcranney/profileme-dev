@@ -3,7 +3,7 @@ import Image from "next/image";
 import { StateContext } from "../pages/_app";
 import { ACTIONS } from "../pages/_app";
 import { FormLabel } from "./FormLabel";
-import { SocialInput } from "./SocialInput";
+import SocialInput from "./SocialInput";
 
 const SocialArticle = forwardRef((props, ref) => {
   const {

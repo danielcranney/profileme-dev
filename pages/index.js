@@ -9,19 +9,19 @@ import { iconData } from "./_app";
 // Import components
 import { FormLabel } from "../components/FormLabel";
 import { MenuItem } from "../components/MenuItem";
-import { FormInput } from "../components/FormInput";
+import FormInput from "../components/FormInput";
 import SectionHeader from "../components/SectionHeader";
-import { SocialInput } from "../components/SocialInput";
-import { SocialArticle } from "../components/SocialArticle";
-import { IntroductionArticle } from "../components/IntroductionArticle";
+import SocialInput from "../components/SocialInput";
+import SocialArticle from "../components/SocialArticle";
+import IntroductionArticle from "../components/IntroductionArticle";
 import { ExtraSmallTick } from "../components/ExtraSmallTick";
 import { IconSelector } from "../components/IconSelector";
 import { BadgeSelector } from "../components/BadgeSelector";
-import { IntroductionArticleWithLink } from "../components/IntroductionArticleWithLink";
+import IntroductionArticleWithLink from "../components/IntroductionArticleWithLink";
 import { BadgeShowSelector } from "../components/BadgeShowSelector";
 import { BadgeStyleSelector } from "../components/BadgeStyleSelector";
 import { AddButton } from "../components/AddButton";
-import { IntroductionTextarea } from "../components/IntroductionTextarea";
+import IntroductionTextarea from "../components/IntroductionTextarea";
 let TurndownService = require("turndown").default;
 
 const colorStore = {

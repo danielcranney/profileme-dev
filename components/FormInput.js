@@ -1,7 +1,7 @@
 import React, { useContext, forwardRef } from "react";
 import { StateContext } from "../pages/_app";
 
-export const FormInput = forwardRef((props, ref) => {
+const FormInput = forwardRef((props, ref) => {
   const { placeholder, action, type, section } = props;
   const { state, dispatch } = useContext(StateContext);
   return (
@@ -20,3 +20,7 @@ export const FormInput = forwardRef((props, ref) => {
     />
   );
 });
+
+FormInput.displayName = "FormInput";
+
+export default FormInput;

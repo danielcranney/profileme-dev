@@ -3,8 +3,8 @@ import Image from "next/image";
 import { StateContext } from "../pages/_app";
 import { ACTIONS } from "../pages/_app";
 import { FormLabel } from "./FormLabel";
-import { FormInput } from "./FormInput";
-import { SocialInput } from "./SocialInput";
+import FormInput from "./FormInput";
+import SocialInput from "./SocialInput";
 
 const IntroductionArticleWithLink = forwardRef((props, ref) => {
   const { section, type, inputPlaceholder, linkPrefix } = props;

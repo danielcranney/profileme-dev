@@ -7,6 +7,7 @@ export const FormInput = forwardRef((props, ref) => {
   return (
     <input
       type="text"
+      name={type}
       className="input-field"
       placeholder={placeholder}
       ref={ref}

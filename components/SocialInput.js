@@ -9,6 +9,7 @@ export const SocialInput = forwardRef((props, ref) => {
       className="minimal-input-field"
       placeholder={placeholder}
       ref={ref}
+      name={type}
       value={state[section][type]["linkSuffix"]}
       onChange={() =>
         dispatch({

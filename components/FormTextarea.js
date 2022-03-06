@@ -7,6 +7,7 @@ export const FormTextarea = forwardRef((props, ref) => {
   return (
     <textarea
       className="input-field"
+      name={type}
       placeholder={placeholder}
       ref={ref}
       onChange={() =>

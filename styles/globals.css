@@ -55,6 +55,9 @@ BASE STYLES
     @apply mb-4 leading-relaxed
     text-dark-300;
   }
+  span {
+    @apply text-dark-300;
+  }
   a {
     @apply text-brand hover:cursor-pointer underline font-semibold hover:text-white transition-all duration-150 ease-in-out dark:hover:text-white;
   }

@@ -483,6 +483,7 @@ const initialState = {
       reporFour: null,
     },
     cardStyle: {
+      selected: false,
       titleColor: "3382ed",
       titleColorEdit: false,
       textColor: "ffffff",

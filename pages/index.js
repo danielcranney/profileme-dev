@@ -1498,9 +1498,13 @@ export default function Home() {
             {/* Badges Section Preview */}
             <div ref={badgesRef} className="flex flex-wrap gap-x-2 gap-y-2">
               {state.badges.githubCommitsGraph.selected ? (
-                <img
-                  src={`https://activity-graph.herokuapp.com/graph?username=${state.socials.github.linkSuffix}&bg_color=${state.badges.cardStyle.bgColor}&color=${state.badges.cardStyle.textColor}&line=${state.badges.cardStyle.iconColor}&point=${state.badges.cardStyle.textColor}&area_color=${state.badges.cardStyle.bgColor}&area=true&hide_border=true`}
-                />
+                <a
+                  href={`http://www.github.com/${state.socials.github.linkSuffix}`}
+                >
+                  <img
+                    src={`https://activity-graph.herokuapp.com/graph?username=${state.socials.github.linkSuffix}&bg_color=${state.badges.cardStyle.bgColor}&color=${state.badges.cardStyle.textColor}&line=${state.badges.cardStyle.iconColor}&point=${state.badges.cardStyle.textColor}&area_color=${state.badges.cardStyle.bgColor}&area=true&hide_border=true&custom_title=GitHub%20Commits%20Graph`}
+                  />
+                </a>
               ) : null}
               {state.badges.githubStatsCard.selected ? (
                 <img
@@ -1533,58 +1537,61 @@ export default function Home() {
               ) : null}
 
               {/* Repo Cards */}
-              {state.badges.reposCard.selected &&
-              state.badges.reposCard.repoOne ? (
-                <a
-                  href={`https://www.github.com/${state.socials.github.linkSuffix}/${state.badges.reposCard.repoOne}`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <img
-                    src={`https://github-readme-stats.vercel.app/api/pin/?username=${state.socials.github.linkSuffix}&repo=${state.badges.reposCard.repoOne}&title_color=${state.badges.cardStyle.titleColor}&text_color=${state.badges.cardStyle.textColor}&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${state.badges.cardStyle.bgColor}&hide_border=true&locale=en`}
-                  />
-                </a>
-              ) : null}
 
-              {state.badges.reposCard.selected &&
-              state.badges.reposCard.repoTwo ? (
-                <a
-                  href={`https://www.github.com/${state.socials.github.linkSuffix}/${state.badges.reposCard.repoTwo}`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <img
-                    src={`https://github-readme-stats.vercel.app/api/pin/?username=${state.socials.github.linkSuffix}&repo=${state.badges.reposCard.repoTwo}&title_color=${state.badges.cardStyle.titleColor}&text_color=${state.badges.cardStyle.textColor}&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${state.badges.cardStyle.bgColor}&hide_border=true&locale=en`}
-                  />
-                </a>
-              ) : null}
+              {state.badges.reposCard.selected ? (
+                <>
+                  <h3>Top Repositories</h3>
+                  <div className="grid grid-cols-2 gap-4">
+                    {state.badges.reposCard.repoOne ? (
+                      <a
+                        href={`https://www.github.com/${state.socials.github.linkSuffix}/${state.badges.reposCard.repoOne}`}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <img
+                          src={`https://github-readme-stats.vercel.app/api/pin/?username=${state.socials.github.linkSuffix}&repo=${state.badges.reposCard.repoOne}&title_color=${state.badges.cardStyle.titleColor}&text_color=${state.badges.cardStyle.textColor}&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${state.badges.cardStyle.bgColor}&hide_border=true&locale=en`}
+                        />
+                      </a>
+                    ) : null}
 
-              {state.badges.reposCard.selected &&
-              state.badges.reposCard.repoThree ? (
-                <a
-                  href={`https://www.github.com/${state.socials.github.linkSuffix}/${state.badges.reposCard.repoThree}`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <img
-                    src={`https://github-readme-stats.vercel.app/api/pin/?username=${state.socials.github.linkSuffix}&repo=${state.badges.reposCard.repoThree}&title_color=${state.badges.cardStyle.titleColor}&text_color=${state.badges.cardStyle.textColor}&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${state.badges.cardStyle.bgColor}&hide_border=true&locale=en`}
-                  />
-                </a>
-              ) : null}
+                    {state.badges.reposCard.repoTwo ? (
+                      <a
+                        href={`https://www.github.com/${state.socials.github.linkSuffix}/${state.badges.reposCard.repoTwo}`}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <img
+                          src={`https://github-readme-stats.vercel.app/api/pin/?username=${state.socials.github.linkSuffix}&repo=${state.badges.reposCard.repoTwo}&title_color=${state.badges.cardStyle.titleColor}&text_color=${state.badges.cardStyle.textColor}&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${state.badges.cardStyle.bgColor}&hide_border=true&locale=en`}
+                        />
+                      </a>
+                    ) : null}
 
-              {state.badges.reposCard.selected &&
-              state.badges.reposCard.repoFour ? (
-                <a
-                  href={`https://www.github.com/${state.socials.github.linkSuffix}/${state.badges.reposCard.repoFour}`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <img
-                    src={`https://github-readme-stats.vercel.app/api/pin/?username=${state.socials.github.linkSuffix}&repo=${state.badges.reposCard.repoFour}&title_color=${state.badges.cardStyle.titleColor}&text_color=${state.badges.cardStyle.textColor}&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${state.badges.cardStyle.bgColor}&hide_border=true&locale=en`}
-                  />
-                </a>
-              ) : null}
+                    {state.badges.reposCard.repoThree ? (
+                      <a
+                        href={`https://www.github.com/${state.socials.github.linkSuffix}/${state.badges.reposCard.repoThree}`}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <img
+                          src={`https://github-readme-stats.vercel.app/api/pin/?username=${state.socials.github.linkSuffix}&repo=${state.badges.reposCard.repoThree}&title_color=${state.badges.cardStyle.titleColor}&text_color=${state.badges.cardStyle.textColor}&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${state.badges.cardStyle.bgColor}&hide_border=true&locale=en`}
+                        />
+                      </a>
+                    ) : null}
 
+                    {state.badges.reposCard.repoFour ? (
+                      <a
+                        href={`https://www.github.com/${state.socials.github.linkSuffix}/${state.badges.reposCard.repoFour}`}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <img
+                          src={`https://github-readme-stats.vercel.app/api/pin/?username=${state.socials.github.linkSuffix}&repo=${state.badges.reposCard.repoFour}&title_color=${state.badges.cardStyle.titleColor}&text_color=${state.badges.cardStyle.textColor}&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${state.badges.cardStyle.bgColor}&hide_border=true&locale=en`}
+                        />
+                      </a>
+                    ) : null}
+                  </div>
+                </>
+              ) : null}
               {/* Top Languages Cards */}
               {state.badges.topLangsCard.selected ? (
                 <img
@@ -1745,9 +1752,7 @@ export default function Home() {
                 </div>
 
                 {socialsShowing ? (
-                  <p className="mt-4 whitespace-pre-line">
-                    ### Let&apos;s Connect
-                  </p>
+                  <p className="whitespace-pre-line">### Let&apos;s Connect</p>
                 ) : null}
 
                 {socialsShowing ? <>{`<p align="left">`}</> : null}
@@ -1760,89 +1765,155 @@ export default function Home() {
                 })}
                 {socialsShowing ? <>{`</p>`}</> : null}
 
-                <p className="mt-4 break-all whitespace-pre-line">
-                  {!renderedMarkdown.badges.githubStatsCard.selected ? null : (
-                    <span className="break-all whitespace-pre-line">
-                      {`[![${
-                        state.introduction.name
-                      }'s GitHub stats](https://github-readme-stats.vercel.app/api?username=${
-                        state.socials.github.linkSuffix
-                      }&show_icons=true&hide=${
-                        state.badges.githubStatsCard.stars ? "" : "stars,"
-                      }${
-                        state.badges.githubStatsCard.commits ? "" : "commits,"
-                      }${state.badges.githubStatsCard.prs ? "" : "prs,"}${
-                        state.badges.githubStatsCard.issues ? "" : "issues,"
-                      }${
-                        state.badges.githubStatsCard.contribs ? "" : "contribs"
-                      }${
-                        state.badges.githubStatsCard.privateCommits
-                          ? "&count_private=true"
-                          : ""
-                      }&title_color=${
-                        state.badges.cardStyle.titleColor
-                      }&text_color=${
-                        state.badges.cardStyle.textColor
-                      }&icon_color=${
-                        state.badges.cardStyle.iconColor
-                      }&bg_color=${
-                        state.badges.cardStyle.bgColor
-                      }&hide_border=true&show_icons=true)](https://github.com/anuraghazra/github-readme-stats)
+                {!renderedMarkdown.badges.githubStatsCard.selected ? null : (
+                  <p className="mt-4 break-all whitespace-pre-line">
+                    {`[![${
+                      state.introduction.name
+                    }'s GitHub stats](https://github-readme-stats.vercel.app/api?username=${
+                      state.socials.github.linkSuffix
+                    }&show_icons=true&hide=${
+                      state.badges.githubStatsCard.stars ? "" : "stars,"
+                    }${state.badges.githubStatsCard.commits ? "" : "commits,"}${
+                      state.badges.githubStatsCard.prs ? "" : "prs,"
+                    }${state.badges.githubStatsCard.issues ? "" : "issues,"}${
+                      state.badges.githubStatsCard.contribs ? "" : "contribs"
+                    }${
+                      state.badges.githubStatsCard.privateCommits
+                        ? "&count_private=true"
+                        : ""
+                    }&title_color=${
+                      state.badges.cardStyle.titleColor
+                    }&text_color=${
+                      state.badges.cardStyle.textColor
+                    }&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${
+                      state.badges.cardStyle.bgColor
+                    }&hide_border=true&show_icons=true)](https://github.com/anuraghazra/github-readme-stats)
 `}
-                    </span>
-                  )}
+                  </p>
+                )}
 
-                  {!renderedMarkdown.badges.topLangsCard.selected ? null : (
-                    <span className="break-all whitespace-pre-line">
-                      {`[![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=${state.socials.github.linkSuffix}&langs_count=10&title_color=${state.badges.cardStyle.titleColor}&text_color=${state.badges.cardStyle.textColor}&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${state.badges.cardStyle.bgColor}&hide_border=true&locale=en&custom_title=Top%20%Languages)](https://github.com/anuraghazra/github-readme-stats)`}
-                    </span>
-                  )}
+                {!renderedMarkdown.badges.githubCommitsGraph.selected ? null : (
+                  <p className="mt-4 break-all whitespace-pre-line">
+                    {`<a
+                      href="http://www.github.com/${state.socials.github.linkSuffix}"><img src="https://activity-graph.herokuapp.com/graph?username=${state.socials.github.linkSuffix}&bg_color=${state.badges.cardStyle.bgColor}&color=${state.badges.cardStyle.textColor}&line=${state.badges.cardStyle.iconColor}&point=${state.badges.cardStyle.textColor}&area_color=${state.badges.cardStyle.bgColor}&area=true&hide_border=true&custom_title=GitHub%20Commits%20Graph"/></a>`}
+                  </p>
+                )}
 
-                  {!renderedMarkdown.badges.reposCard.selected ? null : (
-                    <span className="break-all whitespace-pre-line">
-                      {`[![Repository](https://github-readme-stats.vercel.app/api/pin/?username=${state.socials.github.linkSuffix}&repo=${state.badges.reposCard.repoOne}&title_color=${state.badges.cardStyle.titleColor}&text_color=${state.badges.cardStyle.textColor}&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${state.badges.cardStyle.bgColor}&hide_border=true&locale=en)](https://github.com/anuraghazra/github-readme-stats)`}
-                    </span>
-                  )}
+                {!renderedMarkdown.badges.githubStreak.selected ? null : (
+                  <p className="mt-4 break-all whitespace-pre-line">
+                    {`<a
+                      href="http://www.github.com/${state.socials.github.linkSuffix}"><img
+                  src="https://github-readme-streak-stats.herokuapp.com/?user=${state.socials.github.linkSuffix}&stroke=${state.badges.cardStyle.textColor}&background=${state.badges.cardStyle.bgColor}&ring=${state.badges.cardStyle.titleColor}&fire=${state.badges.cardStyle.titleColor}&currStreakNum=${state.badges.cardStyle.textColor}&currStreakLabel=${state.badges.cardStyle.titleColor}&sideNums=${state.badges.cardStyle.textColor}&sideLabels=${state.badges.cardStyle.textColor}&dates=${state.badges.cardStyle.textColor}&hide_border=true" /></a>`}
+                  </p>
+                )}
 
-                  {/* {badgesShowing ? <>{`<p align="left">`}</> : null} */}
+                {!renderedMarkdown.badges.topLangsCard.selected ? null : (
+                  <p className="mt-4 break-all whitespace-pre-line">
+                    {`<a href="https://github.com/${state.socials.github.linkSuffix}/${state.badges.reposCard.repoOne}" align="left"><img src="https://github-readme-stats.vercel.app/api/top-langs/?username=${state.socials.github.linkSuffix}&langs_count=10&title_color=${state.badges.cardStyle.titleColor}&text_color=${state.badges.cardStyle.textColor}&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${state.badges.cardStyle.bgColor}&hide_border=true&locale=en&custom_title=Top%20%Languages" alt="Top Languages" /></a>`}
+                  </p>
+                )}
 
-                  {!renderedMarkdown.badges.twitterFollowers.selected ? null : (
-                    <span className="whitespace-pre-line">
-                      {`<a href="${state.socials.twitter.linkPrefix}${state.socials.twitter.linkSuffix}" target="_blank" rel="noreferrer"><img
+                {renderedMarkdown.badges.reposCard.selected ? (
+                  <p className="mt-4 whitespace-pre-line">
+                    ### Top Repositories
+                  </p>
+                ) : null}
+
+                <p className="mt-4 break-all whitespace-pre-line">
+                  {renderedMarkdown.badges.reposCard.selected ? (
+                    <>{`<div width="100%" align="center">`}</>
+                  ) : null}
+
+                  {renderedMarkdown.badges.reposCard.selected &&
+                  state.badges.reposCard.repoOne ? (
+                    <>
+                      {`<a href="https://github.com/${state.socials.github.linkSuffix}/${state.badges.reposCard.repoOne}" align="left"><img align="left" height="115" src="https://github-readme-stats.vercel.app/api/pin/?username=${state.socials.github.linkSuffix}&repo=${state.badges.reposCard.repoOne}&title_color=${state.badges.cardStyle.titleColor}&text_color=${state.badges.cardStyle.textColor}&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${state.badges.cardStyle.bgColor}&hide_border=true&locale=en" /></a>`}
+                    </>
+                  ) : null}
+
+                  {renderedMarkdown.badges.reposCard.selected &&
+                  state.badges.reposCard.repoTwo ? (
+                    <>
+                      {`<a href="https://github.com/${state.socials.github.linkSuffix}/${state.badges.reposCard.repoTwo}" align="right"><img align="right" height="115" src="https://github-readme-stats.vercel.app/api/pin/?username=${state.socials.github.linkSuffix}&repo=${state.badges.reposCard.repoTwo}&title_color=${state.badges.cardStyle.titleColor}&text_color=${state.badges.cardStyle.textColor}&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${state.badges.cardStyle.bgColor}&hide_border=true&locale=en" /></a>`}
+                    </>
+                  ) : null}
+
+                  {renderedMarkdown.badges.reposCard.selected ? (
+                    <>{`</div>`}</>
+                  ) : null}
+                </p>
+
+                <p className="mt-4 break-all whitespace-pre-line">
+                  {renderedMarkdown.badges.reposCard.selected &&
+                  state.badges.reposCard.repoThree ? (
+                    <>{`<br /><br /><br /><br /><br />`}</>
+                  ) : null}
+                </p>
+
+                <p className="mt-4 break-all whitespace-pre-line">
+                  {renderedMarkdown.badges.reposCard.selected &&
+                  state.badges.reposCard.repoThree ? (
+                    <>{`<div width="100%" align="center">`}</>
+                  ) : null}
+
+                  {renderedMarkdown.badges.reposCard.selected &&
+                  state.badges.reposCard.repoThree ? (
+                    <>
+                      {`<a href="https://github.com/${state.socials.github.linkSuffix}/${state.badges.reposCard.repoThree}" align="left"><img align="left" height="115" src="https://github-readme-stats.vercel.app/api/pin/?username=${state.socials.github.linkSuffix}&repo=${state.badges.reposCard.repoThree}&title_color=${state.badges.cardStyle.titleColor}&text_color=${state.badges.cardStyle.textColor}&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${state.badges.cardStyle.bgColor}&hide_border=true&locale=en" /></a>`}
+                    </>
+                  ) : null}
+
+                  {renderedMarkdown.badges.reposCard.selected &&
+                  state.badges.reposCard.repoFour ? (
+                    <>
+                      {`<a href="https://github.com/${state.socials.github.linkSuffix}/${state.badges.reposCard.repoFour}" align="right"><img align="right" height="115" src="https://github-readme-stats.vercel.app/api/pin/?username=${state.socials.github.linkSuffix}&repo=${state.badges.reposCard.repoFour}&title_color=${state.badges.cardStyle.titleColor}&text_color=${state.badges.cardStyle.textColor}&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${state.badges.cardStyle.bgColor}&hide_border=true&locale=en" /></a>`}
+                    </>
+                  ) : null}
+
+                  {renderedMarkdown.badges.reposCard.selected &&
+                  state.badges.reposCard.repoThree ? (
+                    <>{`</div>`}</>
+                  ) : null}
+                </p>
+
+                {/* {badgesShowing ? <>{`<p align="left">`}</> : null} */}
+
+                {!renderedMarkdown.badges.twitterFollowers.selected ? null : (
+                  <span className="whitespace-pre-line">
+                    {`<a href="${state.socials.twitter.linkPrefix}${state.socials.twitter.linkSuffix}" target="_blank" rel="noreferrer"><img
                   src="https://img.shields.io/twitter/follow/${state.socials.twitter.linkSuffix}?logo=twitter&style=for-the-badge&color=${state.badges.cardStyle.iconColor}&labelColor=${state.badges.cardStyle.bgColor}"
                 /></a>`}
-                    </span>
-                  )}
-                  {!renderedMarkdown.badges.githubFollowers.selected ? null : (
-                    <span className="whitespace-pre-line">
-                      {`<a href="${state.socials.github.linkPrefix}${state.socials.github.linkSuffix}" target="_blank" rel="noreferrer"><img
+                  </span>
+                )}
+                {!renderedMarkdown.badges.githubFollowers.selected ? null : (
+                  <span className="whitespace-pre-line">
+                    {`<a href="${state.socials.github.linkPrefix}${state.socials.github.linkSuffix}" target="_blank" rel="noreferrer"><img
                   src="https://img.shields.io/github/followers/${state.socials.github.linkSuffix}?logo=github&style=for-the-badge&color=${state.badges.cardStyle.iconColor}&labelColor=${state.badges.cardStyle.bgColor}" /></a>`}
-                    </span>
-                  )}
-                  {!renderedMarkdown.badges.githubVisits.selected ? null : (
-                    <span className="whitespace-pre-line">
-                      {`<a href="${state.socials.github.linkPrefix}${state.socials.github.linkSuffix}" target="_blank" rel="noreferrer"><img
+                  </span>
+                )}
+                {!renderedMarkdown.badges.githubVisits.selected ? null : (
+                  <span className="whitespace-pre-line">
+                    {`<a href="${state.socials.github.linkPrefix}${state.socials.github.linkSuffix}" target="_blank" rel="noreferrer"><img
                   src="https://komarev.com/ghpvc/?username=${state.socials.github.linkSuffix}&style=for-the-badge&label=GITHUB+PROFILE+VIEWS&color=${state.badges.cardStyle.iconColor}&labelColor=${state.badges.cardStyle.bgColor}" /></a>`}
-                    </span>
-                  )}
-                  {!renderedMarkdown.badges.twitchStatus.selected ? null : (
-                    <span className="whitespace-pre-line">
-                      {`<a href="${state.socials.twitch.linkPrefix}${state.socials.twitch.linkSuffix}" target="_blank" rel="noreferrer"><img
+                  </span>
+                )}
+                {!renderedMarkdown.badges.twitchStatus.selected ? null : (
+                  <span className="whitespace-pre-line">
+                    {`<a href="${state.socials.twitch.linkPrefix}${state.socials.twitch.linkSuffix}" target="_blank" rel="noreferrer"><img
                   src="https://img.shields.io/twitch/status/${state.socials.twitch.linkSuffix}?logo=twitchsx&style=for-the-badge&color=${state.badges.cardStyle.iconColor}&labelColor=${state.badges.cardStyle.bgColor}&label=TWITCH+STATUS" /></a>`}
-                    </span>
-                  )}
-                  {/* {badgesShowing ? <>{`</p>`}</> : null} */}
+                  </span>
+                )}
+                {/* {badgesShowing ? <>{`</p>`}</> : null} */}
 
-                  {!renderedMarkdown.support.buymeacoffee.linkSuffix ? null : (
-                    <>
-                      <span className="mt-4 whitespace-pre-line">
-                        ### Support Me
-                      </span>
-                      {`<a
+                {!renderedMarkdown.support.buymeacoffee.linkSuffix ? null : (
+                  <>
+                    <span className="mt-4 whitespace-pre-line">
+                      ### Support Me
+                    </span>
+                    {`<a
                   href="${state.support.buymeacoffee.linkPrefix}${state.support.buymeacoffee.linkSuffix}"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" width="200" /></a>`}
-                    </>
-                  )}
-                </p>
+                  </>
+                )}
               </>
             )}
           </article>

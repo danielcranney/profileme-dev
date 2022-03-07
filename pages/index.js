@@ -237,6 +237,7 @@ export default function Home() {
   });
   const [socialsShowing, setSocialsShowing] = useState(false);
   const [badgesShowing, setBadgesShowing] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [copySuccess, setCopySuccess] = useState("Copy");
 
   // Section Refs
@@ -457,11 +458,32 @@ export default function Home() {
   };
 
   return (
-    <main className="flex flex-col h-screen">
+    <main className="flex flex-col h-auto md:h-screen">
       <Head>
         <title>GitHub Profile Generator</title>
       </Head>
-      <header className="flex items-center h-16 px-6 border-b bg-dark-800 border-dark-600">
+      <header className="fixed z-40 flex items-center w-full h-16 px-6 border-b md:relative bg-dark-800 border-dark-600">
+        <button
+          className="relative z-20 flex items-center justify-center mr-2 w-9 h-9 border-dark-600 bg-dark-700"
+          onClick={() => {
+            setSidebarOpen(!sidebarOpen);
+          }}
+        >
+          <svg
+            class="w-6 h-6 text-brand"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4 6h16M4 10h16M4 14h16M4 18h16"
+            ></path>
+          </svg>
+        </button>
         <svg
           className="w-6 h-6 mr-2 text-brand"
           fill="none"
@@ -481,18 +503,24 @@ export default function Home() {
         </h1>
         <a
           href="mailto:danielcranney@gmail.com"
-          className="px-2 py-2 ml-auto text-xs font-semibold tracking-wide no-underline uppercase transition-all duration-150 ease-in-out border text-dark-300 border-dark-600 bg-dark-700 hover:text-white"
+          className="flex items-center px-2 ml-auto text-xs font-semibold tracking-wide no-underline uppercase transition-all duration-150 ease-in-out border h-9 text-dark-300 border-dark-600 bg-dark-700 hover:text-white"
         >
           Give Feedback
         </a>
       </header>
-      <div className="flex flex-1 overflow-hidden">
+      <div className="relative flex flex-col flex-1 overflow-hidden md:flex-row top-16 md:top-0">
         {/* COLUMN 1 - SIDEBAR */}
-        <aside className="flex flex-col w-64 p-6 overflow-auto border-r bg-dark-800 border-dark-600">
+        <aside
+          className={`fixed left-0 z-10 flex flex-col w-full h-full px-6 pb-6 pt-22 border-t-0 border-b border-r-0 bg-dark-800 border-dark-600 md:flex-grow md:border-b-0 transform transition-all duration-200 ease-in-out overflow-hidden md:w-64 top-0 ${
+            sidebarOpen
+              ? "translate-x-0 md:border-r"
+              : "-translate-x-full md:-translate-x-64"
+          }`}
+        >
           <p className="mb-4 text-xs font-semibold text-white uppercase">
             Sections
           </p>
-          <ul className="menu">
+          <ul className="mb-4 menu">
             <MenuItem text={"Introduction"} section={"introduction"} />
             <MenuItem text={"Skills"} section={"skills"} />
             <MenuItem text={"Socials"} section={"socials"} />
@@ -510,7 +538,11 @@ export default function Home() {
           </a>
         </aside>
         {/* COLUMN 2 - INPUTS */}
-        <section className="flex flex-col flex-1 border-r border-dark-600 bg-dark-800">
+        <section
+          className={`flex flex-col flex-1 border-r-0 md:border-r border-dark-600 bg-dark-800 transition-all duration-200 ease-in-out ${
+            sidebarOpen ? "ml-0 md:ml-64" : ""
+          }`}
+        >
           {/* Section Displays */}
           {state.section === "introduction" ? (
             <>
@@ -619,7 +651,7 @@ export default function Home() {
                 {/* Collaborate on */}
                 <IntroductionArticle
                   ref={collaborateOnRef}
-                  formLabelText={"I'm open to collaborate on:"}
+                  formLabelText={"I'm open to collaborating on:"}
                   formLabelIcon={"🤝"}
                   section={"introduction"}
                   type={"collaborateOn"}
@@ -1415,7 +1447,7 @@ export default function Home() {
           ) : null}
         </section>
         {/* COLUMN 3 - PREVIEW & MARKDOWN */}
-        <section className="relative flex flex-col flex-1 bg-dark-800">
+        <section className="relative flex flex-col flex-1 border-t bg-dark-800 border-dark-600 md:border-t-0">
           {/* Preview, Markdown and Copy Buttons */}
           <div className="relative flex w-full border-b bg-dark-900 border-dark-600">
             <button
@@ -1563,19 +1595,6 @@ export default function Home() {
                     🌍&nbsp; I&apos;m based in {state.introduction.location}
                   </li>
                 ) : null}
-                {state.introduction.workingOnTitle &&
-                state.introduction.workingOnLink ? (
-                  <li>
-                    🚀&nbsp; I&apos;m currently working on{" "}
-                    <a
-                      href={`http://www.${state.introduction.workingOnLink}`}
-                      target="_blank"
-                      rel="noreferrer"
-                    >
-                      {state.introduction.workingOnTitle}
-                    </a>
-                  </li>
-                ) : null}
                 {state.introduction.portfolioTitle &&
                 state.introduction.portfolioLink ? (
                   <li>
@@ -1597,6 +1616,19 @@ export default function Home() {
                     </a>
                   </li>
                 ) : null}
+                {state.introduction.workingOnTitle &&
+                state.introduction.workingOnLink ? (
+                  <li>
+                    🚀&nbsp; I&apos;m currently working on{" "}
+                    <a
+                      href={`http://www.${state.introduction.workingOnLink}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {state.introduction.workingOnTitle}
+                    </a>
+                  </li>
+                ) : null}
                 {state.introduction.learning ? (
                   <li>
                     🧠&nbsp; I&apos;m learning {state.introduction.learning}
@@ -1609,7 +1641,7 @@ export default function Home() {
                   </li>
                 ) : null}
                 {state.introduction.additionalInfo ? (
-                  <li>⚡&nbsp;{state.introduction.additionalInfo}</li>
+                  <li>⚡&nbsp; {state.introduction.additionalInfo}</li>
                 ) : null}
               </ul>
             </div>

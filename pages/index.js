@@ -468,9 +468,30 @@ export default function Home() {
   return (
     <main className="flex flex-col h-auto md:h-screen">
       <Head>
-        <title>
-          ProfileMe.dev | Create an awesome GitHub profile in minutes
-        </title>
+        <>
+          <title>
+            ProfileMe.dev | Create an awesome GitHub profile in minutes
+          </title>
+          <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+          />
+          <meta
+            name="description"
+            content="ProfileMe.dev | Create an awesome GitHub profile in minutes"
+          />
+          <meta name="author" content="Dan Cranney" />
+          <meta property="og:site_name" content="ProfileMe.dev" />
+          <meta property="og:site" content="http://www.profileme.dev" />
+          <meta property="og:title" content="ProfileMe.dev" />
+          <meta
+            property="og:description"
+            content="Create an awesome GitHub profile in minutes"
+          />
+          <meta property="og:image" content="" />
+          <meta property="og:url" content="http://www.profileme.dev" />
+          <meta name="twitter:card" content="summary_large_image" />
+        </>
       </Head>
       <header className="fixed z-40 flex items-center w-full h-16 px-6 border-b md:relative bg-dark-800 border-dark-600">
         <button

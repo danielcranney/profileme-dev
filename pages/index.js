@@ -488,7 +488,10 @@ export default function Home() {
             property="og:description"
             content="Create an awesome GitHub profile in minutes"
           />
-          <meta property="og:image" content="" />
+          <meta
+            property="og:image"
+            content="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/social-image.jpg"
+          />
           <meta property="og:url" content="http://www.profileme.dev" />
           <meta name="twitter:card" content="summary_large_image" />
         </>

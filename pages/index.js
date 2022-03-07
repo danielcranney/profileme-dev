@@ -468,7 +468,9 @@ export default function Home() {
   return (
     <main className="flex flex-col h-auto md:h-screen">
       <Head>
-        <title>GitHub Profile Generator</title>
+        <title>
+          ProfileMe.dev | Create an awesome GitHub profile in minutes
+        </title>
       </Head>
       <header className="fixed z-40 flex items-center w-full h-16 px-6 border-b md:relative bg-dark-800 border-dark-600">
         <button
@@ -509,7 +511,7 @@ export default function Home() {
           ></path>
         </svg>
         <h1 className="mb-0 text-base md:text-xl">
-          ReadMe <span className="text-brand">Generator</span>
+          ProfileMe<span className="text-brand">.dev</span>
         </h1>
         <a
           href="mailto:danielcranney@gmail.com"
@@ -1873,9 +1875,7 @@ export default function Home() {
                 )}
 
                 {renderedMarkdown.skillsTitle ? (
-                  <p className="whitespace-pre-line">
-                    {renderedMarkdown.skillsTitle}
-                  </p>
+                  <p className="mt-4 whitespace-pre-line">{`### Skills`}</p>
                 ) : null}
 
                 <div className="break-all whitespace-pre-line">
@@ -1952,12 +1952,13 @@ export default function Home() {
                   renderedMarkdown.skills.backend.length < 1 &&
                   renderedMarkdown.skills.other.length < 1 &&
                   renderedMarkdown.skills.software.length < 1 ? null : (
-                    <>{`</p>`}</>
+                    <>{`</p>
+                    `}</>
                   )}
                 </div>
 
                 {socialsShowing ? (
-                  <p className="whitespace-pre-line">### Socials</p>
+                  <p className="mt-4 whitespace-pre-line">{`### Socials`}</p>
                 ) : null}
 
                 {socialsShowing ? <>{`<p align="left">`}</> : null}
@@ -1979,11 +1980,6 @@ export default function Home() {
                 renderedMarkdown.badges.githubStreak.selected ? (
                   <p className="break-all whitespace-pre-line">{`<b>My GitHub Stats</b>`}</p>
                 ) : null}
-
-                {!renderedMarkdown.badges.githubStatsCard.selected &&
-                !renderedMarkdown.badges.githubStreak.selected ? null : (
-                  <>{`<div width="100%" align="center">`}</>
-                )}
                 {!renderedMarkdown.badges.githubStatsCard.selected ? null : (
                   <p className="mb-0 break-all">
                     {`<a
@@ -2009,90 +2005,29 @@ export default function Home() {
                       state.badges.cardStyle.bgColor
                     }&hide_border=true&show_icons=true" alt="${
                       state.socials.github.linkSuffix
-                    }'s GitHub stats" align="left" width="48%" /></a>`}
+                    }'s GitHub stats" /></a>`}
                   </p>
                 )}
 
                 {!renderedMarkdown.badges.githubStreak.selected ? null : (
                   <p className="mb-0 break-all">
                     {`<a
-                      href="http://www.github.com/${
-                        state.socials.github.linkSuffix
-                      }"><img
-                  src="https://github-readme-streak-stats.herokuapp.com/?user=${
-                    state.socials.github.linkSuffix
-                  }&stroke=${state.badges.cardStyle.textColor}&background=${
-                      state.badges.cardStyle.bgColor
-                    }&ring=${state.badges.cardStyle.titleColor}&fire=${
-                      state.badges.cardStyle.titleColor
-                    }&currStreakNum=${
-                      state.badges.cardStyle.textColor
-                    }&currStreakLabel=${
-                      state.badges.cardStyle.titleColor
-                    }&sideNums=${state.badges.cardStyle.textColor}&sideLabels=${
-                      state.badges.cardStyle.textColor
-                    }&dates=${
-                      state.badges.cardStyle.textColor
-                    }&hide_border=true" ${
-                      renderedMarkdown.badges.githubStatsCard.selected
-                        ? `align="right"`
-                        : `align="left"`
-                    } width="48%" /></a>`}
+                      href="http://www.github.com/${state.socials.github.linkSuffix}"><img
+                  src="https://github-readme-streak-stats.herokuapp.com/?user=${state.socials.github.linkSuffix}&stroke=${state.badges.cardStyle.textColor}&background=${state.badges.cardStyle.bgColor}&ring=${state.badges.cardStyle.titleColor}&fire=${state.badges.cardStyle.titleColor}&currStreakNum=${state.badges.cardStyle.textColor}&currStreakLabel=${state.badges.cardStyle.titleColor}&sideNums=${state.badges.cardStyle.textColor}&sideLabels=${state.badges.cardStyle.textColor}&dates=${state.badges.cardStyle.textColor}&hide_border=true" /></a>`}
                   </p>
                 )}
 
-                {!renderedMarkdown.badges.githubStatsCard.selected &&
-                !renderedMarkdown.badges.githubStreak.selected ? null : (
-                  <p className="break-all whitespace-pre-line">{`<br /><br /><br /><br /><br /><br /><br /><br /></div>`}</p>
-                )}
-
-                {!renderedMarkdown.badges.githubCommitsGraph.selected &&
-                !renderedMarkdown.badges.topLangsCard.selected ? null : (
-                  <>{`<div width="100%" align="center">`}</>
-                )}
                 {!renderedMarkdown.badges.githubCommitsGraph.selected ? null : (
                   <p className="mb-0 break-all">
                     {`<a
-                      href="http://www.github.com/${
-                        state.socials.github.linkSuffix
-                      }"><img src="https://activity-graph.herokuapp.com/graph?username=${
-                      state.socials.github.linkSuffix
-                    }&bg_color=${state.badges.cardStyle.bgColor}&color=${
-                      state.badges.cardStyle.textColor
-                    }&line=${state.badges.cardStyle.iconColor}&point=${
-                      state.badges.cardStyle.textColor
-                    }&area_color=${
-                      state.badges.cardStyle.bgColor
-                    }&area=true&hide_border=true&custom_title=GitHub%20Commits%20Graph" alt="GitHub Commits Graph"  ${
-                      renderedMarkdown.badges.topLangsCard.selected
-                        ? `align="left" width="68%"`
-                        : `align="left"`
-                    } /></a>`}
+                      href="http://www.github.com/${state.socials.github.linkSuffix}"><img src="https://activity-graph.herokuapp.com/graph?username=${state.socials.github.linkSuffix}&bg_color=${state.badges.cardStyle.bgColor}&color=${state.badges.cardStyle.textColor}&line=${state.badges.cardStyle.iconColor}&point=${state.badges.cardStyle.textColor}&area_color=${state.badges.cardStyle.bgColor}&area=true&hide_border=true&custom_title=GitHub%20Commits%20Graph" alt="GitHub Commits Graph" /></a>`}
                   </p>
                 )}
 
                 {!renderedMarkdown.badges.topLangsCard.selected ? null : (
                   <p className="mb-0 break-all whitespace-pre-line">
-                    {`<a href="https://github.com/${
-                      state.socials.github.linkSuffix
-                    }" align="left"><img src="https://github-readme-stats.vercel.app/api/top-langs/?username=${
-                      state.socials.github.linkSuffix
-                    }&langs_count=10&title_color=${
-                      state.badges.cardStyle.titleColor
-                    }&text_color=${
-                      state.badges.cardStyle.textColor
-                    }&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${
-                      state.badges.cardStyle.bgColor
-                    }&hide_border=true&locale=en&custom_title=Top%20%Languages" alt="Top Languages" ${
-                      renderedMarkdown.badges.githubCommitsGraph.selected
-                        ? `align="right" width="28%"`
-                        : `align="left"`
-                    } /></a>`}
+                    {`<a href="https://github.com/${state.socials.github.linkSuffix}" align="left"><img src="https://github-readme-stats.vercel.app/api/top-langs/?username=${state.socials.github.linkSuffix}&langs_count=10&title_color=${state.badges.cardStyle.titleColor}&text_color=${state.badges.cardStyle.textColor}&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${state.badges.cardStyle.bgColor}&hide_border=true&locale=en&custom_title=Top%20%Languages" alt="Top Languages" /></a>`}
                   </p>
-                )}
-                {!renderedMarkdown.badges.githubCommitsGraph.selected &&
-                !renderedMarkdown.badges.topLangsCard.selected ? null : (
-                  <>{`</div><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />`}</>
                 )}
 
                 {renderedMarkdown.badges.reposCard.selected ? (
@@ -2109,14 +2044,14 @@ export default function Home() {
                   {renderedMarkdown.badges.reposCard.selected &&
                   state.badges.reposCard.repoOne ? (
                     <>
-                      {`<a href="https://github.com/${state.socials.github.linkSuffix}/${state.badges.reposCard.repoOne}" align="left"><img align="left" width="48%" src="https://github-readme-stats.vercel.app/api/pin/?username=${state.socials.github.linkSuffix}&repo=${state.badges.reposCard.repoOne}&title_color=${state.badges.cardStyle.titleColor}&text_color=${state.badges.cardStyle.textColor}&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${state.badges.cardStyle.bgColor}&hide_border=true&locale=en" /></a>`}
+                      {`<a href="https://github.com/${state.socials.github.linkSuffix}/${state.badges.reposCard.repoOne}" align="left"><img align="left" width="45%" src="https://github-readme-stats.vercel.app/api/pin/?username=${state.socials.github.linkSuffix}&repo=${state.badges.reposCard.repoOne}&title_color=${state.badges.cardStyle.titleColor}&text_color=${state.badges.cardStyle.textColor}&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${state.badges.cardStyle.bgColor}&hide_border=true&locale=en" /></a>`}
                     </>
                   ) : null}
 
                   {renderedMarkdown.badges.reposCard.selected &&
                   state.badges.reposCard.repoTwo ? (
                     <>
-                      {`<a href="https://github.com/${state.socials.github.linkSuffix}/${state.badges.reposCard.repoTwo}" align="right"><img align="right" width="48%" src="https://github-readme-stats.vercel.app/api/pin/?username=${state.socials.github.linkSuffix}&repo=${state.badges.reposCard.repoTwo}&title_color=${state.badges.cardStyle.titleColor}&text_color=${state.badges.cardStyle.textColor}&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${state.badges.cardStyle.bgColor}&hide_border=true&locale=en" /></a>`}
+                      {`<a href="https://github.com/${state.socials.github.linkSuffix}/${state.badges.reposCard.repoTwo}" align="right"><img align="right" width="45%" src="https://github-readme-stats.vercel.app/api/pin/?username=${state.socials.github.linkSuffix}&repo=${state.badges.reposCard.repoTwo}&title_color=${state.badges.cardStyle.titleColor}&text_color=${state.badges.cardStyle.textColor}&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${state.badges.cardStyle.bgColor}&hide_border=true&locale=en" /></a>`}
                     </>
                   ) : null}
 
@@ -2141,14 +2076,14 @@ export default function Home() {
                   {renderedMarkdown.badges.reposCard.selected &&
                   state.badges.reposCard.repoThree ? (
                     <>
-                      {`<a href="https://github.com/${state.socials.github.linkSuffix}/${state.badges.reposCard.repoThree}" align="left"><img align="left" width="48%" src="https://github-readme-stats.vercel.app/api/pin/?username=${state.socials.github.linkSuffix}&repo=${state.badges.reposCard.repoThree}&title_color=${state.badges.cardStyle.titleColor}&text_color=${state.badges.cardStyle.textColor}&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${state.badges.cardStyle.bgColor}&hide_border=true&locale=en" /></a>`}
+                      {`<a href="https://github.com/${state.socials.github.linkSuffix}/${state.badges.reposCard.repoThree}" align="left"><img align="left" width="45%" src="https://github-readme-stats.vercel.app/api/pin/?username=${state.socials.github.linkSuffix}&repo=${state.badges.reposCard.repoThree}&title_color=${state.badges.cardStyle.titleColor}&text_color=${state.badges.cardStyle.textColor}&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${state.badges.cardStyle.bgColor}&hide_border=true&locale=en" /></a>`}
                     </>
                   ) : null}
 
                   {renderedMarkdown.badges.reposCard.selected &&
                   state.badges.reposCard.repoFour ? (
                     <>
-                      {`<a href="https://github.com/${state.socials.github.linkSuffix}/${state.badges.reposCard.repoFour}" align="right"><img align="right" width="48%" src="https://github-readme-stats.vercel.app/api/pin/?username=${state.socials.github.linkSuffix}&repo=${state.badges.reposCard.repoFour}&title_color=${state.badges.cardStyle.titleColor}&text_color=${state.badges.cardStyle.textColor}&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${state.badges.cardStyle.bgColor}&hide_border=true&locale=en" /></a>`}
+                      {`<a href="https://github.com/${state.socials.github.linkSuffix}/${state.badges.reposCard.repoFour}" align="right"><img align="right" width="45%" src="https://github-readme-stats.vercel.app/api/pin/?username=${state.socials.github.linkSuffix}&repo=${state.badges.reposCard.repoFour}&title_color=${state.badges.cardStyle.titleColor}&text_color=${state.badges.cardStyle.textColor}&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${state.badges.cardStyle.bgColor}&hide_border=true&locale=en" /></a>`}
                     </>
                   ) : null}
 

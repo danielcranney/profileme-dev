@@ -9,6 +9,7 @@ import { iconData } from "./_app";
 // Import components
 import { FormLabel } from "../components/FormLabel";
 import { MenuItem } from "../components/MenuItem";
+import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 import FormInput from "../components/FormInput";
 import SectionHeader from "../components/SectionHeader";
 import SocialInput from "../components/SocialInput";
@@ -22,6 +23,9 @@ import { BadgeShowSelector } from "../components/BadgeShowSelector";
 import { BadgeStyleSelector } from "../components/BadgeStyleSelector";
 import { AddButton } from "../components/AddButton";
 import IntroductionTextarea from "../components/IntroductionTextarea";
+import { NextSection } from "../components/buttons/NextSection";
+import { PreviousSection } from "../components/buttons/PreviousSection";
+import { CopyrightLabel } from "../components/CopyrightLabel";
 let TurndownService = require("turndown").default;
 
 const colorStore = {
@@ -382,6 +386,10 @@ export default function Home() {
     // setBadgesShowing;
   }, [renderedMarkdown.badges]);
 
+  useEffect(() => {
+    sidebarOpen ? disableBodyScroll(document) : enableBodyScroll(document);
+  }, [sidebarOpen]);
+
   const copyToClipBoard = async (copyMe) => {
     try {
       await navigator.clipboard.writeText(copyMe);
@@ -464,13 +472,15 @@ export default function Home() {
       </Head>
       <header className="fixed z-40 flex items-center w-full h-16 px-6 border-b md:relative bg-dark-800 border-dark-600">
         <button
-          className="relative z-20 flex items-center justify-center mr-2 w-9 h-9 border-dark-600 bg-dark-700"
+          className="relative z-20 flex items-center justify-center mr-2 border w-9 h-9 border-dark-600 bg-dark-700"
           onClick={() => {
             setSidebarOpen(!sidebarOpen);
           }}
         >
           <svg
-            class="w-6 h-6 text-brand"
+            class={`w-6 h-6 transition-all duration-150 ease-in-out ${
+              sidebarOpen ? "text-white" : "text-brand"
+            }`}
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -498,7 +508,7 @@ export default function Home() {
             d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
           ></path>
         </svg>
-        <h1 className="mb-0 text-xl">
+        <h1 className="mb-0 text-base md:text-xl">
           ReadMe <span className="text-brand">Generator</span>
         </h1>
         <a
@@ -520,22 +530,39 @@ export default function Home() {
           <p className="mb-4 text-xs font-semibold text-white uppercase">
             Sections
           </p>
-          <ul className="mb-4 menu">
-            <MenuItem text={"Introduction"} section={"introduction"} />
-            <MenuItem text={"Skills"} section={"skills"} />
-            <MenuItem text={"Socials"} section={"socials"} />
-            <MenuItem text={"Badges"} section={"badges"} />
-            <MenuItem text={"Support"} section={"support"} />
+          <ul className="mb-auto menu">
+            <MenuItem
+              text={"Introduction"}
+              section={"introduction"}
+              sidebarOpen={sidebarOpen}
+              setSidebarOpen={setSidebarOpen}
+            />
+            <MenuItem
+              text={"Skills"}
+              section={"skills"}
+              sidebarOpen={sidebarOpen}
+              setSidebarOpen={setSidebarOpen}
+            />
+            <MenuItem
+              text={"Socials"}
+              section={"socials"}
+              sidebarOpen={sidebarOpen}
+              setSidebarOpen={setSidebarOpen}
+            />
+            <MenuItem
+              text={"Badges"}
+              section={"badges"}
+              sidebarOpen={sidebarOpen}
+              setSidebarOpen={setSidebarOpen}
+            />
+            <MenuItem
+              text={"Support"}
+              section={"support"}
+              sidebarOpen={sidebarOpen}
+              setSidebarOpen={setSidebarOpen}
+            />
           </ul>
-          <p className="mt-auto mb-1 text-xs">&copy; 2022 Dan Cranney</p>
-          <a
-            href="https://www.buymeacoffee.com/danielcranney"
-            rel="noreferrer"
-            target="_blank"
-            className="flex mb-0 text-xs"
-          >
-            Buy Me a Coffee
-          </a>
+          <CopyrightLabel />
         </aside>
         {/* COLUMN 2 - INPUTS */}
         <section
@@ -551,6 +578,9 @@ export default function Home() {
                   header={"Introduction"}
                   subhead={`Introduce yourself. Tell visitors about you and who you are.`}
                 />
+                <section className="flex mt-4">
+                  <NextSection sectionToGoTo={"skills"} />
+                </section>
               </section>
               <section className="flex flex-col p-6 overflow-y-auto gap-y-5">
                 {/* Name */}
@@ -667,33 +697,6 @@ export default function Home() {
                   inputPlaceholder={"I can kick myself in the head"}
                 />
               </section>
-              <section className="flex border-t border-dark-600">
-                <button
-                  className="flex px-6 py-3 ml-auto text-xs font-bold text-right underline track-wide text-brand hover:text-white"
-                  onClick={() => {
-                    dispatch({
-                      type: ACTIONS.SHOW_SECTION,
-                      payload: "skills",
-                    });
-                  }}
-                >
-                  Next section
-                  <svg
-                    className="w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M9 5l7 7-7 7"
-                    ></path>
-                  </svg>
-                </button>
-              </section>
             </>
           ) : state.section === "skills" ? (
             <>
@@ -703,6 +706,10 @@ export default function Home() {
                   subhead={`Show off the languages,
                 frameworks, software and tech that you use.`}
                 />
+                <section className="flex mt-4">
+                  <PreviousSection sectionToGoTo={"introduction"} />
+                  <NextSection sectionToGoTo={"socials"} />
+                </section>
               </section>
               <section className="flex flex-col px-6 pt-6 pb-12 overflow-y-auto gap-y-3">
                 {/* Core */}
@@ -736,58 +743,6 @@ export default function Home() {
                   iconType={"software"}
                 />
               </section>
-              <section className="flex border-t border-dark-600">
-                <button
-                  className="flex px-6 py-3 mr-auto text-xs font-bold text-right underline track-wide text-brand hover:text-white"
-                  onClick={() => {
-                    dispatch({
-                      type: ACTIONS.SHOW_SECTION,
-                      payload: "introduction",
-                    });
-                  }}
-                >
-                  <svg
-                    className="w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M15 19l-7-7 7-7"
-                    ></path>
-                  </svg>
-                  Previous section
-                </button>
-                <button
-                  className="flex px-6 py-3 ml-auto text-xs font-bold text-right underline track-wide text-brand hover:text-white"
-                  onClick={() => {
-                    dispatch({
-                      type: ACTIONS.SHOW_SECTION,
-                      payload: "socials",
-                    });
-                  }}
-                >
-                  Next section
-                  <svg
-                    className="w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M9 5l7 7-7 7"
-                    ></path>
-                  </svg>
-                </button>
-              </section>
             </>
           ) : state.section === "socials" ? (
             <>
@@ -796,6 +751,10 @@ export default function Home() {
                   header={"Socials"}
                   subhead={`Connect with your visitors by adding links to your socials.`}
                 />
+                <section className="flex mt-4">
+                  <PreviousSection sectionToGoTo={"skills"} />
+                  <NextSection sectionToGoTo={"badges"} />
+                </section>
               </section>
               <section className="flex flex-col p-6 overflow-y-auto gap-y-5">
                 {/* GitHub Input */}
@@ -974,58 +933,6 @@ export default function Home() {
                   action={ACTIONS.ADD_SOCIAL_PROFILE}
                 />
               </section>
-              <section className="flex border-t border-dark-600">
-                <button
-                  className="flex px-6 py-3 mr-auto text-xs font-bold text-right underline track-wide text-brand hover:text-white"
-                  onClick={() => {
-                    dispatch({
-                      type: ACTIONS.SHOW_SECTION,
-                      payload: "skills",
-                    });
-                  }}
-                >
-                  <svg
-                    className="w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M15 19l-7-7 7-7"
-                    ></path>
-                  </svg>
-                  Previous section
-                </button>
-                <button
-                  className="flex px-6 py-3 ml-auto text-xs font-bold text-right underline track-wide text-brand hover:text-white"
-                  onClick={() => {
-                    dispatch({
-                      type: ACTIONS.SHOW_SECTION,
-                      payload: "badges",
-                    });
-                  }}
-                >
-                  Next section
-                  <svg
-                    className="w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M9 5l7 7-7 7"
-                    ></path>
-                  </svg>
-                </button>
-              </section>
             </>
           ) : state.section === "badges" ? (
             <>
@@ -1034,6 +941,10 @@ export default function Home() {
                   header={"Badges"}
                   subhead={`Add some badges and stats to your profile.`}
                 />
+                <section className="flex mt-4">
+                  <PreviousSection sectionToGoTo={"socials"} />
+                  <NextSection sectionToGoTo={"support"} />
+                </section>
               </section>
               <section className="flex flex-col p-6 overflow-y-auto">
                 {/* Customise */}
@@ -1085,7 +996,7 @@ export default function Home() {
                   </article>
                 </article>
 
-                <article className="flex flex-col mb-6 gap-y-2">
+                <article className="flex flex-col mb-4 gap-y-2">
                   <h3 className="mb-0">GitHub</h3>
                   {!state.socials.github.linkSuffix ? (
                     <p className="mb-2 text-xs">
@@ -1290,7 +1201,7 @@ export default function Home() {
                     handleBadgeClick={handleBadgeClick}
                   />
                 </article>
-                <article className="flex flex-col mb-6 gap-y-2">
+                <article className="flex flex-col mb-4 gap-y-2">
                   <h3 className="mb-0">Twitter</h3>
                   {!state.socials.twitter.linkSuffix ? (
                     <p className="mb-2 text-xs">
@@ -1316,7 +1227,7 @@ export default function Home() {
                     handleBadgeClick={handleBadgeClick}
                   />
                 </article>
-                <article className="flex flex-col mb-6 gap-y-2">
+                <article className="flex flex-col mb-4 gap-y-2">
                   <h3 className="mb-0">Twitch</h3>
                   {!state.socials.twitch.linkSuffix ? (
                     <p className="mb-2 text-xs">
@@ -1343,58 +1254,6 @@ export default function Home() {
                   />
                 </article>
               </section>
-              <section className="flex border-t border-dark-600">
-                <button
-                  className="flex px-6 py-3 mr-auto text-xs font-bold text-right underline track-wide text-brand hover:text-white"
-                  onClick={() => {
-                    dispatch({
-                      type: ACTIONS.SHOW_SECTION,
-                      payload: "socials",
-                    });
-                  }}
-                >
-                  <svg
-                    className="w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M15 19l-7-7 7-7"
-                    ></path>
-                  </svg>
-                  Previous section
-                </button>
-                <button
-                  className="flex px-6 py-3 ml-auto text-xs font-bold text-right underline track-wide text-brand hover:text-white"
-                  onClick={() => {
-                    dispatch({
-                      type: ACTIONS.SHOW_SECTION,
-                      payload: "support",
-                    });
-                  }}
-                >
-                  Next section
-                  <svg
-                    className="w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M9 5l7 7-7 7"
-                    ></path>
-                  </svg>
-                </button>
-              </section>
             </>
           ) : state.section === "support" ? (
             <>
@@ -1403,6 +1262,9 @@ export default function Home() {
                   header={"Support"}
                   subhead={`Make it easy for people using your products to support you or give donations.`}
                 />
+                <section className="flex mt-4">
+                  <PreviousSection sectionToGoTo={"badges"} />
+                </section>
               </section>
               <section className="flex flex-col p-6 overflow-y-auto gap-y-5">
                 {/* GitHub Input */}
@@ -1415,33 +1277,6 @@ export default function Home() {
                   linkPrefix={state.support.buymeacoffee.linkPrefix}
                   action={ACTIONS.ADD_SUPPORT}
                 />
-              </section>
-              <section className="flex mt-auto border-t border-dark-600">
-                <button
-                  className="flex px-6 py-3 mr-auto text-xs font-bold text-right underline track-wide text-brand hover:text-white"
-                  onClick={() => {
-                    dispatch({
-                      type: ACTIONS.SHOW_SECTION,
-                      payload: "badges",
-                    });
-                  }}
-                >
-                  <svg
-                    className="w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M15 19l-7-7 7-7"
-                    ></path>
-                  </svg>
-                  Previous section
-                </button>
               </section>
             </>
           ) : null}
@@ -1461,7 +1296,7 @@ export default function Home() {
               className={`btn-sm border-r ${
                 state.renderMode === "preview"
                   ? "bg-dark-700 text-white"
-                  : "bg-dark-900 text-dark-300"
+                  : "bg-dark-900 text-dark-300 hover:text-white"
               }`}
             >
               <svg
@@ -1497,7 +1332,7 @@ export default function Home() {
               className={`btn-sm border-r mr-auto ${
                 state.renderMode === "markdown"
                   ? "bg-dark-700 text-white"
-                  : "bg-dark-900 text-dark-300"
+                  : "bg-dark-900 text-dark-300 hover:text-white"
               }`}
             >
               <svg
@@ -1519,7 +1354,9 @@ export default function Home() {
 
             <button
               className={`btn-sm border-l ${
-                copySuccess === "Copy" ? "text-dark-300" : "text-white"
+                copySuccess !== "Copy"
+                  ? "text-white"
+                  : "text-dark-300 hover:text-white"
               }`}
               onClick={() => {
                 copyToClipBoard(markdownRef.current.innerText);
@@ -1977,7 +1814,7 @@ export default function Home() {
             <div
               ref={supportRef}
               className={`flex flex-col gap-x-2 gap-y-2 ${
-                state.support.buymeacoffee.linkSuffix ? "mt-6" : ""
+                state.support.buymeacoffee.linkSuffix ? "mt-4" : ""
               }`}
             >
               {state.support.buymeacoffee.linkSuffix ? (

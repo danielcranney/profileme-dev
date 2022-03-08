@@ -301,8 +301,6 @@ export default function Home() {
 
   // Update Markdown
   useEffect(() => {
-    console.table("The updated state is: ", state);
-
     // If PreviewRef not showing, return
     if (!introductionRef.current) return;
 
@@ -444,7 +442,6 @@ export default function Home() {
     if (state.skills[iconCategory].includes(iconObj)) {
       const iconToRemove = state.skills[iconCategory].indexOf(iconObj);
       if (iconToRemove > -1) {
-        console.log(iconCategory);
         dispatch({
           type: ACTIONS.REMOVE_SKILL,
           payload: {

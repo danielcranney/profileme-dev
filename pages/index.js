@@ -243,6 +243,11 @@ export default function Home() {
   const [badgesShowing, setBadgesShowing] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [copySuccess, setCopySuccess] = useState("Copy");
+  const executeScroll = (ref) =>
+    ref.current.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
 
   // Section Refs
   const introductionRef = useRef(null);
@@ -299,6 +304,13 @@ export default function Home() {
   // Markdown Container
   const markdownRef = useRef();
 
+  // Scrollable Refs
+  const introductionAnchorRef = useRef();
+  const skillsAnchorRef = useRef();
+  const socialsAnchorRef = useRef();
+  const badgesAnchorRef = useRef();
+  const supportAnchorRef = useRef();
+
   // Update Markdown
   useEffect(() => {
     // If PreviewRef not showing, return
@@ -321,6 +333,14 @@ export default function Home() {
       { ref: badgesTitleRef, title: "badgesTitle" },
       { ref: badgesRef, title: "badges" },
       { ref: supportRef, title: "support" },
+    ];
+
+    const sectionAnchorRefs = [
+      { ref: introductionAnchorRef },
+      { ref: skillsAnchorRef },
+      { ref: socialsAnchorRef },
+      { ref: badgesAnchorRef },
+      { ref: supportAnchorRef },
     ];
 
     sectionsRefs.map((section, i) => {
@@ -387,6 +407,20 @@ export default function Home() {
   useEffect(() => {
     sidebarOpen ? disableBodyScroll(document) : enableBodyScroll(document);
   }, [sidebarOpen]);
+
+  useEffect(() => {
+    if (state.section == "introduction") {
+      executeScroll(introductionAnchorRef);
+    } else if (state.section == "skills") {
+      executeScroll(skillsAnchorRef);
+    } else if (state.section == "socials") {
+      executeScroll(socialsAnchorRef);
+    } else if (state.section == "badges") {
+      executeScroll(badgesAnchorRef);
+    } else if (state.section == "support") {
+      executeScroll(supportAnchorRef);
+    } else return;
+  }, [state.section]);
 
   const copyToClipBoard = async (copyMe) => {
     try {
@@ -598,125 +632,127 @@ export default function Home() {
                   <NextSection sectionToGoTo={"skills"} />
                 </section>
               </section>
-              <section className="flex flex-col p-6 overflow-y-auto gap-y-5">
-                {/* Name */}
-                <IntroductionArticle
-                  ref={nameRef}
-                  formLabelText={"Hi! My name is:"}
-                  formLabelIcon={"👋"}
-                  section={"introduction"}
-                  type={"name"}
-                  inputPlaceholder={"Peter Parker"}
-                />
-                {/* Short Description */}
-                <IntroductionArticle
-                  ref={shortDescriptionRef}
-                  formLabelText={"Subtitle:"}
-                  formLabelIcon={"💡"}
-                  section={"introduction"}
-                  type={"shortDescription"}
-                  inputPlaceholder={"Web Developer and Designer"}
-                />
-                {/* Long Description */}
-                <IntroductionTextarea
-                  ref={longDescriptionRef}
-                  formLabelText={"Long Description:"}
-                  formLabelIcon={"✏️"}
-                  section={"introduction"}
-                  type={"longDescription"}
-                  inputPlaceholder={
-                    "eg: I've been learning to code for 5 years, after switching careers. I started with HTML, but have really found a passion for backend development..."
-                  }
-                />
-                {/* Location */}
-
-                <h4 className="mb-0">About me</h4>
-                <IntroductionArticle
-                  ref={locationRef}
-                  formLabelText={"I'm based in:"}
-                  formLabelIcon={"🌍"}
-                  section={"introduction"}
-                  type={"location"}
-                  inputPlaceholder={"New York"}
-                />
-                {/* Portfolio  */}
-                <article>
+              <section className="flex flex-col overflow-y-auto">
+                <div ref={introductionAnchorRef}></div>
+                <section className="flex flex-col p-6 gap-y-5">
+                  {/* Name */}
                   <IntroductionArticle
-                    ref={portfolioTitleRef}
-                    formLabelText={"See my portfolio:"}
-                    formLabelIcon={"🖥️"}
+                    ref={nameRef}
+                    formLabelText={"Hi! My name is:"}
+                    formLabelIcon={"👋"}
                     section={"introduction"}
-                    type={"portfolioTitle"}
-                    inputPlaceholder={"MyPortfolio"}
+                    type={"name"}
+                    inputPlaceholder={"Peter Parker"}
                   />
-                  <IntroductionArticleWithLink
-                    ref={portfolioLinkRef}
-                    section={"introduction"}
-                    linkPrefix={"http://"}
-                    type={"portfolioLink"}
-                    inputPlaceholder={"myapp.com"}
-                  />
-                </article>
-                {/* Email  */}
-                <IntroductionArticle
-                  ref={emailMeRef}
-                  formLabelText={"Contact me at:"}
-                  formLabelIcon={"✉️"}
-                  section={"introduction"}
-                  type={"emailMe"}
-                  inputPlaceholder={"myemail@gmail.com"}
-                />
-                {/* Currently working on */}
-                <article>
+                  {/* Short Description */}
                   <IntroductionArticle
-                    ref={workingOnTitleRef}
-                    formLabelText={"I'm currently working on:"}
-                    formLabelIcon={"🚀"}
+                    ref={shortDescriptionRef}
+                    formLabelText={"Subtitle:"}
+                    formLabelIcon={"💡"}
                     section={"introduction"}
-                    type={"workingOnTitle"}
-                    inputPlaceholder={"MyApp"}
+                    type={"shortDescription"}
+                    inputPlaceholder={"Web Developer and Designer"}
                   />
-                  <IntroductionArticleWithLink
-                    ref={workingOnLinkRef}
+                  {/* Long Description */}
+                  <IntroductionTextarea
+                    ref={longDescriptionRef}
+                    formLabelText={"Long Description:"}
+                    formLabelIcon={"✏️"}
                     section={"introduction"}
-                    type={"workingOnLink"}
-                    linkPrefix={"http://www."}
-                    inputPlaceholder={"myapp.com"}
+                    type={"longDescription"}
+                    inputPlaceholder={
+                      "eg: I've been learning to code for 5 years, after switching careers. I started with HTML, but have really found a passion for backend development..."
+                    }
                   />
-                </article>
+                  {/* Location */}
 
-                {/* Currently learning */}
-                <IntroductionArticle
-                  ref={learningRef}
-                  formLabelText={"I'm currently learning:"}
-                  formLabelIcon={"🧠"}
-                  section={"introduction"}
-                  type={"learning"}
-                  inputPlaceholder={"a new framework"}
-                />
-                {/* Collaborate on */}
-                <IntroductionArticle
-                  ref={collaborateOnRef}
-                  formLabelText={"I'm open to collaborating on:"}
-                  formLabelIcon={"🤝"}
-                  section={"introduction"}
-                  type={"collaborateOn"}
-                  inputPlaceholder={"interesting projects"}
-                />
-                {/* Additional info */}
-                <IntroductionArticle
-                  ref={additionalInfoRef}
-                  formLabelText={"Anything else:"}
-                  formLabelIcon={"⚡"}
-                  section={"introduction"}
-                  type={"additionalInfo"}
-                  inputPlaceholder={
-                    "I'm secretly Spiderman... but don't tell anyone"
-                  }
-                />
+                  <h4 className="mb-0">About me</h4>
+                  <IntroductionArticle
+                    ref={locationRef}
+                    formLabelText={"I'm based in:"}
+                    formLabelIcon={"🌍"}
+                    section={"introduction"}
+                    type={"location"}
+                    inputPlaceholder={"New York"}
+                  />
+                  {/* Portfolio  */}
+                  <article>
+                    <IntroductionArticle
+                      ref={portfolioTitleRef}
+                      formLabelText={"See my portfolio:"}
+                      formLabelIcon={"🖥️"}
+                      section={"introduction"}
+                      type={"portfolioTitle"}
+                      inputPlaceholder={"MyPortfolio"}
+                    />
+                    <IntroductionArticleWithLink
+                      ref={portfolioLinkRef}
+                      section={"introduction"}
+                      linkPrefix={"http://"}
+                      type={"portfolioLink"}
+                      inputPlaceholder={"myapp.com"}
+                    />
+                  </article>
+                  {/* Email  */}
+                  <IntroductionArticle
+                    ref={emailMeRef}
+                    formLabelText={"Contact me at:"}
+                    formLabelIcon={"✉️"}
+                    section={"introduction"}
+                    type={"emailMe"}
+                    inputPlaceholder={"myemail@gmail.com"}
+                  />
+                  {/* Currently working on */}
+                  <article>
+                    <IntroductionArticle
+                      ref={workingOnTitleRef}
+                      formLabelText={"I'm currently working on:"}
+                      formLabelIcon={"🚀"}
+                      section={"introduction"}
+                      type={"workingOnTitle"}
+                      inputPlaceholder={"MyApp"}
+                    />
+                    <IntroductionArticleWithLink
+                      ref={workingOnLinkRef}
+                      section={"introduction"}
+                      type={"workingOnLink"}
+                      linkPrefix={"http://www."}
+                      inputPlaceholder={"myapp.com"}
+                    />
+                  </article>
 
-                <section className="flex mt-4">
-                  <NextSection sectionToGoTo={"skills"} />
+                  {/* Currently learning */}
+                  <IntroductionArticle
+                    ref={learningRef}
+                    formLabelText={"I'm currently learning:"}
+                    formLabelIcon={"🧠"}
+                    section={"introduction"}
+                    type={"learning"}
+                    inputPlaceholder={"a new framework"}
+                  />
+                  {/* Collaborate on */}
+                  <IntroductionArticle
+                    ref={collaborateOnRef}
+                    formLabelText={"I'm open to collaborating on:"}
+                    formLabelIcon={"🤝"}
+                    section={"introduction"}
+                    type={"collaborateOn"}
+                    inputPlaceholder={"interesting projects"}
+                  />
+                  {/* Additional info */}
+                  <IntroductionArticle
+                    ref={additionalInfoRef}
+                    formLabelText={"Anything else:"}
+                    formLabelIcon={"⚡"}
+                    section={"introduction"}
+                    type={"additionalInfo"}
+                    inputPlaceholder={
+                      "I'm secretly Spiderman... but don't tell anyone"
+                    }
+                  />
+                  <section className="flex mt-4">
+                    <NextSection sectionToGoTo={"skills"} />
+                  </section>
                 </section>
               </section>
             </>
@@ -733,40 +769,44 @@ export default function Home() {
                   <NextSection sectionToGoTo={"socials"} />
                 </section>
               </section>
-              <section className="flex flex-col px-6 pt-6 pb-6 overflow-y-auto gap-y-3">
+              <section className="flex flex-col overflow-y-auto">
                 {/* Core */}
-                <IconSelector
-                  handleIconToggle={handleIconToggle}
-                  title={"Core"}
-                  iconType={"core"}
-                />
-                {/* Frontend */}
-                <IconSelector
-                  handleIconToggle={handleIconToggle}
-                  title={"Frontend"}
-                  iconType={"frontend"}
-                />
-                {/* Backend and DB */}
-                <IconSelector
-                  handleIconToggle={handleIconToggle}
-                  title={"Backend and Database"}
-                  iconType={"backend"}
-                />
-                {/* Other */}
-                <IconSelector
-                  handleIconToggle={handleIconToggle}
-                  title={"Other"}
-                  iconType={"other"}
-                />
-                {/* Software */}
-                <IconSelector
-                  handleIconToggle={handleIconToggle}
-                  title={"Software"}
-                  iconType={"software"}
-                />
-                <section className="flex mt-4">
-                  <PreviousSection sectionToGoTo={"introduction"} />
-                  <NextSection sectionToGoTo={"socials"} />
+                <div ref={skillsAnchorRef}></div>
+                <section className="flex flex-col px-6 pt-6 pb-6 gap-y-3">
+                  <IconSelector
+                    handleIconToggle={handleIconToggle}
+                    title={"Core"}
+                    iconType={"core"}
+                  />
+
+                  {/* Frontend */}
+                  <IconSelector
+                    handleIconToggle={handleIconToggle}
+                    title={"Frontend"}
+                    iconType={"frontend"}
+                  />
+                  {/* Backend and DB */}
+                  <IconSelector
+                    handleIconToggle={handleIconToggle}
+                    title={"Backend and Database"}
+                    iconType={"backend"}
+                  />
+                  {/* Other */}
+                  <IconSelector
+                    handleIconToggle={handleIconToggle}
+                    title={"Other"}
+                    iconType={"other"}
+                  />
+                  {/* Software */}
+                  <IconSelector
+                    handleIconToggle={handleIconToggle}
+                    title={"Software"}
+                    iconType={"software"}
+                  />
+                  <section className="flex mt-4">
+                    <PreviousSection sectionToGoTo={"introduction"} />
+                    <NextSection sectionToGoTo={"socials"} />
+                  </section>
                 </section>
               </section>
             </>
@@ -782,185 +822,188 @@ export default function Home() {
                   <NextSection sectionToGoTo={"badges"} />
                 </section>
               </section>
-              <section className="flex flex-col p-6 overflow-y-auto gap-y-5">
-                {/* GitHub Input */}
-                <SocialArticle
-                  ref={githubRef}
-                  section={"socials"}
-                  account={"github"}
-                  inputPlaceholder={"yourname"}
-                  formLabelText={"GitHub profile:"}
-                  linkPrefix={state.socials.github.linkPrefix}
-                  action={ACTIONS.ADD_SOCIAL_PROFILE}
-                />
+              <section className="flex flex-col overflow-y-auto">
+                <div ref={socialsAnchorRef}></div>
+                <section className="flex flex-col p-6 gap-y-3">
+                  {/* GitHub Input */}
+                  <SocialArticle
+                    ref={githubRef}
+                    section={"socials"}
+                    account={"github"}
+                    inputPlaceholder={"yourname"}
+                    formLabelText={"GitHub profile:"}
+                    linkPrefix={state.socials.github.linkPrefix}
+                    action={ACTIONS.ADD_SOCIAL_PROFILE}
+                  />
 
-                {/* Twitter Input */}
-                <SocialArticle
-                  ref={twitterRef}
-                  section={"socials"}
-                  account={"twitter"}
-                  inputPlaceholder={"yourname"}
-                  formLabelText={"Twitter profile:"}
-                  linkPrefix={state.socials.twitter.linkPrefix}
-                  action={ACTIONS.ADD_SOCIAL_PROFILE}
-                />
+                  {/* Twitter Input */}
+                  <SocialArticle
+                    ref={twitterRef}
+                    section={"socials"}
+                    account={"twitter"}
+                    inputPlaceholder={"yourname"}
+                    formLabelText={"Twitter profile:"}
+                    linkPrefix={state.socials.twitter.linkPrefix}
+                    action={ACTIONS.ADD_SOCIAL_PROFILE}
+                  />
 
-                {/* Hashnode Input */}
-                <SocialArticle
-                  ref={hashnodeRef}
-                  section={"socials"}
-                  account={"hashnode"}
-                  inputPlaceholder={"yourname"}
-                  formLabelText={"Hashnode profile:"}
-                  linkPrefix={state.socials.hashnode.linkPrefix}
-                  action={ACTIONS.ADD_SOCIAL_PROFILE}
-                />
+                  {/* Hashnode Input */}
+                  <SocialArticle
+                    ref={hashnodeRef}
+                    section={"socials"}
+                    account={"hashnode"}
+                    inputPlaceholder={"yourname"}
+                    formLabelText={"Hashnode profile:"}
+                    linkPrefix={state.socials.hashnode.linkPrefix}
+                    action={ACTIONS.ADD_SOCIAL_PROFILE}
+                  />
 
-                {/* Medium Input */}
-                <SocialArticle
-                  ref={mediumRef}
-                  section={"socials"}
-                  account={"medium"}
-                  inputPlaceholder={"yourname"}
-                  formLabelText={"Medium profile:"}
-                  linkPrefix={state.socials.medium.linkPrefix}
-                  action={ACTIONS.ADD_SOCIAL_PROFILE}
-                />
+                  {/* Medium Input */}
+                  <SocialArticle
+                    ref={mediumRef}
+                    section={"socials"}
+                    account={"medium"}
+                    inputPlaceholder={"yourname"}
+                    formLabelText={"Medium profile:"}
+                    linkPrefix={state.socials.medium.linkPrefix}
+                    action={ACTIONS.ADD_SOCIAL_PROFILE}
+                  />
 
-                {/* DevDotTo Input */}
-                <SocialArticle
-                  ref={devdottoRef}
-                  section={"socials"}
-                  account={"devdotto"}
-                  inputPlaceholder={"yourname"}
-                  formLabelText={"Dev.to profile:"}
-                  linkPrefix={state.socials.devdotto.linkPrefix}
-                  action={ACTIONS.ADD_SOCIAL_PROFILE}
-                />
+                  {/* DevDotTo Input */}
+                  <SocialArticle
+                    ref={devdottoRef}
+                    section={"socials"}
+                    account={"devdotto"}
+                    inputPlaceholder={"yourname"}
+                    formLabelText={"Dev.to profile:"}
+                    linkPrefix={state.socials.devdotto.linkPrefix}
+                    action={ACTIONS.ADD_SOCIAL_PROFILE}
+                  />
 
-                {/* LinkedIn Input */}
-                <SocialArticle
-                  ref={linkedinRef}
-                  section={"socials"}
-                  account={"linkedin"}
-                  inputPlaceholder={"yourname"}
-                  formLabelText={"LinkedIn profile:"}
-                  linkPrefix={state.socials.linkedin.linkPrefix}
-                  action={ACTIONS.ADD_SOCIAL_PROFILE}
-                />
+                  {/* LinkedIn Input */}
+                  <SocialArticle
+                    ref={linkedinRef}
+                    section={"socials"}
+                    account={"linkedin"}
+                    inputPlaceholder={"yourname"}
+                    formLabelText={"LinkedIn profile:"}
+                    linkPrefix={state.socials.linkedin.linkPrefix}
+                    action={ACTIONS.ADD_SOCIAL_PROFILE}
+                  />
 
-                {/* Twitch Input */}
-                <SocialArticle
-                  ref={twitchRef}
-                  section={"socials"}
-                  account={"twitch"}
-                  inputPlaceholder={"yourname"}
-                  formLabelText={"Twitch channel:"}
-                  linkPrefix={state.socials.twitch.linkPrefix}
-                  action={ACTIONS.ADD_SOCIAL_PROFILE}
-                />
+                  {/* Twitch Input */}
+                  <SocialArticle
+                    ref={twitchRef}
+                    section={"socials"}
+                    account={"twitch"}
+                    inputPlaceholder={"yourname"}
+                    formLabelText={"Twitch channel:"}
+                    linkPrefix={state.socials.twitch.linkPrefix}
+                    action={ACTIONS.ADD_SOCIAL_PROFILE}
+                  />
 
-                {/* YouTube Input */}
-                <SocialArticle
-                  ref={youtubeRef}
-                  section={"socials"}
-                  account={"youtube"}
-                  inputPlaceholder={"yourname"}
-                  formLabelText={"YouTube channel:"}
-                  linkPrefix={state.socials.youtube.linkPrefix}
-                  action={ACTIONS.ADD_SOCIAL_PROFILE}
-                />
+                  {/* YouTube Input */}
+                  <SocialArticle
+                    ref={youtubeRef}
+                    section={"socials"}
+                    account={"youtube"}
+                    inputPlaceholder={"yourname"}
+                    formLabelText={"YouTube channel:"}
+                    linkPrefix={state.socials.youtube.linkPrefix}
+                    action={ACTIONS.ADD_SOCIAL_PROFILE}
+                  />
 
-                {/* Discord Input */}
-                <SocialArticle
-                  ref={discordRef}
-                  section={"socials"}
-                  account={"discord"}
-                  inputPlaceholder={"yourname"}
-                  formLabelText={"Discord code:"}
-                  linkPrefix={state.socials.discord.linkPrefix}
-                  action={ACTIONS.ADD_SOCIAL_PROFILE}
-                />
+                  {/* Discord Input */}
+                  <SocialArticle
+                    ref={discordRef}
+                    section={"socials"}
+                    account={"discord"}
+                    inputPlaceholder={"yourname"}
+                    formLabelText={"Discord code:"}
+                    linkPrefix={state.socials.discord.linkPrefix}
+                    action={ACTIONS.ADD_SOCIAL_PROFILE}
+                  />
 
-                {/* Instagram Input */}
-                <SocialArticle
-                  ref={instagramRef}
-                  section={"socials"}
-                  account={"instagram"}
-                  inputPlaceholder={"yourname"}
-                  formLabelText={"Instagram profile:"}
-                  linkPrefix={state.socials.instagram.linkPrefix}
-                  action={ACTIONS.ADD_SOCIAL_PROFILE}
-                />
+                  {/* Instagram Input */}
+                  <SocialArticle
+                    ref={instagramRef}
+                    section={"socials"}
+                    account={"instagram"}
+                    inputPlaceholder={"yourname"}
+                    formLabelText={"Instagram profile:"}
+                    linkPrefix={state.socials.instagram.linkPrefix}
+                    action={ACTIONS.ADD_SOCIAL_PROFILE}
+                  />
 
-                {/* Facebook Input */}
-                <SocialArticle
-                  ref={facebookRef}
-                  section={"socials"}
-                  account={"facebook"}
-                  inputPlaceholder={"yourname"}
-                  formLabelText={"Facebook profile:"}
-                  linkPrefix={state.socials.facebook.linkPrefix}
-                  action={ACTIONS.ADD_SOCIAL_PROFILE}
-                />
+                  {/* Facebook Input */}
+                  <SocialArticle
+                    ref={facebookRef}
+                    section={"socials"}
+                    account={"facebook"}
+                    inputPlaceholder={"yourname"}
+                    formLabelText={"Facebook profile:"}
+                    linkPrefix={state.socials.facebook.linkPrefix}
+                    action={ACTIONS.ADD_SOCIAL_PROFILE}
+                  />
 
-                {/* Dribbble Input */}
-                <SocialArticle
-                  ref={dribbbleRef}
-                  section={"socials"}
-                  account={"dribbble"}
-                  inputPlaceholder={"yourname"}
-                  formLabelText={"Dribbble profile:"}
-                  linkPrefix={state.socials.dribbble.linkPrefix}
-                  action={ACTIONS.ADD_SOCIAL_PROFILE}
-                />
+                  {/* Dribbble Input */}
+                  <SocialArticle
+                    ref={dribbbleRef}
+                    section={"socials"}
+                    account={"dribbble"}
+                    inputPlaceholder={"yourname"}
+                    formLabelText={"Dribbble profile:"}
+                    linkPrefix={state.socials.dribbble.linkPrefix}
+                    action={ACTIONS.ADD_SOCIAL_PROFILE}
+                  />
 
-                {/* Behance Input */}
-                <SocialArticle
-                  ref={behanceRef}
-                  section={"socials"}
-                  account={"behance"}
-                  inputPlaceholder={"yourname"}
-                  formLabelText={"Behance profile:"}
-                  linkPrefix={state.socials.behance.linkPrefix}
-                  action={ACTIONS.ADD_SOCIAL_PROFILE}
-                />
+                  {/* Behance Input */}
+                  <SocialArticle
+                    ref={behanceRef}
+                    section={"socials"}
+                    account={"behance"}
+                    inputPlaceholder={"yourname"}
+                    formLabelText={"Behance profile:"}
+                    linkPrefix={state.socials.behance.linkPrefix}
+                    action={ACTIONS.ADD_SOCIAL_PROFILE}
+                  />
 
-                {/* Code Sandbox Input */}
-                <SocialArticle
-                  ref={codesandboxRef}
-                  section={"socials"}
-                  account={"codesandbox"}
-                  inputPlaceholder={"yourname"}
-                  formLabelText={"CodeSandbox profile:"}
-                  linkPrefix={state.socials.codesandbox.linkPrefix}
-                  action={ACTIONS.ADD_SOCIAL_PROFILE}
-                />
+                  {/* Code Sandbox Input */}
+                  <SocialArticle
+                    ref={codesandboxRef}
+                    section={"socials"}
+                    account={"codesandbox"}
+                    inputPlaceholder={"yourname"}
+                    formLabelText={"CodeSandbox profile:"}
+                    linkPrefix={state.socials.codesandbox.linkPrefix}
+                    action={ACTIONS.ADD_SOCIAL_PROFILE}
+                  />
 
-                {/* Stack Overflow Input */}
-                <SocialArticle
-                  ref={stackoverflowRef}
-                  section={"socials"}
-                  account={"stackoverflow"}
-                  inputPlaceholder={"yourname"}
-                  formLabelText={"StackOverflow profile:"}
-                  linkPrefix={state.socials.stackoverflow.linkPrefix}
-                  action={ACTIONS.ADD_SOCIAL_PROFILE}
-                />
+                  {/* Stack Overflow Input */}
+                  <SocialArticle
+                    ref={stackoverflowRef}
+                    section={"socials"}
+                    account={"stackoverflow"}
+                    inputPlaceholder={"yourname"}
+                    formLabelText={"StackOverflow profile:"}
+                    linkPrefix={state.socials.stackoverflow.linkPrefix}
+                    action={ACTIONS.ADD_SOCIAL_PROFILE}
+                  />
 
-                {/* RSS Input */}
-                <SocialArticle
-                  ref={rssRef}
-                  section={"socials"}
-                  account={"rss"}
-                  inputPlaceholder={"yourname"}
-                  formLabelText={"RSS url:"}
-                  linkPrefix={state.socials.rss.linkPrefix}
-                  action={ACTIONS.ADD_SOCIAL_PROFILE}
-                />
-                <section className="flex mt-4">
-                  <PreviousSection sectionToGoTo={"skills"} />
-                  <NextSection sectionToGoTo={"badges"} />
+                  {/* RSS Input */}
+                  <SocialArticle
+                    ref={rssRef}
+                    section={"socials"}
+                    account={"rss"}
+                    inputPlaceholder={"yourname"}
+                    formLabelText={"RSS url:"}
+                    linkPrefix={state.socials.rss.linkPrefix}
+                    action={ACTIONS.ADD_SOCIAL_PROFILE}
+                  />
+                  <section className="flex mt-4">
+                    <PreviousSection sectionToGoTo={"skills"} />
+                    <NextSection sectionToGoTo={"badges"} />
+                  </section>
                 </section>
               </section>
             </>
@@ -976,308 +1019,310 @@ export default function Home() {
                   <NextSection sectionToGoTo={"support"} />
                 </section>
               </section>
-              <section className="flex flex-col p-6 overflow-y-auto">
-                {/* Customise */}
-                <article className="mb-4">
-                  <p className={`mb-2 text-xs font-semibold uppercase`}>
-                    Style badges:
-                  </p>
-                  {!badgesShowing ? (
-                    <p className="text-xs">
-                      Select a badge below to customise.
+              <section className="flex flex-col overflow-y-auto">
+                <div ref={badgesAnchorRef}></div>
+                <section className="flex flex-col p-6">
+                  {/* Customise */}
+                  <article className="mb-4">
+                    <p className={`mb-2 text-xs font-semibold uppercase`}>
+                      Style badges:
                     </p>
-                  ) : null}
-                  <article className="grid grid-cols-1 gap-2 mb-4 xl:grid-cols-2">
-                    <BadgeStyleSelector
-                      colorList={colorStore.lightColors}
-                      badgeKeyToStyle={"titleColor"}
-                      badgeText={"Title"}
-                      handleColorToggle={handleColorToggle}
-                      badgeKeyToHide={"titleColorEdit"}
-                      badgesShowing={badgesShowing}
-                    />
-
-                    <BadgeStyleSelector
-                      colorList={colorStore.lightColors}
-                      badgeKeyToStyle={"textColor"}
-                      badgeText={"Text"}
-                      handleColorToggle={handleColorToggle}
-                      badgeKeyToHide={"textColorEdit"}
-                      badgesShowing={badgesShowing}
-                    />
-
-                    <BadgeStyleSelector
-                      colorList={colorStore.lightColors}
-                      badgeKeyToStyle={"iconColor"}
-                      badgeText={"Icons"}
-                      handleColorToggle={handleColorToggle}
-                      badgeKeyToHide={"iconColorEdit"}
-                      badgesShowing={badgesShowing}
-                    />
-
-                    <BadgeStyleSelector
-                      colorList={colorStore.darkColors}
-                      badgeKeyToStyle={"bgColor"}
-                      badgeText={"Background"}
-                      handleColorToggle={handleColorToggle}
-                      badgeKeyToHide={"bgColorEdit"}
-                      badgesShowing={badgesShowing}
-                    />
-                  </article>
-                </article>
-
-                <article className="flex flex-col mb-4 gap-y-2">
-                  <h3 className="mb-0">GitHub</h3>
-                  {!state.socials.github.linkSuffix ? (
-                    <p className="mb-2 text-xs">
-                      Please{" "}
-                      <a
-                        onClick={() => {
-                          dispatch({
-                            type: ACTIONS.SHOW_SECTION,
-                            payload: "socials",
-                          });
-                        }}
-                      >
-                        add your GitHub profile
-                      </a>{" "}
-                      in the socials section.
-                    </p>
-                  ) : null}
-                  {/* GitHub Stats Card */}
-                  <article>
-                    <BadgeSelector
-                      badgeType={"githubStatsCard"}
-                      profileLink={"github"}
-                      badgeText={"Stats Card"}
-                      handleBadgeClick={handleBadgeClick}
-                    />
-
-                    <article
-                      className={`flex flex-col p-3 border-b border-l border-r border-dark-600 overflow-hidden transform ${
-                        state.badges.githubStatsCard.selected
-                          ? "block"
-                          : "hidden -translate-y-3"
-                      }`}
-                    >
-                      <p className={`mb-2 text-xs font-semibold uppercase`}>
-                        Show:
-                      </p>
-                      <article className="grid grid-cols-1 gap-2 lg:grid-cols-2">
-                        <BadgeShowSelector
-                          badgeKeyToHide={"stars"}
-                          badgeText={"Stars"}
-                          handleBadgeShowClick={handleBadgeShowClick}
-                        />
-                        <BadgeShowSelector
-                          badgeKeyToHide={"commits"}
-                          badgeText={"Commits"}
-                          handleBadgeShowClick={handleBadgeShowClick}
-                        />
-                        <BadgeShowSelector
-                          badgeKeyToHide={"prs"}
-                          badgeText={"PRs"}
-                          handleBadgeShowClick={handleBadgeShowClick}
-                        />
-                        <BadgeShowSelector
-                          badgeKeyToHide={"issues"}
-                          badgeText={"Issues"}
-                          handleBadgeShowClick={handleBadgeShowClick}
-                        />
-                        <BadgeShowSelector
-                          badgeKeyToHide={"contribs"}
-                          badgeText={"Contributions"}
-                          handleBadgeShowClick={handleBadgeShowClick}
-                        />
-                        <BadgeShowSelector
-                          badgeKeyToHide={"privateCommits"}
-                          badgeText={"Private Commits"}
-                          handleBadgeShowClick={handleBadgeShowClick}
-                        />
-                      </article>
-                    </article>
-                  </article>
-
-                  <BadgeSelector
-                    badgeType={"githubStreak"}
-                    profileLink={"github"}
-                    badgeText={"Commit Streak"}
-                    handleBadgeClick={handleBadgeClick}
-                  />
-
-                  {/* GitHub Commits Graph Badge */}
-                  <BadgeSelector
-                    badgeType={"githubCommitsGraph"}
-                    profileLink={"github"}
-                    badgeText={"Commits Graph"}
-                    handleBadgeClick={handleBadgeClick}
-                  />
-
-                  {/* Top Languages Card */}
-                  <BadgeSelector
-                    badgeType={"topLangsCard"}
-                    profileLink={"github"}
-                    badgeText={"Top Languages"}
-                    handleBadgeClick={handleBadgeClick}
-                  />
-
-                  {/* Repository Card */}
-                  <article>
-                    <BadgeSelector
-                      badgeType={"reposCard"}
-                      profileLink={"github"}
-                      badgeText={"Top Repositories"}
-                      handleBadgeClick={handleBadgeClick}
-                    />
-
-                    <article
-                      className={`flex flex-col p-3 border-b border-l border-r border-dark-600 overflow-hidden transform ${
-                        state.badges.reposCard.selected
-                          ? "block"
-                          : "hidden -translate-y-3"
-                      }`}
-                    >
-                      <p className={`mb-2 text-xs font-semibold uppercase`}>
-                        Find Repositories
-                      </p>
+                    {!badgesShowing ? (
                       <p className="text-xs">
-                        The repository must be the same as it is on your GitHub
-                        (including hyphens, NOT case-sensitive).
+                        Select a badge below to customise.
                       </p>
-                      <article className="grid grid-cols-1 gap-2 mb-2">
-                        <FormInput
-                          ref={repoOneRef}
-                          section={"reposCard"}
-                          type={"repoOne"}
-                          placeholder={"repo-name"}
-                          action={ACTIONS.ADD_REPO}
-                        />
+                    ) : null}
+                    <article className="grid grid-cols-1 gap-2 mb-4 xl:grid-cols-2">
+                      <BadgeStyleSelector
+                        colorList={colorStore.lightColors}
+                        badgeKeyToStyle={"titleColor"}
+                        badgeText={"Title"}
+                        handleColorToggle={handleColorToggle}
+                        badgeKeyToHide={"titleColorEdit"}
+                        badgesShowing={badgesShowing}
+                      />
 
-                        {state.badges.reposCard.repoTwo != null ? (
-                          <FormInput
-                            ref={repoTwoRef}
-                            section={"reposCard"}
-                            type={"repoTwo"}
-                            placeholder={"repo-name"}
-                            action={ACTIONS.ADD_REPO}
-                          />
-                        ) : null}
+                      <BadgeStyleSelector
+                        colorList={colorStore.lightColors}
+                        badgeKeyToStyle={"textColor"}
+                        badgeText={"Text"}
+                        handleColorToggle={handleColorToggle}
+                        badgeKeyToHide={"textColorEdit"}
+                        badgesShowing={badgesShowing}
+                      />
 
-                        {state.badges.reposCard.repoThree != null ? (
-                          <FormInput
-                            ref={repoThreeRef}
-                            section={"reposCard"}
-                            type={"repoThree"}
-                            placeholder={"repo-name"}
-                            action={ACTIONS.ADD_REPO}
-                          />
-                        ) : null}
+                      <BadgeStyleSelector
+                        colorList={colorStore.lightColors}
+                        badgeKeyToStyle={"iconColor"}
+                        badgeText={"Icons"}
+                        handleColorToggle={handleColorToggle}
+                        badgeKeyToHide={"iconColorEdit"}
+                        badgesShowing={badgesShowing}
+                      />
 
-                        {state.badges.reposCard.repoFour != null ? (
-                          <FormInput
-                            ref={repoFourRef}
-                            section={"reposCard"}
-                            type={"repoFour"}
-                            placeholder={"repo-name"}
-                            action={ACTIONS.ADD_REPO}
-                          />
-                        ) : null}
-                      </article>
-                      {state.badges.reposCard.repoTwo != null ? null : (
-                        <>
-                          <AddButton
-                            action={ACTIONS.ADD_REPO}
-                            repoNumberToAdd={"repoTwo"}
-                          />
-                        </>
-                      )}
-
-                      {state.badges.reposCard.repoThree != null ||
-                      state.badges.reposCard.repoTwo == null ? null : (
-                        <>
-                          <AddButton
-                            action={ACTIONS.ADD_REPO}
-                            repoNumberToAdd={"repoThree"}
-                          />
-                        </>
-                      )}
-
-                      {state.badges.reposCard.repoFour != null ||
-                      state.badges.reposCard.repoTwo == null ||
-                      state.badges.reposCard.repoThree == null ? null : (
-                        <>
-                          <AddButton
-                            action={ACTIONS.ADD_REPO}
-                            repoNumberToAdd={"repoFour"}
-                          />
-                        </>
-                      )}
+                      <BadgeStyleSelector
+                        colorList={colorStore.darkColors}
+                        badgeKeyToStyle={"bgColor"}
+                        badgeText={"Background"}
+                        handleColorToggle={handleColorToggle}
+                        badgeKeyToHide={"bgColorEdit"}
+                        badgesShowing={badgesShowing}
+                      />
                     </article>
                   </article>
+                  <article className="flex flex-col mb-4 gap-y-2">
+                    <h3 className="mb-0">GitHub</h3>
+                    {!state.socials.github.linkSuffix ? (
+                      <p className="mb-2 text-xs">
+                        Please{" "}
+                        <a
+                          onClick={() => {
+                            dispatch({
+                              type: ACTIONS.SHOW_SECTION,
+                              payload: "socials",
+                            });
+                          }}
+                        >
+                          add your GitHub profile
+                        </a>{" "}
+                        in the socials section.
+                      </p>
+                    ) : null}
+                    {/* GitHub Stats Card */}
+                    <article>
+                      <BadgeSelector
+                        badgeType={"githubStatsCard"}
+                        profileLink={"github"}
+                        badgeText={"Stats Card"}
+                        handleBadgeClick={handleBadgeClick}
+                      />
 
-                  {/* GitHub Followers Badge */}
-                  <BadgeSelector
-                    badgeType={"githubFollowers"}
-                    profileLink={"github"}
-                    badgeText={"Follower Count"}
-                    handleBadgeClick={handleBadgeClick}
-                  />
-                </article>
-                <article className="flex flex-col mb-4 gap-y-2">
-                  <h3 className="mb-0">Twitter</h3>
-                  {!state.socials.twitter.linkSuffix ? (
-                    <p className="mb-2 text-xs">
-                      Please{" "}
-                      <a
-                        onClick={() => {
-                          dispatch({
-                            type: ACTIONS.SHOW_SECTION,
-                            payload: "socials",
-                          });
-                        }}
+                      <article
+                        className={`flex flex-col p-3 border-b border-l border-r border-dark-600 overflow-hidden transform ${
+                          state.badges.githubStatsCard.selected
+                            ? "block"
+                            : "hidden -translate-y-3"
+                        }`}
                       >
-                        add your Twitter profile
-                      </a>{" "}
-                      in the socials section.
-                    </p>
-                  ) : null}
-                  {/* Twitter Followers Badge */}
-                  <BadgeSelector
-                    badgeType={"twitterFollowers"}
-                    profileLink={"twitter"}
-                    badgeText={"Follower Count"}
-                    handleBadgeClick={handleBadgeClick}
-                  />
-                </article>
-                <article className="flex flex-col mb-4 gap-y-2">
-                  <h3 className="mb-0">Twitch</h3>
-                  {!state.socials.twitch.linkSuffix ? (
-                    <p className="mb-2 text-xs">
-                      Please{" "}
-                      <a
-                        onClick={() => {
-                          dispatch({
-                            type: ACTIONS.SHOW_SECTION,
-                            payload: "socials",
-                          });
-                        }}
+                        <p className={`mb-2 text-xs font-semibold uppercase`}>
+                          Show:
+                        </p>
+                        <article className="grid grid-cols-1 gap-2 lg:grid-cols-2">
+                          <BadgeShowSelector
+                            badgeKeyToHide={"stars"}
+                            badgeText={"Stars"}
+                            handleBadgeShowClick={handleBadgeShowClick}
+                          />
+                          <BadgeShowSelector
+                            badgeKeyToHide={"commits"}
+                            badgeText={"Commits"}
+                            handleBadgeShowClick={handleBadgeShowClick}
+                          />
+                          <BadgeShowSelector
+                            badgeKeyToHide={"prs"}
+                            badgeText={"PRs"}
+                            handleBadgeShowClick={handleBadgeShowClick}
+                          />
+                          <BadgeShowSelector
+                            badgeKeyToHide={"issues"}
+                            badgeText={"Issues"}
+                            handleBadgeShowClick={handleBadgeShowClick}
+                          />
+                          <BadgeShowSelector
+                            badgeKeyToHide={"contribs"}
+                            badgeText={"Contributions"}
+                            handleBadgeShowClick={handleBadgeShowClick}
+                          />
+                          <BadgeShowSelector
+                            badgeKeyToHide={"privateCommits"}
+                            badgeText={"Private Commits"}
+                            handleBadgeShowClick={handleBadgeShowClick}
+                          />
+                        </article>
+                      </article>
+                    </article>
+
+                    <BadgeSelector
+                      badgeType={"githubStreak"}
+                      profileLink={"github"}
+                      badgeText={"Commit Streak"}
+                      handleBadgeClick={handleBadgeClick}
+                    />
+
+                    {/* GitHub Commits Graph Badge */}
+                    <BadgeSelector
+                      badgeType={"githubCommitsGraph"}
+                      profileLink={"github"}
+                      badgeText={"Commits Graph"}
+                      handleBadgeClick={handleBadgeClick}
+                    />
+
+                    {/* Top Languages Card */}
+                    <BadgeSelector
+                      badgeType={"topLangsCard"}
+                      profileLink={"github"}
+                      badgeText={"Top Languages"}
+                      handleBadgeClick={handleBadgeClick}
+                    />
+
+                    {/* Repository Card */}
+                    <article>
+                      <BadgeSelector
+                        badgeType={"reposCard"}
+                        profileLink={"github"}
+                        badgeText={"Top Repositories"}
+                        handleBadgeClick={handleBadgeClick}
+                      />
+
+                      <article
+                        className={`flex flex-col p-3 border-b border-l border-r border-dark-600 overflow-hidden transform ${
+                          state.badges.reposCard.selected
+                            ? "block"
+                            : "hidden -translate-y-3"
+                        }`}
                       >
-                        add your Twitch profile
-                      </a>{" "}
-                      in the socials section.
-                    </p>
-                  ) : null}
-                  {/* Twitch Channel Badge */}
-                  <BadgeSelector
-                    badgeType={"twitchStatus"}
-                    profileLink={"twitch"}
-                    badgeText={"Streaming Status"}
-                    handleBadgeClick={handleBadgeClick}
-                  />
-                </article>
-                <section className="flex mt-4">
-                  <PreviousSection sectionToGoTo={"socials"} />
-                  <NextSection sectionToGoTo={"support"} />
+                        <p className={`mb-2 text-xs font-semibold uppercase`}>
+                          Find Repositories
+                        </p>
+                        <p className="text-xs">
+                          The repository must be the same as it is on your
+                          GitHub (including hyphens, NOT case-sensitive).
+                        </p>
+                        <article className="grid grid-cols-1 gap-2 mb-2">
+                          <FormInput
+                            ref={repoOneRef}
+                            section={"reposCard"}
+                            type={"repoOne"}
+                            placeholder={"repo-name"}
+                            action={ACTIONS.ADD_REPO}
+                          />
+
+                          {state.badges.reposCard.repoTwo != null ? (
+                            <FormInput
+                              ref={repoTwoRef}
+                              section={"reposCard"}
+                              type={"repoTwo"}
+                              placeholder={"repo-name"}
+                              action={ACTIONS.ADD_REPO}
+                            />
+                          ) : null}
+
+                          {state.badges.reposCard.repoThree != null ? (
+                            <FormInput
+                              ref={repoThreeRef}
+                              section={"reposCard"}
+                              type={"repoThree"}
+                              placeholder={"repo-name"}
+                              action={ACTIONS.ADD_REPO}
+                            />
+                          ) : null}
+
+                          {state.badges.reposCard.repoFour != null ? (
+                            <FormInput
+                              ref={repoFourRef}
+                              section={"reposCard"}
+                              type={"repoFour"}
+                              placeholder={"repo-name"}
+                              action={ACTIONS.ADD_REPO}
+                            />
+                          ) : null}
+                        </article>
+                        {state.badges.reposCard.repoTwo != null ? null : (
+                          <>
+                            <AddButton
+                              action={ACTIONS.ADD_REPO}
+                              repoNumberToAdd={"repoTwo"}
+                            />
+                          </>
+                        )}
+
+                        {state.badges.reposCard.repoThree != null ||
+                        state.badges.reposCard.repoTwo == null ? null : (
+                          <>
+                            <AddButton
+                              action={ACTIONS.ADD_REPO}
+                              repoNumberToAdd={"repoThree"}
+                            />
+                          </>
+                        )}
+
+                        {state.badges.reposCard.repoFour != null ||
+                        state.badges.reposCard.repoTwo == null ||
+                        state.badges.reposCard.repoThree == null ? null : (
+                          <>
+                            <AddButton
+                              action={ACTIONS.ADD_REPO}
+                              repoNumberToAdd={"repoFour"}
+                            />
+                          </>
+                        )}
+                      </article>
+                    </article>
+
+                    {/* GitHub Followers Badge */}
+                    <BadgeSelector
+                      badgeType={"githubFollowers"}
+                      profileLink={"github"}
+                      badgeText={"Follower Count"}
+                      handleBadgeClick={handleBadgeClick}
+                    />
+                  </article>
+                  <article className="flex flex-col mb-4 gap-y-2">
+                    <h3 className="mb-0">Twitter</h3>
+                    {!state.socials.twitter.linkSuffix ? (
+                      <p className="mb-2 text-xs">
+                        Please{" "}
+                        <a
+                          onClick={() => {
+                            dispatch({
+                              type: ACTIONS.SHOW_SECTION,
+                              payload: "socials",
+                            });
+                          }}
+                        >
+                          add your Twitter profile
+                        </a>{" "}
+                        in the socials section.
+                      </p>
+                    ) : null}
+                    {/* Twitter Followers Badge */}
+                    <BadgeSelector
+                      badgeType={"twitterFollowers"}
+                      profileLink={"twitter"}
+                      badgeText={"Follower Count"}
+                      handleBadgeClick={handleBadgeClick}
+                    />
+                  </article>
+                  <article className="flex flex-col mb-4 gap-y-2">
+                    <h3 className="mb-0">Twitch</h3>
+                    {!state.socials.twitch.linkSuffix ? (
+                      <p className="mb-2 text-xs">
+                        Please{" "}
+                        <a
+                          onClick={() => {
+                            dispatch({
+                              type: ACTIONS.SHOW_SECTION,
+                              payload: "socials",
+                            });
+                          }}
+                        >
+                          add your Twitch profile
+                        </a>{" "}
+                        in the socials section.
+                      </p>
+                    ) : null}
+                    {/* Twitch Channel Badge */}
+                    <BadgeSelector
+                      badgeType={"twitchStatus"}
+                      profileLink={"twitch"}
+                      badgeText={"Streaming Status"}
+                      handleBadgeClick={handleBadgeClick}
+                    />
+                  </article>
+                  <section className="flex mt-4">
+                    <PreviousSection sectionToGoTo={"socials"} />
+                    <NextSection sectionToGoTo={"support"} />
+                  </section>
                 </section>
               </section>
             </>
@@ -1292,19 +1337,23 @@ export default function Home() {
                   <PreviousSection sectionToGoTo={"badges"} />
                 </section>
               </section>
-              <section className="flex flex-col p-6 overflow-y-auto gap-y-5">
-                {/* GitHub Input */}
-                <SocialArticle
-                  ref={buymeacoffeeRef}
-                  section={"support"}
-                  account={"buymeacoffee"}
-                  inputPlaceholder={"yourname"}
-                  formLabelText={"Buy Me a Coffee:"}
-                  linkPrefix={state.support.buymeacoffee.linkPrefix}
-                  action={ACTIONS.ADD_SUPPORT}
-                />
-                <section className="flex mt-4">
-                  <PreviousSection sectionToGoTo={"badges"} />
+
+              <section className="flex flex-col overflow-y-auto">
+                <div ref={supportAnchorRef}></div>
+                <section className="flex flex-col p-6 gap-y-4">
+                  {/* GitHub Input */}
+                  <SocialArticle
+                    ref={buymeacoffeeRef}
+                    section={"support"}
+                    account={"buymeacoffee"}
+                    inputPlaceholder={"yourname"}
+                    formLabelText={"Buy Me a Coffee:"}
+                    linkPrefix={state.support.buymeacoffee.linkPrefix}
+                    action={ACTIONS.ADD_SUPPORT}
+                  />
+                  <section className="flex mt-4">
+                    <PreviousSection sectionToGoTo={"badges"} />
+                  </section>
                 </section>
               </section>
             </>

@@ -1211,14 +1211,6 @@ export default function Home() {
                     badgeText={"Follower Count"}
                     handleBadgeClick={handleBadgeClick}
                   />
-
-                  {/* GitHub Visits Badge */}
-                  <BadgeSelector
-                    badgeType={"githubVisits"}
-                    profileLink={"github"}
-                    badgeText={"Visitor Count"}
-                    handleBadgeClick={handleBadgeClick}
-                  />
                 </article>
                 <article className="flex flex-col mb-4 gap-y-2">
                   <h3 className="mb-0">Twitter</h3>

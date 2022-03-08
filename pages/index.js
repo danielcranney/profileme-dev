@@ -534,7 +534,7 @@ export default function Home() {
           href="mailto:danielcranney@gmail.com"
           className="flex items-center px-2 ml-auto text-xs font-semibold tracking-wide no-underline uppercase transition-all duration-150 ease-in-out border h-9 text-dark-300 border-dark-600 bg-dark-700 hover:text-white"
         >
-          Give Feedback
+          Leave Feedback
         </a>
       </header>
       <div className="relative flex flex-col flex-1 overflow-hidden md:flex-row top-16 md:top-0">
@@ -655,7 +655,7 @@ export default function Home() {
                   <IntroductionArticleWithLink
                     ref={portfolioLinkRef}
                     section={"introduction"}
-                    linkPrefix={"http://www."}
+                    linkPrefix={"http://"}
                     type={"portfolioLink"}
                     inputPlaceholder={"myapp.com"}
                   />
@@ -715,6 +715,10 @@ export default function Home() {
                   type={"additionalInfo"}
                   inputPlaceholder={"I can kick myself in the head"}
                 />
+
+                <section className="flex mt-4">
+                  <NextSection sectionToGoTo={"skills"} />
+                </section>
               </section>
             </>
           ) : state.section === "skills" ? (
@@ -730,7 +734,7 @@ export default function Home() {
                   <NextSection sectionToGoTo={"socials"} />
                 </section>
               </section>
-              <section className="flex flex-col px-6 pt-6 pb-12 overflow-y-auto gap-y-3">
+              <section className="flex flex-col px-6 pt-6 pb-6 overflow-y-auto gap-y-3">
                 {/* Core */}
                 <IconSelector
                   handleIconToggle={handleIconToggle}
@@ -761,6 +765,10 @@ export default function Home() {
                   title={"Software"}
                   iconType={"software"}
                 />
+                <section className="flex mt-4">
+                  <PreviousSection sectionToGoTo={"introduction"} />
+                  <NextSection sectionToGoTo={"socials"} />
+                </section>
               </section>
             </>
           ) : state.section === "socials" ? (
@@ -951,6 +959,10 @@ export default function Home() {
                   linkPrefix={state.socials.rss.linkPrefix}
                   action={ACTIONS.ADD_SOCIAL_PROFILE}
                 />
+                <section className="flex mt-4">
+                  <PreviousSection sectionToGoTo={"skills"} />
+                  <NextSection sectionToGoTo={"badges"} />
+                </section>
               </section>
             </>
           ) : state.section === "badges" ? (
@@ -1264,6 +1276,10 @@ export default function Home() {
                     handleBadgeClick={handleBadgeClick}
                   />
                 </article>
+                <section className="flex mt-4">
+                  <PreviousSection sectionToGoTo={"socials"} />
+                  <NextSection sectionToGoTo={"support"} />
+                </section>
               </section>
             </>
           ) : state.section === "support" ? (
@@ -1288,6 +1304,9 @@ export default function Home() {
                   linkPrefix={state.support.buymeacoffee.linkPrefix}
                   action={ACTIONS.ADD_SUPPORT}
                 />
+                <section className="flex mt-4">
+                  <PreviousSection sectionToGoTo={"badges"} />
+                </section>
               </section>
             </>
           ) : null}

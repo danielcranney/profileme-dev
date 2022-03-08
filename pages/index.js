@@ -490,13 +490,13 @@ export default function Home() {
           />
           <meta
             property="og:image"
-            content="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/social-image.jpg"
+            content="http://raw.githubusercontent.com/danielcranney/readme-generator/main/public/social-image.jpg"
           />
           <meta property="og:url" content="http://www.profileme.dev" />
           <meta property="twitter:title" content="ProfileMe.dev" />
           <meta
             property="twitter:image"
-            content="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/social-image.jpg"
+            content="http://raw.githubusercontent.com/danielcranney/readme-generator/main/public/social-image.jpg"
           />
           <meta
             property="twitter:description"

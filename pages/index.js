@@ -490,6 +490,7 @@ export default function Home() {
           content="http://raw.githubusercontent.com/danielcranney/readme-generator/main/public/social-image.jpg"
         />
         <meta property="og:url" content="http://www.profileme.dev" />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:title" content="ProfileMe.dev" />
         <meta
           property="twitter:image"
@@ -499,7 +500,10 @@ export default function Home() {
           property="twitter:description"
           content="Create an awesome GitHub profile in minutes"
         />
-        <meta name="twitter:card" content="summary_large_image" />
+        <meta
+          property="twitter:creator"
+          content="Create an awesome GitHub profile in minutes"
+        />
       </Head>
       <header className="fixed z-40 flex items-center w-full h-16 px-6 border-b md:relative bg-dark-800 border-dark-600">
         <button

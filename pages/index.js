@@ -493,6 +493,15 @@ export default function Home() {
             content="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/social-image.jpg"
           />
           <meta property="og:url" content="http://www.profileme.dev" />
+          <meta property="twitter:title" content="ProfileMe.dev" />
+          <meta
+            property="twitter:image"
+            content="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/social-image.jpg"
+          />
+          <meta
+            property="twitter:description"
+            content="Create an awesome GitHub profile in minutes"
+          />
           <meta name="twitter:card" content="summary_large_image" />
         </>
       </Head>

@@ -713,7 +713,9 @@ export default function Home() {
                   formLabelIcon={"⚡"}
                   section={"introduction"}
                   type={"additionalInfo"}
-                  inputPlaceholder={"I can kick myself in the head"}
+                  inputPlaceholder={
+                    "I'm secretly Spiderman... but don't tell anyone"
+                  }
                 />
 
                 <section className="flex mt-4">

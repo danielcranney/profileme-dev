@@ -218,6 +218,7 @@ export default function Home() {
       hashnode: "",
       instagram: "",
       linkedin: "",
+      polywork: "",
       medium: "",
       rss: "",
       stackoverflow: "",

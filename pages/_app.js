@@ -395,6 +395,11 @@ const initialState = {
       linkPrefix: "https://www.linkedin.com/in/",
       linkSuffix: "",
     },
+    polywork: {
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/linkedin.svg",
+      linkPrefix: "https://www.polywork.com/",
+      linkSuffix: "",
+    },
     twitch: {
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/twitch.svg",
       linkPrefix: "https://www.twitch.tv/",
@@ -407,7 +412,7 @@ const initialState = {
     },
     discord: {
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/discord.svg",
-      linkPrefix: "https://discord.gg/",
+      linkPrefix: "https://discord.com/users/",
       linkSuffix: "",
     },
     instagram: {

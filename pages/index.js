@@ -1539,7 +1539,7 @@ export default function Home() {
                   <li>
                     🚀&nbsp; I&apos;m currently working on{" "}
                     <a
-                      href={`http://www.${state.introduction.workingOnLink}`}
+                      href={`http://${state.introduction.workingOnLink}`}
                       target="_blank"
                       rel="noreferrer"
                     >
@@ -1619,7 +1619,7 @@ export default function Home() {
             >
               {/* Core Icons Display */}
               {!state.skills.core || state.skills.core.length < 1 ? null : (
-                <>
+                <div className="flex gap-x-1 flex-wrap">
                   {state.skills.core.map((icon) => {
                     return (
                       <div key={`${icon.path}`} className="relative">
@@ -1638,13 +1638,13 @@ export default function Home() {
                       </div>
                     );
                   })}
-                </>
+                </div>
               )}
 
               {/* Frontend Icons Display */}
               {!state.skills.frontend ||
               state.skills.frontend.length < 1 ? null : (
-                <>
+                <div className="flex gap-x-1 flex-wrap">
                   {state.skills.frontend.map((icon) => {
                     return (
                       <div key={`${icon.path}`} className="relative">
@@ -1663,13 +1663,13 @@ export default function Home() {
                       </div>
                     );
                   })}
-                </>
+                </div>
               )}
 
               {/* Backend Icons Display */}
               {!state.skills.backend ||
               state.skills.backend.length < 1 ? null : (
-                <>
+                <div className="flex gap-x-1 flex-wrap">
                   {state.skills.backend.map((icon) => {
                     return (
                       <div key={`${icon.path}`} className="relative">
@@ -1688,12 +1688,12 @@ export default function Home() {
                       </div>
                     );
                   })}
-                </>
+                </div>
               )}
 
               {/* Other Icons Display */}
               {!state.skills.other || state.skills.other.length < 1 ? null : (
-                <>
+                <div className="flex gap-x-1 flex-wrap">
                   {state.skills.other.map((icon) => {
                     return (
                       <div key={`${icon.path}`} className="relative">
@@ -1712,13 +1712,13 @@ export default function Home() {
                       </div>
                     );
                   })}
-                </>
+                </div>
               )}
 
               {/* Software Icons Display */}
               {!state.skills.software ||
               state.skills.software.length < 1 ? null : (
-                <>
+                <div className="flex gap-x-1 flex-wrap">
                   {state.skills.software.map((icon) => {
                     return (
                       <div key={`${icon.path}`} className="relative">
@@ -1737,7 +1737,7 @@ export default function Home() {
                       </div>
                     );
                   })}
-                </>
+                </div>
               )}
             </div>
 

@@ -396,7 +396,7 @@ const initialState = {
       linkSuffix: "",
     },
     polywork: {
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/linkedin.svg",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/polywork.svg",
       linkPrefix: "https://www.polywork.com/",
       linkSuffix: "",
     },

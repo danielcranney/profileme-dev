@@ -336,14 +336,6 @@ export default function Home() {
       { ref: supportRef, title: "support" },
     ];
 
-    const sectionAnchorRefs = [
-      { ref: introductionAnchorRef },
-      { ref: skillsAnchorRef },
-      { ref: socialsAnchorRef },
-      { ref: badgesAnchorRef },
-      { ref: supportAnchorRef },
-    ];
-
     sectionsRefs.map((section, i) => {
       if (
         section.title === "skills" ||

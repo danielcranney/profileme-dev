@@ -284,6 +284,7 @@ export default function Home() {
   const facebookRef = useRef();
   const githubRef = useRef();
   const hashnodeRef = useRef();
+  const polyworkRef = useRef();
   const instagramRef = useRef();
   const linkedinRef = useRef();
   const mediumRef = useRef();
@@ -658,7 +659,6 @@ export default function Home() {
                     }
                   />
                   {/* Location */}
-
                   <h4 className="mb-0">About me</h4>
                   <IntroductionArticle
                     ref={locationRef}
@@ -817,7 +817,7 @@ export default function Home() {
               </section>
               <section className="flex flex-col overflow-y-auto">
                 <div ref={socialsAnchorRef}></div>
-                <section className="flex flex-col p-6 gap-y-3">
+                <section className="flex flex-col p-6 gap-y-5">
                   {/* GitHub Input */}
                   <SocialArticle
                     ref={githubRef}
@@ -881,6 +881,17 @@ export default function Home() {
                     inputPlaceholder={"yourname"}
                     formLabelText={"LinkedIn profile:"}
                     linkPrefix={state.socials.linkedin.linkPrefix}
+                    action={ACTIONS.ADD_SOCIAL_PROFILE}
+                  />
+
+                  {/* Polywork Input */}
+                  <SocialArticle
+                    ref={polyworkRef}
+                    section={"socials"}
+                    account={"polywork"}
+                    inputPlaceholder={"yourname"}
+                    formLabelText={"Polywork profile:"}
+                    linkPrefix={state.socials.polywork.linkPrefix}
                     action={ACTIONS.ADD_SOCIAL_PROFILE}
                   />
 

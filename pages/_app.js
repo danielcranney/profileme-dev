@@ -269,6 +269,12 @@ export const iconData = {
       iTag: "heroku-original",
       link: "https://www.heroku.com/",
     },
+    {
+      name: "Flask",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flask/flask-original.svg",
+      iTag: "flask-original",
+      link: "https://flask.palletsprojects.com/en/2.0.x/",
+    },
   ],
   other: [
     {

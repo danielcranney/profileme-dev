@@ -144,3 +144,11 @@ LIST
 /*-----------------------
 CUSTOM DEVELOPER ICONS 
 -----------------------*/
+@layer utilities {
+  .fastapi {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/fastapi.svg')];
+  }
+  .fastapi.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/fastapi-colored.svg')];
+  }
+}

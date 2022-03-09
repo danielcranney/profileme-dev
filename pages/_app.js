@@ -278,7 +278,7 @@ export const iconData = {
     {
       name: "Fast API",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/fastapi.svg",
-      iTag: "bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/fastapi.svg')] w-9 h-9",
+      iTag: "fastapi",
       link: "https://fastapi.tiangolo.com/",
     },
   ],

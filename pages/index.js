@@ -771,7 +771,6 @@ export default function Home() {
                     title={"Core"}
                     iconType={"core"}
                   />
-
                   {/* Frontend */}
                   <IconSelector
                     handleIconToggle={handleIconToggle}

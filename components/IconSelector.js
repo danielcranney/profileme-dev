@@ -32,7 +32,7 @@ export const IconSelector = ({ handleIconToggle, title, iconType }) => {
                 </div>
               ) : null}
               <i
-                className={`devicon-${icon.iTag} ${
+                className={`${icon.iTag} ${
                   state.skills[iconType].includes(icon)
                     ? "colored"
                     : "text-white opacity-30"

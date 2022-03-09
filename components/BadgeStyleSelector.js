@@ -1,16 +1,16 @@
 import React, { useContext } from "react";
 import { StateContext } from "../pages/_app";
-import { ACTIONS } from "../pages/_app";
 
-export const BadgeStyleSelector = ({
+const BadgeStyleSelector = ({
   badgeText,
   handleColorToggle,
   badgeKeyToStyle,
   badgeKeyToHide,
   colorList,
   badgesShowing,
+  handleChangeBadgeColor,
 }) => {
-  const { state, dispatch } = useContext(StateContext);
+  const { state } = useContext(StateContext);
   return (
     <article className={`flex flex-col`}>
       <button
@@ -74,14 +74,7 @@ export const BadgeStyleSelector = ({
               className={`w-5 h-5 ${color.bgColor}`}
               name={badgeKeyToStyle}
               onClick={(e) => {
-                dispatch({
-                  type: ACTIONS.STYLE_BADGES,
-                  payload: {
-                    keyToStyle: e.target.name,
-                    keyToToggle: badgeKeyToHide,
-                    color: color.hex,
-                  },
-                });
+                handleChangeBadgeColor(e, badgeKeyToHide, color);
               }}
             ></button>
           );
@@ -90,3 +83,5 @@ export const BadgeStyleSelector = ({
     </article>
   );
 };
+
+export default BadgeStyleSelector;

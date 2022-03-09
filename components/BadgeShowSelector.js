@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { StateContext } from "../pages/_app";
 
-export const BadgeShowSelector = ({
+const BadgeShowSelector = ({
   badgeText,
   handleBadgeShowClick,
   badgeKeyToHide,
@@ -23,3 +23,5 @@ export const BadgeShowSelector = ({
     </label>
   );
 };
+
+export default BadgeShowSelector;

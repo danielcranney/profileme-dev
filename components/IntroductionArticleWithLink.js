@@ -1,9 +1,5 @@
 import React, { useContext, forwardRef } from "react";
-import Image from "next/image";
-import { StateContext } from "../pages/_app";
 import { ACTIONS } from "../pages/_app";
-import { FormLabel } from "./FormLabel";
-import FormInput from "./FormInput";
 import SocialInput from "./SocialInput";
 
 const IntroductionArticleWithLink = forwardRef((props, ref) => {

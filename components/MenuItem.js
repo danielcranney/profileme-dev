@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { ACTIONS } from "../pages/_app";
 import { StateContext } from "../pages/_app";
 
-export const MenuItem = ({ text, section, sidebarOpen, setSidebarOpen }) => {
+const MenuItem = ({ text, section, setSidebarOpen }) => {
   const { state, dispatch } = useContext(StateContext);
   return (
     <li
@@ -28,3 +28,5 @@ export const MenuItem = ({ text, section, sidebarOpen, setSidebarOpen }) => {
     </li>
   );
 };
+
+export default MenuItem;

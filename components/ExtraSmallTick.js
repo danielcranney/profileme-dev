@@ -1,6 +1,6 @@
 import React from "react";
 
-export const ExtraSmallTick = () => {
+const ExtraSmallTick = () => {
   return (
     <svg
       className="w-4 h-4 text-brand"
@@ -16,3 +16,5 @@ export const ExtraSmallTick = () => {
     </svg>
   );
 };
+
+export default ExtraSmallTick;

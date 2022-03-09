@@ -1,10 +1,7 @@
-import React, { useContext, forwardRef } from "react";
-import Image from "next/image";
-import { StateContext } from "../pages/_app";
+import React, { forwardRef } from "react";
 import { ACTIONS } from "../pages/_app";
-import { FormLabel } from "./FormLabel";
+import FormLabel from "./FormLabel";
 import FormInput from "./FormInput";
-import SocialInput from "./SocialInput";
 
 const IntroductionArticle = forwardRef((props, ref) => {
   const { formLabelText, formLabelIcon, section, type, inputPlaceholder } =

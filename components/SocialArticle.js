@@ -1,8 +1,7 @@
 import React, { useContext, forwardRef } from "react";
 import Image from "next/image";
 import { StateContext } from "../pages/_app";
-import { ACTIONS } from "../pages/_app";
-import { FormLabel } from "./FormLabel";
+import FormLabel from "./FormLabel";
 import SocialInput from "./SocialInput";
 
 const SocialArticle = forwardRef((props, ref) => {
@@ -14,7 +13,6 @@ const SocialArticle = forwardRef((props, ref) => {
     section,
     action,
   } = props;
-  const { state, dispatch } = useContext(StateContext);
 
   return (
     <article className="flex flex-col flex-1 w-full">

@@ -2,8 +2,7 @@ import React, { useContext, forwardRef } from "react";
 import Image from "next/image";
 import { StateContext } from "../pages/_app";
 import { ACTIONS } from "../pages/_app";
-import { FormLabel } from "./FormLabel";
-import SocialInput from "./SocialInput";
+import FormLabel from "./FormLabel";
 import FormTextarea from "./FormTextarea";
 
 const IntroductionTextarea = forwardRef((props, ref) => {

@@ -1,199 +1,27 @@
 import React, { useEffect, useContext, useRef, useState } from "react";
 import Head from "next/head";
-import Image from "next/image";
 // Import state and actions
 import { ACTIONS } from "./_app";
 import { StateContext } from "./_app";
-// Import frontend icons
-import { iconData } from "./_app";
-// Import components
-import { FormLabel } from "../components/FormLabel";
-import { MenuItem } from "../components/MenuItem";
+import { colorStore } from "./_app";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
+// Import components
+import MenuItem from "../components/MenuItem";
 import FormInput from "../components/FormInput";
 import SectionHeader from "../components/SectionHeader";
-import SocialInput from "../components/SocialInput";
 import SocialArticle from "../components/SocialArticle";
 import IntroductionArticle from "../components/IntroductionArticle";
-import { ExtraSmallTick } from "../components/ExtraSmallTick";
-import { IconSelector } from "../components/IconSelector";
-import { BadgeSelector } from "../components/BadgeSelector";
+import IconSelector from "../components/IconSelector";
+import BadgeSelector from "../components/BadgeSelector";
 import IntroductionArticleWithLink from "../components/IntroductionArticleWithLink";
-import { BadgeShowSelector } from "../components/BadgeShowSelector";
-import { BadgeStyleSelector } from "../components/BadgeStyleSelector";
-import { AddButton } from "../components/AddButton";
+import BadgeShowSelector from "../components/BadgeShowSelector";
+import BadgeStyleSelector from "../components/BadgeStyleSelector";
+import AddButton from "../components/buttons/AddRepo";
 import IntroductionTextarea from "../components/IntroductionTextarea";
-import { NextSection } from "../components/buttons/NextSection";
-import { PreviousSection } from "../components/buttons/PreviousSection";
-import { CopyrightLabel } from "../components/CopyrightLabel";
+import NextSection from "../components/buttons/NextSection";
+import PreviousSection from "../components/buttons/PreviousSection";
+import CopyrightLabel from "../components/CopyrightLabel";
 let TurndownService = require("turndown").default;
-
-const colorStore = {
-  lightColors: [
-    {
-      colorName: "white",
-      bgColor: "bg-[#ffffff]",
-      hex: "ffffff",
-    },
-    {
-      colorName: "black",
-      bgColor: "bg-[#000000]",
-      hex: "000000",
-    },
-    {
-      colorName: "slate-dark",
-      bgColor: "bg-[#0f172a]",
-      hex: "0f172a",
-    },
-    {
-      colorName: "red",
-      bgColor: "bg-[#ef4444]",
-      hex: "ef4444",
-    },
-    {
-      colorName: "orange",
-      bgColor: "bg-[#f97316]",
-      hex: "f97316",
-    },
-    {
-      colorName: "yellow",
-      bgColor: "bg-[#facc15]",
-      hex: "facc15",
-    },
-    {
-      colorName: "lime",
-      bgColor: "bg-[#84cc16]",
-      hex: "84cc16",
-    },
-    {
-      colorName: "green",
-      bgColor: "bg-[#22c55e]",
-      hex: "22c55e",
-    },
-    {
-      colorName: "emerald",
-      bgColor: "bg-[#10b981]",
-      hex: "10b981",
-    },
-    {
-      colorName: "teal",
-      bgColor: "bg-[#14b8a6]",
-      hex: "14b8a6",
-    },
-    {
-      colorName: "blue",
-      bgColor: "bg-[#3382ed]",
-      hex: "3382ed",
-    },
-    {
-      colorName: "indigo",
-      bgColor: "bg-[#6366f1]",
-      hex: "6366f1",
-    },
-    {
-      colorName: "purple",
-      bgColor: "bg-[#a855f7]",
-      hex: "a855f7",
-    },
-    {
-      colorName: "pink",
-      bgColor: "bg-[#ec4899]",
-      hex: "ec4899",
-    },
-    {
-      colorName: "default-grey",
-      bgColor: "bg-[#444e59]",
-      hex: "444e59",
-    },
-    {
-      colorName: "slate",
-      bgColor: "bg-[#64748b]",
-      hex: "64748b",
-    },
-  ],
-  darkColors: [
-    {
-      colorName: "white",
-      bgColor: "bg-[#ffffff]",
-      hex: "ffffff",
-    },
-    {
-      colorName: "black",
-      bgColor: "bg-[#000000]",
-      hex: "000000",
-    },
-    {
-      colorName: "slate-dark",
-      bgColor: "bg-[#0f172a]",
-      hex: "0f172a",
-    },
-    {
-      colorName: "red-dark",
-      bgColor: "bg-[#7f1d1d]",
-      hex: "7f1d1d",
-    },
-    {
-      colorName: "orange-dark",
-      bgColor: "bg-[#7c2d12]",
-      hex: "7c2d12",
-    },
-    {
-      colorName: "yellow-dark",
-      bgColor: "bg-[#713f12]",
-      hex: "713f12",
-    },
-    {
-      colorName: "lime-dark",
-      bgColor: "bg-[#365314]",
-      hex: "365314",
-    },
-    {
-      colorName: "green-dark",
-      bgColor: "bg-[#14532d]",
-      hex: "14532d",
-    },
-    {
-      colorName: "emerald-dark",
-      bgColor: "bg-[#134e4a]",
-      hex: "134e4a",
-    },
-    {
-      colorName: "blue-dark",
-      bgColor: "bg-[#1e3a8a]",
-      hex: "1e3a8a",
-    },
-    {
-      colorName: "indigo-dark",
-      bgColor: "bg-[#312e81]",
-      hex: "312e81",
-    },
-    {
-      colorName: "purple-dark",
-      bgColor: "bg-[#581c87]",
-      hex: "581c87",
-    },
-    {
-      colorName: "pink-dark",
-      bgColor: "bg-[#831843]",
-      hex: "831843",
-    },
-    {
-      colorName: "stone-dark",
-      bgColor: "bg-[#1c1917]",
-      hex: "1c1917",
-    },
-    {
-      colorName: "zinc-dark",
-      bgColor: "bg-[#27272a]",
-      hex: "27272a",
-    },
-    {
-      colorName: "gray-dark",
-      bgColor: "bg-[#171717]",
-      hex: "171717",
-    },
-  ],
-};
 
 export default function Home() {
   const { state, dispatch } = useContext(StateContext);
@@ -244,11 +72,24 @@ export default function Home() {
   const [badgesShowing, setBadgesShowing] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [copySuccess, setCopySuccess] = useState("Copy");
+
   const executeScroll = (ref) =>
     ref.current.scrollIntoView({
       behavior: "smooth",
       block: "start",
     });
+  const copyToClipBoard = async (copyMe) => {
+    try {
+      await navigator.clipboard.writeText(copyMe);
+      setCopySuccess("Copied");
+      setTimeout(() => {
+        setCopySuccess("Copy");
+      }, 1000);
+      return () => clearTimeout(timer);
+    } catch (err) {
+      setCopySuccess("Failed to copy!");
+    }
+  };
 
   // Section Refs
   const introductionRef = useRef(null);
@@ -416,19 +257,6 @@ export default function Home() {
     } else return;
   }, [state.section]);
 
-  const copyToClipBoard = async (copyMe) => {
-    try {
-      await navigator.clipboard.writeText(copyMe);
-      setCopySuccess("Copied");
-      setTimeout(() => {
-        setCopySuccess("Copy");
-      }, 1000);
-      return () => clearTimeout(timer);
-    } catch (err) {
-      setCopySuccess("Failed to copy!");
-    }
-  };
-
   const handleBadgeClick = (e) => {
     dispatch({
       type: ACTIONS.TOGGLE_BADGE,
@@ -456,15 +284,16 @@ export default function Home() {
     });
   };
 
-  // const handleBadgeStyleClick = (e) => {
-  //   dispatch({
-  //     type: ACTIONS.STYLE_GITHUB_CARD,
-  //     payload: {
-  //       keyToStyle: e.target.name,
-  //       color: color.hex,
-  //     },
-  //   });
-  // };
+  const handleChangeBadgeColor = (e, badgeKeyToHide, color) => {
+    dispatch({
+      type: ACTIONS.STYLE_BADGES,
+      payload: {
+        keyToStyle: e.target.name,
+        keyToToggle: badgeKeyToHide,
+        color: color.hex,
+      },
+    });
+  };
 
   const handleIconToggle = (iconCategory, iconObj, i) => {
     if (state.skills[iconCategory].includes(iconObj)) {
@@ -1043,6 +872,7 @@ export default function Home() {
                         handleColorToggle={handleColorToggle}
                         badgeKeyToHide={"titleColorEdit"}
                         badgesShowing={badgesShowing}
+                        handleChangeBadgeColor={handleChangeBadgeColor}
                       />
 
                       <BadgeStyleSelector
@@ -1052,6 +882,7 @@ export default function Home() {
                         handleColorToggle={handleColorToggle}
                         badgeKeyToHide={"textColorEdit"}
                         badgesShowing={badgesShowing}
+                        handleChangeBadgeColor={handleChangeBadgeColor}
                       />
 
                       <BadgeStyleSelector
@@ -1061,6 +892,7 @@ export default function Home() {
                         handleColorToggle={handleColorToggle}
                         badgeKeyToHide={"iconColorEdit"}
                         badgesShowing={badgesShowing}
+                        handleChangeBadgeColor={handleChangeBadgeColor}
                       />
 
                       <BadgeStyleSelector
@@ -1070,6 +902,7 @@ export default function Home() {
                         handleColorToggle={handleColorToggle}
                         badgeKeyToHide={"bgColorEdit"}
                         badgesShowing={badgesShowing}
+                        handleChangeBadgeColor={handleChangeBadgeColor}
                       />
                     </article>
                   </article>
@@ -1607,7 +1440,7 @@ export default function Home() {
             {/* Skills Section Preview */}
             <div
               ref={skillsRef}
-              className={`flex flex-wrap gap-y-2 ${
+              className={`flex flex-wrap gap-y-1 gap-x-1 ${
                 state.skills.core.length < 1 &&
                 state.skills.frontend.length < 1 &&
                 state.skills.backend.length < 1 &&

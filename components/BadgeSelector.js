@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { StateContext } from "../pages/_app";
 import { FormLabel } from "./FormLabel";
 
-export const BadgeSelector = ({
+const BadgeSelector = ({
   badgeType,
   badgeText,
   profileLink,
@@ -32,3 +32,5 @@ export const BadgeSelector = ({
     </label>
   );
 };
+
+export default BadgeSelector;

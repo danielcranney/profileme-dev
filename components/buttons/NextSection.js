@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { StateContext } from "../../pages/_app";
 import { ACTIONS } from "../../pages/_app";
 
-export const NextSection = ({ sectionToGoTo }) => {
+const NextSection = ({ sectionToGoTo }) => {
   const { state, dispatch } = useContext(StateContext);
   return (
     <button
@@ -32,3 +32,5 @@ export const NextSection = ({ sectionToGoTo }) => {
     </button>
   );
 };
+
+export default NextSection;

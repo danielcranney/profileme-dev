@@ -277,7 +277,7 @@ export const iconData = {
     },
     {
       name: "Fast API",
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/fastapi.svg",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/fastapi-colored.svg",
       iTag: "fastapi",
       link: "https://fastapi.tiangolo.com/",
     },

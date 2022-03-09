@@ -152,3 +152,12 @@ CUSTOM DEVELOPER ICONS
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/fastapi-colored.svg')];
   }
 }
+
+@layer utilities {
+  .supabase {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/supabase.svg')];
+  }
+  .supabase.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/supabase-colored.svg')];
+  }
+}

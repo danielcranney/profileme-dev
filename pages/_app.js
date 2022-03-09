@@ -216,6 +216,12 @@ export const iconData = {
       link: "https://expressjs.com/",
     },
     {
+      name: "Fast API",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/fastapi-colored.svg",
+      iTag: "fastapi",
+      link: "https://fastapi.tiangolo.com/",
+    },
+    {
       name: "GraphQL",
       path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg",
       iTag: "devicon-graphql-plain",
@@ -276,10 +282,10 @@ export const iconData = {
       link: "https://flask.palletsprojects.com/en/2.0.x/",
     },
     {
-      name: "Fast API",
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/fastapi-colored.svg",
-      iTag: "fastapi",
-      link: "https://fastapi.tiangolo.com/",
+      name: "Supabase",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/supabase-colored.svg",
+      iTag: "supabase",
+      link: "https://supabase.io/",
     },
   ],
   other: [

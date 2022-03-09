@@ -1,13 +1,14 @@
 import React, { useContext, forwardRef } from "react";
-import { StateContext } from "../pages/_app";
+import { StateContext } from "../../pages/_app";
 
-const FormTextarea = forwardRef((props, ref) => {
+const FormInput = forwardRef((props, ref) => {
   const { placeholder, action, type, section } = props;
   const { dispatch } = useContext(StateContext);
   return (
-    <textarea
-      className="input-field"
+    <input
+      type="text"
       name={type}
+      className="input-field"
       placeholder={placeholder}
       ref={ref}
       onChange={() =>
@@ -20,6 +21,6 @@ const FormTextarea = forwardRef((props, ref) => {
   );
 });
 
-FormTextarea.displayName = "FormTextarea";
+FormInput.displayName = "FormInput";
 
-export default FormTextarea;
+export default FormInput;

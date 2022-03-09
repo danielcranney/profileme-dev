@@ -1,7 +1,7 @@
 import React, { forwardRef } from "react";
 import { ACTIONS } from "../pages/_app";
-import FormLabel from "./FormLabel";
-import FormInput from "./FormInput";
+import FormLabel from "./forms/FormLabel";
+import FormInput from "./forms/FormInput";
 
 const IntroductionArticle = forwardRef((props, ref) => {
   const { formLabelText, formLabelIcon, section, type, inputPlaceholder } =

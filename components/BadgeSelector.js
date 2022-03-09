@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { StateContext } from "../pages/_app";
-import { FormLabel } from "./FormLabel";
+import { FormLabel } from "./forms/FormLabel";
 
 const BadgeSelector = ({
   badgeType,

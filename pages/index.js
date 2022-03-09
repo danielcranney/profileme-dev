@@ -7,7 +7,7 @@ import { colorStore } from "./_app";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 // Import components
 import MenuItem from "../components/MenuItem";
-import FormInput from "../components/FormInput";
+import FormInput from "../components/forms/FormInput";
 import SectionHeader from "../components/SectionHeader";
 import SocialArticle from "../components/SocialArticle";
 import IntroductionArticle from "../components/IntroductionArticle";
@@ -20,7 +20,7 @@ import AddButton from "../components/buttons/AddRepo";
 import IntroductionTextarea from "../components/IntroductionTextarea";
 import NextSection from "../components/buttons/NextSection";
 import PreviousSection from "../components/buttons/PreviousSection";
-import CopyrightLabel from "../components/CopyrightLabel";
+import CopyrightLabel from "../components/misc/CopyrightLabel";
 let TurndownService = require("turndown").default;
 
 export default function Home() {

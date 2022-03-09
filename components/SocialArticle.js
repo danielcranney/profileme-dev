@@ -1,7 +1,7 @@
 import React, { useContext, forwardRef } from "react";
 import Image from "next/image";
 import { StateContext } from "../pages/_app";
-import FormLabel from "./FormLabel";
+import FormLabel from "./forms/FormLabel";
 import SocialInput from "./SocialInput";
 
 const SocialArticle = forwardRef((props, ref) => {

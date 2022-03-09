@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { StateContext } from "../pages/_app";
 import { iconData } from "../pages/_app";
-import FormLabel from "./FormLabel";
-import ExtraSmallTick from "./ExtraSmallTick";
+import FormLabel from "./forms/FormLabel";
+import ExtraSmallTick from "./misc/ExtraSmallTick";
 
 const IconSelector = ({ handleIconToggle, title, iconType }) => {
   const { state } = useContext(StateContext);

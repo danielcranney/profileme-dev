@@ -3,24 +3,24 @@ import Head from "next/head";
 // Import state and actions
 import { ACTIONS } from "./_app";
 import { StateContext } from "./_app";
-import { colorStore } from "./_app";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
+import { colorStore } from "./_app";
 // Import components
-import MenuItem from "../components/MenuItem";
+import MenuItem from "../components/buttons/MenuItem";
 import FormInput from "../components/forms/FormInput";
 import SectionHeader from "../components/SectionHeader";
-import SocialArticle from "../components/SocialArticle";
-import IntroductionArticle from "../components/IntroductionArticle";
+import SocialItem from "../components/SocialItem";
+import IntroItem from "../components/IntroItem";
+import IntroLinkItem from "../components/IntroLinkItem";
+import IntroTextarea from "../components/IntroTextarea";
 import IconSelector from "../components/IconSelector";
-import BadgeSelector from "../components/BadgeSelector";
-import IntroductionArticleWithLink from "../components/IntroductionArticleWithLink";
-import BadgeShowSelector from "../components/BadgeShowSelector";
-import BadgeStyleSelector from "../components/BadgeStyleSelector";
-import AddButton from "../components/buttons/AddRepo";
-import IntroductionTextarea from "../components/IntroductionTextarea";
+import ToggleBadgeButton from "../components/buttons/ToggleBadgeButton";
+import ToggleBadgeElementCheckbox from "../components/buttons/ToggleBadgeElementCheckbox";
+import StyleBadgeButton from "../components/buttons/StyleBadgeButton";
 import NextSection from "../components/buttons/NextSection";
 import PreviousSection from "../components/buttons/PreviousSection";
 import CopyrightLabel from "../components/misc/CopyrightLabel";
+import AddRepo from "../components/buttons/AddRepo";
 import DeleteRepo from "../components/buttons/DeleteRepo";
 let TurndownService = require("turndown").default;
 
@@ -38,6 +38,7 @@ export default function Home() {
     },
     socials: {
       behance: "",
+      codepen: "",
       codesandbox: "",
       devdotto: "",
       discord: "",
@@ -79,6 +80,7 @@ export default function Home() {
       behavior: "smooth",
       block: "start",
     });
+
   const copyToClipBoard = async (copyMe) => {
     try {
       await navigator.clipboard.writeText(copyMe);
@@ -100,7 +102,6 @@ export default function Home() {
   const socialsRef = useRef(null);
   const badgesTitleRef = useRef(null);
   const badgesRef = useRef(null);
-  const supportTitleRef = useRef(null);
   const supportRef = useRef(null);
 
   // Introduction refs
@@ -120,6 +121,7 @@ export default function Home() {
   // Socials refs
   const behanceRef = useRef();
   const codesandboxRef = useRef();
+  const codepenRef = useRef();
   const devdottoRef = useRef();
   const discordRef = useRef();
   const dribbbleRef = useRef();
@@ -258,7 +260,7 @@ export default function Home() {
     } else return;
   }, [state.section]);
 
-  const handleBadgeClick = (e) => {
+  const handleBadgeToggle = (e) => {
     dispatch({
       type: ACTIONS.TOGGLE_BADGE,
       payload: {
@@ -267,7 +269,7 @@ export default function Home() {
     });
   };
 
-  const handleBadgeShowClick = (e) => {
+  const handleBadgeElementToggle = (e) => {
     dispatch({
       type: ACTIONS.TOGGLE_GITHUB_STATS,
       payload: {
@@ -276,7 +278,7 @@ export default function Home() {
     });
   };
 
-  const handleColorToggle = (e) => {
+  const handleStyleBadge = (e) => {
     dispatch({
       type: ACTIONS.TOGGLE_STYLE_COLOR,
       payload: {
@@ -460,7 +462,7 @@ export default function Home() {
                 <div ref={introductionAnchorRef}></div>
                 <section className="flex flex-col p-6 gap-y-5">
                   {/* Name */}
-                  <IntroductionArticle
+                  <IntroItem
                     ref={nameRef}
                     formLabelText={"Hi! My name is:"}
                     formLabelIcon={"👋"}
@@ -469,7 +471,7 @@ export default function Home() {
                     inputPlaceholder={"Peter Parker"}
                   />
                   {/* Short Description */}
-                  <IntroductionArticle
+                  <IntroItem
                     ref={shortDescriptionRef}
                     formLabelText={"Subtitle:"}
                     formLabelIcon={"💡"}
@@ -478,7 +480,7 @@ export default function Home() {
                     inputPlaceholder={"Web Developer and Designer"}
                   />
                   {/* Long Description */}
-                  <IntroductionTextarea
+                  <IntroTextarea
                     ref={longDescriptionRef}
                     formLabelText={"Long Description:"}
                     formLabelIcon={"✏️"}
@@ -490,7 +492,7 @@ export default function Home() {
                   />
                   {/* Location */}
                   <h4 className="mb-0">About me</h4>
-                  <IntroductionArticle
+                  <IntroItem
                     ref={locationRef}
                     formLabelText={"I'm based in:"}
                     formLabelIcon={"🌍"}
@@ -500,7 +502,7 @@ export default function Home() {
                   />
                   {/* Portfolio  */}
                   <article>
-                    <IntroductionArticle
+                    <IntroItem
                       ref={portfolioTitleRef}
                       formLabelText={"See my portfolio:"}
                       formLabelIcon={"🖥️"}
@@ -508,7 +510,7 @@ export default function Home() {
                       type={"portfolioTitle"}
                       inputPlaceholder={"MyPortfolio"}
                     />
-                    <IntroductionArticleWithLink
+                    <IntroLinkItem
                       ref={portfolioLinkRef}
                       section={"introduction"}
                       linkPrefix={"http://"}
@@ -517,7 +519,7 @@ export default function Home() {
                     />
                   </article>
                   {/* Email  */}
-                  <IntroductionArticle
+                  <IntroItem
                     ref={emailMeRef}
                     formLabelText={"Contact me at:"}
                     formLabelIcon={"✉️"}
@@ -527,7 +529,7 @@ export default function Home() {
                   />
                   {/* Currently working on */}
                   <article>
-                    <IntroductionArticle
+                    <IntroItem
                       ref={workingOnTitleRef}
                       formLabelText={"I'm currently working on:"}
                       formLabelIcon={"🚀"}
@@ -535,7 +537,7 @@ export default function Home() {
                       type={"workingOnTitle"}
                       inputPlaceholder={"MyApp"}
                     />
-                    <IntroductionArticleWithLink
+                    <IntroLinkItem
                       ref={workingOnLinkRef}
                       section={"introduction"}
                       type={"workingOnLink"}
@@ -545,7 +547,7 @@ export default function Home() {
                   </article>
 
                   {/* Currently learning */}
-                  <IntroductionArticle
+                  <IntroItem
                     ref={learningRef}
                     formLabelText={"I'm currently learning:"}
                     formLabelIcon={"🧠"}
@@ -554,7 +556,7 @@ export default function Home() {
                     inputPlaceholder={"a new framework"}
                   />
                   {/* Collaborate on */}
-                  <IntroductionArticle
+                  <IntroItem
                     ref={collaborateOnRef}
                     formLabelText={"I'm open to collaborating on:"}
                     formLabelIcon={"🤝"}
@@ -563,7 +565,7 @@ export default function Home() {
                     inputPlaceholder={"interesting projects"}
                   />
                   {/* Additional info */}
-                  <IntroductionArticle
+                  <IntroItem
                     ref={additionalInfoRef}
                     formLabelText={"Anything else:"}
                     formLabelIcon={"⚡"}
@@ -648,7 +650,7 @@ export default function Home() {
                 <div ref={socialsAnchorRef}></div>
                 <section className="flex flex-col p-6 gap-y-5">
                   {/* GitHub Input */}
-                  <SocialArticle
+                  <SocialItem
                     ref={githubRef}
                     section={"socials"}
                     account={"github"}
@@ -659,7 +661,7 @@ export default function Home() {
                   />
 
                   {/* Twitter Input */}
-                  <SocialArticle
+                  <SocialItem
                     ref={twitterRef}
                     section={"socials"}
                     account={"twitter"}
@@ -670,7 +672,7 @@ export default function Home() {
                   />
 
                   {/* Hashnode Input */}
-                  <SocialArticle
+                  <SocialItem
                     ref={hashnodeRef}
                     section={"socials"}
                     account={"hashnode"}
@@ -681,7 +683,7 @@ export default function Home() {
                   />
 
                   {/* Medium Input */}
-                  <SocialArticle
+                  <SocialItem
                     ref={mediumRef}
                     section={"socials"}
                     account={"medium"}
@@ -692,7 +694,7 @@ export default function Home() {
                   />
 
                   {/* DevDotTo Input */}
-                  <SocialArticle
+                  <SocialItem
                     ref={devdottoRef}
                     section={"socials"}
                     account={"devdotto"}
@@ -703,7 +705,7 @@ export default function Home() {
                   />
 
                   {/* LinkedIn Input */}
-                  <SocialArticle
+                  <SocialItem
                     ref={linkedinRef}
                     section={"socials"}
                     account={"linkedin"}
@@ -714,7 +716,7 @@ export default function Home() {
                   />
 
                   {/* Polywork Input */}
-                  <SocialArticle
+                  <SocialItem
                     ref={polyworkRef}
                     section={"socials"}
                     account={"polywork"}
@@ -725,7 +727,7 @@ export default function Home() {
                   />
 
                   {/* Twitch Input */}
-                  <SocialArticle
+                  <SocialItem
                     ref={twitchRef}
                     section={"socials"}
                     account={"twitch"}
@@ -736,7 +738,7 @@ export default function Home() {
                   />
 
                   {/* YouTube Input */}
-                  <SocialArticle
+                  <SocialItem
                     ref={youtubeRef}
                     section={"socials"}
                     account={"youtube"}
@@ -747,7 +749,7 @@ export default function Home() {
                   />
 
                   {/* Discord Input */}
-                  <SocialArticle
+                  <SocialItem
                     ref={discordRef}
                     section={"socials"}
                     account={"discord"}
@@ -758,7 +760,7 @@ export default function Home() {
                   />
 
                   {/* Instagram Input */}
-                  <SocialArticle
+                  <SocialItem
                     ref={instagramRef}
                     section={"socials"}
                     account={"instagram"}
@@ -769,7 +771,7 @@ export default function Home() {
                   />
 
                   {/* Facebook Input */}
-                  <SocialArticle
+                  <SocialItem
                     ref={facebookRef}
                     section={"socials"}
                     account={"facebook"}
@@ -780,7 +782,7 @@ export default function Home() {
                   />
 
                   {/* Dribbble Input */}
-                  <SocialArticle
+                  <SocialItem
                     ref={dribbbleRef}
                     section={"socials"}
                     account={"dribbble"}
@@ -791,7 +793,7 @@ export default function Home() {
                   />
 
                   {/* Behance Input */}
-                  <SocialArticle
+                  <SocialItem
                     ref={behanceRef}
                     section={"socials"}
                     account={"behance"}
@@ -802,7 +804,7 @@ export default function Home() {
                   />
 
                   {/* Code Sandbox Input */}
-                  <SocialArticle
+                  <SocialItem
                     ref={codesandboxRef}
                     section={"socials"}
                     account={"codesandbox"}
@@ -812,8 +814,19 @@ export default function Home() {
                     action={ACTIONS.ADD_SOCIAL_PROFILE}
                   />
 
+                  {/* Codepen Input */}
+                  <SocialItem
+                    ref={codepenRef}
+                    section={"socials"}
+                    account={"codepen"}
+                    inputPlaceholder={"yourname"}
+                    formLabelText={"Codepen profile:"}
+                    linkPrefix={state.socials.codepen.linkPrefix}
+                    action={ACTIONS.ADD_SOCIAL_PROFILE}
+                  />
+
                   {/* Stack Overflow Input */}
-                  <SocialArticle
+                  <SocialItem
                     ref={stackoverflowRef}
                     section={"socials"}
                     account={"stackoverflow"}
@@ -824,7 +837,7 @@ export default function Home() {
                   />
 
                   {/* RSS Input */}
-                  <SocialArticle
+                  <SocialItem
                     ref={rssRef}
                     section={"socials"}
                     account={"rss"}
@@ -866,41 +879,41 @@ export default function Home() {
                       </p>
                     ) : null}
                     <article className="grid grid-cols-1 gap-2 mb-4 xl:grid-cols-2">
-                      <BadgeStyleSelector
+                      <StyleBadgeButton
                         colorList={colorStore.lightColors}
                         badgeKeyToStyle={"titleColor"}
                         badgeText={"Title"}
-                        handleColorToggle={handleColorToggle}
+                        handleStyleBadge={handleStyleBadge}
                         badgeKeyToHide={"titleColorEdit"}
                         badgesShowing={badgesShowing}
                         handleChangeBadgeColor={handleChangeBadgeColor}
                       />
 
-                      <BadgeStyleSelector
+                      <StyleBadgeButton
                         colorList={colorStore.lightColors}
                         badgeKeyToStyle={"textColor"}
                         badgeText={"Text"}
-                        handleColorToggle={handleColorToggle}
+                        handleStyleBadge={handleStyleBadge}
                         badgeKeyToHide={"textColorEdit"}
                         badgesShowing={badgesShowing}
                         handleChangeBadgeColor={handleChangeBadgeColor}
                       />
 
-                      <BadgeStyleSelector
+                      <StyleBadgeButton
                         colorList={colorStore.lightColors}
                         badgeKeyToStyle={"iconColor"}
                         badgeText={"Icons"}
-                        handleColorToggle={handleColorToggle}
+                        handleStyleBadge={handleStyleBadge}
                         badgeKeyToHide={"iconColorEdit"}
                         badgesShowing={badgesShowing}
                         handleChangeBadgeColor={handleChangeBadgeColor}
                       />
 
-                      <BadgeStyleSelector
+                      <StyleBadgeButton
                         colorList={colorStore.darkColors}
                         badgeKeyToStyle={"bgColor"}
                         badgeText={"Background"}
-                        handleColorToggle={handleColorToggle}
+                        handleStyleBadge={handleStyleBadge}
                         badgeKeyToHide={"bgColorEdit"}
                         badgesShowing={badgesShowing}
                         handleChangeBadgeColor={handleChangeBadgeColor}
@@ -927,11 +940,11 @@ export default function Home() {
                     ) : null}
                     {/* GitHub Stats Card */}
                     <article>
-                      <BadgeSelector
+                      <ToggleBadgeButton
                         badgeType={"githubStatsCard"}
                         profileLink={"github"}
                         badgeText={"Stats Card"}
-                        handleBadgeClick={handleBadgeClick}
+                        handleBadgeToggle={handleBadgeToggle}
                       />
 
                       <article
@@ -945,70 +958,70 @@ export default function Home() {
                           Show:
                         </p>
                         <article className="grid grid-cols-1 gap-2 lg:grid-cols-2">
-                          <BadgeShowSelector
+                          <ToggleBadgeElementCheckbox
                             badgeKeyToHide={"stars"}
                             badgeText={"Stars"}
-                            handleBadgeShowClick={handleBadgeShowClick}
+                            handleBadgeElementToggle={handleBadgeElementToggle}
                           />
-                          <BadgeShowSelector
+                          <ToggleBadgeElementCheckbox
                             badgeKeyToHide={"commits"}
                             badgeText={"Commits"}
-                            handleBadgeShowClick={handleBadgeShowClick}
+                            handleBadgeElementToggle={handleBadgeElementToggle}
                           />
-                          <BadgeShowSelector
+                          <ToggleBadgeElementCheckbox
                             badgeKeyToHide={"prs"}
                             badgeText={"PRs"}
-                            handleBadgeShowClick={handleBadgeShowClick}
+                            handleBadgeElementToggle={handleBadgeElementToggle}
                           />
-                          <BadgeShowSelector
+                          <ToggleBadgeElementCheckbox
                             badgeKeyToHide={"issues"}
                             badgeText={"Issues"}
-                            handleBadgeShowClick={handleBadgeShowClick}
+                            handleBadgeElementToggle={handleBadgeElementToggle}
                           />
-                          <BadgeShowSelector
+                          <ToggleBadgeElementCheckbox
                             badgeKeyToHide={"contribs"}
                             badgeText={"Contributions"}
-                            handleBadgeShowClick={handleBadgeShowClick}
+                            handleBadgeElementToggle={handleBadgeElementToggle}
                           />
-                          <BadgeShowSelector
+                          <ToggleBadgeElementCheckbox
                             badgeKeyToHide={"privateCommits"}
                             badgeText={"Private Commits"}
-                            handleBadgeShowClick={handleBadgeShowClick}
+                            handleBadgeElementToggle={handleBadgeElementToggle}
                           />
                         </article>
                       </article>
                     </article>
 
-                    <BadgeSelector
+                    <ToggleBadgeButton
                       badgeType={"githubStreak"}
                       profileLink={"github"}
                       badgeText={"Commit Streak"}
-                      handleBadgeClick={handleBadgeClick}
+                      handleBadgeToggle={handleBadgeToggle}
                     />
 
                     {/* GitHub Commits Graph Badge */}
-                    <BadgeSelector
+                    <ToggleBadgeButton
                       badgeType={"githubCommitsGraph"}
                       profileLink={"github"}
                       badgeText={"Commits Graph"}
-                      handleBadgeClick={handleBadgeClick}
+                      handleBadgeToggle={handleBadgeToggle}
                     />
 
                     {/* Top Languages Card */}
-                    <BadgeSelector
+                    <ToggleBadgeButton
                       badgeType={"topLangsCard"}
                       profileLink={"github"}
                       badgeText={"Top Languages"}
-                      handleBadgeClick={handleBadgeClick}
+                      handleBadgeToggle={handleBadgeToggle}
                     />
 
                     {/* Repository Card */}
                     <article>
-                      <BadgeSelector
+                      <ToggleBadgeButton
                         badgeType={"reposCard"}
                         profileLink={"github"}
                         badgeText={"Top Repositories"}
-                        handleBadgeClick={handleBadgeClick}
+                        handleBadgeToggle={handleBadgeToggle}
                       />
 
                       <article
@@ -1084,7 +1097,7 @@ export default function Home() {
                         </article>
                         {state.badges.reposCard.repoTwo != null ? null : (
                           <>
-                            <AddButton
+                            <AddRepo
                               action={ACTIONS.ADD_REPO}
                               repoNumberToAdd={"repoTwo"}
                             />
@@ -1094,7 +1107,7 @@ export default function Home() {
                         {state.badges.reposCard.repoThree != null ||
                         state.badges.reposCard.repoTwo == null ? null : (
                           <>
-                            <AddButton
+                            <AddRepo
                               action={ACTIONS.ADD_REPO}
                               repoNumberToAdd={"repoThree"}
                             />
@@ -1105,7 +1118,7 @@ export default function Home() {
                         state.badges.reposCard.repoTwo == null ||
                         state.badges.reposCard.repoThree == null ? null : (
                           <>
-                            <AddButton
+                            <AddRepo
                               action={ACTIONS.ADD_REPO}
                               repoNumberToAdd={"repoFour"}
                             />
@@ -1115,11 +1128,11 @@ export default function Home() {
                     </article>
 
                     {/* GitHub Followers Badge */}
-                    <BadgeSelector
+                    <ToggleBadgeButton
                       badgeType={"githubFollowers"}
                       profileLink={"github"}
                       badgeText={"Follower Count"}
-                      handleBadgeClick={handleBadgeClick}
+                      handleBadgeToggle={handleBadgeToggle}
                     />
                   </article>
                   <article className="flex flex-col mb-4 gap-y-2">
@@ -1141,11 +1154,11 @@ export default function Home() {
                       </p>
                     ) : null}
                     {/* Twitter Followers Badge */}
-                    <BadgeSelector
+                    <ToggleBadgeButton
                       badgeType={"twitterFollowers"}
                       profileLink={"twitter"}
                       badgeText={"Follower Count"}
-                      handleBadgeClick={handleBadgeClick}
+                      handleBadgeToggle={handleBadgeToggle}
                     />
                   </article>
                   <article className="flex flex-col mb-4 gap-y-2">
@@ -1167,11 +1180,11 @@ export default function Home() {
                       </p>
                     ) : null}
                     {/* Twitch Channel Badge */}
-                    <BadgeSelector
+                    <ToggleBadgeButton
                       badgeType={"twitchStatus"}
                       profileLink={"twitch"}
                       badgeText={"Streaming Status"}
-                      handleBadgeClick={handleBadgeClick}
+                      handleBadgeToggle={handleBadgeToggle}
                     />
                   </article>
                   <section className="flex mt-4">
@@ -1197,7 +1210,7 @@ export default function Home() {
                 <div ref={supportAnchorRef}></div>
                 <section className="flex flex-col p-6 gap-y-4">
                   {/* GitHub Input */}
-                  <SocialArticle
+                  <SocialItem
                     ref={buymeacoffeeRef}
                     section={"support"}
                     account={"buymeacoffee"}

@@ -1,15 +1,15 @@
-import React, { useContext, forwardRef } from "react";
+import React, { forwardRef } from "react";
 import { ACTIONS } from "../pages/_app";
 import FormLabel from "./forms/FormLabel";
-import FormTextarea from "./forms/FormTextarea";
+import FormInput from "./forms/FormInput";
 
-const IntroductionTextarea = forwardRef((props, ref) => {
+const IntroItem = forwardRef((props, ref) => {
   const { formLabelText, formLabelIcon, section, type, inputPlaceholder } =
     props;
   return (
     <article className="flex flex-col flex-1 w-full">
       <FormLabel text={formLabelText} icon={formLabelIcon} />
-      <FormTextarea
+      <FormInput
         ref={ref}
         section={section}
         type={type}
@@ -20,6 +20,6 @@ const IntroductionTextarea = forwardRef((props, ref) => {
   );
 });
 
-IntroductionTextarea.displayName = "IntroductionTextarea";
+IntroItem.displayName = "IntroItem";
 
-export default IntroductionTextarea;
+export default IntroItem;

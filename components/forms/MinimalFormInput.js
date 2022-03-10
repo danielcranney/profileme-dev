@@ -1,15 +1,15 @@
 import React, { useContext, forwardRef } from "react";
-import { StateContext } from "../pages/_app";
+import { StateContext } from "../../pages/_app";
 
-const SocialInput = forwardRef((props, ref) => {
+const MinimalFormInput = forwardRef((props, ref) => {
   const { placeholder, action, type, section } = props;
   const { state, dispatch } = useContext(StateContext);
   return (
     <input
-      className="minimal-input-field"
+      name={type}
+      className="minimal-input-field appearance-none"
       placeholder={placeholder}
       ref={ref}
-      name={type}
       value={state[section][type]["linkSuffix"]}
       onChange={() =>
         dispatch({
@@ -21,6 +21,6 @@ const SocialInput = forwardRef((props, ref) => {
   );
 });
 
-SocialInput.displayName = "SocialInput";
+MinimalFormInput.displayName = "MinimalFormInput";
 
-export default SocialInput;
+export default MinimalFormInput;

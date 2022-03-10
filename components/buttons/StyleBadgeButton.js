@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
-import { StateContext } from "../pages/_app";
+import { StateContext } from "../../pages/_app";
 
-const BadgeStyleSelector = ({
+const StyleBadgeButton = ({
   badgeText,
-  handleColorToggle,
+  handleStyleBadge,
   badgeKeyToStyle,
   badgeKeyToHide,
   colorList,
@@ -14,7 +14,7 @@ const BadgeStyleSelector = ({
   return (
     <article className={`flex flex-col`}>
       <button
-        onClick={handleColorToggle}
+        onClick={handleStyleBadge}
         name={badgeKeyToHide}
         disabled={!badgesShowing ? true : false}
         className={`border flex flex-col text-xs font-semibold uppercase border-dark-600 items-start group ${
@@ -84,4 +84,4 @@ const BadgeStyleSelector = ({
   );
 };
 
-export default BadgeStyleSelector;
+export default StyleBadgeButton;

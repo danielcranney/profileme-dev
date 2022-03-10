@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
-import { StateContext } from "../pages/_app";
+import { StateContext } from "../../pages/_app";
 
-const BadgeShowSelector = ({
+const ToggleBadgeElementCheckbox = ({
   badgeText,
-  handleBadgeShowClick,
+  handleBadgeElementToggle,
   badgeKeyToHide,
 }) => {
   const { state, dispatch } = useContext(StateContext);
@@ -15,7 +15,7 @@ const BadgeShowSelector = ({
         type="checkbox"
         name={badgeKeyToHide}
         value={state.badges.githubStatsCard[badgeKeyToHide]}
-        onChange={handleBadgeShowClick}
+        onChange={handleBadgeElementToggle}
         className="checkbox-input"
         checked={state.badges.githubStatsCard[badgeKeyToHide]}
       />
@@ -24,4 +24,4 @@ const BadgeShowSelector = ({
   );
 };
 
-export default BadgeShowSelector;
+export default ToggleBadgeElementCheckbox;

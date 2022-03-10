@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { StateContext } from "../../pages/_app";
 
-const AddButton = ({ action, repoNumberToAdd }) => {
+const AddRepo = ({ action, repoNumberToAdd }) => {
   const { state, dispatch } = useContext(StateContext);
   return (
     <button
@@ -34,4 +34,4 @@ const AddButton = ({ action, repoNumberToAdd }) => {
   );
 };
 
-export default AddButton;
+export default AddRepo;

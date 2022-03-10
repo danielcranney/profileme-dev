@@ -2,9 +2,9 @@ import React, { useContext, forwardRef } from "react";
 import Image from "next/image";
 import { StateContext } from "../pages/_app";
 import FormLabel from "./forms/FormLabel";
-import SocialInput from "./SocialInput";
+import MinimalFormInput from "./forms/MinimalFormInput";
 
-const SocialArticle = forwardRef((props, ref) => {
+const SocialItem = forwardRef((props, ref) => {
   const {
     formLabelText,
     linkPrefix,
@@ -30,7 +30,7 @@ const SocialArticle = forwardRef((props, ref) => {
         <div className="flex items-center text-sm text-dark-300 bg-dark-900">
           <span className="py-2 pl-2 mt-0 mb-0 leading-4">{linkPrefix}</span>
         </div>
-        <SocialInput
+        <MinimalFormInput
           ref={ref}
           section={section}
           type={account}
@@ -42,6 +42,6 @@ const SocialArticle = forwardRef((props, ref) => {
   );
 });
 
-SocialArticle.displayName = "SocialArticle";
+SocialItem.displayName = "SocialItem";
 
-export default SocialArticle;
+export default SocialItem;

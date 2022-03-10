@@ -628,6 +628,11 @@ const initialState = {
       linkPrefix: "https://www.codesandbox.com/",
       linkSuffix: "",
     },
+    codepen: {
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/codepen.svg",
+      linkPrefix: "https://www.codepen.com/",
+      linkSuffix: "",
+    },
     stackoverflow: {
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/stackoverflow.svg",
       linkPrefix: "https://www.stackoverflow.com/users/",

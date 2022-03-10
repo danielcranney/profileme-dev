@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 
-import { ACTIONS } from "../pages/_app";
-import { StateContext } from "../pages/_app";
+import { ACTIONS } from "../../pages/_app";
+import { StateContext } from "../../pages/_app";
 
 const MenuItem = ({ text, section, setSidebarOpen }) => {
   const { state, dispatch } = useContext(StateContext);

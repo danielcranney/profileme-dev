@@ -1,14 +1,13 @@
 import React, { useContext } from "react";
-import { StateContext } from "../pages/_app";
-import { FormLabel } from "./forms/FormLabel";
+import { StateContext } from "../../pages/_app";
 
-const BadgeSelector = ({
+const ToggleBadgeButton = ({
   badgeType,
   badgeText,
   profileLink,
-  handleBadgeClick,
+  handleBadgeToggle,
 }) => {
-  const { state, dispatch } = useContext(StateContext);
+  const { state } = useContext(StateContext);
   return (
     <label
       className={`py-3 w-full flex uppercase font-semibold group select-none border border-dark-600 px-2 ${
@@ -21,7 +20,7 @@ const BadgeSelector = ({
         type="checkbox"
         name={badgeType}
         value={state.badges[badgeType].selected}
-        onChange={handleBadgeClick}
+        onChange={handleBadgeToggle}
         className="checkbox-input"
         checked={state.badges[badgeType].selected}
         disabled={
@@ -33,4 +32,4 @@ const BadgeSelector = ({
   );
 };
 
-export default BadgeSelector;
+export default ToggleBadgeButton;

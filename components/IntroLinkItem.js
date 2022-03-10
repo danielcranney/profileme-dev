@@ -1,6 +1,6 @@
 import React, { useContext, forwardRef } from "react";
 import { ACTIONS } from "../pages/_app";
-import SocialInput from "./forms/MinimalFormInput";
+import MinimalIntroFormInput from "./forms/MinimalIntroFormInput";
 
 const IntroLinkItem = forwardRef((props, ref) => {
   const { section, type, inputPlaceholder, linkPrefix } = props;
@@ -10,7 +10,7 @@ const IntroLinkItem = forwardRef((props, ref) => {
         <div className="flex items-center text-sm text-dark-300 bg-dark-900">
           <span className="py-2 pl-2 mt-0 mb-0 leading-4">{linkPrefix}</span>
         </div>
-        <SocialInput
+        <MinimalIntroFormInput
           ref={ref}
           section={section}
           type={type}

@@ -7,7 +7,7 @@ import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 import { colorStore } from "./_app";
 // Import components
 import MenuItem from "../components/buttons/MenuItem";
-import FormInput from "../components/forms/FormInput";
+import AddRepoInput from "../components/forms/AddRepoInput";
 import SectionHeader from "../components/SectionHeader";
 import SocialItem from "../components/SocialItem";
 import IntroItem from "../components/IntroItem";
@@ -541,7 +541,7 @@ export default function Home() {
                       ref={workingOnLinkRef}
                       section={"introduction"}
                       type={"workingOnLink"}
-                      linkPrefix={"http://www."}
+                      linkPrefix={"http://"}
                       inputPlaceholder={"myapp.com"}
                     />
                   </article>
@@ -1039,7 +1039,7 @@ export default function Home() {
                           GitHub (including hyphens, NOT case-sensitive).
                         </p>
                         <article className="grid grid-cols-1 gap-2 mb-2">
-                          <FormInput
+                          <AddRepoInput
                             ref={repoOneRef}
                             section={"reposCard"}
                             type={"repoOne"}
@@ -1049,7 +1049,7 @@ export default function Home() {
 
                           {state.badges.reposCard.repoTwo != null ? (
                             <article className="flex gap-x-2 h-9.5">
-                              <FormInput
+                              <AddRepoInput
                                 ref={repoTwoRef}
                                 section={"reposCard"}
                                 type={"repoTwo"}
@@ -1065,7 +1065,7 @@ export default function Home() {
 
                           {state.badges.reposCard.repoThree != null ? (
                             <article className="flex gap-x-2 h-9.5">
-                              <FormInput
+                              <AddRepoInput
                                 ref={repoThreeRef}
                                 section={"reposCard"}
                                 type={"repoThree"}
@@ -1081,7 +1081,7 @@ export default function Home() {
 
                           {state.badges.reposCard.repoFour != null ? (
                             <article className="flex gap-x-2 h-9.5">
-                              <FormInput
+                              <AddRepoInput
                                 ref={repoFourRef}
                                 section={"reposCard"}
                                 type={"repoFour"}
@@ -1383,7 +1383,7 @@ export default function Home() {
                   <li>
                     🖥️&nbsp; See my portfolio at{" "}
                     <a
-                      href={`http://www.${state.introduction.portfolioLink}`}
+                      href={`http://${state.introduction.portfolioLink}`}
                       target="_blank"
                       rel="noreferrer"
                     >

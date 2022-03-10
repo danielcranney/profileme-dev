@@ -2,7 +2,7 @@ import React, { useContext, forwardRef } from "react";
 import Image from "next/image";
 import { StateContext } from "../pages/_app";
 import FormLabel from "./forms/FormLabel";
-import MinimalFormInput from "./forms/MinimalFormInput";
+import MinimalSocialFormInput from "./forms/MinimalSocialFormInput";
 
 const SocialItem = forwardRef((props, ref) => {
   const {
@@ -30,7 +30,7 @@ const SocialItem = forwardRef((props, ref) => {
         <div className="flex items-center text-sm text-dark-300 bg-dark-900">
           <span className="py-2 pl-2 mt-0 mb-0 leading-4">{linkPrefix}</span>
         </div>
-        <MinimalFormInput
+        <MinimalSocialFormInput
           ref={ref}
           section={section}
           type={account}

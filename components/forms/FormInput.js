@@ -3,13 +3,14 @@ import { StateContext } from "../../pages/_app";
 
 const FormInput = forwardRef((props, ref) => {
   const { placeholder, action, type, section } = props;
-  const { dispatch } = useContext(StateContext);
+  const { state, dispatch } = useContext(StateContext);
   return (
     <input
       type="text"
       name={type}
       className="input-field"
       placeholder={placeholder}
+      value={state[section][type]}
       ref={ref}
       onChange={() =>
         dispatch({

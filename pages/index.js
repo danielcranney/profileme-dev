@@ -21,6 +21,7 @@ import IntroductionTextarea from "../components/IntroductionTextarea";
 import NextSection from "../components/buttons/NextSection";
 import PreviousSection from "../components/buttons/PreviousSection";
 import CopyrightLabel from "../components/misc/CopyrightLabel";
+import DeleteRepo from "../components/buttons/DeleteRepo";
 let TurndownService = require("turndown").default;
 
 export default function Home() {
@@ -1034,33 +1035,51 @@ export default function Home() {
                           />
 
                           {state.badges.reposCard.repoTwo != null ? (
-                            <FormInput
-                              ref={repoTwoRef}
-                              section={"reposCard"}
-                              type={"repoTwo"}
-                              placeholder={"repo-name"}
-                              action={ACTIONS.ADD_REPO}
-                            />
+                            <article className="flex gap-x-2 h-9.5">
+                              <FormInput
+                                ref={repoTwoRef}
+                                section={"reposCard"}
+                                type={"repoTwo"}
+                                placeholder={"repo-name"}
+                                action={ACTIONS.ADD_REPO}
+                              />
+                              <DeleteRepo
+                                action={ACTIONS.DELETE_REPO}
+                                type={"repoTwo"}
+                              />
+                            </article>
                           ) : null}
 
                           {state.badges.reposCard.repoThree != null ? (
-                            <FormInput
-                              ref={repoThreeRef}
-                              section={"reposCard"}
-                              type={"repoThree"}
-                              placeholder={"repo-name"}
-                              action={ACTIONS.ADD_REPO}
-                            />
+                            <article className="flex gap-x-2 h-9.5">
+                              <FormInput
+                                ref={repoThreeRef}
+                                section={"reposCard"}
+                                type={"repoThree"}
+                                placeholder={"repo-name"}
+                                action={ACTIONS.ADD_REPO}
+                              />
+                              <DeleteRepo
+                                action={ACTIONS.DELETE_REPO}
+                                type={"repoThree"}
+                              />
+                            </article>
                           ) : null}
 
                           {state.badges.reposCard.repoFour != null ? (
-                            <FormInput
-                              ref={repoFourRef}
-                              section={"reposCard"}
-                              type={"repoFour"}
-                              placeholder={"repo-name"}
-                              action={ACTIONS.ADD_REPO}
-                            />
+                            <article className="flex gap-x-2 h-9.5">
+                              <FormInput
+                                ref={repoFourRef}
+                                section={"reposCard"}
+                                type={"repoFour"}
+                                placeholder={"repo-name"}
+                                action={ACTIONS.ADD_REPO}
+                              />
+                              <DeleteRepo
+                                action={ACTIONS.DELETE_REPO}
+                                type={"repoFour"}
+                              />
+                            </article>
                           ) : null}
                         </article>
                         {state.badges.reposCard.repoTwo != null ? null : (
@@ -1617,40 +1636,54 @@ export default function Home() {
               ) : null}
 
               {state.badges.githubStatsCard.selected ? (
-                <img
-                  src={`https://github-readme-stats.vercel.app/api?username=${
-                    state.socials.github.linkSuffix
-                  }&hide=${state.badges.githubStatsCard.stars ? "" : "stars,"}${
-                    state.badges.githubStatsCard.commits ? "" : "commits,"
-                  }${state.badges.githubStatsCard.prs ? "" : "prs,"}${
-                    state.badges.githubStatsCard.issues ? "" : "issues,"
-                  }${state.badges.githubStatsCard.contribs ? "" : "contribs"}${
-                    state.badges.githubStatsCard.privateCommits
-                      ? "&count_private=true"
-                      : ""
-                  }&title_color=${
-                    state.badges.cardStyle.titleColor
-                  }&text_color=${state.badges.cardStyle.textColor}&icon_color=${
-                    state.badges.cardStyle.iconColor
-                  }&bg_color=${
-                    state.badges.cardStyle.bgColor
-                  }&hide_border=true&border_radius=0&show_icons=true`}
-                  className="object-scale-down"
-                />
+                <a
+                  href={`http://www.github.com/${state.socials.github.linkSuffix}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img
+                    src={`https://github-readme-stats.vercel.app/api?username=${
+                      state.socials.github.linkSuffix
+                    }&hide=${
+                      state.badges.githubStatsCard.stars ? "" : "stars,"
+                    }${state.badges.githubStatsCard.commits ? "" : "commits,"}${
+                      state.badges.githubStatsCard.prs ? "" : "prs,"
+                    }${state.badges.githubStatsCard.issues ? "" : "issues,"}${
+                      state.badges.githubStatsCard.contribs ? "" : "contribs"
+                    }${
+                      state.badges.githubStatsCard.privateCommits
+                        ? "&count_private=true"
+                        : ""
+                    }&title_color=${
+                      state.badges.cardStyle.titleColor
+                    }&text_color=${
+                      state.badges.cardStyle.textColor
+                    }&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${
+                      state.badges.cardStyle.bgColor
+                    }&hide_border=true&border_radius=0&show_icons=true`}
+                    className="object-scale-down"
+                  />
+                </a>
               ) : null}
 
               {state.badges.githubStreak.selected ? (
-                <>
+                <a
+                  href={`http://www.github.com/${state.socials.github.linkSuffix}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <img
                     src={`https://github-readme-streak-stats.herokuapp.com/?user=${state.socials.github.linkSuffix}&stroke=${state.badges.cardStyle.textColor}&background=${state.badges.cardStyle.bgColor}&ring=${state.badges.cardStyle.titleColor}&fire=${state.badges.cardStyle.titleColor}&currStreakNum=${state.badges.cardStyle.textColor}&currStreakLabel=${state.badges.cardStyle.titleColor}&sideNums=${state.badges.cardStyle.textColor}&sideLabels=${state.badges.cardStyle.textColor}&dates=${state.badges.cardStyle.textColor}&hide_border=true`}
                     className="object-scale-down"
                   />
-                </>
+                </a>
               ) : null}
 
               {state.badges.githubCommitsGraph.selected ? (
                 <a
                   href={`http://www.github.com/${state.socials.github.linkSuffix}`}
+                  target="_blank"
+                  rel="noreferrer"
                 >
                   <img
                     src={`https://activity-graph.herokuapp.com/graph?username=${state.socials.github.linkSuffix}&bg_color=${state.badges.cardStyle.bgColor}&color=${state.badges.cardStyle.textColor}&line=${state.badges.cardStyle.iconColor}&point=${state.badges.cardStyle.textColor}&area_color=${state.badges.cardStyle.bgColor}&area=true&hide_border=true&custom_title=GitHub%20Commits%20Graph`}
@@ -1659,9 +1692,15 @@ export default function Home() {
               ) : null}
 
               {state.badges.topLangsCard.selected ? (
-                <img
-                  src={`https://github-readme-stats.vercel.app/api/top-langs/?username=danielcranney&langs_count=10&title_color=${state.badges.cardStyle.titleColor}&text_color=${state.badges.cardStyle.textColor}&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${state.badges.cardStyle.bgColor}&hide_border=true&locale=en&custom_title=Top%20%Languages`}
-                />
+                <a
+                  href={`http://www.github.com/${state.socials.github.linkSuffix}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img
+                    src={`https://github-readme-stats.vercel.app/api/top-langs/?username=danielcranney&langs_count=10&title_color=${state.badges.cardStyle.titleColor}&text_color=${state.badges.cardStyle.textColor}&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${state.badges.cardStyle.bgColor}&hide_border=true&locale=en&custom_title=Top%20%Languages`}
+                  />
+                </a>
               ) : null}
 
               {/* Repo Cards */}

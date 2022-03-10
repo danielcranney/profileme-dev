@@ -14,6 +14,7 @@ export const ACTIONS = {
   STYLE_BADGES: "style-badges",
   TOGGLE_STYLE_COLOR: "toggle-style-color",
   ADD_REPO: "add-repo",
+  DELETE_REPO: "delete-repo",
   ADD_SUPPORT: "add-support",
 };
 
@@ -811,6 +812,17 @@ function reducer(state, action) {
         },
       };
     case ACTIONS.ADD_REPO:
+      return {
+        ...state,
+        badges: {
+          ...state.badges,
+          reposCard: {
+            ...state.badges.reposCard,
+            [action.payload.title]: action.payload.value,
+          },
+        },
+      };
+    case ACTIONS.DELETE_REPO:
       return {
         ...state,
         badges: {

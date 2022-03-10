@@ -630,7 +630,7 @@ const initialState = {
     },
     codepen: {
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/codepen.svg",
-      linkPrefix: "https://www.codepen.com/",
+      linkPrefix: "https://www.codepen.io/",
       linkSuffix: "",
     },
     stackoverflow: {

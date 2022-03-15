@@ -9,6 +9,7 @@ export const ACTIONS = {
   ADD_SKILL: "add-skill",
   REMOVE_SKILL: "remove-skill",
   ADD_SOCIAL_PROFILE: "add-social-profile",
+  ADD_ALTERNATIVE_SOCIAL_PROFILE: "add-alternative-social-profile",
   TOGGLE_BADGE: "toggle-badge",
   TOGGLE_GITHUB_STATS: "toggle-github-stats",
   STYLE_BADGES: "style-badges",
@@ -565,8 +566,9 @@ const initialState = {
     },
     hashnode: {
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/hashnode.svg",
-      linkPrefix: "http://www.hashnode.com/@",
+      linkPrefix: "https://",
       linkSuffix: "",
+      linkSuffixTwo: ".hashnode.dev",
     },
     medium: {
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/medium.svg",
@@ -764,6 +766,18 @@ function reducer(state, action) {
           [action.payload.title]: {
             ...state.socials[action.payload.title],
             linkSuffix: action.payload.value,
+          },
+        },
+      };
+    // Add Alternative Social Profile
+    case ACTIONS.ADD_ALTERNATIVE_SOCIAL_PROFILE:
+      return {
+        ...state,
+        socials: {
+          ...state.socials,
+          [action.payload.title]: {
+            ...state.socials[action.payload.title],
+            linkSuffixTwo: action.payload.value,
           },
         },
       };

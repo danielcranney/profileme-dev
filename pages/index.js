@@ -683,6 +683,15 @@ export default function Home() {
                     formLabelText={"Hashnode profile:"}
                     linkPrefix={state.socials.hashnode.linkPrefix}
                     action={ACTIONS.ADD_SOCIAL_PROFILE}
+                    linkSuffixTwo={
+                      <>
+                        <div className="flex items-center text-sm text-dark-300 bg-dark-900">
+                          <span className="py-2 pr-2 leading-4 select-none">
+                            .hashnode.dev
+                          </span>
+                        </div>
+                      </>
+                    }
                   />
 
                   {/* Medium Input */}
@@ -1350,6 +1359,9 @@ export default function Home() {
                   : ""
               }`}
             >
+              {/* <img
+                src={`https://readme-typing-svg.herokuapp.com/?font=Helvetica&lines=Hi+👋+My+name+is+${state.introduction.name}`}
+              /> */}
               {!state.introduction.name ? null : (
                 <h1>Hi 👋 My name is {state.introduction.name}</h1>
               )}
@@ -1622,12 +1634,17 @@ export default function Home() {
               }`}
             >
               {Object.entries(state.socials).map((profile) => {
+                console.log(profile);
                 return profile[1].linkSuffix ? (
                   <a
                     key={`${profile[0]}`}
                     target="_blank"
                     rel="noreferrer"
-                    href={`${profile[1].linkPrefix}${profile[1].linkSuffix}`}
+                    href={`${profile[1].linkPrefix}${profile[1].linkSuffix}${
+                      profile[1].linkSuffixTwo
+                        ? `${profile[1].linkSuffixTwo}`
+                        : ""
+                    }`}
                   >
                     <img height="32" width="32" src={`${profile[1].path}`} />
                   </a>

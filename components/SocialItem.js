@@ -12,6 +12,7 @@ const SocialItem = forwardRef((props, ref) => {
     inputPlaceholder,
     section,
     action,
+    linkSuffixTwo,
   } = props;
 
   return (
@@ -28,7 +29,7 @@ const SocialItem = forwardRef((props, ref) => {
       />
       <div className="flex border bg-dark-900 border-dark-600">
         <div className="flex items-center text-sm text-dark-300 bg-dark-900">
-          <span className="py-2 pl-2 mt-0 mb-0 leading-4">{linkPrefix}</span>
+          <span className="py-2 pl-2 leading-4 select-none">{linkPrefix}</span>
         </div>
         <MinimalSocialFormInput
           ref={ref}
@@ -37,6 +38,7 @@ const SocialItem = forwardRef((props, ref) => {
           placeholder={inputPlaceholder}
           action={action}
         />
+        {linkSuffixTwo}
       </div>
     </article>
   );

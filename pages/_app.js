@@ -404,6 +404,54 @@ export const iconData = {
       iTag: "the-graph",
       link: "https://www.adobe.com/uk/products/photoshop.html",
     },
+    {
+      name: "Ethers",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/ethers-colored.svg",
+      iTag: "ethers",
+      link: "https://www.adobe.com/uk/products/photoshop.html",
+    },
+    {
+      name: "Web3Js",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/web3js-colored.svg",
+      iTag: "web3js",
+      link: "https://www.adobe.com/uk/products/photoshop.html",
+    },
+    {
+      name: "Alchemy",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/alchemy-colored.svg",
+      iTag: "alchemy",
+      link: "https://www.adobe.com/uk/products/photoshop.html",
+    },
+    {
+      name: "Hardhat",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/hardhat-colored.svg",
+      iTag: "hardhat",
+      link: "https://www.adobe.com/uk/products/photoshop.html",
+    },
+    {
+      name: "Truffle",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/truffle-colored.svg",
+      iTag: "truffle",
+      link: "https://www.adobe.com/uk/products/photoshop.html",
+    },
+    {
+      name: "IPFS",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/ipfs-colored.svg",
+      iTag: "ipfs",
+      link: "https://www.adobe.com/uk/products/photoshop.html",
+    },
+    {
+      name: "Filebase",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/filebase-colored.svg",
+      iTag: "filebase",
+      link: "https://www.adobe.com/uk/products/photoshop.html",
+    },
+    {
+      name: "Arweave",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/arweave-colored.svg",
+      iTag: "arweave",
+      link: "https://www.adobe.com/uk/products/photoshop.html",
+    },
   ],
 };
 

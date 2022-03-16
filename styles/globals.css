@@ -215,3 +215,21 @@ CUSTOM DEVELOPER ICONS
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nansen-colored.svg')];
   }
 }
+
+@layer utilities {
+  .chainlink {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/chainlink.svg')];
+  }
+  .chainlink.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/chainlink-colored.svg')];
+  }
+}
+
+@layer utilities {
+  .the-graph {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/the-graph.svg')];
+  }
+  .the-graph.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/the-graph-colored.svg')];
+  }
+}

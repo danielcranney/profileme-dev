@@ -355,6 +355,56 @@ export const iconData = {
       link: "https://www.sketch.com/",
     },
   ],
+  web3: [
+    {
+      name: "Uniswap",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/uniswap-colored.svg",
+      iTag: "uniswap",
+      link: "https://www.adobe.com/uk/products/photoshop.html",
+    },
+    {
+      name: "AAVE",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/aave-colored.svg",
+      iTag: "aave",
+      link: "https://www.adobe.com/uk/products/photoshop.html",
+    },
+    {
+      name: "Sushiswap",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/sushiswap-colored.svg",
+      iTag: "sushiswap",
+      link: "https://www.adobe.com/uk/products/photoshop.html",
+    },
+    {
+      name: "Metamask",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/metamask-colored.svg",
+      iTag: "metamask",
+      link: "https://www.adobe.com/uk/products/photoshop.html",
+    },
+    {
+      name: "Argent",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/argent-colored.svg",
+      iTag: "argent",
+      link: "https://www.adobe.com/uk/products/photoshop.html",
+    },
+    {
+      name: "Nansen",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nansen-colored.svg",
+      iTag: "nansen",
+      link: "https://www.adobe.com/uk/products/photoshop.html",
+    },
+    {
+      name: "Chainlink",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/chainlink-colored.svg",
+      iTag: "chainlink",
+      link: "https://www.adobe.com/uk/products/photoshop.html",
+    },
+    {
+      name: "The Graph",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/the-graph-colored.svg",
+      iTag: "the-graph",
+      link: "https://www.adobe.com/uk/products/photoshop.html",
+    },
+  ],
 };
 
 // Color Store
@@ -551,6 +601,7 @@ const initialState = {
     backend: [],
     other: [],
     software: [],
+    web3: [],
   },
   // Socials State
   socials: {

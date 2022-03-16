@@ -35,6 +35,7 @@ export default function Home() {
       backend: [],
       other: [],
       software: [],
+      web3: [],
     },
     socials: {
       behance: "",
@@ -629,6 +630,12 @@ export default function Home() {
                     handleIconToggle={handleIconToggle}
                     title={"Software"}
                     iconType={"software"}
+                  />
+                  {/* Web 3 */}
+                  <IconSelector
+                    handleIconToggle={handleIconToggle}
+                    title={"Web3"}
+                    iconType={"web3"}
                   />
                   <section className="flex mt-4">
                     <PreviousSection sectionToGoTo={"introduction"} />

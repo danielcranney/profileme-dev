@@ -161,3 +161,57 @@ CUSTOM DEVELOPER ICONS
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/supabase-colored.svg')];
   }
 }
+
+@layer utilities {
+  .uniswap {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/uniswap.svg')];
+  }
+  .uniswap.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/uniswap-colored.svg')];
+  }
+}
+
+@layer utilities {
+  .aave {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/aave.svg')];
+  }
+  .aave.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/aave-colored.svg')];
+  }
+}
+
+@layer utilities {
+  .sushiswap {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/sushiswap.svg')];
+  }
+  .sushiswap.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/sushiswap-colored.svg')];
+  }
+}
+
+@layer utilities {
+  .metamask {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/metamask.svg')];
+  }
+  .metamask.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/metamask-colored.svg')];
+  }
+}
+
+@layer utilities {
+  .argent {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/argent.svg')];
+  }
+  .argent.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/argent-colored.svg')];
+  }
+}
+
+@layer utilities {
+  .nansen {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nansen.svg')];
+  }
+  .nansen.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nansen-colored.svg')];
+  }
+}

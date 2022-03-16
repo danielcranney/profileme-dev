@@ -452,6 +452,54 @@ export const iconData = {
       iTag: "arweave",
       link: "https://www.adobe.com/uk/products/photoshop.html",
     },
+    {
+      name: "Ethereum",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/ethereum-colored.svg",
+      iTag: "ethereum",
+      link: "https://www.adobe.com/uk/products/photoshop.html",
+    },
+    {
+      name: "Polygon",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/polygon-colored.svg",
+      iTag: "polygon",
+      link: "https://www.adobe.com/uk/products/photoshop.html",
+    },
+    {
+      name: "Arbitrum",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/arbitrum-colored.svg",
+      iTag: "arbitrum",
+      link: "https://www.adobe.com/uk/products/photoshop.html",
+    },
+    {
+      name: "Avalanche",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/avalanche-colored.svg",
+      iTag: "avalanche",
+      link: "https://www.adobe.com/uk/products/photoshop.html",
+    },
+    {
+      name: "Near",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/near-colored.svg",
+      iTag: "near",
+      link: "https://www.adobe.com/uk/products/photoshop.html",
+    },
+    {
+      name: "Flow",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/flow-colored.svg",
+      iTag: "flow",
+      link: "https://www.adobe.com/uk/products/photoshop.html",
+    },
+    {
+      name: "Solana",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/solana-colored.svg",
+      iTag: "solana",
+      link: "https://www.adobe.com/uk/products/photoshop.html",
+    },
+    {
+      name: "Terra",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/terra-colored.svg",
+      iTag: "terra",
+      link: "https://www.adobe.com/uk/products/photoshop.html",
+    },
   ],
 };
 

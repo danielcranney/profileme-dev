@@ -305,3 +305,74 @@ CUSTOM DEVELOPER ICONS
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/arweave-colored.svg')];
   }
 }
+
+@layer utilities {
+  .ethereum {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/ethereum.svg')];
+  }
+  .ethereum.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/ethereum-colored.svg')];
+  }
+}
+
+@layer utilities {
+  .polygon {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/polygon.svg')];
+  }
+  .polygon.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/polygon-colored.svg')];
+  }
+}
+
+@layer utilities {
+  .arbitrum {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/arbitrum.svg')];
+  }
+  .arbitrum.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/arbitrum-colored.svg')];
+  }
+}
+
+@layer utilities {
+  .avalanche {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/avalanche.svg')];
+  }
+  .avalanche.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/avalanche-colored.svg')];
+  }
+}
+
+@layer utilities {
+  .near {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/near.svg')];
+  }
+  .near.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/near-colored.svg')];
+  }
+}
+
+@layer utilities {
+  .flow {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/flow.svg')];
+  }
+  .flow.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/flow-colored.svg')];
+  }
+}
+
+@layer utilities {
+  .solana {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/solana.svg')];
+  }
+  .solana.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/solana-colored.svg')];
+  }
+}
+@layer utilities {
+  .terra {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/terra.svg')];
+  }
+  .terra.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/terra-colored.svg')];
+  }
+}

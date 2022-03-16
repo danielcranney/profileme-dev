@@ -1486,7 +1486,8 @@ export default function Home() {
               state.skills.frontend.length === 0 &&
               state.skills.backend.length === 0 &&
               state.skills.other.length === 0 &&
-              state.skills.software.length === 0 ? null : (
+              state.skills.software.length === 0 &&
+              state.skills.web3.length === 0 ? null : (
                 <h3>Skills</h3>
               )}
             </div>
@@ -1499,14 +1500,15 @@ export default function Home() {
                 state.skills.frontend.length < 1 &&
                 state.skills.backend.length < 1 &&
                 state.skills.other.length < 1 &&
-                state.skills.software.length < 1
+                state.skills.software.length < 1 &&
+                state.skills.web3.length < 1
                   ? "mb-0"
                   : "mb-4"
               }`}
             >
               {/* Core Icons Display */}
               {!state.skills.core || state.skills.core.length < 1 ? null : (
-                <div className="flex gap-x-1 flex-wrap">
+                <div className="flex gap-x-1.5 flex-wrap">
                   {state.skills.core.map((icon) => {
                     return (
                       <div key={`${icon.path}`} className="relative">
@@ -1531,7 +1533,7 @@ export default function Home() {
               {/* Frontend Icons Display */}
               {!state.skills.frontend ||
               state.skills.frontend.length < 1 ? null : (
-                <div className="flex gap-x-1 flex-wrap">
+                <div className="flex gap-x-1.5 flex-wrap">
                   {state.skills.frontend.map((icon) => {
                     return (
                       <div key={`${icon.path}`} className="relative">
@@ -1556,7 +1558,7 @@ export default function Home() {
               {/* Backend Icons Display */}
               {!state.skills.backend ||
               state.skills.backend.length < 1 ? null : (
-                <div className="flex gap-x-1 flex-wrap">
+                <div className="flex gap-x-1.5 flex-wrap">
                   {state.skills.backend.map((icon) => {
                     return (
                       <div key={`${icon.path}`} className="relative">
@@ -1580,7 +1582,7 @@ export default function Home() {
 
               {/* Other Icons Display */}
               {!state.skills.other || state.skills.other.length < 1 ? null : (
-                <div className="flex gap-x-1 flex-wrap">
+                <div className="flex gap-x-1.5 flex-wrap">
                   {state.skills.other.map((icon) => {
                     return (
                       <div key={`${icon.path}`} className="relative">
@@ -1605,8 +1607,32 @@ export default function Home() {
               {/* Software Icons Display */}
               {!state.skills.software ||
               state.skills.software.length < 1 ? null : (
-                <div className="flex gap-x-1 flex-wrap">
+                <div className="flex gap-x-1.5 flex-wrap">
                   {state.skills.software.map((icon) => {
+                    return (
+                      <div key={`${icon.path}`} className="relative">
+                        <a
+                          href={`${icon.link}`}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          <img
+                            src={`${icon.path}`}
+                            alt={`${icon.name}`}
+                            width="36"
+                            height="36"
+                          />
+                        </a>
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+
+              {/* Web3 Icons Display */}
+              {!state.skills.web3 || state.skills.web3.length < 1 ? null : (
+                <div className="flex gap-x-1.5 flex-wrap">
+                  {state.skills.web3.map((icon) => {
                     return (
                       <div key={`${icon.path}`} className="relative">
                         <a
@@ -1641,7 +1667,6 @@ export default function Home() {
               }`}
             >
               {Object.entries(state.socials).map((profile) => {
-                console.log(profile);
                 return profile[1].linkSuffix ? (
                   <a
                     key={`${profile[0]}`}
@@ -1874,7 +1899,8 @@ export default function Home() {
                   renderedMarkdown.skills.frontend.length < 1 &&
                   renderedMarkdown.skills.backend.length < 1 &&
                   renderedMarkdown.skills.other.length < 1 &&
-                  renderedMarkdown.skills.software.length < 1 ? null : (
+                  renderedMarkdown.skills.software.length < 1 &&
+                  renderedMarkdown.skills.web3.length < 1 ? null : (
                     <>{`<p align="left">`}</>
                   )}
 
@@ -1938,11 +1964,24 @@ export default function Home() {
                     </>
                   ) : null}
 
+                  {renderedMarkdown.skills.web3.length > 0 ? (
+                    <>
+                      {renderedMarkdown.skills.web3.map((icon) => {
+                        return (
+                          <span key={`${icon.path}`}>
+                            {`<a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>`}
+                          </span>
+                        );
+                      })}
+                    </>
+                  ) : null}
+
                   {renderedMarkdown.skills.core.length < 1 &&
                   renderedMarkdown.skills.frontend.length < 1 &&
                   renderedMarkdown.skills.backend.length < 1 &&
                   renderedMarkdown.skills.other.length < 1 &&
-                  renderedMarkdown.skills.software.length < 1 ? null : (
+                  renderedMarkdown.skills.software.length < 1 &&
+                  renderedMarkdown.skills.web3.length < 1 ? null : (
                     <>{`</p>
                     `}</>
                   )}

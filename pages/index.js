@@ -327,7 +327,7 @@ export default function Home() {
   };
 
   return (
-    <main className="flex flex-col h-auto md:h-screen">
+    <div className="flex flex-col h-auto md:h-screen">
       <Head>
         <title>
           ProfileMe.dev | Create an awesome GitHub profile in minutes
@@ -366,7 +366,7 @@ export default function Home() {
         />
         <meta property="twitter:creator" content="@danielcranney" />
       </Head>
-      <header className="fixed z-40 flex items-center w-full h-16 px-6 border-b md:relative bg-dark-800 border-dark-600">
+      <header>
         <button
           className="relative z-20 flex items-center justify-center mr-2 border w-9 h-9 border-dark-600 bg-dark-700"
           onClick={() => {
@@ -450,16 +450,16 @@ export default function Home() {
           Leave Feedback
         </a>
       </header>
-      <div className="relative flex flex-col flex-1 overflow-hidden md:flex-row top-16 md:top-0">
+      <main>
         {/* COLUMN 1 - SIDEBAR */}
         <aside
-          className={`fixed left-0 z-10 flex flex-col w-full h-full px-6 pb-6 pt-22 border-t-0 border-b border-r-0 bg-dark-800 border-dark-600 md:flex-grow md:border-b-0 transform transition-all duration-200 ease-in-out overflow-hidden md:w-64 top-0 ${
+          className={`${
             sidebarOpen
               ? "translate-x-0 md:border-r"
               : "-translate-x-full md:-translate-x-64"
           }`}
         >
-          <p className="mb-4 text-xs font-semibold text-white uppercase">
+          <p className="mb-4 text-xs font-semibold dark:text-white text-slate-700 uppercase">
             Sections
           </p>
           <ul className="mb-auto menu">
@@ -498,21 +498,21 @@ export default function Home() {
         </aside>
         {/* COLUMN 2 - INPUTS */}
         <section
-          className={`flex flex-col flex-1 border-r-0 md:border-r border-dark-600 bg-dark-800 transition-all duration-200 ease-in-out ${
+          className={`input-column-wrapper ${
             sidebarOpen ? "ml-0 md:ml-64" : ""
           }`}
         >
           {/* Section Displays */}
           {state.section === "introduction" ? (
             <>
-              <section className="flex flex-col p-6 border-b border-dark-600">
+              <section className="section-header-wrapper">
                 <SectionHeader
                   header={"Introduction"}
                   subhead={`Introduce yourself. Tell visitors about you and who you are.`}
                 />
-                <section className="flex mt-4">
+                <div className="flex mt-4">
                   <NextSection sectionToGoTo={"skills"} />
-                </section>
+                </div>
               </section>
               <section className="flex flex-col overflow-y-auto">
                 <div ref={introductionAnchorRef}></div>
@@ -639,16 +639,16 @@ export default function Home() {
             </>
           ) : state.section === "skills" ? (
             <>
-              <section className="flex flex-col p-6 border-b border-dark-600">
+              <section className="section-header-wrapper">
                 <SectionHeader
                   header={"Skills"}
                   subhead={`Show off the languages,
                 frameworks, software and tech that you use.`}
                 />
-                <section className="flex mt-4">
+                <div className="flex mt-4">
                   <PreviousSection sectionToGoTo={"introduction"} />
                   <NextSection sectionToGoTo={"socials"} />
-                </section>
+                </div>
               </section>
               <section className="flex flex-col overflow-y-auto">
                 {/* Core */}
@@ -698,15 +698,15 @@ export default function Home() {
             </>
           ) : state.section === "socials" ? (
             <>
-              <section className="flex flex-col p-6 border-b border-dark-600">
+              <section className="section-header-wrapper">
                 <SectionHeader
                   header={"Socials"}
                   subhead={`Connect with your visitors by adding links to your socials.`}
                 />
-                <section className="flex mt-4">
+                <div className="flex mt-4">
                   <PreviousSection sectionToGoTo={"skills"} />
                   <NextSection sectionToGoTo={"badges"} />
-                </section>
+                </div>
               </section>
               <section className="flex flex-col overflow-y-auto">
                 <div ref={socialsAnchorRef}></div>
@@ -926,15 +926,15 @@ export default function Home() {
             </>
           ) : state.section === "badges" ? (
             <>
-              <section className="flex flex-col p-6 border-b border-dark-600">
+              <section className="section-header-wrapper">
                 <SectionHeader
                   header={"Badges"}
                   subhead={`Add some badges and stats to your profile.`}
                 />
-                <section className="flex mt-4">
+                <div className="flex mt-4">
                   <PreviousSection sectionToGoTo={"socials"} />
                   <NextSection sectionToGoTo={"support"} />
-                </section>
+                </div>
               </section>
               <section className="flex flex-col overflow-y-auto">
                 <div ref={badgesAnchorRef}></div>
@@ -1267,16 +1267,15 @@ export default function Home() {
             </>
           ) : state.section === "support" ? (
             <>
-              <section className="flex flex-col p-6 border-b border-dark-600">
+              <section className="section-header-wrapper">
                 <SectionHeader
                   header={"Support"}
                   subhead={`Make it easy for people using your products to support you or give donations.`}
                 />
-                <section className="flex mt-4">
+                <div className="flex mt-4">
                   <PreviousSection sectionToGoTo={"badges"} />
-                </section>
+                </div>
               </section>
-
               <section className="flex flex-col overflow-y-auto">
                 <div ref={supportAnchorRef}></div>
                 <section className="flex flex-col p-6 gap-y-4">
@@ -1299,9 +1298,9 @@ export default function Home() {
           ) : null}
         </section>
         {/* COLUMN 3 - PREVIEW & MARKDOWN */}
-        <section className="relative flex flex-col flex-1 border-t bg-dark-800 border-dark-600 md:border-t-0">
+        <section className="preview-column-wrapper">
           {/* Preview, Markdown and Copy Buttons */}
-          <div className="relative flex w-full border-b bg-dark-900 border-dark-600">
+          <div className="buttons-wrapper">
             <button
               id="PreviewButton"
               onClick={() => {
@@ -1312,8 +1311,8 @@ export default function Home() {
               }}
               className={`btn-sm border-r ${
                 state.renderMode === "preview"
-                  ? "bg-dark-700 text-white"
-                  : "bg-dark-900 text-dark-300 hover:text-white"
+                  ? "dark:bg-dark-700 dark:text-white bg-brand text-white"
+                  : "dark:bg-dark-900 dark:text-dark-300 dark:hover:text-white bg-slate-100 text-slate-500"
               }`}
             >
               <svg
@@ -1338,6 +1337,7 @@ export default function Home() {
               </svg>
               Preview
             </button>
+
             <button
               id="MarkdownButton"
               onClick={() => {
@@ -1348,8 +1348,8 @@ export default function Home() {
               }}
               className={`btn-sm border-r mr-auto ${
                 state.renderMode === "markdown"
-                  ? "bg-dark-700 text-white"
-                  : "bg-dark-900 text-dark-300 hover:text-white"
+                  ? "dark:bg-dark-700 dark:text-white bg-brand text-white"
+                  : "dark:bg-dark-900 dark:text-dark-300 dark:hover:text-white bg-slate-100 text-slate-500"
               }`}
             >
               <svg
@@ -1372,8 +1372,8 @@ export default function Home() {
             <button
               className={`btn-sm border-l ${
                 copySuccess !== "Copy"
-                  ? "text-white"
-                  : "text-dark-300 hover:text-white"
+                  ? "dark:bg-dark-700 dark:text-white bg-brand text-white"
+                  : "dark:bg-dark-900 dark:text-dark-300 dark:hover:text-white bg-slate-100 text-slate-500"
               }`}
               onClick={() => {
                 copyToClipBoard(markdownRef.current.innerText);
@@ -1394,7 +1394,8 @@ export default function Home() {
 
           {/* Preview Section */}
           <article
-            className={`previewContainer p-6 bg-dark-900 h-full overflow-y-auto ${
+            id="preview-container"
+            className={`${
               state.renderMode === "preview" ? "relative" : "hidden"
             }`}
           >
@@ -1906,9 +1907,9 @@ export default function Home() {
 
           {/* Markdown Section Preview */}
           <article
-            id="markdownElement"
+            id="markdown-container"
             ref={markdownRef}
-            className={`p-6 overflow-y-auto h-full bg-dark-900 text-xs font-code text-dark-300 ${
+            className={` ${
               state.renderMode === "markdown" ? "relative" : "hidden"
             }`}
           >
@@ -2186,7 +2187,7 @@ export default function Home() {
             )}
           </article>
         </section>
-      </div>
-    </main>
+      </main>
+    </div>
   );
 }

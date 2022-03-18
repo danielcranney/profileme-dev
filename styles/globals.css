@@ -1,3 +1,28 @@
+/*****************************************
+Table Of Contents:
+- Core Setup
+- General Styles
+- Typography
+- Menu Styles
+- Section Styles
+- Components
+- Header
+- Navigation
+- Mobile Menu
+- Hero Section
+- About
+- Pricing Table
+- Services
+- Testimonials
+- Footer
+- Animations
+- Overlay Menu
+******************************************/
+
+/**********************/
+/*     Core Setup     */
+/**********************/
+
 @import url("https://cdn.jsdelivr.net/gh/SebastianAigner/twemoji-amazing@1.0.0/twemoji-amazing.css");
 @import url("https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css");
 @import url("https://use.typekit.net/svx2izk.css");
@@ -6,23 +31,21 @@
 @tailwind components;
 @tailwind utilities;
 
-/*-----------------------
-BASE STYLES             
------------------------*/
-
+/**************************/
+/*     General Styles     */
+/**************************/
 @layer base {
   body {
     @apply min-h-screen bg-dark-900 transition-all duration-150 ease-in-out;
   }
-}
-/* Reset */
-@layer base {
   * {
     @apply antialiased box-border;
   }
 }
 
-/* Typography Styles */
+/**********************/
+/*     Typography     */
+/**********************/
 @layer base {
   h1,
   h2,
@@ -31,7 +54,7 @@ BASE STYLES
   h5,
   h6 {
     @apply font-bold tracking-tight mb-2
-    transition-all duration-150 ease-in-out text-white;
+    transition-all duration-150 ease-in-out dark:text-white text-slate-800;
   }
   h1 {
     @apply text-4xl;
@@ -53,32 +76,36 @@ BASE STYLES
   }
   p {
     @apply mb-4 leading-relaxed
-    text-dark-300;
+    dark:text-dark-300 text-slate-500;
   }
-  span {
-    @apply text-dark-300;
+  span,
+  li {
+    @apply dark:text-dark-300 text-slate-500;
   }
   a {
-    @apply text-brand hover:cursor-pointer underline font-semibold hover:text-white transition-all duration-150 ease-in-out dark:hover:text-white;
+    @apply text-brand hover:cursor-pointer underline font-semibold dark:hover:text-white transition-all duration-150 ease-in-out hover:text-slate-700;
   }
 }
 
-/*-----------------------
-SIDEBAR STYLES      
------------------------*/
+/***********************/
+/*     Menu Styles     */
+/***********************/
 @layer components {
   .menu {
-    @apply flex flex-col border border-dark-600;
+    @apply flex flex-col border dark:border-dark-600 border-slate-400;
   }
 
   .menu > li {
-    @apply h-10 flex items-center border-b last:border-b-0 border-dark-600 hover:cursor-pointer overflow-hidden;
+    @apply h-10 flex items-center border-b last:border-b-0 dark:border-dark-600 border-slate-400 hover:cursor-pointer overflow-hidden dark:bg-dark-700 bg-slate-100;
+  }
+  .menu > li > span {
+    @apply border-l-4 h-full flex items-center p-3 transition-all duration-150 ease-in-out font-semibold uppercase tracking-wide text-xs;
   }
 }
 
-/*-----------------------
-SECTION STYLES   
------------------------*/
+/************************************/
+/*     Section Component Styles     */
+/************************************/
 @layer components {
   .section-header {
     @apply mb-4;
@@ -88,62 +115,89 @@ SECTION STYLES
   }
 }
 
-/*-----------------------
-BUTTON COMPONENTS
------------------------*/
-@layer components {
-  .btn-sm {
-    @apply flex items-center px-3 py-3 text-xs font-semibold uppercase border-dark-600 transition-all duration-150 ease-in-out;
+/**************************/
+/*     Page Structure     */
+/**************************/
+@layer base {
+  header {
+    @apply fixed z-40 flex items-center w-full h-16 px-6 border-b md:relative dark:bg-dark-800 dark:border-dark-600 bg-white border-slate-400;
+  }
+
+  main {
+    @apply relative flex flex-col flex-1 overflow-hidden md:flex-row top-16 md:top-0;
+  }
+
+  aside {
+    @apply fixed left-0 z-10 flex flex-col w-full h-full px-6 pb-6 pt-22 border-t-0 border-b border-r-0 dark:bg-dark-800 bg-white dark:border-dark-600 border-slate-400 md:flex-grow md:border-b-0 transform transition-all duration-200 ease-in-out overflow-hidden md:w-64 top-0;
+  }
+
+  .input-column-wrapper {
+    @apply flex flex-col flex-1 border-r-0 md:border-r dark:border-dark-600 dark:bg-dark-800 bg-white border-slate-400 transition-all duration-200 ease-in-out;
+  }
+
+  .section-header-wrapper {
+    @apply relative flex flex-col p-6 border-b dark:bg-dark-800 dark:border-dark-600  bg-white border-slate-400 md:border-t-0;
+  }
+
+  .preview-column-wrapper {
+    @apply relative flex flex-col flex-1 border-t dark:bg-dark-800 dark:border-dark-600 bg-slate-100 border-slate-400 md:border-t-0;
+  }
+
+  .preview-column-wrapper .buttons-wrapper {
+    @apply relative flex w-full border-b dark:bg-dark-900 dark:border-dark-600 bg-white border-slate-400;
   }
 }
 
-/*-----------------------
-FORM STYLES          
------------------------*/
+/*****************************/
+/*     Button Components     */
+/*****************************/
+@layer components {
+  .btn-sm {
+    @apply flex items-center px-3 py-3 text-xs font-semibold uppercase dark:border-dark-600 border-slate-400 transition-all duration-150 ease-in-out;
+  }
+}
+
+/***********************/
+/*     Form Styles     */
+/***********************/
 @layer components {
   .form-label {
-    @apply flex items-center text-xs text-white font-semibold uppercase px-2 h-10 bg-dark-700 rounded-t-sm self-start border-t border-dark-600 border-l border-r;
+    @apply flex items-center text-xs dark:text-white text-slate-700 font-semibold uppercase px-2 h-10 dark:bg-dark-700 bg-slate-100 rounded-t-sm self-start border-t dark:border-dark-600 border-slate-400 border-l border-r;
   }
 
   .input-field {
-    @apply appearance-none py-2 focus:outline-none focus:placeholder:hidden text-sm flex items-center bg-dark-900 border border-dark-600 px-2 placeholder:text-sm placeholder:text-dark-400 text-white flex-1 focus:border-dark-400 focus:ring-offset-0 focus:ring-0;
+    @apply appearance-none py-2 focus:outline-none focus:placeholder:hidden text-sm flex items-center dark:bg-dark-900 border dark:border-dark-600 px-2 placeholder:text-sm dark:placeholder:text-dark-400 dark:text-white flex-1 dark:focus:border-dark-400 focus:ring-offset-0 focus:ring-0 bg-slate-100 border-slate-400 placeholder:text-slate-400 text-slate-700 focus:border-dark-700;
   }
 
   .minimal-input-field {
     @apply focus:outline-none focus:placeholder:hidden text-sm flex items-center bg-dark-900 pr-2 py-2 leading-3 placeholder:text-sm placeholder:text-dark-400 text-white flex-1;
   }
-}
 
-/*-----------------------
-MARKDOWN & PREVIEW       
------------------------*/
-@layer base {
-  .previewContainer p {
-    @apply mb-0;
-  }
-}
-
-/*-----------------------
-CHECKBOX COMPONENT       
------------------------*/
-@layer components {
   .checkbox-input {
     @apply mr-2 border appearance-none border-dark-600 focus:outline-none focus:ring-0 group-hover:bg-dark-600 disabled:group-hover:bg-dark-900 checked:group-hover:bg-blue-500 focus:ring-offset-0 bg-dark-900 disabled:cursor-not-allowed;
   }
 }
 
-/*-----------------------
-LIST     
------------------------*/
-@layer components {
-  li {
-    @apply text-dark-300;
+/***************************/
+/*     Preview Styles     */
+/***************************/
+@layer base {
+  #preview-container {
+    @apply p-6 h-full overflow-y-auto dark:bg-dark-900 bg-slate-100 dark:text-dark-300;
+  }
+
+  #preview-container p {
+    @apply mb-0;
+  }
+
+  #markdown-container {
+    @apply p-6 overflow-y-auto h-full dark:bg-dark-900 bg-slate-100 text-xs font-code dark:text-dark-300;
   }
 }
 
-/*-----------------------
-CUSTOM DEVELOPER ICONS 
------------------------*/
+/****************************/
+/*     Custom Dev Icons     */
+/****************************/
 @layer utilities {
   .fastapi {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/fastapi.svg')];
@@ -151,224 +205,150 @@ CUSTOM DEVELOPER ICONS
   .fastapi.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/fastapi-colored.svg')];
   }
-}
-
-@layer utilities {
   .supabase {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/supabase.svg')];
   }
   .supabase.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/supabase-colored.svg')];
   }
-}
-
-@layer utilities {
   .uniswap {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/uniswap.svg')];
   }
   .uniswap.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/uniswap-colored.svg')];
   }
-}
-
-@layer utilities {
   .aave {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/aave.svg')];
   }
   .aave.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/aave-colored.svg')];
   }
-}
-
-@layer utilities {
   .sushiswap {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/sushiswap.svg')];
   }
   .sushiswap.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/sushiswap-colored.svg')];
   }
-}
-
-@layer utilities {
   .metamask {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/metamask.svg')];
   }
   .metamask.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/metamask-colored.svg')];
   }
-}
-
-@layer utilities {
   .argent {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/argent.svg')];
   }
   .argent.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/argent-colored.svg')];
   }
-}
-
-@layer utilities {
   .nansen {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nansen.svg')];
   }
   .nansen.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nansen-colored.svg')];
   }
-}
-
-@layer utilities {
   .chainlink {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/chainlink.svg')];
   }
   .chainlink.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/chainlink-colored.svg')];
   }
-}
-
-@layer utilities {
   .the-graph {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/the-graph.svg')];
   }
   .the-graph.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/the-graph-colored.svg')];
   }
-}
-
-@layer utilities {
   .ethers {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/ethers.svg')];
   }
   .ethers.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/ethers-colored.svg')];
   }
-}
-
-@layer utilities {
   .web3js {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/web3js.svg')];
   }
   .web3js.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/web3js-colored.svg')];
   }
-}
-
-@layer utilities {
   .alchemy {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/alchemy.svg')];
   }
   .alchemy.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/alchemy-colored.svg')];
   }
-}
-
-@layer utilities {
   .hardhat {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/hardhat.svg')];
   }
   .hardhat.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/hardhat-colored.svg')];
   }
-}
-
-@layer utilities {
   .truffle {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/truffle.svg')];
   }
   .truffle.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/truffle-colored.svg')];
   }
-}
-
-@layer utilities {
   .ipfs {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/ipfs.svg')];
   }
   .ipfs.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/ipfs-colored.svg')];
   }
-}
-
-@layer utilities {
   .filebase {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/filebase.svg')];
   }
   .filebase.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/filebase-colored.svg')];
   }
-}
-
-@layer utilities {
   .arweave {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/arweave.svg')];
   }
   .arweave.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/arweave-colored.svg')];
   }
-}
-
-@layer utilities {
   .ethereum {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/ethereum.svg')];
   }
   .ethereum.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/ethereum-colored.svg')];
   }
-}
-
-@layer utilities {
   .polygon {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/polygon.svg')];
   }
   .polygon.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/polygon-colored.svg')];
   }
-}
-
-@layer utilities {
   .arbitrum {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/arbitrum.svg')];
   }
   .arbitrum.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/arbitrum-colored.svg')];
   }
-}
-
-@layer utilities {
   .avalanche {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/avalanche.svg')];
   }
   .avalanche.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/avalanche-colored.svg')];
   }
-}
-
-@layer utilities {
   .near {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/near.svg')];
   }
   .near.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/near-colored.svg')];
   }
-}
-
-@layer utilities {
   .flow {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/flow.svg')];
   }
   .flow.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/flow-colored.svg')];
   }
-}
-
-@layer utilities {
   .solana {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/solana.svg')];
   }
   .solana.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/solana-colored.svg')];
   }
-}
-@layer utilities {
   .terra {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/terra.svg')];
   }

@@ -23,9 +23,12 @@ import CopyrightLabel from "../components/misc/CopyrightLabel";
 import AddRepo from "../components/buttons/AddRepo";
 import DeleteRepo from "../components/buttons/DeleteRepo";
 let TurndownService = require("turndown").default;
+import { useTheme } from "next-themes";
 
 export default function Home() {
   const { state, dispatch } = useContext(StateContext);
+  const { theme, setTheme } = useTheme();
+
   const [renderedMarkdown, setRenderedMarkdown] = useState({
     introduction: "",
     skillsTitle: "",
@@ -391,9 +394,58 @@ export default function Home() {
         <h1 className="mb-0 text-base md:text-xl">
           ProfileMe<span className="text-brand">.dev</span>
         </h1>
+        <button
+          className="ml-auto flex items-center w-22 h-9 transition-all duration-150 ease-in relative rounded-sm focus:outline-none group bg-dark-900 border border-dark-600"
+          onClick={() => {
+            setTheme(theme === "dark" ? "light" : "dark");
+          }}
+        >
+          <span
+            className={`text-xs uppercase font-semibold transition-all duration-150 ease-in-out ${
+              theme === "light" ? "mr-2 ml-auto" : "ml-2 mr-auto"
+            }`}
+          >
+            {theme}
+          </span>
+          <div
+            className={`w-7 h-7 bg-brand rounded-sm absolute flex items-center justify-center transition-all duration-300 ease-in-out ${
+              theme === "light" ? "left-1" : "left-[calc(100%-2rem)]"
+            }`}
+          >
+            {theme === "dark" ? (
+              <svg
+                className="w-5 h-5 transition-all duration-150 ease-in-out text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+                />
+              </svg>
+            ) : (
+              <svg
+                className="w-5 h-5 transition-all duration-150 ease-in-out text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                />
+              </svg>
+            )}
+          </div>
+        </button>
         <a
           href="mailto:danielcranney@gmail.com"
-          className="flex items-center px-2 ml-auto text-xs font-semibold tracking-wide no-underline uppercase transition-all duration-150 ease-in-out border h-9 text-dark-300 border-dark-600 bg-dark-700 hover:text-white"
+          className="flex items-center px-2 ml-3 text-xs font-semibold tracking-wide no-underline uppercase transition-all duration-150 ease-in-out border h-9 text-dark-300 border-dark-600 bg-dark-700 hover:text-white"
         >
           Leave Feedback
         </a>

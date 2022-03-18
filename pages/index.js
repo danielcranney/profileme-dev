@@ -395,13 +395,13 @@ export default function Home() {
           ProfileMe<span className="text-brand">.dev</span>
         </h1>
         <button
-          className="ml-auto flex items-center w-22 h-9 transition-all duration-150 ease-in relative rounded-sm focus:outline-none group bg-dark-900 border border-dark-600"
+          className="ml-auto flex items-center w-22 h-9 transition-all duration-150 ease-in relative rounded-sm focus:outline-none group dark:bg-dark-900 border dark:border-dark-600 bg-slate-200"
           onClick={() => {
             setTheme(theme === "dark" ? "light" : "dark");
           }}
         >
           <span
-            className={`text-xs uppercase font-semibold transition-all duration-150 ease-in-out ${
+            className={`text-xs uppercase font-semibold transition-all duration-150 ease-in-out text-slate-700 dark:text-white ${
               theme === "light" ? "mr-2 ml-auto" : "ml-2 mr-auto"
             }`}
           >
@@ -445,7 +445,7 @@ export default function Home() {
         </button>
         <a
           href="mailto:danielcranney@gmail.com"
-          className="flex items-center px-2 ml-3 text-xs font-semibold tracking-wide no-underline uppercase transition-all duration-150 ease-in-out border h-9 text-dark-300 border-dark-600 bg-dark-700 hover:text-white"
+          className="flex items-center px-2 ml-3 text-xs font-semibold tracking-wide no-underline uppercase transition-all duration-150 ease-in-out border h-9 dark:text-dark-300 dark:border-dark-600 dark:bg-dark-700 hover:text-white bg-slate-200 text-slate-700 rounded-sm hover:bg-brand hover:border-brand"
         >
           Leave Feedback
         </a>

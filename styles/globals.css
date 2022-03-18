@@ -78,10 +78,7 @@ Table Of Contents:
     @apply mb-4 leading-relaxed
     dark:text-dark-300 text-slate-500;
   }
-  span,
-  li {
-    @apply dark:text-dark-300 text-slate-500;
-  }
+
   a {
     @apply text-brand hover:cursor-pointer underline font-semibold dark:hover:text-white transition-all duration-150 ease-in-out hover:text-slate-700;
   }

@@ -1,5 +1,8 @@
-import React, { useReducer, createContext } from "react";
+import React, { useReducer, createContext, useEffect } from "react";
 import "../styles/globals.css";
+import Script from "next/script";
+import { useRouter } from "next/router";
+import * as gtag from "../lib/gtag";
 
 export const StateContext = createContext(null);
 
@@ -1018,10 +1021,40 @@ function reducer(state, action) {
 
 function MyApp({ Component, pageProps }) {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const router = useRouter();
+  useEffect(() => {
+    const handleRouteChange = (url) => {
+      gtag.pageview(url);
+    };
+    router.events.on("routeChangeComplete", handleRouteChange);
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange);
+    };
+  }, [router.events]);
+
   return (
-    <StateContext.Provider value={{ state, dispatch }}>
-      <Component {...pageProps} />
-    </StateContext.Provider>
+    <>
+      <Script
+        strategy="afterInteractive"
+        src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
+      />
+      <Script
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+             gtag('config', '${gtag.GA_TRACKING_ID}', {
+              page_path: window.location.pathname,
+            });
+          `,
+        }}
+      />
+      <StateContext.Provider value={{ state, dispatch }}>
+        <Component {...pageProps} />
+      </StateContext.Provider>
+    </>
   );
 }
 

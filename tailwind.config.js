@@ -33,7 +33,7 @@ module.exports = {
         height: "height",
       },
       colors: {
-        brand: "#378df4",
+        brand: "#4f46bb",
         dark: {
           300: "#b5b9d6",
           400: "#53566b",
@@ -43,7 +43,10 @@ module.exports = {
           800: "#1d1d2b",
           900: "#181824",
         },
-        light: "#ffffff",
+        light: {
+          100: "#fafafa",
+          200: "#dee1e6",
+        },
       },
       fontFamily: {
         display: ["aktiv-grotesk-extended", "sans-serif"],

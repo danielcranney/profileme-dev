@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { ACTIONS } from "../../pages/_app";
 import { StateContext } from "../../pages/_app";
 
-const MenuItem = ({ text, section, setSidebarOpen }) => {
+const MenuItem = ({ text, section, setSidebarOpen, icon }) => {
   const { state, dispatch } = useContext(StateContext);
   return (
     <li
@@ -17,12 +17,13 @@ const MenuItem = ({ text, section, setSidebarOpen }) => {
       }}
     >
       <span
-        className={`${
+        className={`flex items-center ${
           state.section === section
-            ? "border-brand dark:text-white text-slate-700"
-            : "dark:border-dark-700 border-slate-300 dark:text-dark-300 text-slate-400 dark:group-hover:border-dark-500 dark:group-hover:text-white group-hover:border-dark-700 group-hover:text-slate-700"
+            ? "border-brand dark:text-white text-brand"
+            : "dark:border-dark-800 border-white dark:text-dark-300 text-slate-400 dark:group-hover:border-dark-500 dark:group-hover:text-white group-hover:border-light-200 group-hover:text-slate-500"
         }`}
       >
+        {icon}
         {text}
       </span>
     </li>

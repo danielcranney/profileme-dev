@@ -76,7 +76,7 @@ Table Of Contents:
   }
   p {
     @apply mb-4 leading-relaxed
-    dark:text-dark-300 text-slate-500;
+    dark:text-dark-300 text-slate-600;
   }
 
   a {
@@ -89,14 +89,14 @@ Table Of Contents:
 /***********************/
 @layer components {
   .menu {
-    @apply flex flex-col border dark:border-dark-600 border-slate-400;
+    @apply flex flex-col;
   }
 
   .menu > li {
-    @apply h-10 flex items-center border-b last:border-b-0 dark:border-dark-600 border-slate-400 hover:cursor-pointer overflow-hidden dark:bg-dark-700 bg-slate-100;
+    @apply flex items-center hover:cursor-pointer overflow-hidden hover:bg-light-100 dark:hover:bg-dark-700/50;
   }
   .menu > li > span {
-    @apply border-l-4 h-full flex items-center p-3 transition-all duration-150 ease-in-out font-semibold uppercase tracking-wide text-xs;
+    @apply border-l-4 h-full flex items-center px-4 py-3 transition-all duration-150 ease-in-out font-semibold uppercase tracking-wide text-xs;
   }
 }
 
@@ -117,7 +117,7 @@ Table Of Contents:
 /**************************/
 @layer base {
   header {
-    @apply fixed z-40 flex items-center w-full h-16 px-6 border-b md:relative dark:bg-dark-800 dark:border-dark-600 bg-white border-slate-400;
+    @apply fixed z-40 flex items-center w-full h-16 px-6 border-b md:relative dark:bg-dark-800 dark:border-dark-600 bg-white border-light-200;
   }
 
   main {
@@ -125,23 +125,23 @@ Table Of Contents:
   }
 
   aside {
-    @apply fixed left-0 z-10 flex flex-col w-full h-full px-6 pb-6 pt-22 border-t-0 border-b border-r-0 dark:bg-dark-800 bg-white dark:border-dark-600 border-slate-400 md:flex-grow md:border-b-0 transform transition-all duration-200 ease-in-out overflow-hidden md:w-64 top-0;
+    @apply fixed left-0 z-10 flex flex-col w-full h-full pb-6 pt-22 border-t-0 border-b border-r-0 dark:bg-dark-800 bg-white dark:border-dark-600 border-light-200 md:flex-grow md:border-b-0 transform transition-all duration-200 ease-in-out overflow-hidden md:w-64 top-0;
   }
 
   .input-column-wrapper {
-    @apply flex flex-col flex-1 border-r-0 md:border-r dark:border-dark-600 dark:bg-dark-800 bg-white border-slate-400 transition-all duration-200 ease-in-out;
+    @apply flex flex-col flex-1 border-r-0 md:border-r dark:border-dark-600 dark:bg-dark-800 bg-light-100 border-light-200 transition-all duration-200 ease-in-out;
   }
 
   .section-header-wrapper {
-    @apply relative flex flex-col p-6 border-b dark:bg-dark-800 dark:border-dark-600  bg-white border-slate-400 md:border-t-0;
+    @apply relative flex flex-col p-6 border-b dark:bg-dark-800 dark:border-dark-600  bg-light-100 border-light-200 md:border-t-0;
   }
 
   .preview-column-wrapper {
-    @apply relative flex flex-col flex-1 border-t dark:bg-dark-800 dark:border-dark-600 bg-slate-100 border-slate-400 md:border-t-0;
+    @apply relative flex flex-col flex-1 border-t dark:bg-dark-800 dark:border-dark-600 bg-light-100 border-light-200 md:border-t-0;
   }
 
   .preview-column-wrapper .buttons-wrapper {
-    @apply relative flex w-full border-b dark:bg-dark-900 dark:border-dark-600 bg-white border-slate-400;
+    @apply relative p-4 gap-x-2 flex w-full dark:bg-dark-900 dark:border-dark-600 bg-light-100 border-light-200;
   }
 }
 
@@ -150,7 +150,7 @@ Table Of Contents:
 /*****************************/
 @layer components {
   .btn-sm {
-    @apply flex items-center px-3 py-3 text-xs font-semibold uppercase dark:border-dark-600 border-slate-400 transition-all duration-150 ease-in-out;
+    @apply flex items-center px-3 py-3 text-xs font-semibold uppercase transition-all duration-150 ease-in-out rounded-md;
   }
 }
 
@@ -159,15 +159,15 @@ Table Of Contents:
 /***********************/
 @layer components {
   .form-label {
-    @apply flex items-center text-xs dark:text-white text-slate-700 font-semibold uppercase px-2 h-10 dark:bg-dark-700 bg-slate-100 rounded-t-sm self-start border-t dark:border-dark-600 border-slate-400 border-l border-r;
+    @apply flex items-center text-xs dark:text-white text-slate-700 font-semibold uppercase mb-2 self-start;
   }
 
   .input-field {
-    @apply appearance-none py-2 focus:outline-none focus:placeholder:hidden text-sm flex items-center dark:bg-dark-900 border dark:border-dark-600 px-2 placeholder:text-sm dark:placeholder:text-dark-400 dark:text-white flex-1 dark:focus:border-dark-400 focus:ring-offset-0 focus:ring-0 bg-slate-100 border-slate-400 placeholder:text-slate-400 text-slate-700 focus:border-dark-700;
+    @apply appearance-none py-2 focus:outline-none focus:placeholder:hidden text-sm flex items-center dark:bg-dark-900 dark:border-dark-600 px-2 placeholder:text-sm dark:placeholder:text-dark-400 dark:text-white flex-1 dark:focus:border-dark-400 focus:ring-offset-0 focus:ring-0 bg-light-200/40 rounded-md border-0 placeholder:text-slate-400 text-slate-700 focus:border-dark-700;
   }
 
   .minimal-input-field {
-    @apply focus:outline-none focus:placeholder:hidden text-sm flex items-center bg-dark-900 pr-2 py-2 leading-3 placeholder:text-sm placeholder:text-dark-400 text-white flex-1;
+    @apply focus:outline-none focus:placeholder:hidden text-sm flex items-center bg-light-200 pr-2 py-2 leading-3 placeholder:text-sm placeholder:text-dark-400 text-white flex-1;
   }
 
   .checkbox-input {
@@ -180,7 +180,7 @@ Table Of Contents:
 /***************************/
 @layer base {
   #preview-container {
-    @apply p-6 h-full overflow-y-auto dark:bg-dark-900 bg-slate-100 dark:text-dark-300;
+    @apply p-6 h-full overflow-y-auto dark:bg-dark-900 bg-light-100 dark:text-dark-300;
   }
 
   #preview-container p {
@@ -188,7 +188,7 @@ Table Of Contents:
   }
 
   #markdown-container {
-    @apply p-6 overflow-y-auto h-full dark:bg-dark-900 bg-slate-100 text-xs font-code dark:text-dark-300;
+    @apply p-6 overflow-y-auto h-full dark:bg-dark-900 bg-light-100 text-xs font-code dark:text-dark-300;
   }
 }
 

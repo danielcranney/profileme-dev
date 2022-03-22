@@ -368,7 +368,7 @@ export default function Home() {
       </Head>
       <header>
         <button
-          className="relative z-20 flex items-center justify-center mr-2 border w-9 h-9 border-dark-600 bg-dark-700"
+          className="relative z-20 flex items-center justify-center mr-2 border w-9 h-9 border-light-200 rounded-lg dark:border-dark-600"
           onClick={() => {
             setSidebarOpen(!sidebarOpen);
           }}
@@ -459,7 +459,7 @@ export default function Home() {
               : "-translate-x-full md:-translate-x-64"
           }`}
         >
-          <p className="mb-4 text-xs font-semibold dark:text-white text-slate-700 uppercase">
+          <p className="px-6 mb-4 text-xs font-semibold dark:text-white text-slate-700 uppercase">
             Sections
           </p>
           <ul className="mb-auto menu">
@@ -468,30 +468,120 @@ export default function Home() {
               section={"introduction"}
               sidebarOpen={sidebarOpen}
               setSidebarOpen={setSidebarOpen}
+              icon={
+                <>
+                  <svg
+                    className="w-6 h-6 mr-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"
+                    ></path>
+                  </svg>
+                </>
+              }
             />
             <MenuItem
               text={"Skills"}
               section={"skills"}
               sidebarOpen={sidebarOpen}
               setSidebarOpen={setSidebarOpen}
+              icon={
+                <>
+                  <svg
+                    className="w-6 h-6 mr-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
+                    ></path>
+                  </svg>
+                </>
+              }
             />
             <MenuItem
               text={"Socials"}
               section={"socials"}
               sidebarOpen={sidebarOpen}
               setSidebarOpen={setSidebarOpen}
+              icon={
+                <>
+                  <svg
+                    className="w-6 h-6 mr-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+                    ></path>
+                  </svg>
+                </>
+              }
             />
             <MenuItem
               text={"Badges"}
               section={"badges"}
               sidebarOpen={sidebarOpen}
               setSidebarOpen={setSidebarOpen}
+              icon={
+                <>
+                  <svg
+                    className="w-6 h-6 mr-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                    ></path>
+                  </svg>
+                </>
+              }
             />
             <MenuItem
               text={"Support"}
               section={"support"}
               sidebarOpen={sidebarOpen}
               setSidebarOpen={setSidebarOpen}
+              icon={
+                <>
+                  <svg
+                    className="w-6 h-6 mr-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"
+                    ></path>
+                  </svg>
+                </>
+              }
             />
           </ul>
           <CopyrightLabel />
@@ -1309,10 +1399,10 @@ export default function Home() {
                   payload: "preview",
                 });
               }}
-              className={`btn-sm border-r ${
+              className={`btn-sm ${
                 state.renderMode === "preview"
-                  ? "dark:bg-dark-700 dark:text-white bg-brand text-white"
-                  : "dark:bg-dark-900 dark:text-dark-300 dark:hover:text-white bg-slate-100 text-slate-500"
+                  ? "dark:text-white bg-brand text-white"
+                  : "dark:bg-dark-800 dark:text-dark-300 dark:hover:text-white bg-light-200 text-slate-500"
               }`}
             >
               <svg
@@ -1346,10 +1436,10 @@ export default function Home() {
                   payload: "markdown",
                 });
               }}
-              className={`btn-sm border-r mr-auto ${
+              className={`btn-sm mr-auto ${
                 state.renderMode === "markdown"
-                  ? "dark:bg-dark-700 dark:text-white bg-brand text-white"
-                  : "dark:bg-dark-900 dark:text-dark-300 dark:hover:text-white bg-slate-100 text-slate-500"
+                  ? "dark:text-white bg-brand text-white"
+                  : "dark:bg-dark-800 dark:text-dark-300 dark:hover:text-white bg-light-200 text-slate-500"
               }`}
             >
               <svg
@@ -1370,10 +1460,10 @@ export default function Home() {
             </button>
 
             <button
-              className={`btn-sm border-l ${
+              className={`btn-sm ${
                 copySuccess !== "Copy"
                   ? "dark:bg-dark-700 dark:text-white bg-brand text-white"
-                  : "dark:bg-dark-900 dark:text-dark-300 dark:hover:text-white bg-slate-100 text-slate-500"
+                  : "dark:bg-dark-800 dark:text-dark-300 dark:hover:text-white bg-light-200 text-slate-500"
               }`}
               onClick={() => {
                 copyToClipBoard(markdownRef.current.innerText);
@@ -1909,7 +1999,7 @@ export default function Home() {
           <article
             id="markdown-container"
             ref={markdownRef}
-            className={` ${
+            className={`text-slate-600 ${
               state.renderMode === "markdown" ? "relative" : "hidden"
             }`}
           >

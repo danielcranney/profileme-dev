@@ -368,15 +368,13 @@ export default function Home() {
       </Head>
       <header>
         <button
-          className="relative z-20 flex items-center justify-center mr-2 border w-9 h-9 border-light-200 rounded-lg dark:border-dark-600"
+          className="btn-square btn-gray"
           onClick={() => {
             setSidebarOpen(!sidebarOpen);
           }}
         >
           <svg
-            className={`w-6 h-6 transition-all duration-150 ease-in-out ${
-              sidebarOpen ? "text-white" : "text-brand"
-            }`}
+            className={`w-6 h-6`}
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -395,20 +393,13 @@ export default function Home() {
           ProfileMe<span className="text-brand">.dev</span>
         </h1>
         <button
-          className="ml-auto flex items-center w-22 h-9 transition-all duration-150 ease-in relative rounded-sm focus:outline-none group dark:bg-dark-900 border dark:border-dark-600 bg-slate-200"
+          className="ml-auto w-16 h-9 bg-light-200/50 dark:bg-dark-700 text-slate-50 btn-sm relative"
           onClick={() => {
             setTheme(theme === "dark" ? "light" : "dark");
           }}
         >
-          <span
-            className={`text-xs uppercase font-semibold transition-all duration-150 ease-in-out text-slate-700 dark:text-white ${
-              theme === "light" ? "mr-2 ml-auto" : "ml-2 mr-auto"
-            }`}
-          >
-            {theme}
-          </span>
           <div
-            className={`w-7 h-7 bg-brand rounded-sm absolute flex items-center justify-center transition-all duration-300 ease-in-out ${
+            className={`w-7 h-7 bg-brand text-white rounded-md absolute flex items-center justify-center transition-all duration-300 ease-in-out ${
               theme === "light" ? "left-1" : "left-[calc(100%-2rem)]"
             }`}
           >
@@ -443,10 +434,7 @@ export default function Home() {
             )}
           </div>
         </button>
-        <a
-          href="mailto:danielcranney@gmail.com"
-          className="flex items-center px-2 ml-3 text-xs font-semibold tracking-wide no-underline uppercase transition-all duration-150 ease-in-out border h-9 dark:text-dark-300 dark:border-dark-600 dark:bg-dark-700 hover:text-white bg-slate-200 text-slate-700 rounded-sm hover:bg-brand hover:border-brand"
-        >
+        <a href="mailto:danielcranney@gmail.com" className="btn-sm btn-gray">
           Leave Feedback
         </a>
       </header>
@@ -459,9 +447,6 @@ export default function Home() {
               : "-translate-x-full md:-translate-x-64"
           }`}
         >
-          <p className="px-6 mb-4 text-xs font-semibold dark:text-white text-slate-700 uppercase">
-            Sections
-          </p>
           <ul className="mb-auto menu">
             <MenuItem
               text={"Introduction"}
@@ -1400,9 +1385,7 @@ export default function Home() {
                 });
               }}
               className={`btn-sm ${
-                state.renderMode === "preview"
-                  ? "dark:text-white bg-brand text-white"
-                  : "dark:bg-dark-800 dark:text-dark-300 dark:hover:text-white bg-light-200 text-slate-500"
+                state.renderMode === "preview" ? "btn-brand" : "btn-gray"
               }`}
             >
               <svg
@@ -1437,9 +1420,7 @@ export default function Home() {
                 });
               }}
               className={`btn-sm mr-auto ${
-                state.renderMode === "markdown"
-                  ? "dark:text-white bg-brand text-white"
-                  : "dark:bg-dark-800 dark:text-dark-300 dark:hover:text-white bg-light-200 text-slate-500"
+                state.renderMode === "markdown" ? "btn-brand" : "btn-gray"
               }`}
             >
               <svg
@@ -1461,9 +1442,7 @@ export default function Home() {
 
             <button
               className={`btn-sm ${
-                copySuccess !== "Copy"
-                  ? "dark:bg-dark-700 dark:text-white bg-brand text-white"
-                  : "dark:bg-dark-800 dark:text-dark-300 dark:hover:text-white bg-light-200 text-slate-500"
+                copySuccess !== "Copy" ? "btn-brand" : "btn-gray"
               }`}
               onClick={() => {
                 copyToClipBoard(markdownRef.current.innerText);

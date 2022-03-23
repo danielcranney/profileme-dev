@@ -2,7 +2,7 @@ import React from "react";
 
 const CopyrightLabel = () => {
   return (
-    <div className={`z-40 flex flex-col`}>
+    <div className={`z-40 flex flex-col px-6`}>
       <p className="mt-auto mb-1 text-xs">&copy; 2022 Dan Cranney</p>
       <div className="flex mt-1 text-xs text-dark-300">
         <a

@@ -117,7 +117,7 @@ Table Of Contents:
 /**************************/
 @layer base {
   header {
-    @apply fixed z-40 flex items-center w-full h-16 px-6 border-b md:relative dark:bg-dark-800 dark:border-dark-600 bg-white border-light-200;
+    @apply fixed z-40 flex items-center w-full h-16 px-6 gap-x-2 border-b md:relative dark:bg-dark-800 dark:border-dark-600 bg-white border-light-200 transition-all duration-150 ease-in-out;
   }
 
   main {
@@ -125,19 +125,19 @@ Table Of Contents:
   }
 
   aside {
-    @apply fixed left-0 z-10 flex flex-col w-full h-full pb-6 pt-22 border-t-0 border-b border-r-0 dark:bg-dark-800 bg-white dark:border-dark-600 border-light-200 md:flex-grow md:border-b-0 transform transition-all duration-200 ease-in-out overflow-hidden md:w-64 top-0;
+    @apply fixed left-0 z-10 flex flex-col w-full h-full pb-6 pt-22 border-t-0 border-b border-r-0 dark:bg-dark-800 bg-white dark:border-dark-600 border-light-200 md:flex-grow md:border-b-0 transform transition-all duration-150 ease-in-out overflow-hidden md:w-64 top-0;
   }
 
   .input-column-wrapper {
-    @apply flex flex-col flex-1 border-r-0 md:border-r dark:border-dark-600 dark:bg-dark-800 bg-light-100 border-light-200 transition-all duration-200 ease-in-out;
+    @apply flex flex-col flex-1 border-r-0 md:border-r dark:border-dark-600 dark:bg-dark-800 bg-white border-light-200 transition-all duration-150 ease-in-out;
   }
 
   .section-header-wrapper {
-    @apply relative flex flex-col p-6 border-b dark:bg-dark-800 dark:border-dark-600  bg-light-100 border-light-200 md:border-t-0;
+    @apply relative flex flex-col p-6 border-b dark:bg-dark-800 dark:border-dark-600  bg-white border-light-200 md:border-t-0 transition-all duration-150 ease-in-out;
   }
 
   .preview-column-wrapper {
-    @apply relative flex flex-col flex-1 border-t dark:bg-dark-800 dark:border-dark-600 bg-light-100 border-light-200 md:border-t-0;
+    @apply relative flex flex-col flex-1 border-t dark:bg-dark-800 dark:border-dark-600 bg-light-100 border-light-200 md:border-t-0 transition-all duration-150 ease-in-out;
   }
 
   .preview-column-wrapper .buttons-wrapper {
@@ -150,7 +150,25 @@ Table Of Contents:
 /*****************************/
 @layer components {
   .btn-sm {
-    @apply flex items-center px-3 py-3 text-xs font-semibold uppercase transition-all duration-150 ease-in-out rounded-md;
+    @apply flex items-center px-3 py-2.5 text-xs font-semibold uppercase transition-all duration-150 ease-in-out rounded-md no-underline;
+  }
+
+  .btn-square {
+    @apply flex items-center justify-center h-9 w-9 transition-all duration-150 ease-in-out rounded-md;
+  }
+}
+
+@layer components {
+  .btn-brand {
+    @apply bg-brand text-white
+    dark:text-white hover:bg-brand/80;
+  }
+
+  .btn-gray {
+    @apply bg-light-200/50 text-slate-500
+    hover:bg-light-200 hover:text-slate-700
+    dark:bg-dark-700 dark:text-dark-300
+    dark:hover:text-white;
   }
 }
 

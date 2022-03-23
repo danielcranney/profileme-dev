@@ -10,7 +10,7 @@ const IconSelector = ({ handleIconToggle, title, iconType }) => {
   return (
     <article className="flex flex-col flex-1 w-full">
       <FormLabel text={title} icon={"💻"} />
-      <div className="flex flex-wrap p-4 text-4xl border rounded-sm gap-x-2 gap-y-2 border-dark-600">
+      <div className="flex flex-wrap text-4xl gap-x-2 gap-y-2">
         {iconData[iconType].map((icon, index) => {
           return (
             <button
@@ -35,7 +35,7 @@ const IconSelector = ({ handleIconToggle, title, iconType }) => {
                 className={`${icon.iTag} w-9 h-9 ${
                   state.skills[iconType].includes(icon)
                     ? "colored"
-                    : "text-white opacity-30"
+                    : "dark:text-white text-light-300 dark:opacity-30 opacity-100"
                 }`}
               ></i>
             </button>

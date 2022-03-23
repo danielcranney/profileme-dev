@@ -76,7 +76,7 @@ export default function Home() {
   });
   const [socialsShowing, setSocialsShowing] = useState(false);
   const [badgesShowing, setBadgesShowing] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
   const [copySuccess, setCopySuccess] = useState("Copy");
 
   const executeScroll = (ref) =>
@@ -368,7 +368,7 @@ export default function Home() {
       </Head>
       <header>
         <button
-          className="btn-square btn-gray"
+          className={`btn-square ${sidebarOpen ? "btn-brand" : "btn-gray"}`}
           onClick={() => {
             setSidebarOpen(!sidebarOpen);
           }}
@@ -728,7 +728,7 @@ export default function Home() {
               <section className="flex flex-col overflow-y-auto">
                 {/* Core */}
                 <div ref={skillsAnchorRef}></div>
-                <section className="flex flex-col px-6 pt-6 pb-6 gap-y-3">
+                <section className="flex flex-col px-6 pt-6 pb-6 gap-y-10">
                   <IconSelector
                     handleIconToggle={handleIconToggle}
                     title={"Core"}
@@ -1978,7 +1978,7 @@ export default function Home() {
           <article
             id="markdown-container"
             ref={markdownRef}
-            className={`text-slate-600 ${
+            className={`${
               state.renderMode === "markdown" ? "relative" : "hidden"
             }`}
           >

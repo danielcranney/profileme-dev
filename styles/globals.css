@@ -96,7 +96,7 @@ Table Of Contents:
     @apply flex items-center hover:cursor-pointer overflow-hidden hover:bg-light-100 dark:hover:bg-dark-700/50;
   }
   .menu > li > span {
-    @apply border-l-4 h-full flex items-center px-4 py-3 transition-all duration-150 ease-in-out font-semibold uppercase tracking-wide text-xs;
+    @apply border-l-4 h-full flex items-center px-6 py-3 transition-all duration-150 ease-in-out font-semibold uppercase tracking-wide text-xs;
   }
 }
 
@@ -125,7 +125,7 @@ Table Of Contents:
   }
 
   aside {
-    @apply fixed left-0 z-10 flex flex-col w-full h-full pb-6 pt-22 border-t-0 border-b border-r-0 dark:bg-dark-800 bg-white dark:border-dark-600 border-light-200 md:flex-grow md:border-b-0 transform transition-all duration-150 ease-in-out overflow-hidden md:w-64 top-0;
+    @apply fixed left-0 z-10 flex flex-col w-full h-full pb-6 pt-20 border-t-0 border-b border-r-0 dark:bg-dark-800 bg-white dark:border-dark-600 border-light-200 md:flex-grow md:border-b-0 transform transition-all duration-150 ease-in-out overflow-hidden md:w-64 top-0;
   }
 
   .input-column-wrapper {
@@ -141,7 +141,7 @@ Table Of Contents:
   }
 
   .preview-column-wrapper .buttons-wrapper {
-    @apply relative p-4 gap-x-2 flex w-full dark:bg-dark-900 dark:border-dark-600 bg-light-100 border-light-200;
+    @apply relative p-6 gap-x-2 flex w-full dark:bg-dark-900 dark:border-dark-600 bg-light-100 border-light-200;
   }
 }
 
@@ -181,7 +181,7 @@ Table Of Contents:
   }
 
   .input-field {
-    @apply appearance-none py-2 focus:outline-none focus:placeholder:hidden text-sm flex items-center dark:bg-dark-900 dark:border-dark-600 px-2 placeholder:text-sm dark:placeholder:text-dark-400 dark:text-white flex-1 dark:focus:border-dark-400 focus:ring-offset-0 focus:ring-0 bg-light-200/40 rounded-md border-0 placeholder:text-slate-400 text-slate-700 focus:border-dark-700;
+    @apply appearance-none py-2 focus:outline-none focus:placeholder:hidden text-sm flex items-center dark:bg-dark-900 dark:border-dark-600 px-2 placeholder:text-sm dark:placeholder:text-dark-400 dark:text-white flex-1 dark:focus:border-dark-400 focus:ring-offset-0 focus:ring-0 bg-light-200/70 rounded-md border-0 placeholder:text-slate-400 text-slate-700 focus:border-dark-700;
   }
 
   .minimal-input-field {

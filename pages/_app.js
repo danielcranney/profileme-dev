@@ -304,7 +304,7 @@ export const iconData = {
     },
     {
       name: "Django",
-      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-original.svg",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg",
       iTag: "devicon-django-plain",
       link: "https://www.djangoproject.com/",
     },

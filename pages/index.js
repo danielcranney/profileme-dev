@@ -56,7 +56,7 @@ export default function Home() {
           .dev
         </span>
       </h1>
-      <p>Sorry, we're currently making some major updates to ProfileMe.</p>
+      <p>Sorry, we&apos;re currently making some major updates to ProfileMe.</p>
       <p>
         We hope to be live again by Monday March 28th, so please check back
         then!

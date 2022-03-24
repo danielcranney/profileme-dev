@@ -23,9 +23,12 @@ import CopyrightLabel from "../components/misc/CopyrightLabel";
 import AddRepo from "../components/buttons/AddRepo";
 import DeleteRepo from "../components/buttons/DeleteRepo";
 let TurndownService = require("turndown").default;
+import { useTheme } from "next-themes";
 
 export default function Home() {
   const { state, dispatch } = useContext(StateContext);
+  const { theme, setTheme } = useTheme();
+
   const [renderedMarkdown, setRenderedMarkdown] = useState({
     introduction: "",
     skillsTitle: "",
@@ -73,7 +76,7 @@ export default function Home() {
   });
   const [socialsShowing, setSocialsShowing] = useState(false);
   const [badgesShowing, setBadgesShowing] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(true);
   const [copySuccess, setCopySuccess] = useState("Copy");
 
   const executeScroll = (ref) =>
@@ -324,7 +327,7 @@ export default function Home() {
   };
 
   return (
-    <main className="flex flex-col h-auto md:h-screen">
+    <div className="flex flex-col h-auto md:h-screen relative">
       <Head>
         <title>
           ProfileMe.dev | Create an awesome GitHub profile in minutes
@@ -363,17 +366,20 @@ export default function Home() {
         />
         <meta property="twitter:creator" content="@danielcranney" />
       </Head>
-      <header className="fixed z-40 flex items-center w-full h-16 px-6 border-b md:relative bg-dark-800 border-dark-600">
+
+      <div className="fixed top-3.5 left-6 flex z-40 items-center gap-x-2">
         <button
-          className="relative z-20 flex items-center justify-center mr-2 border w-9 h-9 border-dark-600 bg-dark-700"
+          className={`btn-square ${
+            sidebarOpen
+              ? "bg-dark-900/20 text-white hover:bg-dark-900/30 hover:text-white"
+              : "btn-gray"
+          }`}
           onClick={() => {
             setSidebarOpen(!sidebarOpen);
           }}
         >
           <svg
-            className={`w-6 h-6 transition-all duration-150 ease-in-out ${
-              sidebarOpen ? "text-white" : "text-brand"
-            }`}
+            className={`w-6 h-6`}
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -388,79 +394,220 @@ export default function Home() {
           </svg>
         </button>
 
-        <h1 className="mb-0 text-base md:text-xl">
-          ProfileMe<span className="text-brand">.dev</span>
-        </h1>
-        <a
-          href="mailto:danielcranney@gmail.com"
-          className="flex items-center px-2 ml-auto text-xs font-semibold tracking-wide no-underline uppercase transition-all duration-150 ease-in-out border h-9 text-dark-300 border-dark-600 bg-dark-700 hover:text-white"
+        <h1
+          className={`mb-0 text-lg sm:text-xl transition-all duration-150 ease-in-out ${
+            sidebarOpen ? "text-white" : "text-dark-900 dark:text-white"
+          }`}
         >
-          Leave Feedback
+          ProfileMe
+          <span
+            className={`transition-all duration-150 ease-in-out ${
+              sidebarOpen ? "text-dark-900" : "text-brand"
+            }`}
+          >
+            .dev
+          </span>
+        </h1>
+      </div>
+
+      <header>
+        <button
+          className="ml-auto w-16 h-9 bg-light-200/50 dark:bg-dark-700 text-slate-50 btn-sm relative"
+          onClick={() => {
+            setTheme(theme === "dark" ? "light" : "dark");
+          }}
+        >
+          <div
+            className={`w-7 h-7 bg-brand text-white rounded-md absolute flex items-center justify-center transition-all duration-300 ease-in-out ${
+              theme === "light" ? "left-1" : "left-[calc(100%-2rem)]"
+            }`}
+          >
+            {theme === "dark" ? (
+              <svg
+                className="w-5 h-5 transition-all duration-150 ease-in-out text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+                />
+              </svg>
+            ) : (
+              <svg
+                className="w-5 h-5 transition-all duration-150 ease-in-out text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                />
+              </svg>
+            )}
+          </div>
+        </button>
+        <a href="mailto:danielcranney@gmail.com" className="btn-sm btn-gray">
+          <span className="hidden sm:block">Leave&nbsp;</span>{" "}
+          <span>Feedback</span>
         </a>
       </header>
-      <div className="relative flex flex-col flex-1 overflow-hidden md:flex-row top-16 md:top-0">
+      <main>
         {/* COLUMN 1 - SIDEBAR */}
         <aside
-          className={`fixed left-0 z-10 flex flex-col w-full h-full px-6 pb-6 pt-22 border-t-0 border-b border-r-0 bg-dark-800 border-dark-600 md:flex-grow md:border-b-0 transform transition-all duration-200 ease-in-out overflow-hidden md:w-64 top-0 ${
+          className={`${
             sidebarOpen
               ? "translate-x-0 md:border-r"
               : "-translate-x-full md:-translate-x-64"
           }`}
         >
-          <p className="mb-4 text-xs font-semibold text-white uppercase">
-            Sections
-          </p>
           <ul className="mb-auto menu">
             <MenuItem
               text={"Introduction"}
               section={"introduction"}
               sidebarOpen={sidebarOpen}
               setSidebarOpen={setSidebarOpen}
+              icon={
+                <>
+                  <svg
+                    className="w-6 h-6 mr-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"
+                    ></path>
+                  </svg>
+                </>
+              }
             />
             <MenuItem
               text={"Skills"}
               section={"skills"}
               sidebarOpen={sidebarOpen}
               setSidebarOpen={setSidebarOpen}
+              icon={
+                <>
+                  <svg
+                    className="w-6 h-6 mr-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
+                    ></path>
+                  </svg>
+                </>
+              }
             />
             <MenuItem
               text={"Socials"}
               section={"socials"}
               sidebarOpen={sidebarOpen}
               setSidebarOpen={setSidebarOpen}
+              icon={
+                <>
+                  <svg
+                    className="w-6 h-6 mr-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+                    ></path>
+                  </svg>
+                </>
+              }
             />
             <MenuItem
               text={"Badges"}
               section={"badges"}
               sidebarOpen={sidebarOpen}
               setSidebarOpen={setSidebarOpen}
+              icon={
+                <>
+                  <svg
+                    className="w-6 h-6 mr-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                    ></path>
+                  </svg>
+                </>
+              }
             />
             <MenuItem
               text={"Support"}
               section={"support"}
               sidebarOpen={sidebarOpen}
               setSidebarOpen={setSidebarOpen}
+              icon={
+                <>
+                  <svg
+                    className="w-6 h-6 mr-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"
+                    ></path>
+                  </svg>
+                </>
+              }
             />
           </ul>
           <CopyrightLabel />
         </aside>
         {/* COLUMN 2 - INPUTS */}
         <section
-          className={`flex flex-col flex-1 border-r-0 md:border-r border-dark-600 bg-dark-800 transition-all duration-200 ease-in-out ${
+          className={`input-column-wrapper ${
             sidebarOpen ? "ml-0 md:ml-64" : ""
           }`}
         >
           {/* Section Displays */}
           {state.section === "introduction" ? (
             <>
-              <section className="flex flex-col p-6 border-b border-dark-600">
+              <section className="section-header-wrapper">
                 <SectionHeader
                   header={"Introduction"}
                   subhead={`Introduce yourself. Tell visitors about you and who you are.`}
                 />
-                <section className="flex mt-4">
+                <div className="flex mt-4">
                   <NextSection sectionToGoTo={"skills"} />
-                </section>
+                </div>
               </section>
               <section className="flex flex-col overflow-y-auto">
                 <div ref={introductionAnchorRef}></div>
@@ -587,21 +734,21 @@ export default function Home() {
             </>
           ) : state.section === "skills" ? (
             <>
-              <section className="flex flex-col p-6 border-b border-dark-600">
+              <section className="section-header-wrapper">
                 <SectionHeader
                   header={"Skills"}
                   subhead={`Show off the languages,
                 frameworks, software and tech that you use.`}
                 />
-                <section className="flex mt-4">
+                <div className="flex mt-4">
                   <PreviousSection sectionToGoTo={"introduction"} />
                   <NextSection sectionToGoTo={"socials"} />
-                </section>
+                </div>
               </section>
               <section className="flex flex-col overflow-y-auto">
                 {/* Core */}
                 <div ref={skillsAnchorRef}></div>
-                <section className="flex flex-col px-6 pt-6 pb-6 gap-y-3">
+                <section className="flex flex-col px-6 pt-6 pb-6 gap-y-6">
                   <IconSelector
                     handleIconToggle={handleIconToggle}
                     title={"Core"}
@@ -646,15 +793,15 @@ export default function Home() {
             </>
           ) : state.section === "socials" ? (
             <>
-              <section className="flex flex-col p-6 border-b border-dark-600">
+              <section className="section-header-wrapper">
                 <SectionHeader
                   header={"Socials"}
                   subhead={`Connect with your visitors by adding links to your socials.`}
                 />
-                <section className="flex mt-4">
+                <div className="flex mt-4">
                   <PreviousSection sectionToGoTo={"skills"} />
                   <NextSection sectionToGoTo={"badges"} />
-                </section>
+                </div>
               </section>
               <section className="flex flex-col overflow-y-auto">
                 <div ref={socialsAnchorRef}></div>
@@ -874,15 +1021,15 @@ export default function Home() {
             </>
           ) : state.section === "badges" ? (
             <>
-              <section className="flex flex-col p-6 border-b border-dark-600">
+              <section className="section-header-wrapper">
                 <SectionHeader
                   header={"Badges"}
                   subhead={`Add some badges and stats to your profile.`}
                 />
-                <section className="flex mt-4">
+                <div className="flex mt-4">
                   <PreviousSection sectionToGoTo={"socials"} />
                   <NextSection sectionToGoTo={"support"} />
-                </section>
+                </div>
               </section>
               <section className="flex flex-col overflow-y-auto">
                 <div ref={badgesAnchorRef}></div>
@@ -1215,16 +1362,15 @@ export default function Home() {
             </>
           ) : state.section === "support" ? (
             <>
-              <section className="flex flex-col p-6 border-b border-dark-600">
+              <section className="section-header-wrapper">
                 <SectionHeader
                   header={"Support"}
                   subhead={`Make it easy for people using your products to support you or give donations.`}
                 />
-                <section className="flex mt-4">
+                <div className="flex mt-4">
                   <PreviousSection sectionToGoTo={"badges"} />
-                </section>
+                </div>
               </section>
-
               <section className="flex flex-col overflow-y-auto">
                 <div ref={supportAnchorRef}></div>
                 <section className="flex flex-col p-6 gap-y-4">
@@ -1247,9 +1393,9 @@ export default function Home() {
           ) : null}
         </section>
         {/* COLUMN 3 - PREVIEW & MARKDOWN */}
-        <section className="relative flex flex-col flex-1 border-t bg-dark-800 border-dark-600 md:border-t-0">
+        <section className="preview-column-wrapper">
           {/* Preview, Markdown and Copy Buttons */}
-          <div className="relative flex w-full border-b bg-dark-900 border-dark-600">
+          <div className="buttons-wrapper">
             <button
               id="PreviewButton"
               onClick={() => {
@@ -1258,10 +1404,8 @@ export default function Home() {
                   payload: "preview",
                 });
               }}
-              className={`btn-sm border-r ${
-                state.renderMode === "preview"
-                  ? "bg-dark-700 text-white"
-                  : "bg-dark-900 text-dark-300 hover:text-white"
+              className={`btn-sm ${
+                state.renderMode === "preview" ? "btn-brand" : "btn-gray"
               }`}
             >
               <svg
@@ -1286,6 +1430,7 @@ export default function Home() {
               </svg>
               Preview
             </button>
+
             <button
               id="MarkdownButton"
               onClick={() => {
@@ -1294,10 +1439,8 @@ export default function Home() {
                   payload: "markdown",
                 });
               }}
-              className={`btn-sm border-r mr-auto ${
-                state.renderMode === "markdown"
-                  ? "bg-dark-700 text-white"
-                  : "bg-dark-900 text-dark-300 hover:text-white"
+              className={`btn-sm mr-auto ${
+                state.renderMode === "markdown" ? "btn-brand" : "btn-gray"
               }`}
             >
               <svg
@@ -1318,10 +1461,8 @@ export default function Home() {
             </button>
 
             <button
-              className={`btn-sm border-l ${
-                copySuccess !== "Copy"
-                  ? "text-white"
-                  : "text-dark-300 hover:text-white"
+              className={`btn-sm ${
+                copySuccess !== "Copy" ? "btn-brand" : "btn-gray"
               }`}
               onClick={() => {
                 copyToClipBoard(markdownRef.current.innerText);
@@ -1342,7 +1483,8 @@ export default function Home() {
 
           {/* Preview Section */}
           <article
-            className={`previewContainer p-6 bg-dark-900 h-full overflow-y-auto ${
+            id="preview-container"
+            className={`${
               state.renderMode === "preview" ? "relative" : "hidden"
             }`}
           >
@@ -1854,9 +1996,9 @@ export default function Home() {
 
           {/* Markdown Section Preview */}
           <article
-            id="markdownElement"
+            id="markdown-container"
             ref={markdownRef}
-            className={`p-6 overflow-y-auto h-full bg-dark-900 text-xs font-code text-dark-300 ${
+            className={`${
               state.renderMode === "markdown" ? "relative" : "hidden"
             }`}
           >
@@ -2134,7 +2276,7 @@ export default function Home() {
             )}
           </article>
         </section>
-      </div>
-    </main>
+      </main>
+    </div>
   );
 }

@@ -3,11 +3,11 @@ import React, { useContext } from "react";
 import { ACTIONS } from "../../pages/_app";
 import { StateContext } from "../../pages/_app";
 
-const MenuItem = ({ text, section, setSidebarOpen }) => {
+const MenuItem = ({ text, section, setSidebarOpen, icon }) => {
   const { state, dispatch } = useContext(StateContext);
   return (
     <li
-      className="bg-dark-700 group"
+      className="group"
       onClick={() => {
         dispatch({
           type: ACTIONS.SHOW_SECTION,
@@ -17,12 +17,13 @@ const MenuItem = ({ text, section, setSidebarOpen }) => {
       }}
     >
       <span
-        className={`border-l-4 h-full flex items-center p-3 transition-all duration-150 ease-in-out font-semibold uppercase tracking-wide text-xs ${
+        className={`flex items-center w-full ${
           state.section === section
-            ? "border-brand text-white"
-            : "border-dark-700 text-dark-300 group-hover:border-dark-500 group-hover:text-white"
+            ? "border-white text-white bg-dark-900/20"
+            : "border-brand text-dark-300 group-hover:border-dark-900/30 group-hover:text-white"
         }`}
       >
+        {icon}
         {text}
       </span>
     </li>

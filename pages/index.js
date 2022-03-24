@@ -327,7 +327,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col h-auto md:h-screen">
+    <div className="flex flex-col h-auto md:h-screen relative">
       <Head>
         <title>
           ProfileMe.dev | Create an awesome GitHub profile in minutes
@@ -366,9 +366,14 @@ export default function Home() {
         />
         <meta property="twitter:creator" content="@danielcranney" />
       </Head>
-      <header>
+
+      <div className="fixed top-3.5 left-6 flex z-40 items-center gap-x-2">
         <button
-          className={`btn-square ${sidebarOpen ? "btn-brand" : "btn-gray"}`}
+          className={`btn-square ${
+            sidebarOpen
+              ? "bg-dark-900/20 text-white hover:bg-dark-900/30 hover:text-white"
+              : "btn-gray"
+          }`}
           onClick={() => {
             setSidebarOpen(!sidebarOpen);
           }}
@@ -389,9 +394,23 @@ export default function Home() {
           </svg>
         </button>
 
-        <h1 className="mb-0 text-base md:text-xl">
-          ProfileMe<span className="text-brand">.dev</span>
+        <h1
+          className={`mb-0 text-lg sm:text-xl transition-all duration-150 ease-in-out ${
+            sidebarOpen ? "text-white" : "text-dark-900 dark:text-white"
+          }`}
+        >
+          ProfileMe
+          <span
+            className={`transition-all duration-150 ease-in-out ${
+              sidebarOpen ? "text-dark-900" : "text-brand"
+            }`}
+          >
+            .dev
+          </span>
         </h1>
+      </div>
+
+      <header>
         <button
           className="ml-auto w-16 h-9 bg-light-200/50 dark:bg-dark-700 text-slate-50 btn-sm relative"
           onClick={() => {
@@ -435,7 +454,8 @@ export default function Home() {
           </div>
         </button>
         <a href="mailto:danielcranney@gmail.com" className="btn-sm btn-gray">
-          Leave Feedback
+          <span className="hidden sm:block">Leave&nbsp;</span>{" "}
+          <span>Feedback</span>
         </a>
       </header>
       <main>
@@ -728,7 +748,7 @@ export default function Home() {
               <section className="flex flex-col overflow-y-auto">
                 {/* Core */}
                 <div ref={skillsAnchorRef}></div>
-                <section className="flex flex-col px-6 pt-6 pb-6 gap-y-10">
+                <section className="flex flex-col px-6 pt-6 pb-6 gap-y-6">
                   <IconSelector
                     handleIconToggle={handleIconToggle}
                     title={"Core"}

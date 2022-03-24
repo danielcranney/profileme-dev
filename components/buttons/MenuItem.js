@@ -17,10 +17,10 @@ const MenuItem = ({ text, section, setSidebarOpen, icon }) => {
       }}
     >
       <span
-        className={`flex items-center ${
+        className={`flex items-center w-full ${
           state.section === section
-            ? "border-brand dark:text-white text-brand"
-            : "dark:border-dark-800 border-white dark:text-dark-300 text-slate-400 dark:group-hover:border-dark-500 dark:group-hover:text-white group-hover:border-light-200 group-hover:text-slate-500"
+            ? "border-white text-white bg-dark-900/20"
+            : "border-brand text-dark-300 group-hover:border-dark-900/30 group-hover:text-white"
         }`}
       >
         {icon}

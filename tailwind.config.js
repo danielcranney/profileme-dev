@@ -8,6 +8,7 @@ module.exports = {
     extend: {
       spacing: {
         9.5: "2.375rem",
+        14: "3.5rem",
         18: "4.5rem",
         19: "4.75rem",
         22: "5.5rem",
@@ -33,7 +34,7 @@ module.exports = {
         height: "height",
       },
       colors: {
-        brand: "#4f46bb",
+        brand: "#5147c4",
         dark: {
           300: "#b5b9d6",
           400: "#53566b",

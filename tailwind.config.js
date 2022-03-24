@@ -1,4 +1,5 @@
 module.exports = {
+  darkMode: "class",
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
@@ -7,6 +8,7 @@ module.exports = {
     extend: {
       spacing: {
         9.5: "2.375rem",
+        14: "3.5rem",
         18: "4.5rem",
         19: "4.75rem",
         22: "5.5rem",
@@ -32,7 +34,7 @@ module.exports = {
         height: "height",
       },
       colors: {
-        brand: "#378df4",
+        brand: "#5147c4",
         dark: {
           300: "#b5b9d6",
           400: "#53566b",
@@ -42,7 +44,17 @@ module.exports = {
           800: "#1d1d2b",
           900: "#181824",
         },
-        light: "#ffffff",
+        light: {
+          100: "#fafafa",
+          200: "#dee1e6",
+          300: "#c9ced6",
+          400: "#9ba1ab",
+          500: "#6f7580",
+          600: "#4d525c",
+          700: "#3c414a",
+          800: "#1e2126",
+          900: "#0d0f12",
+        },
       },
       fontFamily: {
         display: ["aktiv-grotesk-extended", "sans-serif"],

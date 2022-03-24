@@ -3,6 +3,7 @@ import "../styles/globals.css";
 import Script from "next/script";
 import { useRouter } from "next/router";
 import * as gtag from "../lib/gtag";
+import { ThemeProvider } from "next-themes";
 
 export const StateContext = createContext(null);
 
@@ -303,7 +304,7 @@ export const iconData = {
     },
     {
       name: "Django",
-      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-original.svg",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg",
       iTag: "devicon-django-plain",
       link: "https://www.djangoproject.com/",
     },
@@ -1053,9 +1054,11 @@ function MyApp({ Component, pageProps }) {
           `,
         }}
       />
-      <StateContext.Provider value={{ state, dispatch }}>
-        <Component {...pageProps} />
-      </StateContext.Provider>
+      <ThemeProvider attribute="class">
+        <StateContext.Provider value={{ state, dispatch }}>
+          <Component {...pageProps} />
+        </StateContext.Provider>
+      </ThemeProvider>
     </>
   );
 }

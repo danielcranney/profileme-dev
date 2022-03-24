@@ -7,7 +7,7 @@ const IntroItem = forwardRef((props, ref) => {
   const { formLabelText, formLabelIcon, section, type, inputPlaceholder } =
     props;
   return (
-    <article className="flex flex-col flex-1 w-full">
+    <article className="flex flex-col flex-1 w-full rounded-lg">
       <FormLabel text={formLabelText} icon={formLabelIcon} />
       <FormInput
         ref={ref}

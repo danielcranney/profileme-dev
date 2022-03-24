@@ -3,9 +3,11 @@ import { StateContext } from "../pages/_app";
 import { iconData } from "../pages/_app";
 import FormLabel from "./forms/FormLabel";
 import ExtraSmallTick from "./misc/ExtraSmallTick";
+import { useTheme } from "next-themes";
 
 const IconSelector = ({ handleIconToggle, title, iconType }) => {
   const { state } = useContext(StateContext);
+  const { theme } = useTheme();
 
   return (
     <article className="flex flex-col flex-1 w-full dark:bg-dark-700 bg-light-100 p-3 rounded-md">
@@ -33,13 +35,23 @@ const IconSelector = ({ handleIconToggle, title, iconType }) => {
                   <ExtraSmallTick />
                 </div>
               ) : null}
-              <i
-                className={`${icon.iTag} w-9 h-9 ${
-                  state.skills[iconType].includes(icon)
-                    ? "colored"
-                    : "dark:text-white text-light-400 dark:opacity-30 opacity-100"
-                }`}
-              ></i>
+              {theme === "dark" ? (
+                <i
+                  className={`${icon.iTag} w-9 h-9 ${
+                    state.skills[iconType].includes(icon)
+                      ? "colored"
+                      : "dark:text-light-500 dark-icon"
+                  }`}
+                ></i>
+              ) : (
+                <i
+                  className={`${icon.iTag} w-9 h-9 ${
+                    state.skills[iconType].includes(icon)
+                      ? "colored"
+                      : "text-light-400"
+                  }`}
+                ></i>
+              )}
             </button>
           );
         })}

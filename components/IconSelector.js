@@ -27,7 +27,7 @@ const IconSelector = ({ handleIconToggle, title, iconType }) => {
                 </p>
               </div>
               {state.skills[iconType].includes(icon) ? (
-                <div className="absolute top-0 left-0 w-4 h-4 p-0 overflow-hidden text-xs bg-white border-0 rounded-lg">
+                <div className="absolute top-0 left-0 w-4 h-4 p-0 overflow-hidden text-xs bg-white border-0 rounded-lg z-50">
                   <ExtraSmallTick />
                 </div>
               ) : null}

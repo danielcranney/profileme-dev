@@ -27,8 +27,11 @@ const SocialItem = forwardRef((props, ref) => {
           />
         }
       />
-      <div className="flex border bg-dark-900 border-dark-600">
-        <div className="flex items-center text-sm text-dark-300 bg-dark-900">
+      <div className="flex rounded-md overflow-hidden">
+        <div
+          className="flex items-center text-sm bg-light-200/70 dark:bg-dark-900
+    text-dark-700 dark:text-white"
+        >
           <span className="py-2 pl-2 leading-4 select-none">{linkPrefix}</span>
         </div>
         <MinimalSocialFormInput

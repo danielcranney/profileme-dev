@@ -149,6 +149,10 @@ Table Of Contents:
 /*     Button Components     */
 /*****************************/
 @layer components {
+  .btn-xs {
+    @apply flex items-center px-2 py-2 text-xs font-semibold transition-all duration-150 ease-in-out rounded-md no-underline;
+  }
+
   .btn-sm {
     @apply flex items-center px-3 py-2.5 text-xs font-semibold uppercase transition-all duration-150 ease-in-out rounded-md no-underline;
   }

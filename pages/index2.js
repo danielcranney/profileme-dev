@@ -652,7 +652,7 @@ export default function Home() {
                     inputPlaceholder={"New York"}
                   />
                   {/* Portfolio  */}
-                  <article>
+                  <article className="flex flex-col gap-y-2">
                     <IntroItem
                       ref={portfolioTitleRef}
                       formLabelText={"See my portfolio:"}
@@ -679,7 +679,7 @@ export default function Home() {
                     inputPlaceholder={"myemail@gmail.com"}
                   />
                   {/* Currently working on */}
-                  <article>
+                  <article className="flex flex-col gap-y-2">
                     <IntroItem
                       ref={workingOnTitleRef}
                       formLabelText={"I'm currently working on:"}

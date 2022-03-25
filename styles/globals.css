@@ -185,7 +185,7 @@ Table Of Contents:
   }
 
   .minimal-input-field {
-    @apply focus:outline-none focus:placeholder:hidden text-sm flex items-center bg-light-200 pr-2 py-2 leading-3 placeholder:text-sm placeholder:text-dark-400 text-white flex-1;
+    @apply focus:outline-none py-2 focus:placeholder:hidden text-sm flex items-center dark:bg-dark-900 dark:border-dark-600 px-2 placeholder:text-sm dark:placeholder:text-dark-400 dark:text-white dark:focus:border-dark-400 focus:ring-offset-0 focus:ring-0 bg-light-200/70 rounded-tr-md rounded-br-md border-0 placeholder:text-slate-400 text-slate-700 focus:border-dark-700 flex-1;
   }
 
   .checkbox-input {

@@ -6,7 +6,7 @@ const IntroLinkItem = forwardRef((props, ref) => {
   const { section, type, inputPlaceholder, linkPrefix } = props;
   return (
     <article className="flex flex-col flex-1 w-full">
-      <div className="flex border-b border-l border-r bg-dark-900 border-dark-600">
+      <div className="flex rounded-md overflow-hidden bg-dark-900">
         <div className="flex items-center text-sm text-dark-300 bg-dark-900">
           <span className="py-2 pl-2 mt-0 mb-0 leading-4">{linkPrefix}</span>
         </div>

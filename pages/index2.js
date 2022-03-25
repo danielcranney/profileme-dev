@@ -852,7 +852,7 @@ export default function Home() {
                     action={ACTIONS.ADD_SOCIAL_PROFILE}
                     linkSuffixTwo={
                       <>
-                        <div className="flex items-center text-sm text-dark-300 bg-dark-900">
+                        <div className="flex items-center text-sm bg-light-200/70 dark:bg-dark-900 text-dark-700 dark:text-white">
                           <span className="py-2 pr-2 leading-4 select-none">
                             .hashnode.dev
                           </span>
@@ -2056,7 +2056,7 @@ export default function Home() {
                   renderedMarkdown.skills.other.length < 1 &&
                   renderedMarkdown.skills.software.length < 1 &&
                   renderedMarkdown.skills.web3.length < 1 ? null : (
-                    <>{`<p align="left">`}</>
+                    <span>{`<p align="left">`}</span>
                   )}
 
                   {renderedMarkdown.skills.core.length > 0 ? (
@@ -2064,7 +2064,8 @@ export default function Home() {
                       {renderedMarkdown.skills.core.map((icon) => {
                         return (
                           <span key={`${icon.path}`}>
-                            {`<a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>`}
+                            {`
+                                <a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>`}
                           </span>
                         );
                       })}
@@ -2076,7 +2077,8 @@ export default function Home() {
                       {renderedMarkdown.skills.frontend.map((icon) => {
                         return (
                           <span key={`${icon.path}`}>
-                            {`<a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>`}
+                            {` 
+                                <a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>`}
                           </span>
                         );
                       })}
@@ -2088,7 +2090,8 @@ export default function Home() {
                       {renderedMarkdown.skills.backend.map((icon) => {
                         return (
                           <span key={`${icon.path}`}>
-                            {`<a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>`}
+                            {`
+                                <a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>`}
                           </span>
                         );
                       })}
@@ -2100,7 +2103,8 @@ export default function Home() {
                       {renderedMarkdown.skills.other.map((icon) => {
                         return (
                           <span key={`${icon.path}`}>
-                            {`<a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>`}
+                            {`
+                            <a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>`}
                           </span>
                         );
                       })}
@@ -2112,7 +2116,8 @@ export default function Home() {
                       {renderedMarkdown.skills.software.map((icon) => {
                         return (
                           <span key={`${icon.path}`}>
-                            {`<a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>`}
+                            {`
+                            <a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>`}
                           </span>
                         );
                       })}
@@ -2124,7 +2129,8 @@ export default function Home() {
                       {renderedMarkdown.skills.web3.map((icon) => {
                         return (
                           <span key={`${icon.path}`}>
-                            {`<a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>`}
+                            {`
+                            <a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>`}
                           </span>
                         );
                       })}
@@ -2137,24 +2143,33 @@ export default function Home() {
                   renderedMarkdown.skills.other.length < 1 &&
                   renderedMarkdown.skills.software.length < 1 &&
                   renderedMarkdown.skills.web3.length < 1 ? null : (
-                    <>{`</p>
-                    `}</>
+                    <span>{`
+                    </p>
+                    `}</span>
                   )}
                 </div>
 
                 {socialsShowing ? (
-                  <p className="mt-4 whitespace-pre-line">{`### Socials`}</p>
+                  <span className="mt-4 whitespace-pre-line">{`
+                  ### Socials
+                  
+                  `}</span>
                 ) : null}
 
-                {socialsShowing ? <>{`<p align="left">`}</> : null}
+                {socialsShowing ? (
+                  <span>{`
+                <p align="left">`}</span>
+                ) : null}
                 {Object.entries(renderedMarkdown.socials).map((profile) => {
                   return profile[1].linkSuffix ? (
-                    <div key={`profile-${profile[0]}`}>
-                      {`<a href="${profile[1].linkPrefix}${profile[1].linkSuffix}" target="_blank" rel="noreferrer"><img src="${profile[1].path}" width="32" height="32" /></a>`}
-                    </div>
+                    <span key={`profile-${profile[0]}`}>
+                      {`
+                          
+                      <a href="${profile[1].linkPrefix}${profile[1].linkSuffix}" target="_blank" rel="noreferrer"><img src="${profile[1].path}" width="32" height="32" /></a>`}
+                    </span>
                   ) : null;
                 })}
-                {socialsShowing ? <>{`</p>`}</> : null}
+                {socialsShowing ? <span>{`</p>`}</span> : null}
 
                 {badgesShowing ? (
                   <p className="mt-4 break-all whitespace-pre-line">{`### Badges`}</p>

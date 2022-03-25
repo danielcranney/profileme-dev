@@ -143,8 +143,13 @@ export default function Home() {
   const badgesAnchorRef = useRef();
   const supportAnchorRef = useRef();
 
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   // Update Markdown
   useEffect(() => {
+    if (!mounted) return;
     // If PreviewRef not showing, return
     if (!introductionRef.current) return;
 
@@ -196,6 +201,7 @@ export default function Home() {
   }, [state]);
 
   useEffect(() => {
+    if (!mounted) return;
     let linkSuffixes = [];
     Object.entries(renderedMarkdown.socials).map((social) => {
       linkSuffixes.push(social[1].linkSuffix);
@@ -210,6 +216,8 @@ export default function Home() {
   }, [renderedMarkdown.socials]);
 
   useEffect(() => {
+    if (!mounted) return;
+
     let badgesList = [];
     if (badgesRef.current) {
       badgesRef.current = false;
@@ -220,6 +228,8 @@ export default function Home() {
     }
     // True is ANY badges are switched on are filled
     if (badgesList.length > 0) {
+      console.log(badgesList);
+      console.log(badgesList.some((x) => x != null && x != false));
       setBadgesShowing(badgesList.some((x) => x !== null && x !== false));
     } else {
       setBadgesShowing(false);
@@ -328,8 +338,6 @@ export default function Home() {
       });
     }
   };
-
-  useEffect(() => setMounted(true), []);
 
   if (!mounted) return null;
 

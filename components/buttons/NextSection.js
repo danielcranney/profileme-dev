@@ -6,7 +6,7 @@ const NextSection = ({ sectionToGoTo }) => {
   const { state, dispatch } = useContext(StateContext);
   return (
     <button
-      className="flex ml-auto text-xs font-bold text-right underline track-wide text-brand dark:hover:text-white hover:text-slate-700"
+      className="flex ml-auto text-xs font-bold text-right underline track-wide text-brand dark:hover:text-white hover:text-dark-700"
       onClick={() => {
         dispatch({
           type: ACTIONS.SHOW_SECTION,

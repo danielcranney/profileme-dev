@@ -54,7 +54,7 @@ Table Of Contents:
   h5,
   h6 {
     @apply font-bold tracking-tight mb-2
-    transition-all duration-150 ease-in-out dark:text-white text-slate-800;
+    transition-all duration-150 ease-in-out dark:text-white text-dark-800;
   }
   h1 {
     @apply text-4xl;
@@ -76,11 +76,11 @@ Table Of Contents:
   }
   p {
     @apply mb-4 leading-relaxed
-    dark:text-dark-300 text-slate-600;
+    dark:text-dark-300 text-dark-600;
   }
 
   a {
-    @apply text-brand hover:cursor-pointer underline font-semibold dark:hover:text-white transition-all duration-150 ease-in-out hover:text-slate-700;
+    @apply text-brand hover:cursor-pointer underline font-semibold dark:hover:text-white transition-all duration-150 ease-in-out hover:text-dark-700;
   }
 }
 
@@ -165,8 +165,8 @@ Table Of Contents:
   }
 
   .btn-gray {
-    @apply bg-light-200/50 text-slate-500
-    hover:bg-light-200 hover:text-slate-700
+    @apply bg-light-200/50 text-dark-500
+    hover:bg-light-200 hover:text-dark-700
     dark:bg-dark-700 dark:text-dark-300
     dark:hover:text-white;
   }
@@ -177,15 +177,24 @@ Table Of Contents:
 /***********************/
 @layer components {
   .form-label {
-    @apply flex items-center text-xs dark:text-white text-slate-700 font-semibold uppercase mb-2 self-start;
+    @apply flex items-center text-xs dark:text-white text-dark-700 font-semibold uppercase mb-2 self-start;
   }
 
   .input-field {
-    @apply appearance-none py-2 focus:outline-none focus:placeholder:hidden text-sm flex items-center dark:bg-dark-900 dark:border-dark-600 px-2 placeholder:text-sm dark:placeholder:text-dark-400 dark:text-white flex-1 dark:focus:border-dark-400 focus:ring-offset-0 focus:ring-0 bg-light-200/70 rounded-md border-0 placeholder:text-slate-400 text-slate-700 focus:border-dark-700;
+    @apply appearance-none py-2 focus:outline-none text-sm flex items-center placeholder:text-sm flex-1
+    bg-light-200/70 dark:bg-dark-900
+    text-dark-700 dark:text-white
+    placeholder:text-dark-400 dark:placeholder:text-dark-400
+    focus:placeholder:hidden focus:ring-offset-0 focus:ring-0
+    px-2 rounded-md border-0;
   }
 
   .minimal-input-field {
-    @apply focus:outline-none py-2 focus:placeholder:hidden text-sm flex items-center dark:bg-dark-900 dark:border-dark-600 px-2 placeholder:text-sm dark:placeholder:text-dark-400 dark:text-white dark:focus:border-dark-400 focus:ring-offset-0 focus:ring-0 bg-light-200/70 rounded-tr-md rounded-br-md border-0 placeholder:text-slate-400 text-slate-700 focus:border-dark-700 flex-1;
+    @apply focus:outline-none py-2 text-sm flex items-center pr-2 selection:border-0 flex-1
+    bg-light-200/70 dark:bg-dark-900
+    text-dark-700 dark:text-white
+    placeholder:text-dark-400 dark:placeholder:text-dark-400
+    focus:placeholder:hidden focus:ring-offset-0 focus:ring-0;
   }
 
   .checkbox-input {

@@ -6,6 +6,7 @@ import { StateContext } from "./_app";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 import { colorStore } from "./_app";
 // Import components
+import { useTheme } from "next-themes";
 import MenuItem from "../components/buttons/MenuItem";
 import AddRepoInput from "../components/forms/AddRepoInput";
 import SectionHeader from "../components/SectionHeader";
@@ -23,10 +24,10 @@ import CopyrightLabel from "../components/misc/CopyrightLabel";
 import AddRepo from "../components/buttons/AddRepo";
 import DeleteRepo from "../components/buttons/DeleteRepo";
 let TurndownService = require("turndown").default;
-import { useTheme } from "next-themes";
 
 export default function Home() {
   const { state, dispatch } = useContext(StateContext);
+  const [mounted, setMounted] = useState(false);
   const { theme, setTheme } = useTheme();
 
   const [renderedMarkdown, setRenderedMarkdown] = useState({
@@ -78,25 +79,6 @@ export default function Home() {
   const [badgesShowing, setBadgesShowing] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [copySuccess, setCopySuccess] = useState("Copy");
-
-  const executeScroll = (ref) =>
-    ref.current.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
-
-  const copyToClipBoard = async (copyMe) => {
-    try {
-      await navigator.clipboard.writeText(copyMe);
-      setCopySuccess("Copied");
-      setTimeout(() => {
-        setCopySuccess("Copy");
-      }, 1000);
-      return () => clearTimeout(timer);
-    } catch (err) {
-      setCopySuccess("Failed to copy!");
-    }
-  };
 
   // Section Refs
   const introductionRef = useRef(null);
@@ -264,6 +246,27 @@ export default function Home() {
     } else return;
   }, [state.section]);
 
+  const executeScroll = (ref) => {
+    if (!ref.current) return;
+    ref.current.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
+
+  const copyToClipBoard = async (copyMe) => {
+    try {
+      await navigator.clipboard.writeText(copyMe);
+      setCopySuccess("Copied");
+      setTimeout(() => {
+        setCopySuccess("Copy");
+      }, 1000);
+      return () => clearTimeout(timer);
+    } catch (err) {
+      setCopySuccess("Failed to copy!");
+    }
+  };
+
   const handleBadgeToggle = (e) => {
     dispatch({
       type: ACTIONS.TOGGLE_BADGE,
@@ -325,6 +328,10 @@ export default function Home() {
       });
     }
   };
+
+  useEffect(() => setMounted(true), []);
+
+  if (!mounted) return null;
 
   return (
     <div className="flex flex-col h-auto md:h-screen relative">
@@ -412,45 +419,43 @@ export default function Home() {
 
       <header>
         <button
-          className="ml-auto w-16 h-9 bg-light-200/50 dark:bg-dark-700 text-slate-50 btn-sm relative"
+          className="ml-auto w-16 h-9 bg-light-200/50 dark:bg-dark-700 btn-sm relative"
           onClick={() => {
-            setTheme(theme === "dark" ? "light" : "dark");
+            setTheme(theme == "dark" ? "light" : "dark");
           }}
         >
           <div
             className={`w-7 h-7 bg-brand text-white rounded-md absolute flex items-center justify-center transition-all duration-300 ease-in-out ${
-              theme === "light" ? "left-1" : "left-[calc(100%-2rem)]"
+              theme == "dark" ? "left-[calc(100%-2rem)]" : "left-1"
             }`}
           >
-            {theme === "dark" ? (
-              <svg
-                className="w-5 h-5 transition-all duration-150 ease-in-out text-white"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-                />
-              </svg>
-            ) : (
-              <svg
-                className="w-5 h-5 transition-all duration-150 ease-in-out text-white"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-                />
-              </svg>
-            )}
+            <svg
+              className="w-5 h-5 transition-all duration-150 ease-in-out text-white dark:flex hidden"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+              />
+            </svg>
+
+            <svg
+              className="w-5 h-5 transition-all duration-150 ease-in-out text-white flex dark:hidden"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+              />
+            </svg>
           </div>
         </button>
         <a href="mailto:danielcranney@gmail.com" className="btn-sm btn-gray">
@@ -652,7 +657,7 @@ export default function Home() {
                     inputPlaceholder={"New York"}
                   />
                   {/* Portfolio  */}
-                  <article className="flex flex-col gap-y-2">
+                  <article className="flex flex-col gap-y-1.5">
                     <IntroItem
                       ref={portfolioTitleRef}
                       formLabelText={"See my portfolio:"}
@@ -679,7 +684,7 @@ export default function Home() {
                     inputPlaceholder={"myemail@gmail.com"}
                   />
                   {/* Currently working on */}
-                  <article className="flex flex-col gap-y-2">
+                  <article>
                     <IntroItem
                       ref={workingOnTitleRef}
                       formLabelText={"I'm currently working on:"}

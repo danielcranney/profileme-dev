@@ -117,7 +117,7 @@ Table Of Contents:
 /**************************/
 @layer base {
   header {
-    @apply fixed z-20 flex items-center w-full h-16 px-6 gap-x-2 border-b md:relative dark:bg-dark-800 dark:border-dark-600 bg-white border-light-200 transition-all duration-150 ease-in-out;
+    @apply fixed z-20 flex items-center w-full h-16 px-6 border-b md:relative dark:bg-dark-800 dark:border-dark-600 bg-white border-light-200 transition-all duration-150 ease-in-out;
   }
 
   main {
@@ -226,7 +226,7 @@ Table Of Contents:
 /***************************/
 @layer base {
   #preview-container {
-    @apply p-6 h-full overflow-y-auto dark:bg-dark-900 bg-light-100 dark:text-dark-300;
+    @apply px-6 pb-6 h-full overflow-y-auto dark:bg-dark-900 bg-light-100 dark:text-dark-300;
   }
 
   #preview-container p {
@@ -234,7 +234,7 @@ Table Of Contents:
   }
 
   #markdown-container {
-    @apply p-6 overflow-y-auto h-full dark:bg-dark-900 bg-light-100 text-xs font-code dark:text-dark-300;
+    @apply px-6 pb-6 overflow-y-auto h-full dark:bg-dark-900 bg-light-100 text-xs font-code text-dark-500 dark:text-dark-300;
   }
 }
 

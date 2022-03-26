@@ -603,11 +603,6 @@ export const colorStore = {
       hex: "000000",
     },
     {
-      colorName: "slate-dark",
-      bgColor: "bg-[#0f172a]",
-      hex: "0f172a",
-    },
-    {
       colorName: "red-dark",
       bgColor: "bg-[#7f1d1d]",
       hex: "7f1d1d",
@@ -663,14 +658,29 @@ export const colorStore = {
       hex: "1c1917",
     },
     {
-      colorName: "zinc-dark",
-      bgColor: "bg-[#27272a]",
-      hex: "27272a",
-    },
-    {
       colorName: "gray-dark",
       bgColor: "bg-[#171717]",
       hex: "171717",
+    },
+    {
+      colorName: "dark-900",
+      bgColor: "bg-[#181824]",
+      hex: "181824",
+    },
+    {
+      colorName: "slate-dark",
+      bgColor: "bg-[#0f172a]",
+      hex: "0f172a",
+    },
+    {
+      colorName: "[#22272e]",
+      bgColor: "bg-[#22272e]",
+      hex: "22272e",
+    },
+    {
+      colorName: "zinc-dark",
+      bgColor: "bg-[#27272a]",
+      hex: "27272a",
     },
   ],
 };

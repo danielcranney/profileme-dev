@@ -425,9 +425,13 @@ export default function Home() {
         </h1>
       </div>
 
-      <header>
+      <div className="fixed top-3.5 right-6 z-40 flex gap-x-2">
         <button
-          className="ml-auto w-16 h-9 bg-light-200/50 dark:bg-dark-700 btn-sm relative"
+          className={`ml-auto w-16 h-9 btn-sm relative ${
+            sidebarOpen
+              ? "bg-dark-900/20 md:bg-light-200/50 dark:bg-dark-700"
+              : "bg-light-200/50 dark:bg-dark-700"
+          }`}
           onClick={() => {
             setTheme(theme == "dark" ? "light" : "dark");
           }}
@@ -468,16 +472,28 @@ export default function Home() {
         </button>
         <a
           href="mailto:danielcranney@gmail.com"
-          className="btn-sm btn-gray group"
+          className={`btn-sm md:hover:bg-light-200 ${
+            sidebarOpen
+              ? "bg-dark-900/20 md:bg-light-200/50 hover:bg-dark-900/30 dark:hover:bg-dark-600 dark:bg-dark-700 text-white hover:text-white dark:bg-dark-700-20 md:dark:bg-dark-700"
+              : "btn-gray"
+          } group`}
         >
-          <span className="hidden sm:block dark:text-dark-300 dark:group-hover:text-white transition-all duration-150 ease-in-out">
+          <span
+            className={`hidden md:block dark:md:text-dark-300 dark:text-white text-white md:text-dark-500 dark:group-hover:text-white transition-all duration-150 ease-in-out ${
+              sidebarOpen ? "" : ""
+            }`}
+          >
             Leave&nbsp;
           </span>{" "}
-          <span className="dark:text-dark-300 dark:group-hover:text-white transition-all duration-150 ease-in-out">
+          <span
+            className={`dark:text-dark-300 text-white md:text-dark-500 dark:group-hover:text-white transition-all duration-150 ease-in-out`}
+          >
             Feedback
           </span>
         </a>
-      </header>
+      </div>
+
+      <header></header>
       <main>
         {/* COLUMN 1 - SIDEBAR */}
         <aside
@@ -1055,7 +1071,7 @@ export default function Home() {
                 <div ref={badgesAnchorRef}></div>
                 <section className="flex flex-col p-6">
                   {/* Customise */}
-                  <article className="mb-4">
+                  <article className="mb-0">
                     <p
                       className={`mb-2 text-xs font-semibold uppercase dark:text-white`}
                     >

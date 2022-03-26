@@ -73,7 +73,7 @@ const StyleBadgeButton = ({
       </button>
 
       <div
-        className={`gap-x-1.5 gap-y-1.5 border-b border-l border-r border-dark-600 w-full p-3 ${
+        className={`gap-x-1.5 gap-y-1.5 border-b border-l border-r dark:border-dark-700 border-light-200 w-full p-4 transition-all duration-150 ease-in-out rounded-bl-md rounded-br-md ${
           state.badges.cardStyle[badgeKeyToHide] ? "flex flex-wrap" : "hidden"
         }`}
       >
@@ -81,7 +81,7 @@ const StyleBadgeButton = ({
           return (
             <button
               key={color.hex}
-              className={`w-5 h-5 ${color.bgColor}`}
+              className={`w-5 h-5 border border-light-200 dark:border-dark-700 rounded-sm overflow-hidden ${color.bgColor}`}
               name={badgeKeyToStyle}
               onClick={(e) => {
                 handleChangeBadgeColor(e, badgeKeyToHide, color);

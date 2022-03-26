@@ -386,8 +386,8 @@ export default function Home() {
         <button
           className={`btn-square ${
             sidebarOpen
-              ? "bg-dark-900/20 text-white hover:bg-dark-900/30 hover:text-white"
-              : "btn-gray"
+              ? "bg-dark-900/0 text-white hover:text-white"
+              : "btn-trans"
           }`}
           onClick={() => {
             setSidebarOpen(!sidebarOpen);
@@ -417,7 +417,7 @@ export default function Home() {
           ProfileMe
           <span
             className={`transition-all duration-150 ease-in-out ${
-              sidebarOpen ? "text-dark-700" : "text-brand"
+              sidebarOpen ? "text-dark-700" : "text-brand-alt"
             }`}
           >
             .dev

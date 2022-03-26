@@ -162,7 +162,7 @@ Table Of Contents:
   }
 
   .btn-square {
-    @apply flex items-center justify-center h-9 w-9 transition-all duration-150 ease-in-out rounded-md;
+    @apply flex items-center justify-center h-9 w-6 transition-all duration-150 ease-in-out rounded-md;
   }
 }
 
@@ -176,6 +176,13 @@ Table Of Contents:
     @apply bg-light-200/50 dark:bg-dark-700
     text-dark-500 dark:text-dark-300
     hover:bg-light-200 dark:hover:bg-dark-600
+    hover:text-dark-700 dark:hover:text-white;
+  }
+
+  .btn-trans {
+    @apply bg-transparent dark:bg-transparent
+    text-dark-500 dark:text-dark-300
+    hover:bg-transparent dark:hover:bg-transparent
     hover:text-dark-700 dark:hover:text-white;
   }
 }

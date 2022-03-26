@@ -493,7 +493,14 @@ export default function Home() {
         </a>
       </div>
 
-      <header></header>
+      <header className={`${sidebarOpen ? "pl-70" : "pl-56"}`}>
+        <p className="text-dark-700 mr-auto mb-0 text-xs gap-x-2 items-center hidden lg:flex">
+          <span className="btn-xs btn-gray-outline font-bold">
+            New feature:
+          </span>
+          <span className="">Light/dark mode switch added</span>
+        </p>
+      </header>
       <main>
         {/* COLUMN 1 - SIDEBAR */}
         <aside
@@ -630,7 +637,7 @@ export default function Home() {
         {/* COLUMN 2 - INPUTS */}
         <section
           className={`input-column-wrapper ${
-            sidebarOpen ? "ml-0 md:ml-64" : ""
+            sidebarOpen ? "ml-0 md:ml-64 " : ""
           }`}
         >
           {/* Section Displays */}

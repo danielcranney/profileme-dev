@@ -117,7 +117,7 @@ Table Of Contents:
 /**************************/
 @layer base {
   header {
-    @apply fixed z-20 flex items-center w-full h-16 px-6 border-b md:relative dark:bg-dark-800 dark:border-dark-600 bg-white border-light-200 transition-all duration-150 ease-in-out;
+    @apply fixed z-20 flex items-center w-full h-16 border-b md:relative dark:bg-dark-800 dark:border-dark-600 bg-white border-light-200 transition-all duration-150 ease-in-out;
   }
 
   main {
@@ -177,6 +177,10 @@ Table Of Contents:
     text-dark-500 dark:text-dark-300
     hover:bg-light-200 dark:hover:bg-dark-600
     hover:text-dark-700 dark:hover:text-white;
+  }
+
+  .btn-gray-outline {
+    @apply border border-light-200 dark:border-dark-600;
   }
 
   .btn-trans {

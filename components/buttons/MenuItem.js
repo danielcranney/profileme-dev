@@ -20,7 +20,7 @@ const MenuItem = ({ text, section, setSidebarOpen, icon }) => {
         className={`flex items-center w-full ${
           state.section === section
             ? "border-white text-white bg-dark-900/20 opacity-100"
-            : "border-brand text-white opacity-75 group-hover:border-dark-900/30 group-hover:text-white group-hover:opacity-100"
+            : "border-brand text-white opacity-75 group-hover:border-dark-900/20 group-hover:text-white group-hover:opacity-100"
         }`}
       >
         {icon}

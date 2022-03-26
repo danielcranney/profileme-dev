@@ -847,11 +847,11 @@ const initialState = {
     },
     cardStyle: {
       selected: false,
-      titleColor: "3382ed",
+      titleColor: "14b8a6",
       titleColorEdit: false,
       textColor: "ffffff",
       textColorEdit: false,
-      iconColor: "3382ed",
+      iconColor: "14b8a6",
       iconColorEdit: false,
       bgColor: "1c1917",
       bgColorEdit: false,

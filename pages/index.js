@@ -417,7 +417,7 @@ export default function Home() {
           ProfileMe
           <span
             className={`transition-all duration-150 ease-in-out ${
-              sidebarOpen ? "text-dark-900" : "text-brand"
+              sidebarOpen ? "text-dark-700" : "text-brand"
             }`}
           >
             .dev
@@ -1980,7 +1980,9 @@ export default function Home() {
                         />
                       </a>
                     ) : (
-                      <span>Please enter a repository name.</span>
+                      <span className="text-sm">
+                        Please enter a repository name.
+                      </span>
                     )}
 
                     {state.badges.reposCard.repoTwo ? (

@@ -76,7 +76,7 @@ Table Of Contents:
   }
   p {
     @apply mb-4 leading-relaxed
-    dark:text-dark-300 text-dark-600;
+    dark:text-dark-300 text-dark-600 transition-all duration-150 ease-in-out;
   }
 
   a {

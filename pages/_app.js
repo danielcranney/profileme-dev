@@ -561,6 +561,11 @@ export const colorStore = {
       hex: "14b8a6",
     },
     {
+      colorName: "cyan",
+      bgColor: "bg-[#0891b2]",
+      hex: "0891b2",
+    },
+    {
       colorName: "blue",
       bgColor: "bg-[#3382ed]",
       hex: "3382ed",
@@ -847,11 +852,11 @@ const initialState = {
     },
     cardStyle: {
       selected: false,
-      titleColor: "14b8a6",
+      titleColor: "0891b2",
       titleColorEdit: false,
       textColor: "ffffff",
       textColorEdit: false,
-      iconColor: "14b8a6",
+      iconColor: "0891b2",
       iconColorEdit: false,
       bgColor: "1c1917",
       bgColorEdit: false,

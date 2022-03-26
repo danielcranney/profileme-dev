@@ -141,7 +141,7 @@ Table Of Contents:
   }
 
   .preview-column-wrapper .buttons-wrapper {
-    @apply relative p-6 gap-x-2 flex w-full dark:bg-dark-900 dark:border-dark-600 bg-light-100 border-light-200;
+    @apply relative p-6 gap-x-2 flex w-full dark:bg-dark-900 dark:border-dark-600 bg-light-100 border-light-200 transition-all duration-150 ease-in-out;
   }
 }
 
@@ -205,7 +205,7 @@ Table Of Contents:
     text-dark-700 dark:text-white
     placeholder:text-dark-400 dark:placeholder:text-dark-400
     focus:placeholder:hidden focus:ring-offset-0 focus:ring-0
-    px-2 rounded-md border-0;
+    px-2 rounded-md border-0  transition-all duration-150 ease-in-out;
   }
 
   .minimal-input-field {
@@ -237,7 +237,7 @@ Table Of Contents:
 /***************************/
 @layer base {
   #preview-container {
-    @apply px-6 pb-6 h-full overflow-y-auto dark:bg-dark-900 bg-light-100 dark:text-dark-300;
+    @apply px-6 pb-6 h-full overflow-y-auto dark:bg-dark-900 bg-light-100 dark:text-dark-300 transition-all duration-150 ease-in-out;
   }
 
   #preview-container p {
@@ -245,7 +245,7 @@ Table Of Contents:
   }
 
   #markdown-container {
-    @apply px-6 pb-6 overflow-y-auto h-full dark:bg-dark-900 bg-light-100 text-xs font-code text-dark-500 dark:text-dark-300;
+    @apply px-6 pb-6 overflow-y-auto h-full dark:bg-dark-900 bg-light-100 text-xs font-code text-dark-500 dark:text-dark-300 transition-all duration-150 ease-in-out;
   }
 }
 

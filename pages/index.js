@@ -479,14 +479,18 @@ export default function Home() {
           } group`}
         >
           <span
-            className={`hidden md:block dark:md:text-dark-300 dark:text-white text-white md:text-dark-500 dark:group-hover:text-white transition-all duration-150 ease-in-out ${
+            className={`hidden md:block dark:md:text-dark-300 dark:text-white text-dark-500 md:group-hover:text-dark-700 dark:group-hover:text-white transition-all duration-150 ease-in-out ${
               sidebarOpen ? "" : ""
             }`}
           >
             Leave&nbsp;
           </span>{" "}
           <span
-            className={`dark:text-dark-300 text-white md:text-dark-500 dark:group-hover:text-white transition-all duration-150 ease-in-out`}
+            className={`dark:text-dark-300 md:text-dark-500 md:group-hover:text-dark-700 transition-all duration-150 ease-in-out ${
+              sidebarOpen
+                ? "text-white dark:group-hover:text-white"
+                : "text-dark-500"
+            }`}
           >
             Feedback
           </span>
@@ -1864,7 +1868,7 @@ export default function Home() {
             <div
               ref={socialsRef}
               className={`flex flex-wrap gap-x-2 gap-y-2 ${
-                socialsShowing ? "mb-8" : ""
+                socialsShowing ? "mb-4" : ""
               }`}
             >
               {Object.entries(state.socials).map((profile) => {

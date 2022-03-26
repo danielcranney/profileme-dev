@@ -466,9 +466,16 @@ export default function Home() {
             </svg>
           </div>
         </button>
-        <a href="mailto:danielcranney@gmail.com" className="btn-sm btn-gray">
-          <span className="hidden sm:block">Leave&nbsp;</span>{" "}
-          <span>Feedback</span>
+        <a
+          href="mailto:danielcranney@gmail.com"
+          className="btn-sm btn-gray group"
+        >
+          <span className="hidden sm:block dark:text-dark-300 dark:group-hover:text-white transition-all duration-150 ease-in-out">
+            Leave&nbsp;
+          </span>{" "}
+          <span className="dark:text-dark-300 dark:group-hover:text-white transition-all duration-150 ease-in-out">
+            Feedback
+          </span>
         </a>
       </header>
       <main>
@@ -1049,7 +1056,9 @@ export default function Home() {
                 <section className="flex flex-col p-6">
                   {/* Customise */}
                   <article className="mb-4">
-                    <p className={`mb-2 text-xs font-semibold uppercase`}>
+                    <p
+                      className={`mb-2 text-xs font-semibold uppercase dark:text-white`}
+                    >
                       Style badges:
                     </p>
                     {!badgesShowing ? (
@@ -1099,7 +1108,7 @@ export default function Home() {
                       />
                     </article>
                   </article>
-                  <article className="flex flex-col mb-4 gap-y-2">
+                  <article className="flex flex-col mb-4 gap-y-4">
                     <h3 className="mb-0">GitHub</h3>
                     {!state.socials.github.linkSuffix ? (
                       <p className="mb-2 text-xs">
@@ -1127,42 +1136,54 @@ export default function Home() {
                       />
 
                       <article
-                        className={`flex flex-col p-3 border-b border-l border-r border-dark-600 overflow-hidden transform ${
+                        className={`flex flex-col p-4 border-b border-l border-r dark:border-dark-700 border-light-200 overflow-hidden transform transition-all duration-150 ease-in-out rounded-bl-md rounded-br-md ${
                           state.badges.githubStatsCard.selected
                             ? "block"
                             : "hidden -translate-y-3"
                         }`}
                       >
-                        <p className={`mb-2 text-xs font-semibold uppercase`}>
+                        <p
+                          className={`mb-2 text-xs font-semibold uppercase transition-all duration-150 ease-in-out ${
+                            state.badges.githubStatsCard.selected
+                              ? "opacity-100"
+                              : "opacity-0 -translate-y-3"
+                          }`}
+                        >
                           Show:
                         </p>
                         <article className="grid grid-cols-1 gap-2 lg:grid-cols-2">
                           <ToggleBadgeElementCheckbox
+                            badgeType={"githubStatsCard"}
                             badgeKeyToHide={"stars"}
                             badgeText={"Stars"}
                             handleBadgeElementToggle={handleBadgeElementToggle}
                           />
                           <ToggleBadgeElementCheckbox
+                            badgeType={"githubStatsCard"}
                             badgeKeyToHide={"commits"}
                             badgeText={"Commits"}
                             handleBadgeElementToggle={handleBadgeElementToggle}
                           />
                           <ToggleBadgeElementCheckbox
+                            badgeType={"githubStatsCard"}
                             badgeKeyToHide={"prs"}
                             badgeText={"PRs"}
                             handleBadgeElementToggle={handleBadgeElementToggle}
                           />
                           <ToggleBadgeElementCheckbox
+                            badgeType={"githubStatsCard"}
                             badgeKeyToHide={"issues"}
                             badgeText={"Issues"}
                             handleBadgeElementToggle={handleBadgeElementToggle}
                           />
                           <ToggleBadgeElementCheckbox
+                            badgeType={"githubStatsCard"}
                             badgeKeyToHide={"contribs"}
                             badgeText={"Contributions"}
                             handleBadgeElementToggle={handleBadgeElementToggle}
                           />
                           <ToggleBadgeElementCheckbox
+                            badgeType={"githubStatsCard"}
                             badgeKeyToHide={"privateCommits"}
                             badgeText={"Private Commits"}
                             handleBadgeElementToggle={handleBadgeElementToggle}
@@ -1204,13 +1225,15 @@ export default function Home() {
                       />
 
                       <article
-                        className={`flex flex-col p-3 border-b border-l border-r border-dark-600 overflow-hidden transform ${
+                        className={`flex flex-col p-4 border-b border-l border-r dark:border-dark-700 border-light-200 overflow-hidden transform transition-all duration-150 ease-in-out rounded-bl-md rounded-br-md ${
                           state.badges.reposCard.selected
                             ? "block"
                             : "hidden -translate-y-3"
                         }`}
                       >
-                        <p className={`mb-2 text-xs font-semibold uppercase`}>
+                        <p
+                          className={`mb-2 text-xs font-semibold uppercase dark:text-white`}
+                        >
                           Find Repositories
                         </p>
                         <p className="text-xs">
@@ -1314,7 +1337,7 @@ export default function Home() {
                       handleBadgeToggle={handleBadgeToggle}
                     />
                   </article>
-                  <article className="flex flex-col mb-4 gap-y-2">
+                  <article className="flex flex-col mb-4 gap-y-4">
                     <h3 className="mb-0">Twitter</h3>
                     {!state.socials.twitter.linkSuffix ? (
                       <p className="mb-2 text-xs">
@@ -1340,7 +1363,7 @@ export default function Home() {
                       handleBadgeToggle={handleBadgeToggle}
                     />
                   </article>
-                  <article className="flex flex-col mb-4 gap-y-2">
+                  <article className="flex flex-col mb-4 gap-y-4">
                     <h3 className="mb-0">Twitch</h3>
                     {!state.socials.twitch.linkSuffix ? (
                       <p className="mb-2 text-xs">

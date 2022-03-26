@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { StateContext } from "../../pages/_app";
 
 const ToggleBadgeElementCheckbox = ({
+  badgeType,
   badgeText,
   handleBadgeElementToggle,
   badgeKeyToHide,
@@ -9,7 +10,15 @@ const ToggleBadgeElementCheckbox = ({
   const { state, dispatch } = useContext(StateContext);
   return (
     <label
-      className={`border select-none flex items-center px-2 py-2 text-xs font-semibold border-dark-600 transition-all duration-150 ease-in-out bg-dark-800 hover:bg-dark-700`}
+      className={`btn-xs btn-gray group rounded-md ${
+        !state.socials.github.linkSuffix.length > 0
+          ? "opacity-30 hover:cursor-not-allowed pointer-events-none"
+          : "opacity-100 hover:cursor-pointer"
+      } ${
+        state.badges.githubStatsCard[badgeKeyToHide]
+          ? "bg-light-200 hover:light-200/50 hover:bg-light-200 text-dark-500 dark:hover:bg-dark-600 dark:bg-dark-600"
+          : ""
+      }`}
     >
       <input
         type="checkbox"
@@ -19,7 +28,15 @@ const ToggleBadgeElementCheckbox = ({
         className="checkbox-input"
         checked={state.badges.githubStatsCard[badgeKeyToHide]}
       />
-      <span className="text-xs text-white">{badgeText}</span>
+      <span
+        className={`text-xs transition-all duration-150 ease-in-out ${
+          state.badges.githubStatsCard[badgeKeyToHide]
+            ? "text-dark-700 group-hover:text-dark-700 dark:group-hover:text-white dark:text-white"
+            : "text-dark-500 dark:text-dark-300 group-hover:text-dark-700 dark:group-hover:text-white"
+        }`}
+      >
+        {badgeText}
+      </span>
     </label>
   );
 };

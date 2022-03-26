@@ -10,10 +10,14 @@ const ToggleBadgeButton = ({
   const { state } = useContext(StateContext);
   return (
     <label
-      className={`py-3 w-full flex uppercase font-semibold group select-none border border-dark-600 px-2 ${
+      className={`btn-md btn-gray group ${
         !state.socials[profileLink].linkSuffix.length > 0
-          ? "opacity-30 hover:cursor-not-allowed"
+          ? "opacity-30 hover:cursor-not-allowed pointer-events-none"
           : "opacity-100 hover:cursor-pointer"
+      } rounded-md ${
+        state.badges[badgeType].selected
+          ? "bg-brand hover:bg-brand-alt text-white dark:hover:bg-brand-alt dark:bg-brand"
+          : ""
       }`}
     >
       <input
@@ -27,7 +31,15 @@ const ToggleBadgeButton = ({
           !state.socials[profileLink].linkSuffix.length > 0 ? true : false
         }
       />
-      <span className="text-xs text-white">{badgeText}</span>
+      <span
+        className={`text-xs ${
+          state.badges[badgeType].selected
+            ? "dark:group-hover:text-white text-white"
+            : "text-dark-500 dark:text-dark-300 group-hover:text-dark-700 dark:group-hover:text-white"
+        }`}
+      >
+        {badgeText}
+      </span>
     </label>
   );
 };

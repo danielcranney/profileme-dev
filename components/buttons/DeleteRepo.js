@@ -5,7 +5,7 @@ const DeleteRepo = ({ action, type }) => {
   const { dispatch } = useContext(StateContext);
   return (
     <button
-      className="btn-sm border border-dark-500 w-9.5 justify-center text-dark-300 hover:text-white group"
+      className="btn-sm btn-gray px-2.5 group"
       onClick={() =>
         dispatch({
           type: action,
@@ -17,7 +17,7 @@ const DeleteRepo = ({ action, type }) => {
       }
     >
       <svg
-        className="w-6 h-6 group-hover:scale-110"
+        className="w-5 h-5 group-hover:scale-110"
         fill="none"
         stroke="currentColor"
         viewBox="0 0 24 24"

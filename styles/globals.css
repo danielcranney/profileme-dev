@@ -79,10 +79,6 @@ Table Of Contents:
     dark:text-dark-300 text-dark-600;
   }
 
-  span {
-    @apply dark:text-dark-300 text-dark-600;
-  }
-
   a {
     @apply text-brand hover:cursor-pointer underline font-semibold dark:hover:text-white transition-all duration-150 ease-in-out hover:text-dark-700;
   }
@@ -132,12 +128,12 @@ Table Of Contents:
     @apply fixed left-0 z-30 flex flex-col w-full h-full pb-6 pt-20 bg-brand border-t-0 border-b border-r-0 dark:border-dark-600 border-light-200 md:flex-grow md:border-b-0 transform transition-all duration-150 ease-in-out overflow-hidden md:w-64 top-0;
   }
 
-  .input-column-wrapper {
-    @apply flex flex-col flex-1 border-r-0 md:border-r dark:border-dark-600 dark:bg-dark-800 bg-white border-light-200 transition-all duration-150 ease-in-out;
-  }
-
   .section-header-wrapper {
     @apply relative flex flex-col p-6 border-b dark:bg-dark-800 dark:border-dark-600  bg-white border-light-200 md:border-t-0 transition-all duration-150 ease-in-out;
+  }
+
+  .input-column-wrapper {
+    @apply flex flex-col flex-1 border-r-0 md:border-r dark:border-dark-600 dark:bg-dark-800 bg-white border-light-200 transition-all duration-150 ease-in-out;
   }
 
   .preview-column-wrapper {
@@ -161,6 +157,10 @@ Table Of Contents:
     @apply flex items-center px-3 py-2.5 text-xs font-semibold uppercase transition-all duration-150 ease-in-out rounded-md no-underline;
   }
 
+  .btn-md {
+    @apply flex items-center px-3 py-3 text-xs font-semibold uppercase transition-all duration-150 ease-in-out rounded-md no-underline;
+  }
+
   .btn-square {
     @apply flex items-center justify-center h-9 w-9 transition-all duration-150 ease-in-out rounded-md;
   }
@@ -169,14 +169,14 @@ Table Of Contents:
 @layer components {
   .btn-brand {
     @apply bg-brand text-white
-    dark:text-white hover:bg-brand/80;
+    dark:text-white hover:bg-brand-alt;
   }
 
   .btn-gray {
-    @apply bg-light-200/50 text-dark-500
-    hover:bg-light-200 hover:text-dark-700
-    dark:bg-dark-700 dark:text-dark-300
-    dark:hover:text-white;
+    @apply bg-light-200/50 dark:bg-dark-700
+    text-dark-500 dark:text-dark-300
+    hover:bg-light-200 dark:hover:bg-dark-600
+    hover:text-dark-700 dark:hover:text-white;
   }
 }
 
@@ -206,7 +206,18 @@ Table Of Contents:
   }
 
   .checkbox-input {
-    @apply mr-2 border appearance-none border-dark-600 focus:outline-none focus:ring-0 group-hover:bg-dark-600 disabled:group-hover:bg-dark-900 checked:group-hover:bg-blue-500 focus:ring-offset-0 bg-dark-900 disabled:cursor-not-allowed;
+    @apply mr-2 border rounded-sm appearance-none focus:outline-none focus:ring-0
+    bg-white dark:bg-dark-900
+    checked:bg-brand dark:checked:bg-brand
+    checked:group-hover:bg-brand-alt checked:group-hover:border-brand-alt
+    checked:border-brand dark:checked:border-brand
+    checked:focus:bg-brand
+    dark:group-hover:bg-dark-900 group-hover:bg-white
+    disabled:group-hover:bg-white dark:disabled:group-hover:bg-dark-900
+    border-light-400 dark:border-dark-500 dark:checked:group-hover:border-brand-alt dark:checked:group-hover:bg-brand-alt
+    disabled:cursor-not-allowed
+    focus:ring-offset-0
+    transition-all duration-150 ease-in-out;
   }
 }
 

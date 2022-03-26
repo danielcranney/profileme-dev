@@ -35,6 +35,7 @@ module.exports = {
       },
       colors: {
         brand: "#5147c4",
+        "brand-alt": "#6056d6",
         dark: {
           300: "#b5b9d6",
           400: "#53566b",

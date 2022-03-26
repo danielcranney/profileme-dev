@@ -5,7 +5,7 @@ const AddRepo = ({ action, repoNumberToAdd }) => {
   const { state, dispatch } = useContext(StateContext);
   return (
     <button
-      className="flex items-center justify-center py-1.5 text-white border bg-dark-700 border-dark-600"
+      className="btn-xs btn-gray justify-center"
       onClick={() => {
         dispatch({
           type: action,

@@ -17,33 +17,43 @@ const StyleBadgeButton = ({
         onClick={handleStyleBadge}
         name={badgeKeyToHide}
         disabled={!badgesShowing ? true : false}
-        className={`border flex flex-col text-xs font-semibold uppercase border-dark-600 items-start group ${
-          !badgesShowing ? "hover:cursor-not-allowed opacity-30" : ""
+        className={`btn-sm btn-gray items-start group ${
+          !badgesShowing
+            ? "hover:cursor-not-allowed opacity-30 pointer-events-none"
+            : ""
         } ${
-          state.badges.cardStyle[badgeKeyToHide] ? "bg-dark-700" : "bg-dark-800"
+          state.badges.cardStyle[badgeKeyToHide]
+            ? "bg-light-200 dark:bg-dark-700"
+            : "bg-light-200/50 dark:bg-dark-700"
         }`}
       >
-        <div className="flex items-center w-full p-3">
+        <div className="flex items-center w-full group">
           <div
-            className={`mr-2 w-5 h-5 bg-[#${state.badges.cardStyle[badgeKeyToStyle]}]`}
+            className={`rounded-sm mr-2 w-5 h-5 bg-[#${state.badges.cardStyle[badgeKeyToStyle]}]`}
           >
             &nbsp;
           </div>
-          <span className="flex justify-start text-xs text-white">
+          <span
+            className={`flex justify-start text-xs transition-all duration-150 ease-in-out ${
+              state.badges.cardStyle[badgeKeyToHide]
+                ? "text-dark-700 dark:text-white"
+                : "text-dark-500 group-hover:text-dark-700 dark:text-dark-300 dark:group-hover:text-white"
+            }`}
+          >
             {badgeText}
           </span>
           <div
             className={`flex ml-auto text-xs font-semibold text-white transition-all duration-150 ease-in-out ${
               state.badges.cardStyle[badgeKeyToHide]
-                ? "opacity-100"
-                : "opacity-50"
+                ? "text-dark-700 dark:text-white opacity-100"
+                : "text-dark-500 group-hover:text-dark-700 dark:text-dark-300 dark:group-hover:text-white opacity-50"
             } ${badgesShowing ? "group-hover:opacity-100" : ""}`}
           >
             <svg
               className={`w-4 h-4 mr-2 text-white ${
                 state.badges.cardStyle[badgeKeyToHide]
-                  ? "opacity-100"
-                  : "opacity-50"
+                  ? "text-dark-700 dark:text-white opacity-100"
+                  : "text-dark-500 group-hover:text-dark-700 dark:text-dark-300 dark:group-hover:text-white opacity-50"
               } ${badgesShowing ? "group-hover:opacity-100" : ""}`}
               fill="none"
               stroke="currentColor"

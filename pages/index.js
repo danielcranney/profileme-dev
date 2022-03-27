@@ -252,10 +252,6 @@ export default function Home() {
     } else return;
   }, [state.section]);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   const executeScroll = (ref) => {
     if (!ref.current) return;
     ref.current.scrollIntoView({
@@ -339,10 +335,16 @@ export default function Home() {
     }
   };
 
+  useEffect(() => {
+    console.log("Pre rendered theme:", theme);
+    setMounted(true);
+  }, []);
+
   if (!mounted) return null;
 
   return (
     <div className="flex flex-col h-auto md:h-screen relative">
+      {console.log("After mounted theme:", theme)}
       <Head>
         <title>
           ProfileMe.dev | Create an awesome GitHub profile in minutes

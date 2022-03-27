@@ -28,7 +28,7 @@ let TurndownService = require("turndown").default;
 export default function Home() {
   const { state, dispatch } = useContext(StateContext);
   const [mounted, setMounted] = useState(false);
-  const { theme, setTheme } = useTheme();
+  const { systemTheme, theme, setTheme } = useTheme();
 
   const [renderedMarkdown, setRenderedMarkdown] = useState({
     introduction: "",
@@ -340,7 +340,33 @@ export default function Home() {
     setMounted(true);
   }, []);
 
-  if (!mounted) return null;
+  const renderThemeChanger = () => {
+    if (!mounted) return null;
+
+    const currentTheme = theme === "system" ? systemTheme : theme;
+
+    if (currentTheme === "dark") {
+      return (
+        <button
+          className="w-auto h-10 text-yellow-500 text-xs"
+          role="button"
+          onClick={() => setTheme("light")}
+        >
+          Sun Icon: {currentTheme}
+        </button>
+      );
+    } else {
+      return (
+        <button
+          className="w-auto h-10 text-gray-900 text-xs"
+          role="button"
+          onClick={() => setTheme("dark")}
+        >
+          Moon Icon: {currentTheme}
+        </button>
+      );
+    }
+  };
 
   return (
     <div className="flex flex-col h-auto md:h-screen relative">
@@ -428,7 +454,8 @@ export default function Home() {
       </div>
 
       <div className="fixed top-3.5 right-6 z-40 flex gap-x-2">
-        <button
+        {renderThemeChanger()}
+        {/* <button
           className={`ml-auto w-16 h-9 btn-sm relative ${
             sidebarOpen
               ? "bg-dark-900/20 md:bg-light-200/50 dark:bg-dark-700"
@@ -469,7 +496,7 @@ export default function Home() {
               />
             </svg>
           </div>
-        </button>
+        </button> */}
         <a
           href="mailto:danielcranney@gmail.com"
           className={`btn-sm md:hover:bg-light-200 ${

@@ -208,6 +208,12 @@ export const iconData = {
       iTag: "devicon-babel-plain",
       link: "https://babeljs.io/",
     },
+    {
+      name: "Svelte",
+      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/svelte/svelte-original.svg",
+      iTag: "devicon-svelte-plain",
+      link: "https://svelte.dev/",
+    },
   ],
   backend: [
     {

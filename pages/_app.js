@@ -97,6 +97,8 @@ export const iconData = {
     {
       name: "Rust",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/rust-colored.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/rust-colored-dark.svg",
       iTag: "rust",
       link: "https://www.rust-lang.org/",
     },

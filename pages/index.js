@@ -143,10 +143,6 @@ export default function Home() {
   const badgesAnchorRef = useRef();
   const supportAnchorRef = useRef();
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   // Update Markdown
   useEffect(() => {
     if (!mounted) return;
@@ -255,6 +251,10 @@ export default function Home() {
       executeScroll(supportAnchorRef);
     } else return;
   }, [state.section]);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const executeScroll = (ref) => {
     if (!ref.current) return;

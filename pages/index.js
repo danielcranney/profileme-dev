@@ -486,7 +486,7 @@ export default function Home() {
             Leave&nbsp;
           </span>{" "}
           <span
-            className={`dark:text-dark-300 md:text-dark-500 md:group-hover:text-dark-700 transition-all duration-150 ease-in-out ${
+            className={`dark:text-dark-300 dark:group-hover:text-white md:text-dark-500 md:group-hover:text-dark-700 transition-all duration-150 ease-in-out ${
               sidebarOpen
                 ? "text-white dark:group-hover:text-white"
                 : "text-dark-500"

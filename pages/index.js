@@ -348,21 +348,47 @@ export default function Home() {
     if (currentTheme === "dark") {
       return (
         <button
-          className="w-auto h-10 text-yellow-500 text-xs"
-          role="button"
-          onClick={() => setTheme("light")}
+          onClick={() => {
+            setTheme(currentTheme == "dark" ? "light" : "dark");
+          }}
+          className="w-full h-full flex items-center justify-center"
         >
-          Sun Icon: {currentTheme}
+          <svg
+            className="w-5 h-5 transition-all duration-150 ease-in-out text-white dark:flex hidden"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+            />
+          </svg>
         </button>
       );
     } else {
       return (
         <button
-          className="w-auto h-10 text-gray-900 text-xs"
-          role="button"
-          onClick={() => setTheme("dark")}
+          onClick={() => {
+            setTheme(currentTheme == "dark" ? "light" : "dark");
+          }}
+          className="w-full h-full flex items-center justify-center"
         >
-          Moon Icon: {currentTheme}
+          <svg
+            className="w-5 h-5 transition-all duration-150 ease-in-out text-white flex dark:hidden"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+            />
+          </svg>
         </button>
       );
     }
@@ -454,49 +480,19 @@ export default function Home() {
       </div>
 
       <div className="fixed top-3.5 right-6 z-40 flex gap-x-2">
-        {renderThemeChanger()}
-        {/* <button
+        <div
           className={`ml-auto w-16 h-9 btn-sm relative ${
             sidebarOpen
               ? "bg-dark-900/20 md:bg-light-200/50 dark:bg-dark-700"
               : "bg-light-200/50 dark:bg-dark-700"
           }`}
-          onClick={() => {
-            setTheme(theme == "dark" ? "light" : "dark");
-          }}
         >
-          <div
+          <button
             className={`w-7 h-7 bg-brand text-white rounded-md absolute flex items-center justify-center transition-all duration-300 ease-in-out dark:left-[calc(100%-2rem)] left-1`}
           >
-            <svg
-              className="w-5 h-5 transition-all duration-150 ease-in-out text-white dark:flex hidden"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-              />
-            </svg>
-
-            <svg
-              className="w-5 h-5 transition-all duration-150 ease-in-out text-white flex dark:hidden"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-              />
-            </svg>
-          </div>
-        </button> */}
+            {renderThemeChanger()}
+          </button>
+        </div>
         <a
           href="mailto:danielcranney@gmail.com"
           className={`btn-sm md:hover:bg-light-200 ${

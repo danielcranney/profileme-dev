@@ -34,8 +34,8 @@ export const iconData = {
     },
     {
       name: "C++",
-      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-plain.svg",
-      iTag: "devicon-cplusplus-plain",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/cplusplus.svg",
+      iTag: "cplusplus",
       link: "https://docs.microsoft.com/en-us/cpp/?view=msvc-170",
     },
     {

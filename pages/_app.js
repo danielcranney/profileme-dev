@@ -1075,7 +1075,7 @@ function MyApp({ Component, pageProps }) {
           `,
         }}
       />
-      <ThemeProvider attribute="class">
+      <ThemeProvider enableSystem={true} attribute="class">
         <StateContext.Provider value={{ state, dispatch }}>
           <Component {...pageProps} />
         </StateContext.Provider>

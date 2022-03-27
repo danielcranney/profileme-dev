@@ -35,23 +35,14 @@ const IconSelector = ({ handleIconToggle, title, iconType }) => {
                   <ExtraSmallTick />
                 </div>
               ) : null}
-              {theme === "dark" ? (
-                <i
-                  className={`${icon.iTag} w-9 h-9 ${
-                    state.skills[iconType].includes(icon)
-                      ? "colored"
-                      : "dark:text-light-500 dark-icon"
-                  }`}
-                ></i>
-              ) : (
-                <i
-                  className={`${icon.iTag} w-9 h-9 ${
-                    state.skills[iconType].includes(icon)
-                      ? "colored"
-                      : "text-light-400"
-                  }`}
-                ></i>
-              )}
+
+              <i
+                className={`${icon.iTag} w-9 h-9 ${
+                  state.skills[iconType].includes(icon)
+                    ? "colored"
+                    : "dark:text-light-500 text-light-400 dark:dark-icon"
+                }`}
+              ></i>
             </button>
           );
         })}

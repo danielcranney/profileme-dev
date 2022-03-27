@@ -40,7 +40,7 @@ const IconSelector = ({ handleIconToggle, title, iconType }) => {
                 className={`${icon.iTag} w-9 h-9 ${
                   state.skills[iconType].includes(icon)
                     ? "colored"
-                    : "dark:text-light-500 text-light-400 dark:dark-icon"
+                    : "text-light-400 dark:text-light-500"
                 }`}
               ></i>
             </button>

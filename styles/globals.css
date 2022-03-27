@@ -254,235 +254,158 @@ Table Of Contents:
 /****************************/
 @layer utilities {
   .fastapi {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/fastapi.svg')];
-  }
-  .fastapi.dark-icon {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/fastapi-dark.svg')];
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/fastapi.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/fastapi-dark.svg')];
   }
   .fastapi.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/fastapi-colored.svg')];
   }
   .supabase {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/supabase.svg')];
-  }
-  .supabase.dark-icon {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/supabase-dark.svg')];
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/supabase.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/supabase-dark.svg')];
   }
   .supabase.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/supabase-colored.svg')];
   }
   .uniswap {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/uniswap.svg')];
-  }
-  .uniswap.dark-icon {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/uniswap-dark.svg')];
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/uniswap.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/uniswap-dark.svg')];
   }
   .uniswap.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/uniswap-colored.svg')];
   }
   .aave {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/aave.svg')];
-  }
-  .aave.dark-icon {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/aave-dark.svg')];
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/aave.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/aave-dark.svg')];
   }
   .aave.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/aave-colored.svg')];
   }
   .sushiswap {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/sushiswap.svg')];
-  }
-  .sushiswap.dark-icon {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/sushiswap-dark.svg')];
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/sushiswap.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/sushiswap-dark.svg')];
   }
   .sushiswap.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/sushiswap-colored.svg')];
   }
   .metamask {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/metamask.svg')];
-  }
-  .metamask.dark-icon {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/metamask-dark.svg')];
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/metamask.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/metamask-dark.svg')];
   }
   .metamask.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/metamask-colored.svg')];
   }
   .argent {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/argent.svg')];
-  }
-  .argent.dark-icon {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/argent-dark.svg')];
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/argent.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/argent-dark.svg')];
   }
   .argent.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/argent-colored.svg')];
   }
   .nansen {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nansen.svg')];
-  }
-  .nansen.dark-icon {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nansen-dark.svg')];
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nansen.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nansen-dark.svg')];
   }
   .nansen.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nansen-colored.svg')];
   }
   .chainlink {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/chainlink.svg')];
-  }
-  .chainlink.dark-icon {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/chainlink-dark.svg')];
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/chainlink.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/chainlink-dark.svg')];
   }
   .chainlink.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/chainlink-colored.svg')];
   }
   .the-graph {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/the-graph.svg')];
-  }
-  .the-graph.dark-icon {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/the-graph-dark.svg')];
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/the-graph.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/the-graph-dark.svg')];
   }
   .the-graph.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/the-graph-colored.svg')];
   }
   .ethers {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/ethers.svg')];
-  }
-  .ethers.dark-icon {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/ethers-dark.svg')];
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/ethers.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/ethers-dark.svg')];
   }
   .ethers.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/ethers-colored.svg')];
   }
   .web3js {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/web3js.svg')];
-  }
-  .web3js.dark-icon {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/web3js-dark.svg')];
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/web3js.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/web3js-dark.svg')];
   }
   .web3js.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/web3js-colored.svg')];
   }
   .alchemy {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/alchemy.svg')];
-  }
-  .alchemy.dark-icon {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/alchemy-dark.svg')];
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/alchemy.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/alchemy-dark.svg')];
   }
   .alchemy.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/alchemy-colored.svg')];
   }
   .hardhat {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/hardhat.svg')];
-  }
-  .hardhat.dark-icon {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/hardhat-dark.svg')];
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/hardhat.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/hardhat-dark.svg')];
   }
   .hardhat.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/hardhat-colored.svg')];
   }
   .truffle {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/truffle.svg')];
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/truffle.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/truffle-dark.svg')];
   }
-  .truffle.dark-icon {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/truffle-dark.svg')];
-  }
+
   .truffle.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/truffle-colored.svg')];
   }
   .ipfs {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/ipfs.svg')];
-  }
-  .ipfs.dark-icon {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/ipfs-dark.svg')];
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/ipfs.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/ipfs-dark.svg')];
   }
   .ipfs.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/ipfs-colored.svg')];
   }
   .filebase {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/filebase.svg')];
-  }
-  .filebase.dark-icon {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/filebase-dark.svg')];
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/filebase.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/filebase-dark.svg')];
   }
   .filebase.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/filebase-colored.svg')];
   }
   .arweave {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/arweave.svg')];
-  }
-  .arweave.dark-icon {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/arweave-dark.svg')];
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/arweave.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/arweave-dark.svg')];
   }
   .arweave.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/arweave-colored.svg')];
   }
   .ethereum {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/ethereum.svg')];
-  }
-  .ethereum.dark-icon {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/ethereum-dark.svg')];
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/ethereum.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/ethereum-dark.svg')];
   }
   .ethereum.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/ethereum-colored.svg')];
   }
   .polygon {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/polygon.svg')];
-  }
-  .polygon.dark-icon {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/polygon-dark.svg')];
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/polygon.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/polygon-dark.svg')];
   }
   .polygon.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/polygon-colored.svg')];
   }
   .arbitrum {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/arbitrum.svg')];
-  }
-  .arbitrum.dark-icon {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/arbitrum-dark.svg')];
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/arbitrum.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/arbitrum-dark.svg')];
   }
   .arbitrum.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/arbitrum-colored.svg')];
   }
   .avalanche {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/avalanche.svg')];
-  }
-  .avalanche.dark-icon {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/avalanche-dark.svg')];
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/avalanche.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/avalanche-dark.svg')];
   }
   .avalanche.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/avalanche-colored.svg')];
   }
   .near {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/near.svg')];
-  }
-  .near.dark-icon {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/near-dark.svg')];
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/near.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/near-dark.svg')];
   }
   .near.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/near-colored.svg')];
   }
   .flow {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/flow.svg')];
-  }
-  .flow.dark-icon {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/flow-dark.svg')];
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/flow.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/flow-dark.svg')];
   }
   .flow.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/flow-colored.svg')];
   }
   .solana {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/solana.svg')];
-  }
-  .solana.dark-icon {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/solana-dark.svg')];
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/solana.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/solana-dark.svg')];
   }
   .solana.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/solana-colored.svg')];
   }
   .terra {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/terra.svg')];
-  }
-  .terra.dark-icon {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/terra-dark.svg')];
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/terra.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/terra-dark.svg')];
   }
   .terra.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/terra-colored.svg')];

@@ -253,6 +253,12 @@ Table Of Contents:
 /*     Custom Dev Icons     */
 /****************************/
 @layer utilities {
+  .c {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/c.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/c-dark.svg')];
+  }
+  .c.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/c-colored.svg')];
+  }
   .fastapi {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/fastapi.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/fastapi-dark.svg')];
   }

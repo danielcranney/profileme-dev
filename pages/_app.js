@@ -29,7 +29,7 @@ export const iconData = {
     {
       name: "C",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/c.svg",
-      iTag: "c-plain",
+      iTag: "c",
       link: "https://docs.microsoft.com/en-us/cpp/?view=msvc-170",
     },
     {

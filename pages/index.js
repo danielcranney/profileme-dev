@@ -439,9 +439,7 @@ export default function Home() {
           }}
         >
           <div
-            className={`w-7 h-7 bg-brand text-white rounded-md absolute flex items-center justify-center transition-all duration-300 ease-in-out ${
-              theme == "dark" ? "left-[calc(100%-2rem)]" : "left-1"
-            }`}
+            className={`w-7 h-7 bg-brand text-white rounded-md absolute flex items-center justify-center transition-all duration-300 ease-in-out dark:left-[calc(100%-2rem)] left-1`}
           >
             <svg
               className="w-5 h-5 transition-all duration-150 ease-in-out text-white dark:flex hidden"

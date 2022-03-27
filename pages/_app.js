@@ -28,8 +28,8 @@ export const iconData = {
   core: [
     {
       name: "C",
-      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/c/c-plain.svg",
-      iTag: "devicon-c-plain",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/c.svg",
+      iTag: "c-plain",
       link: "https://docs.microsoft.com/en-us/cpp/?view=msvc-170",
     },
     {
@@ -447,6 +447,8 @@ export const iconData = {
     {
       name: "IPFS",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/ipfs-colored.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/ipfs-colored-dark.svg",
       iTag: "ipfs",
       link: "https://ipfs.io/",
     },

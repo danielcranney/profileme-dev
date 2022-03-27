@@ -459,6 +459,8 @@ export const iconData = {
     {
       name: "Arweave",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/arweave-colored.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/arweave-colored-dark.svg",
       iTag: "arweave",
       link: "https://www.arweave.org/",
     },
@@ -489,6 +491,8 @@ export const iconData = {
     {
       name: "Near",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/near-colored.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/near-colored-dark.svg",
       iTag: "near",
       link: "https://near.academy/",
     },

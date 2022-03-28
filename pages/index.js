@@ -1821,12 +1821,25 @@ export default function Home() {
                           target="_blank"
                           rel="noreferrer"
                         >
-                          <img
-                            src={`${icon.path}`}
-                            alt={`${icon.name}`}
-                            width="36"
-                            height="36"
-                          />
+                          {icon.darkPath ? (
+                            <img
+                              src={
+                                theme == "dark"
+                                  ? `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored-dark.svg`
+                                  : `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored.svg`
+                              }
+                              alt={`${icon.name}`}
+                              width="36"
+                              height="36"
+                            />
+                          ) : (
+                            <img
+                              src={`https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored.svg`}
+                              alt={`${icon.name}`}
+                              width="36"
+                              height="36"
+                            />
+                          )}
                         </a>
                       </div>
                     );
@@ -1845,12 +1858,25 @@ export default function Home() {
                           target="_blank"
                           rel="noreferrer"
                         >
-                          <img
-                            src={`${icon.path}`}
-                            alt={`${icon.name}`}
-                            width="36"
-                            height="36"
-                          />
+                          {icon.darkPath ? (
+                            <img
+                              src={
+                                theme == "dark"
+                                  ? `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored-dark.svg`
+                                  : `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored.svg`
+                              }
+                              alt={`${icon.name}`}
+                              width="36"
+                              height="36"
+                            />
+                          ) : (
+                            <img
+                              src={`https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored.svg`}
+                              alt={`${icon.name}`}
+                              width="36"
+                              height="36"
+                            />
+                          )}
                         </a>
                       </div>
                     );
@@ -1870,12 +1896,25 @@ export default function Home() {
                           target="_blank"
                           rel="noreferrer"
                         >
-                          <img
-                            src={`${icon.path}`}
-                            alt={`${icon.name}`}
-                            width="36"
-                            height="36"
-                          />
+                          {icon.darkPath ? (
+                            <img
+                              src={
+                                theme == "dark"
+                                  ? `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored-dark.svg`
+                                  : `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored.svg`
+                              }
+                              alt={`${icon.name}`}
+                              width="36"
+                              height="36"
+                            />
+                          ) : (
+                            <img
+                              src={`https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored.svg`}
+                              alt={`${icon.name}`}
+                              width="36"
+                              height="36"
+                            />
+                          )}
                         </a>
                       </div>
                     );

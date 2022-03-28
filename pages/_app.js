@@ -341,30 +341,40 @@ export const iconData = {
     {
       name: "Photoshop",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/photoshop-colored.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/photoshop-colored-dark.svg",
       iTag: "photoshop",
       link: "https://www.adobe.com/uk/products/photoshop.html",
     },
     {
       name: "Illustrator",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/illustrator-colored.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/illustrator-colored-dark.svg",
       iTag: "illustrator",
       link: "adobe.com/uk/products/illustrator.html",
     },
     {
       name: "After Effects",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/aftereffects-colored.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/aftereffects-colored-dark.svg",
       iTag: "aftereffects",
       link: "https://www.adobe.com/uk/products/aftereffects.html",
     },
     {
       name: "Premiere Pro",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/premierepro-colored.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/premierepro-colored-dark.svg",
       iTag: "premierepro",
       link: "https://www.adobe.com/uk/products/premiere.html",
     },
     {
       name: "XD",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/xd-colored.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/xd-colored-dark.svg",
       iTag: "xd",
       link: "https://www.adobe.com/uk/products/xd.html",
     },

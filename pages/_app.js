@@ -131,6 +131,8 @@ export const iconData = {
     {
       name: "NextJs",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nextjs-colored.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nextjs-colored-dark.svg",
       iTag: "nextjs",
       link: "https://nextjs.org/docs",
     },

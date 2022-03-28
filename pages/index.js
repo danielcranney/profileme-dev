@@ -1723,7 +1723,7 @@ export default function Home() {
             {/* Skills Section Preview */}
             <div
               ref={skillsRef}
-              className={`flex flex-wrap gap-y-1 gap-x-1 ${
+              className={`flex flex-wrap gap-y-1.5 gap-x-1.5 ${
                 state.skills.core.length < 1 &&
                 state.skills.frontend.length < 1 &&
                 state.skills.backend.length < 1 &&
@@ -1736,7 +1736,7 @@ export default function Home() {
             >
               {/* Core Icons Display */}
               {!state.skills.core || state.skills.core.length < 1 ? null : (
-                <div className="flex gap-x-1.5 flex-wrap">
+                <div className="flex gap-x-1.5 flex-wrap gap-y-1.5">
                   {state.skills.core.map((icon) => {
                     return (
                       <div key={`${icon.path}`} className="relative">
@@ -1774,7 +1774,7 @@ export default function Home() {
               {/* Frontend Icons Display */}
               {!state.skills.frontend ||
               state.skills.frontend.length < 1 ? null : (
-                <div className="flex gap-x-1.5 flex-wrap">
+                <div className="flex gap-x-1.5 flex-wrap gap-y-1.5">
                   {state.skills.frontend.map((icon) => {
                     return (
                       <div key={`${icon.path}`} className="relative">
@@ -1812,7 +1812,7 @@ export default function Home() {
               {/* Backend Icons Display */}
               {!state.skills.backend ||
               state.skills.backend.length < 1 ? null : (
-                <div className="flex gap-x-1.5 flex-wrap">
+                <div className="flex gap-x-1.5 flex-wrap gap-y-1.5">
                   {state.skills.backend.map((icon) => {
                     return (
                       <div key={`${icon.path}`} className="relative">
@@ -1849,7 +1849,7 @@ export default function Home() {
 
               {/* Other Icons Display */}
               {!state.skills.other || state.skills.other.length < 1 ? null : (
-                <div className="flex gap-x-1.5 flex-wrap">
+                <div className="flex gap-x-1.5 flex-wrap gap-y-1.5">
                   {state.skills.other.map((icon) => {
                     return (
                       <div key={`${icon.path}`} className="relative">
@@ -1887,7 +1887,7 @@ export default function Home() {
               {/* Software Icons Display */}
               {!state.skills.software ||
               state.skills.software.length < 1 ? null : (
-                <div className="flex gap-x-1.5 flex-wrap">
+                <div className="flex gap-x-1.5 flex-wrap gap-y-1.5">
                   {state.skills.software.map((icon) => {
                     return (
                       <div key={`${icon.path}`} className="relative">
@@ -1924,7 +1924,7 @@ export default function Home() {
 
               {/* Web3 Icons Display */}
               {!state.skills.web3 || state.skills.web3.length < 1 ? null : (
-                <div className="flex gap-x-1.5 flex-wrap">
+                <div className="flex gap-x-1.5 flex-wrap gap-y-1.5">
                   {state.skills.web3.map((icon) => {
                     return (
                       <div key={`${icon.path}`} className="relative">

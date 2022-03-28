@@ -2241,8 +2241,19 @@ export default function Home() {
                       {renderedMarkdown.skills.frontend.map((icon) => {
                         return (
                           <span key={`${icon.path}`}>
-                            {` 
-                                <a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>`}
+                            {icon.darkPath ? (
+                              <>{`
+                                <a href="${
+                                  icon.link
+                                }" target="_blank" rel="noreferrer"><img src="${
+                                theme == "dark" ? icon.darkPath : icon.path
+                              }" width="36" height="36" alt="${
+                                icon.name
+                              }" /></a>`}</>
+                            ) : (
+                              <>{`
+                                <a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>`}</>
+                            )}
                           </span>
                         );
                       })}
@@ -2254,8 +2265,19 @@ export default function Home() {
                       {renderedMarkdown.skills.backend.map((icon) => {
                         return (
                           <span key={`${icon.path}`}>
-                            {`
-                                <a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>`}
+                            {icon.darkPath ? (
+                              <>{`
+                                <a href="${
+                                  icon.link
+                                }" target="_blank" rel="noreferrer"><img src="${
+                                theme == "dark" ? icon.darkPath : icon.path
+                              }" width="36" height="36" alt="${
+                                icon.name
+                              }" /></a>`}</>
+                            ) : (
+                              <>{`
+                                <a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>`}</>
+                            )}
                           </span>
                         );
                       })}
@@ -2267,8 +2289,19 @@ export default function Home() {
                       {renderedMarkdown.skills.other.map((icon) => {
                         return (
                           <span key={`${icon.path}`}>
-                            {`
-                            <a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>`}
+                            {icon.darkPath ? (
+                              <>{`
+                                <a href="${
+                                  icon.link
+                                }" target="_blank" rel="noreferrer"><img src="${
+                                theme == "dark" ? icon.darkPath : icon.path
+                              }" width="36" height="36" alt="${
+                                icon.name
+                              }" /></a>`}</>
+                            ) : (
+                              <>{`
+                                <a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>`}</>
+                            )}
                           </span>
                         );
                       })}
@@ -2280,8 +2313,19 @@ export default function Home() {
                       {renderedMarkdown.skills.software.map((icon) => {
                         return (
                           <span key={`${icon.path}`}>
-                            {`
-                            <a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>`}
+                            {icon.darkPath ? (
+                              <>{`
+                                <a href="${
+                                  icon.link
+                                }" target="_blank" rel="noreferrer"><img src="${
+                                theme == "dark" ? icon.darkPath : icon.path
+                              }" width="36" height="36" alt="${
+                                icon.name
+                              }" /></a>`}</>
+                            ) : (
+                              <>{`
+                                <a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>`}</>
+                            )}
                           </span>
                         );
                       })}
@@ -2293,8 +2337,19 @@ export default function Home() {
                       {renderedMarkdown.skills.web3.map((icon) => {
                         return (
                           <span key={`${icon.path}`}>
-                            {`
-                            <a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>`}
+                            {icon.darkPath ? (
+                              <>{`
+                                <a href="${
+                                  icon.link
+                                }" target="_blank" rel="noreferrer"><img src="${
+                                theme == "dark" ? icon.darkPath : icon.path
+                              }" width="36" height="36" alt="${
+                                icon.name
+                              }" /></a>`}</>
+                            ) : (
+                              <>{`
+                                <a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>`}</>
+                            )}
                           </span>
                         );
                       })}

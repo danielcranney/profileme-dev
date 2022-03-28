@@ -1,7 +1,8 @@
 
 # ProfileMe.dev
 
-Create an awesome GitHub profile in minutes.
+ProfileMe.dev helps developers create an awesome GitHub profile in minutes.
+
 ## Installation
 
 **Install dependencies**

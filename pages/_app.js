@@ -211,6 +211,8 @@ export const iconData = {
     {
       name: "Babel",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/babel-colored.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/babel-colored-dark.svg",
       iTag: "babel",
       link: "https://babeljs.io/",
     },

@@ -318,20 +318,22 @@ export const iconData = {
   other: [
     {
       name: ".NET",
-      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dot-net/dot-net-original.svg",
-      iTag: "devicon-dot-net-plain",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/dot-net-colored.svg",
+      iTag: "dot-net",
       link: "https://dotnet.microsoft.com/en-us/",
     },
     {
       name: "Django",
-      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg",
-      iTag: "devicon-django-plain",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/django-colored.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/django-colored-dark.svg",
+      iTag: "django",
       link: "https://www.djangoproject.com/",
     },
     {
       name: "Lavarel",
-      path: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-plain.svg",
-      iTag: "devicon-laravel-plain",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/laravel-colored.svg",
+      iTag: "laravel",
       link: "https://laravel.com/",
     },
   ],

@@ -2217,8 +2217,19 @@ export default function Home() {
                       {renderedMarkdown.skills.core.map((icon) => {
                         return (
                           <span key={`${icon.path}`}>
-                            {`
-                                <a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>`}
+                            {icon.darkPath ? (
+                              <>{`
+                                <a href="${
+                                  icon.link
+                                }" target="_blank" rel="noreferrer"><img src="${
+                                theme == "dark" ? icon.darkPath : icon.path
+                              }" width="36" height="36" alt="${
+                                icon.name
+                              }" /></a>`}</>
+                            ) : (
+                              <>{`
+                                <a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>`}</>
+                            )}
                           </span>
                         );
                       })}

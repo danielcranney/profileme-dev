@@ -233,6 +233,8 @@ export const iconData = {
     {
       name: "Express",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/express-colored.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/express-colored-dark.svg",
       iTag: "express",
       link: "https://expressjs.com/",
     },
@@ -287,6 +289,8 @@ export const iconData = {
     {
       name: "Appwrite",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/appwrite-colored.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/appwrite-colored-dark.svg",
       iTag: "appwrite",
       link: "https://appwrite.io/",
     },
@@ -299,6 +303,8 @@ export const iconData = {
     {
       name: "Flask",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/flask-colored.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/flask-colored-dark.svg",
       iTag: "flask",
       link: "https://flask.palletsprojects.com/en/2.0.x/",
     },

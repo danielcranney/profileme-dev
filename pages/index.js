@@ -2379,7 +2379,15 @@ export default function Home() {
                     <span key={`profile-${profile[0]}`}>
                       {`
                           
-                      <a href="${profile[1].linkPrefix}${profile[1].linkSuffix}" target="_blank" rel="noreferrer"><img src="${profile[1].path}" width="32" height="32" /></a>`}
+                      <a href="${profile[1].linkPrefix}${
+                        profile[1].linkSuffix
+                      }" target="_blank" rel="noreferrer"><img src="${
+                        profile[1].darkPath
+                          ? theme == "dark"
+                            ? `${profile[1].darkPath}`
+                            : `${profile[1].path}`
+                          : `${profile[1].path}`
+                      }" width="32" height="32" /></a>`}
                     </span>
                   ) : null;
                 })}

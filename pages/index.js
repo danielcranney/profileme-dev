@@ -1969,7 +1969,17 @@ export default function Home() {
                         : ""
                     }`}
                   >
-                    <img height="32" width="32" src={`${profile[1].path}`} />
+                    <img
+                      height="32"
+                      width="32"
+                      src={
+                        profile[1].darkPath
+                          ? theme == "dark"
+                            ? `${profile[1].darkPath}`
+                            : `${profile[1].path}`
+                          : `${profile[1].path}`
+                      }
+                    />
                   </a>
                 ) : null;
               })}

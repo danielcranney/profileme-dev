@@ -510,7 +510,7 @@ export default function Home() {
           <span className="btn-xs btn-gray-outline font-bold">
             New feature:
           </span>
-          <span className="">Light/dark mode switch added</span>
+          <span className="">Light/dark mode</span>
         </p>
       </header>
       <main>

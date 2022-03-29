@@ -10,7 +10,7 @@ const IconSelector = ({ handleIconToggle, title, iconType }) => {
   const { theme } = useTheme();
 
   return (
-    <article className="flex flex-col flex-1 w-full dark:bg-dark-700 bg-light-100 p-3 rounded-md">
+    <article className="flex flex-col flex-1 w-full dark:bg-dark-700 bg-light-100 p-3 rounded-md transition-all duration-150 ease-in-out">
       <div className="mb-2">
         <FormLabel text={title} icon={"💻"} />
       </div>

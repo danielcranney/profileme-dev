@@ -1,6 +1,7 @@
 import React, { useContext, forwardRef } from "react";
 import Image from "next/image";
 import { StateContext } from "../pages/_app";
+import { useTheme } from "next-themes";
 import FormLabel from "./forms/FormLabel";
 import MinimalSocialFormInput from "./forms/MinimalSocialFormInput";
 
@@ -15,13 +16,22 @@ const SocialItem = forwardRef((props, ref) => {
     linkSuffixTwo,
   } = props;
 
+  const { state, dispatch } = useContext(StateContext);
+  const { systemTheme, theme, setTheme } = useTheme();
+
   return (
     <article className="flex flex-col flex-1 w-full">
       <FormLabel
         text={formLabelText}
         icon={
           <Image
-            src={`https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/${section}/${account}.svg`}
+            src={
+              state.socials[account].darkPath
+                ? theme == "dark"
+                  ? `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/${section}/${account}-dark.svg`
+                  : `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/${section}/${account}.svg`
+                : `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/${section}/${account}.svg`
+            }
             width={20}
             height={20}
           />

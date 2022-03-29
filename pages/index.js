@@ -894,7 +894,7 @@ export default function Home() {
                     action={ACTIONS.ADD_SOCIAL_PROFILE}
                     linkSuffixTwo={
                       <>
-                        <div className="flex items-center text-sm bg-light-200/70 dark:bg-dark-900 text-dark-700 dark:text-white">
+                        <div className="flex items-center text-sm">
                           <span className="py-2 pr-2 leading-4 select-none">
                             .hashnode.dev
                           </span>

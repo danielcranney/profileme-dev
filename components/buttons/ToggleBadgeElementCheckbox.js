@@ -16,7 +16,7 @@ const ToggleBadgeElementCheckbox = ({
           : "opacity-100 hover:cursor-pointer"
       } ${
         state.badges.githubStatsCard[badgeKeyToHide]
-          ? "bg-light-200 hover:light-200/50 hover:bg-light-200 text-dark-500 dark:hover:bg-dark-600 dark:bg-dark-600"
+          ? "bg-light-200 hover:bg-light-200 text-dark-500 dark:hover:bg-dark-600 dark:bg-dark-600"
           : ""
       }`}
     >

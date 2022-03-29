@@ -1,12 +1,12 @@
 import React, { useEffect, useContext, useRef, useState } from "react";
 import Head from "next/head";
+import { useTheme } from "next-themes";
 // Import state and actions
 import { ACTIONS } from "./_app";
 import { StateContext } from "./_app";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 import { colorStore } from "./_app";
 // Import components
-import { useTheme } from "next-themes";
 import MenuItem from "../components/buttons/MenuItem";
 import AddRepoInput from "../components/forms/AddRepoInput";
 import SectionHeader from "../components/SectionHeader";

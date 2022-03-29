@@ -11,12 +11,12 @@ const FormTextarea = forwardRef((props, ref) => {
       placeholder={placeholder}
       value={state[section][type]}
       ref={ref}
-      onChange={() =>
+      onChange={() => {
         dispatch({
           type: action,
           payload: { title: type, value: ref.current.value },
-        })
-      }
+        });
+      }}
     />
   );
 });

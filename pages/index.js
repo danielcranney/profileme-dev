@@ -1579,9 +1579,6 @@ export default function Home() {
                   : ""
               }`}
             >
-              {/* <img
-                src={`https://readme-typing-svg.herokuapp.com/?font=Helvetica&lines=Hi+👋+My+name+is+${state.introduction.name}`}
-              /> */}
               {!state.introduction.name ? null : (
                 <h1>Hi 👋 My name is {state.introduction.name}</h1>
               )}
@@ -1590,7 +1587,9 @@ export default function Home() {
               ) : null}
 
               {state.introduction.longDescription ? (
-                <p>{state.introduction.longDescription}</p>
+                <p className="whitespace-pre-line">
+                  {state.introduction.longDescription}
+                </p>
               ) : null}
 
               <ul

@@ -196,24 +196,31 @@ Table Of Contents:
 /***********************/
 @layer components {
   .form-label {
-    @apply flex items-center text-xs dark:text-white text-dark-700 font-semibold uppercase mb-2 self-start;
+    @apply flex items-center text-xs dark:text-white text-dark-700 font-semibold uppercase mb-2 self-start transition-all duration-150 ease-in-out;
   }
 
   .input-field {
-    @apply appearance-none py-2 focus:outline-none text-sm flex items-center placeholder:text-sm flex-1
+    @apply appearance-none py-2 flex items-center flex-1 rounded-md
+    text-sm placeholder:text-sm
     bg-light-200/70 dark:bg-dark-900
     text-dark-700 dark:text-white
     placeholder:text-dark-400 dark:placeholder:text-dark-400
-    focus:placeholder:hidden focus:ring-offset-0 focus:ring-0
-    px-2 rounded-md border-0  transition-all duration-150 ease-in-out;
+    border-0 hover:border-0 focus:border-0
+    focus:ring-offset-transparent
+    ring-0 focus:ring-0
+    ring-offset-0 focus:ring-offset-0
+    outline-none focus:outline-none 
+    border-white focus:border-white
+    focus:placeholder:hidden
+   transition-all duration-150 ease-in-out;
   }
 
   .minimal-input-field {
-    @apply focus:outline-none py-2 text-sm flex items-center pr-2 selection:border-0 flex-1
+    @apply appearance-none outline-none focus:outline-none py-2 text-sm flex items-center pr-2 flex-1
     bg-light-200/70 dark:bg-dark-900
     text-dark-700 dark:text-white
     placeholder:text-dark-400 dark:placeholder:text-dark-400
-    focus:placeholder:hidden focus:ring-offset-0 focus:ring-0;
+    focus:placeholder:hidden focus:ring-offset-0 focus:ring-0 transition-all duration-150 ease-in-out;
   }
 
   .checkbox-input {

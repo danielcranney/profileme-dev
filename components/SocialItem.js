@@ -26,7 +26,7 @@ const SocialItem = forwardRef((props, ref) => {
         icon={
           <Image
             src={
-              state.socials[account].darkPath
+              state[section][account].darkPath
                 ? theme == "dark"
                   ? `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/${section}/${account}-dark.svg`
                   : `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/${section}/${account}.svg`

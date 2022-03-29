@@ -760,6 +760,8 @@ const initialState = {
   socials: {
     github: {
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/github.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/github-dark.svg",
       linkPrefix: "https://www.github.com/",
       linkSuffix: "",
     },
@@ -776,11 +778,15 @@ const initialState = {
     },
     medium: {
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/medium.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/medium-dark.svg",
       linkPrefix: "http://www.medium.com/",
       linkSuffix: "",
     },
     devdotto: {
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/devdotto.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/devdotto-dark.svg",
       linkPrefix: "https://www.dev.to/",
       linkSuffix: "",
     },
@@ -831,11 +837,15 @@ const initialState = {
     },
     codesandbox: {
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/codesandbox.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/codesandbox-dark.svg",
       linkPrefix: "https://www.codesandbox.com/",
       linkSuffix: "",
     },
     codepen: {
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/codepen.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/codepen-dark.svg",
       linkPrefix: "https://www.codepen.io/",
       linkSuffix: "",
     },

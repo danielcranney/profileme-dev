@@ -418,6 +418,7 @@ export default function Home() {
         <meta property="twitter:creator" content="@danielcranney" />
       </Head>
 
+      {/* Hamburger Menu Icon */}
       <div className="fixed top-3.5 left-6 flex z-40 items-center gap-x-2">
         <button
           className={`btn-square ${
@@ -461,6 +462,7 @@ export default function Home() {
         </h1>
       </div>
 
+      {/* Dark Theme Icon */}
       <div className="fixed top-3.5 right-6 z-40 flex gap-x-2">
         <button
           onClick={() => {

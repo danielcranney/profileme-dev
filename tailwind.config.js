@@ -34,8 +34,8 @@ module.exports = {
         height: "height",
       },
       colors: {
-        brand: "#0891b2",
-        "brand-alt": "#06b6d4",
+        brand: "#139ae1",
+        "brand-alt": "#1ba8f2",
         dark: {
           300: "#b5b9d6",
           400: "#53566b",

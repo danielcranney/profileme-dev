@@ -402,14 +402,14 @@ export default function Home() {
         />
         <meta
           property="og:image"
-          content="http://raw.githubusercontent.com/danielcranney/readme-generator/main/public/social-image.jpg"
+          content="http://raw.githubusercontent.com/danielcranney/profileme-dev/main/public/social-image.jpg"
         />
         <meta property="og:url" content="http://www.profileme.dev" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:title" content="ProfileMe.dev" />
         <meta
           property="twitter:image"
-          content="http://raw.githubusercontent.com/danielcranney/readme-generator/main/public/social-image.jpg"
+          content="http://raw.githubusercontent.com/danielcranney/profileme-dev/main/public/social-image.jpg"
         />
         <meta
           property="twitter:description"

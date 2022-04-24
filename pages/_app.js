@@ -52,7 +52,7 @@ export const iconData = {
       iTag: "coffeescript",
       link: "https://coffeescript.org/",
     },
-     {
+    {
       name: "Dart",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/dart-colored.svg",
       darkPath:
@@ -343,6 +343,12 @@ export const iconData = {
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/laravel-colored.svg",
       iTag: "laravel",
       link: "https://laravel.com/",
+    },
+    {
+      name: "Flutter",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/flutter-colored.svg",
+      iTag: "flutter",
+      link: "https://flutter.dev/",
     },
   ],
   software: [

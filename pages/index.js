@@ -1538,6 +1538,10 @@ export default function Home() {
                 copySuccess !== "Copy" ? "btn-brand" : "btn-gray"
               }`}
               onClick={() => {
+                dispatch({
+                  type: ACTIONS.SELECT_RENDER_MODE,
+                  payload: "markdown",
+                });
                 copyToClipBoard(markdownRef.current.innerText);
               }}
             >

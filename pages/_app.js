@@ -52,6 +52,14 @@ export const iconData = {
       iTag: "coffeescript",
       link: "https://coffeescript.org/",
     },
+     {
+      name: "Dart",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/dart-colored.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/dart-colored.svg",
+      iTag: "dart",
+      link: "https://dart.dev/",
+    },
     {
       name: "Go",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/go-colored.svg",
@@ -138,7 +146,7 @@ export const iconData = {
     },
     {
       name: "Vue",
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/vue-colored.svg",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/vuejs-colored.svg",
       iTag: "vuejs",
       link: "https://vuejs.org/",
     },
@@ -156,7 +164,7 @@ export const iconData = {
     },
     {
       name: "Angular",
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/angular-colored.svg",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/angularjs-colored.svg",
       iTag: "angularjs",
       link: "https://angular.io/",
     },

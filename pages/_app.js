@@ -21,6 +21,7 @@ export const ACTIONS = {
   ADD_REPO: "add-repo",
   DELETE_REPO: "delete-repo",
   ADD_SUPPORT: "add-support",
+  TOGGLE_COPY_MODAL: "toggle-copy-modal",
 };
 
 // Icon Store
@@ -933,6 +934,7 @@ const initialState = {
       linkSuffix: "",
     },
   },
+  modal: false,
 };
 
 // Color Reducer
@@ -1091,6 +1093,11 @@ function reducer(state, action) {
             linkSuffix: action.payload.value,
           },
         },
+      };
+    case ACTIONS.TOGGLE_COPY_MODAL:
+      return {
+        ...state,
+        modal: action.payload,
       };
     default:
       throw new Error();

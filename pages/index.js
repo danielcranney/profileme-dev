@@ -1,5 +1,6 @@
 import React, { useEffect, useContext, useRef, useState } from "react";
 import Head from "next/head";
+import Image from "next/image";
 import { useTheme } from "next-themes";
 // Import state and actions
 import { ACTIONS } from "./_app";
@@ -417,6 +418,96 @@ export default function Home() {
         />
         <meta property="twitter:creator" content="@danielcranney" />
       </Head>
+
+      <div
+        className={`fixed bg-gray-800 w-full h-full z-50 delay-150 transition-all duration-150 ease-in-out ${
+          state.modal ? "opacity-50 flex" : "opacity-0 hidden"
+        }`}
+      ></div>
+
+      {/* Modal */}
+      {state.modal && (
+        <div className="fixed z-50 flex flex-col flex-grow overflow-hidden transform -translate-x-1/2 -translate-y-1/2 p-6 bg-white border-0 rounded-sm shadow-md w-4/10 dark:bg-dark-900 md:mx-0 md:top-1/2 md:left-1/2 top-1/2 left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-11/12 lg:w-2/3 xl:w-3/5 gap-y-4 border-t-8 border-brand">
+          <div className="flex items-center w-full">
+            <h1
+              className={`mb-0 text-lg sm:text-xl transition-all duration-150 ease-in-out text-dark-900 dark:text-white`}
+            >
+              ProfileMe
+              <span
+                className={`transition-all duration-150 ease-in-out text-brand-alt`}
+              >
+                .dev
+              </span>
+            </h1>
+            <button
+              onClick={() => {
+                dispatch({
+                  type: ACTIONS.TOGGLE_COPY_MODAL,
+                  payload: false,
+                });
+              }}
+              className="btn-sm btn-gray ml-auto"
+            >
+              Close
+            </button>
+          </div>
+          <div className="w-40 h-0.5 bg-brand"></div>
+          <h2>🎉 Success! Code Copied</h2>
+          <div className="flex gap-x-8 flex-col md:flex-row">
+            <div className="flex flex-col w-full md:w-1/2">
+              <p className="text-base">
+                Your code has been generated, and in just a few clicks you'll
+                have a fancy new GitHub profile.
+              </p>
+              <p className="text-lg font-bold">Here's what to do next:</p>
+              <ul className="list-disc list-inside flex flex-col mb-0">
+                <li className="dark:text-dark-300 text-dark-600 transition-all duration-150 ease-in-out">
+                  Visit your GitHub profile (eg:
+                  https://www.github.com/[YourName])
+                </li>
+                <li className="dark:text-dark-300 text-dark-600 transition-all duration-150 ease-in-out">
+                  Click the{" "}
+                  <svg
+                    class="w-4 h-4 inline"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
+                    ></path>
+                  </svg>{" "}
+                  button on [YourName]/ReadMe.md.
+                </li>
+                <li className="dark:text-dark-300 text-dark-600 transition-all duration-150 ease-in-out">
+                  Paste your code into the 'Edit file' text editor.
+                </li>
+                <li className="dark:text-dark-300 text-dark-600 transition-all duration-150 ease-in-out">
+                  Click the 'Preview' tab to preview your new profile.
+                </li>
+                <li className="dark:text-dark-300 text-dark-600 transition-all duration-150 ease-in-out">
+                  Click 'Commit Changes' to save your new GitHub.'
+                </li>
+              </ul>
+            </div>
+            <div className="w-full md:w-1/2 flex-col hidden md:flex">
+              <Image
+                src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/how-to-use-profile-me.gif"
+                layout={"responsive"}
+                width={600}
+                height={292}
+              />
+              <p className="text-xs mt-2">
+                How to use ProfileMe to update your GitHub profile
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Hamburger Menu Icon */}
       <div className="fixed top-3.5 left-6 flex z-40 items-center gap-x-2">
@@ -1543,6 +1634,10 @@ export default function Home() {
                   payload: "markdown",
                 });
                 copyToClipBoard(markdownRef.current.innerText);
+                dispatch({
+                  type: ACTIONS.TOGGLE_COPY_MODAL,
+                  payload: true,
+                });
               }}
             >
               <svg

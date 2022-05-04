@@ -7,7 +7,7 @@ import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 import { colorStore } from "./_app";
 let TurndownService = require("turndown").default;
 // Import components
-import Introduction from "../components/sections/introduction";
+import Introduction from "../components/sections/Introduction";
 import Skills from "../components/sections/Skills";
 import Socials from "../components/sections/Socials";
 import Badges from "../components/sections/Badges";

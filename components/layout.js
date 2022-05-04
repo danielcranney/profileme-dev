@@ -17,11 +17,6 @@ import CopyModal from "../components/modals/CopyModal";
 import HamburgerMenuIcon from "../components/buttons/HamburgerMenuIcon";
 import ThemeSwitch from "../components/buttons/ThemeSwitch";
 import Logo from "../components/Logo";
-import Introduction from "../components/sections/introduction";
-import Skills from "../components/sections/Skills";
-import Socials from "../components/sections/Socials";
-import Badges from "../components/sections/Badges";
-import Support from "../components/sections/Support";
 
 export default function Layout({ children }) {
   const { state, dispatch } = useContext(StateContext);

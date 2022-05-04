@@ -3,7 +3,7 @@ import React, { useContext } from "react";
 import { ACTIONS } from "../../pages/_app";
 import { StateContext } from "../../pages/_app";
 
-const MenuItem = ({ text, section, setSidebarOpen, icon }) => {
+const MenuItem = ({ text, section, icon }) => {
   const { state, dispatch } = useContext(StateContext);
   return (
     <li
@@ -13,7 +13,9 @@ const MenuItem = ({ text, section, setSidebarOpen, icon }) => {
           type: ACTIONS.SHOW_SECTION,
           payload: section,
         });
-        setSidebarOpen(false);
+        dispatch({
+          type: ACTIONS.TOGGLE_SIDEBAR,
+        });
       }}
     >
       <span

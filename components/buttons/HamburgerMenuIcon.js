@@ -1,11 +1,21 @@
-import React from "react";
-const HamburgerMenuIcon = ({ sidebarOpen, handleSidebarToggle }) => {
+import React, { useContext } from "react";
+import { StateContext } from "../../pages/_app";
+import { ACTIONS } from "../../pages/_app";
+
+const HamburgerMenuIcon = () => {
+  const { state, dispatch } = useContext(StateContext);
   return (
     <button
       className={`btn-square ${
-        sidebarOpen ? "bg-dark-900/0 text-white hover:text-white" : "btn-trans"
+        state.sidebarOpen
+          ? "bg-dark-900/0 text-white hover:text-white"
+          : "btn-trans"
       }`}
-      onClick={handleSidebarToggle}
+      onClick={() => {
+        dispatch({
+          type: ACTIONS.TOGGLE_SIDEBAR,
+        });
+      }}
     >
       <svg
         className={`w-6 h-6`}

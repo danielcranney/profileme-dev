@@ -1,21 +1,30 @@
-import React from "react";
+import React, { useContext } from "react";
+import { StateContext } from "../pages/_app";
+import Link from "next/link";
 
-const Logo = ({ sidebarOpen }) => {
+const Logo = () => {
+  const { state, dispatch } = useContext(StateContext);
   return (
-    <h1
-      className={`mb-0 text-lg sm:text-xl transition-all duration-150 ease-in-out ${
-        sidebarOpen ? "text-white" : "text-dark-900 dark:text-white"
-      }`}
-    >
-      ProfileMe
-      <span
-        className={`transition-all duration-150 ease-in-out ${
-          sidebarOpen ? "text-dark-700" : "text-brand-alt"
+    <Link href={"/"}>
+      <a
+        className={`mb-0 text-lg sm:text-xl transition-all duration-150 ease-in-out no-underline ${
+          state.sidebarOpen
+            ? "text-white hover:text-white"
+            : "text-dark-900 dark:text-white"
         }`}
       >
-        .dev
-      </span>
-    </h1>
+        ProfileMe
+        <span
+          className={`transition-all duration-150 ease-in-out ${
+            state.sidebarOpen
+              ? "text-dark-700 hover:text-dark-700"
+              : "text-brand-alt"
+          }`}
+        >
+          .dev
+        </span>
+      </a>
+    </Link>
   );
 };
 

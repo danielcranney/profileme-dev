@@ -1,3 +1,5 @@
+const colors = require("tailwindcss/colors");
+
 module.exports = {
   darkMode: "class",
   content: [
@@ -56,6 +58,11 @@ module.exports = {
           800: "#1e2126",
           900: "#0d0f12",
         },
+        red: colors.red,
+        orange: colors.orange,
+        yellow: colors.yellow,
+        emerald: colors.emerald,
+        blue: colors.blue,
       },
       fontFamily: {
         display: ["aktiv-grotesk-extended", "sans-serif"],

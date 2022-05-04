@@ -86,7 +86,7 @@ export default function Layout({ children }) {
         <Link href="/changelog">
           <a
             rel="noreferrer"
-            className={`z-40 flex ${
+            className={`z-40 hidden sm:flex ${
               state.sidebarOpen
                 ? "text-dark-800 hover:text-white md:text-brand md:hover:text-dark-800"
                 : "text-brand hover:text-dark-800 md:text-brand md:hover:text-dark-800"

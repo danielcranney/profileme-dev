@@ -756,7 +756,7 @@ const initialState = {
     longDescription: "",
     location: "",
     portfolioTitle: "",
-    portfolioLink: null,
+    portfolioLink: "",
     emailMe: "",
     workingOnTitle: "",
     workingOnLink: "",

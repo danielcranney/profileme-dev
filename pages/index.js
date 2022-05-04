@@ -1,6 +1,7 @@
 import React, { useEffect, useContext, useRef, useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
+import Link from "next/link";
 import { useTheme } from "next-themes";
 // Import state and actions
 import { ACTIONS } from "./_app";
@@ -420,14 +421,14 @@ export default function Home() {
       </Head>
 
       <div
-        className={`fixed bg-gray-800 w-full h-full z-50 delay-150 transition-all duration-150 ease-in-out ${
-          state.modal ? "opacity-50 flex" : "opacity-0 hidden"
+        className={`fixed dark:bg-dark-800 bg-slate-900 w-full h-full z-50 delay-150 transition-all duration-150 ease-in-out ${
+          state.modal ? "dark:opacity-90 opacity-50 flex" : "opacity-0 hidden"
         }`}
       ></div>
 
       {/* Modal */}
       {state.modal && (
-        <div className="fixed z-50 flex flex-col flex-grow overflow-hidden transform -translate-x-1/2 -translate-y-1/2 p-6 bg-white border-0 rounded-sm shadow-md w-4/10 dark:bg-dark-900 md:mx-0 md:top-1/2 md:left-1/2 top-1/2 left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-11/12 lg:w-2/3 xl:w-3/5 gap-y-4 border-t-8 border-brand">
+        <div className="fixed z-50 flex flex-col flex-grow overflow-hidden transform -translate-x-1/2 -translate-y-1/2 p-6 bg-white border-0 rounded-sm shadow-md w-4/10 dark:bg-dark-900 md:mx-0 md:top-1/2 md:left-1/2 top-1/2 left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-11/12 lg:w-2/3 xl:w-3/5 gap-y-5 border-t-8 border-brand">
           <div className="flex items-center w-full">
             <h1
               className={`mb-0 text-lg sm:text-xl transition-all duration-150 ease-in-out text-dark-900 dark:text-white`}
@@ -452,20 +453,21 @@ export default function Home() {
             </button>
           </div>
           <div className="w-40 h-0.5 bg-brand"></div>
-          <h2>🎉 Success! Code Copied</h2>
-          <div className="flex gap-x-8 flex-col md:flex-row">
+
+          <div className="flex gap-x-8 flex-col md:flex-row md:items-start">
             <div className="flex flex-col w-full md:w-1/2">
+              <h2 className="mb-4">🎉 Success! Code Copied.</h2>
               <p className="text-base">
                 Your code has been generated, and in just a few clicks you'll
                 have a fancy new GitHub profile.
               </p>
-              <p className="text-lg font-bold">Here's what to do next:</p>
+              <p className="text-base font-bold">Here's what to do next:</p>
               <ul className="list-disc list-inside flex flex-col mb-0">
-                <li className="dark:text-dark-300 text-dark-600 transition-all duration-150 ease-in-out">
+                <li className="dark:text-dark-300 text-dark-600 transition-all duration-150 ease-in-out text-sm">
                   Visit your GitHub profile (eg:
                   https://www.github.com/[YourName])
                 </li>
-                <li className="dark:text-dark-300 text-dark-600 transition-all duration-150 ease-in-out">
+                <li className="dark:text-dark-300 text-dark-600 transition-all duration-150 ease-in-out text-sm">
                   Click the{" "}
                   <svg
                     class="w-4 h-4 inline"
@@ -483,14 +485,14 @@ export default function Home() {
                   </svg>{" "}
                   button on [YourName]/ReadMe.md.
                 </li>
-                <li className="dark:text-dark-300 text-dark-600 transition-all duration-150 ease-in-out">
+                <li className="dark:text-dark-300 text-dark-600 transition-all duration-150 ease-in-out text-sm">
                   Paste your code into the 'Edit file' text editor.
                 </li>
-                <li className="dark:text-dark-300 text-dark-600 transition-all duration-150 ease-in-out">
+                <li className="dark:text-dark-300 text-dark-600 transition-all duration-150 ease-in-out text-sm">
                   Click the 'Preview' tab to preview your new profile.
                 </li>
-                <li className="dark:text-dark-300 text-dark-600 transition-all duration-150 ease-in-out">
-                  Click 'Commit Changes' to save your new GitHub.'
+                <li className="dark:text-dark-300 text-dark-600 transition-all duration-150 ease-in-out text-sm">
+                  Click 'Commit Changes' to save your new GitHub profile.
                 </li>
               </ul>
             </div>
@@ -554,7 +556,19 @@ export default function Home() {
       </div>
 
       {/* Dark Theme Icon */}
-      <div className="fixed top-3.5 right-6 z-40 flex gap-x-2">
+      <div className="fixed top-3.5 right-6 z-40 flex gap-x-3 items-center h-9">
+        {/* <Link href="/changelog">
+          <a
+            rel="noreferrer"
+            className={`z-40 flex ${
+              sidebarOpen
+                ? "text-dark-800 hover:text-white md:text-brand md:hover:text-dark-800"
+                : "text-brand hover:text-dark-800 md:text-brand md:hover:text-dark-800"
+            } text-xs px-0`}
+          >
+            Changelog
+          </a>
+        </Link> */}
         <button
           onClick={() => {
             setTheme(currentTheme == "dark" ? "light" : "dark");
@@ -598,7 +612,7 @@ export default function Home() {
         </a>
       </div>
 
-      <header className={`${sidebarOpen ? "pl-70" : "pl-56"}`}>
+      <header className={`${sidebarOpen ? "pl-70" : "pl-56"} w-full`}>
         <p className="text-dark-700 mr-auto mb-0 text-xs gap-x-2 items-center hidden lg:flex">
           <span className="btn-xs btn-gray-outline font-bold">
             New feature:

@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 const CopyrightLabel = () => {
   return (
@@ -6,6 +7,7 @@ const CopyrightLabel = () => {
       <p className="mt-auto mb-1 text-xs text-white dark:text-white">
         &copy; 2022 Dan Cranney
       </p>
+
       <div className="flex mt-1 text-xs text-white dark:text-white">
         <a
           href="https://www.twitter.com/danielcranney"

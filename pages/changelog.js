@@ -9,27 +9,26 @@ export default function Changelog() {
     <>
       {/* COLUMN 2 - INPUTS */}
       <section
-        className={`grow flex input-column-wrapper overflow-auto p-6 ${
+        className={`grow flex input-column-wrapper overflow-scroll p-6 ${
           state.sidebarOpen ? "ml-0 md:ml-64 " : ""
         }`}
       >
         <h1>Changelog</h1>
 
-        <section>
+        <section className="flex flex-col gap-y-8 md:gap-y-0">
           {/* May 4th 2022 */}
-          <article className="flex py-6 gap-x-6 flex-col md:flex-row gap-y-3">
+          <article className="flex gap-x-6 flex-col md:flex-row gap-y-3 border-b border-light-200 dark:border-dark-600 transition-all duration-150 ease-in-out pb-8 md:pb-0">
             {/* Left Column */}
-            <div className="w-full md:w-1/4 flex flex-col">
+            <div className="w-full md:w-1/4 flex flex-col border-r-0 md:border-r border-light-200 dark:border-dark-600 py-0 md:py-6 transition-all duration-150 ease-in-out">
               <h3>May 4th 2022</h3>
-              <p className="text-sm">
+              <p className="text-sm mb-0">
                 Posted by{" "}
                 <a href="mailto:danielcranney@gmail.com">Dan Cranney</a>
               </p>
-              <hr className="h-px w-full border-0 bg-light-200 dark:bg-dark-600" />
             </div>
 
             {/* Right Column */}
-            <div className="w-3/4 flex flex-col">
+            <div className="w-full md:w-3/4 flex flex-col py-0 md:py-6 transition-all duration-150 ease-in-out">
               <ul className="gap-y-4 flex flex-col mb-0">
                 <li className="flex flex-col items-start gap-y-1">
                   <div className="w-20">
@@ -62,19 +61,18 @@ export default function Changelog() {
           </article>
 
           {/* April 24th 2022 */}
-          <article className="flex py-6 gap-x-6 flex-col md:flex-row gap-y-3">
+          <article className="flex gap-x-6 flex-col md:flex-row gap-y-3 border-b border-light-200 dark:border-dark-600 transition-all duration-150 ease-in-out pb-8 md:pb-0">
             {/* Left Column */}
-            <div className="w-full md:w-1/4 flex flex-col">
+            <div className="w-full md:w-1/4 flex flex-col border-r-0 md:border-r border-light-200 dark:border-dark-600 py-0 md:py-6 transition-all duration-150 ease-in-out">
               <h3>April 24th 2022</h3>
-              <p className="text-sm">
+              <p className="text-sm mb-0">
                 Posted by{" "}
                 <a href="mailto:danielcranney@gmail.com">Dan Cranney</a>
               </p>
-              <hr className="h-px w-full border-0 bg-light-200 dark:bg-dark-600" />
             </div>
 
             {/* Right Column */}
-            <div className="w-3/4 flex flex-col">
+            <div className="w-full md:w-3/4 flex flex-col py-0 md:py-6 transition-all duration-150 ease-in-out">
               <ul className="gap-y-4 flex flex-col mb-0">
                 <li className="flex flex-col items-start gap-y-1">
                   <div className="w-20">
@@ -97,19 +95,18 @@ export default function Changelog() {
           </article>
 
           {/* April 7th 2022 */}
-          <article className="flex py-6 gap-x-6 flex-col md:flex-row gap-y-3">
+          <article className="flex gap-x-6 flex-col md:flex-row gap-y-3 border-b border-light-200 dark:border-dark-600 transition-all duration-150 ease-in-out pb-8 md:pb-0">
             {/* Left Column */}
-            <div className="w-full md:w-1/4 flex flex-col">
+            <div className="w-full md:w-1/4 flex flex-col border-r-0 md:border-r border-light-200 dark:border-dark-600 py-0 md:py-6 transition-all duration-150 ease-in-out">
               <h3>April 7th 2022</h3>
-              <p className="text-sm">
+              <p className="text-sm mb-0">
                 Posted by{" "}
                 <a href="mailto:danielcranney@gmail.com">Dan Cranney</a>
               </p>
-              <hr className="h-px w-full border-0 bg-light-200 dark:bg-dark-600" />
             </div>
 
             {/* Right Column */}
-            <div className="w-3/4 flex flex-col">
+            <div className="w-full md:w-3/4 flex flex-col py-0 md:py-6 transition-all duration-150 ease-in-out">
               <ul className="gap-y-4 flex flex-col mb-0">
                 <li className="flex flex-col items-start gap-y-1">
                   <div className="w-20">
@@ -122,19 +119,18 @@ export default function Changelog() {
           </article>
 
           {/* March 18th 2022 */}
-          <article className="flex py-6 gap-x-6 flex-col md:flex-row gap-y-3">
+          <article className="flex gap-x-6 flex-col md:flex-row gap-y-3 border-b border-light-200 dark:border-dark-600 transition-all duration-150 ease-in-out pb-8 md:pb-0">
             {/* Left Column */}
-            <div className="w-full md:w-1/4 flex flex-col">
+            <div className="w-full md:w-1/4 flex flex-col border-r-0 md:border-r border-light-200 dark:border-dark-600 py-0 md:py-6 transition-all duration-150 ease-in-out">
               <h3>March 24th 2022</h3>
-              <p className="text-sm">
+              <p className="text-sm mb-0">
                 Posted by{" "}
                 <a href="mailto:danielcranney@gmail.com">Dan Cranney</a>
               </p>
-              <hr className="h-px w-full border-0 bg-light-200 dark:bg-dark-600" />
             </div>
 
             {/* Right Column */}
-            <div className="w-3/4 flex flex-col">
+            <div className="w-full md:w-3/4 flex flex-col py-0 md:py-6 transition-all duration-150 ease-in-out">
               <ul className="gap-y-4 flex flex-col mb-0">
                 <li className="flex flex-col items-start gap-y-1">
                   <div className="w-20">
@@ -171,19 +167,18 @@ export default function Changelog() {
           </article>
 
           {/* March 18th 2022 */}
-          <article className="flex py-6 gap-x-6 flex-col md:flex-row gap-y-3">
+          <article className="flex gap-x-6 flex-col md:flex-row gap-y-3 border-b border-light-200 dark:border-dark-600 transition-all duration-150 ease-in-out pb-8 md:pb-0">
             {/* Left Column */}
-            <div className="w-full md:w-1/4 flex flex-col">
+            <div className="w-full md:w-1/4 flex flex-col border-r-0 md:border-r border-light-200 dark:border-dark-600 py-0 md:py-6 transition-all duration-150 ease-in-out">
               <h3>March 18th 2022</h3>
-              <p className="text-sm">
+              <p className="text-sm mb-0">
                 Posted by{" "}
                 <a href="mailto:danielcranney@gmail.com">Dan Cranney</a>
               </p>
-              <hr className="h-px w-full border-0 bg-light-200 dark:bg-dark-600" />
             </div>
 
             {/* Right Column */}
-            <div className="w-3/4 flex flex-col">
+            <div className="w-full md:w-3/4 flex flex-col py-0 md:py-6 transition-all duration-150 ease-in-out">
               <ul className="gap-y-4 flex flex-col mb-0">
                 <li className="flex flex-col items-start gap-y-1">
                   <div className="w-20">
@@ -196,19 +191,18 @@ export default function Changelog() {
           </article>
 
           {/* March 16th 2022 */}
-          <article className="flex py-6 gap-x-6 flex-col md:flex-row gap-y-3">
+          <article className="flex gap-x-6 flex-col md:flex-row gap-y-3 border-b border-light-200 dark:border-dark-600 transition-all duration-150 ease-in-out pb-8 md:pb-0">
             {/* Left Column */}
-            <div className="w-full md:w-1/4 flex flex-col">
+            <div className="w-full md:w-1/4 flex flex-col border-r-0 md:border-r border-light-200 dark:border-dark-600 py-0 md:py-6 transition-all duration-150 ease-in-out">
               <h3>March 16th 2022</h3>
-              <p className="text-sm">
+              <p className="text-sm mb-0">
                 Posted by{" "}
                 <a href="mailto:danielcranney@gmail.com">Dan Cranney</a>
               </p>
-              <hr className="h-px w-full border-0 bg-light-200 dark:bg-dark-600" />
             </div>
 
             {/* Right Column */}
-            <div className="w-3/4 flex flex-col">
+            <div className="w-full md:w-3/4 flex flex-col py-0 md:py-6 transition-all duration-150 ease-in-out">
               <ul className="gap-y-4 flex flex-col mb-0">
                 <li className="flex flex-col items-start gap-y-1">
                   <div className="w-20">
@@ -223,19 +217,18 @@ export default function Changelog() {
           </article>
 
           {/* March 15th 2022 */}
-          <article className="flex py-6 gap-x-6 flex-col md:flex-row gap-y-3">
+          <article className="flex gap-x-6 flex-col md:flex-row gap-y-3 border-b border-light-200 dark:border-dark-600 transition-all duration-150 ease-in-out pb-8 md:pb-0">
             {/* Left Column */}
-            <div className="w-full md:w-1/4 flex flex-col">
+            <div className="w-full md:w-1/4 flex flex-col border-r-0 md:border-r border-light-200 dark:border-dark-600 py-0 md:py-6 transition-all duration-150 ease-in-out">
               <h3>March 15th 2022</h3>
-              <p className="text-sm">
+              <p className="text-sm mb-0">
                 Posted by{" "}
                 <a href="mailto:danielcranney@gmail.com">Dan Cranney</a>
               </p>
-              <hr className="h-px w-full border-0 bg-light-200 dark:bg-dark-600" />
             </div>
 
             {/* Right Column */}
-            <div className="w-3/4 flex flex-col">
+            <div className="w-full md:w-3/4 flex flex-col py-0 md:py-6 transition-all duration-150 ease-in-out">
               <ul className="gap-y-4 flex flex-col mb-0">
                 <li className="flex flex-col items-start gap-y-1">
                   <div className="w-20">
@@ -251,19 +244,18 @@ export default function Changelog() {
           </article>
 
           {/* March 10th 2022 */}
-          <article className="flex py-6 gap-x-6 flex-col md:flex-row gap-y-3">
+          <article className="flex gap-x-6 flex-col md:flex-row gap-y-3 border-b border-light-200 dark:border-dark-600 transition-all duration-150 ease-in-out pb-8 md:pb-0">
             {/* Left Column */}
-            <div className="w-full md:w-1/4 flex flex-col">
+            <div className="w-full md:w-1/4 flex flex-col border-r-0 md:border-r border-light-200 dark:border-dark-600 py-0 md:py-6 transition-all duration-150 ease-in-out">
               <h3>March 10th 2022</h3>
-              <p className="text-sm">
+              <p className="text-sm mb-0">
                 Posted by{" "}
                 <a href="mailto:danielcranney@gmail.com">Dan Cranney</a>
               </p>
-              <hr className="h-px w-full border-0 bg-light-200 dark:bg-dark-600" />
             </div>
 
             {/* Right Column */}
-            <div className="w-3/4 flex flex-col">
+            <div className="w-full md:w-3/4 flex flex-col py-0 md:py-6 transition-all duration-150 ease-in-out">
               <ul className="gap-y-4 flex flex-col mb-0">
                 <li className="flex flex-col items-start gap-y-1">
                   <div className="w-20">
@@ -287,19 +279,18 @@ export default function Changelog() {
           </article>
 
           {/* March 9th 2022 */}
-          <article className="flex py-6 gap-x-6 flex-col md:flex-row gap-y-3">
+          <article className="flex gap-x-6 flex-col md:flex-row gap-y-3 border-b border-light-200 dark:border-dark-600 transition-all duration-150 ease-in-out pb-8 md:pb-0">
             {/* Left Column */}
-            <div className="w-full md:w-1/4 flex flex-col">
+            <div className="w-full md:w-1/4 flex flex-col border-r-0 md:border-r border-light-200 dark:border-dark-600 py-0 md:py-6 transition-all duration-150 ease-in-out">
               <h3>March 9th 2022</h3>
-              <p className="text-sm">
+              <p className="text-sm mb-0">
                 Posted by{" "}
                 <a href="mailto:danielcranney@gmail.com">Dan Cranney</a>
               </p>
-              <hr className="h-px w-full border-0 bg-light-200 dark:bg-dark-600" />
             </div>
 
             {/* Right Column */}
-            <div className="w-3/4 flex flex-col">
+            <div className="w-full md:w-3/4 flex flex-col py-0 md:py-6 transition-all duration-150 ease-in-out">
               <ul className="gap-y-4 flex flex-col mb-0">
                 <li className="flex flex-col items-start gap-y-1">
                   <div className="w-20">
@@ -359,19 +350,18 @@ export default function Changelog() {
           </article>
 
           {/* March 8th 2022 */}
-          <article className="flex py-6 gap-x-6 flex-col md:flex-row gap-y-3">
+          <article className="flex gap-x-6 flex-col md:flex-row gap-y-3 border-b border-light-200 dark:border-dark-600 transition-all duration-150 ease-in-out pb-8 md:pb-0">
             {/* Left Column */}
-            <div className="w-full md:w-1/4 flex flex-col">
+            <div className="w-full md:w-1/4 flex flex-col border-r-0 md:border-r border-light-200 dark:border-dark-600 py-0 md:py-6 transition-all duration-150 ease-in-out">
               <h3>March 8th 2022</h3>
-              <p className="text-sm">
+              <p className="text-sm mb-0">
                 Posted by{" "}
                 <a href="mailto:danielcranney@gmail.com">Dan Cranney</a>
               </p>
-              <hr className="h-px w-full border-0 bg-light-200 dark:bg-dark-600" />
             </div>
 
             {/* Right Column */}
-            <div className="w-3/4 flex flex-col">
+            <div className="w-full md:w-3/4 flex flex-col py-0 md:py-6 transition-all duration-150 ease-in-out">
               <ul className="gap-y-4 flex flex-col mb-0">
                 <li className="flex flex-col items-start gap-y-1">
                   <div className="w-20">

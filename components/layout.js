@@ -17,9 +17,11 @@ import CopyModal from "../components/modals/CopyModal";
 import HamburgerMenuIcon from "../components/buttons/HamburgerMenuIcon";
 import ThemeSwitch from "../components/buttons/ThemeSwitch";
 import Logo from "../components/Logo";
+import { useRouter } from "next/router";
 
 export default function Layout({ children }) {
   const { state, dispatch } = useContext(StateContext);
+  const router = useRouter();
 
   return (
     <div className="flex flex-col min-h-screen h-auto md:h-screen relative">
@@ -89,6 +91,12 @@ export default function Layout({ children }) {
                 ? "text-dark-800 hover:text-white md:text-brand md:hover:text-dark-800"
                 : "text-brand hover:text-dark-800 md:text-brand md:hover:text-dark-800"
             } text-xs px-0`}
+            onClick={() => {
+              dispatch({
+                type: ACTIONS.SHOW_SECTION,
+                payload: null,
+              });
+            }}
           >
             Changelog
           </a>
@@ -104,7 +112,7 @@ export default function Layout({ children }) {
           <span className="btn-xs btn-gray-outline font-bold">
             New feature:
           </span>
-          <span className="">Light/dark mode</span>
+          <span className="">Changelog added</span>
         </p>
       </header>
 

@@ -120,7 +120,7 @@ Table Of Contents:
   }
 
   main {
-    @apply relative flex flex-col flex-1 overflow-hidden md:flex-row top-16 md:top-0;
+    @apply relative flex flex-col flex-1 md:overflow-hidden md:flex-row top-16 md:top-0;
   }
 
   aside {

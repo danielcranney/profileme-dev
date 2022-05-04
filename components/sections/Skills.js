@@ -67,4 +67,5 @@ const Skills = React.forwardRef(({ handleIconToggle }, ref) => {
   );
 });
 
+Skills.displayName = "Skills";
 export default Skills;

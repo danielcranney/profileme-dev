@@ -260,4 +260,5 @@ const Socials = React.forwardRef((props, ref) => {
   );
 });
 
+Socials.displayName = "Socials";
 export default Socials;

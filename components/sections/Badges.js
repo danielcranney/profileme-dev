@@ -387,4 +387,5 @@ const Badges = React.forwardRef((props, ref) => {
   );
 });
 
+Badges.displayName = "Badges";
 export default Badges;

@@ -155,4 +155,5 @@ const Introduction = React.forwardRef((props, ref) => {
   );
 });
 
+Introduction.displayName = "Introduction";
 export default Introduction;

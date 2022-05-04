@@ -36,10 +36,10 @@ const CopyModal = () => {
         <div className="flex flex-col w-full md:w-1/2">
           <h2 className="mb-4">🎉 Success! Code Copied.</h2>
           <p className="text-base">
-            Your code has been generated, and in just a few clicks you'll have a
-            fancy new GitHub profile.
+            Your code has been generated, and in just a few clicks you&apos;ll
+            have a fancy new GitHub profile.
           </p>
-          <p className="text-base font-bold">Here's what to do next:</p>
+          <p className="text-base font-bold">Here&apos;s what to do next:</p>
           <ul className="list-disc list-inside flex flex-col mb-0">
             <li className="dark:text-dark-300 text-dark-600 transition-all duration-150 ease-in-out text-sm">
               Visit your GitHub profile (eg: https://www.github.com/[YourName])
@@ -47,29 +47,29 @@ const CopyModal = () => {
             <li className="dark:text-dark-300 text-dark-600 transition-all duration-150 ease-in-out text-sm">
               Click the{" "}
               <svg
-                class="w-4 h-4 inline"
+                className="w-4 h-4 inline"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"
                 ></path>
               </svg>{" "}
               button on [YourName]/ReadMe.md.
             </li>
             <li className="dark:text-dark-300 text-dark-600 transition-all duration-150 ease-in-out text-sm">
-              Paste your code into the 'Edit file' text editor.
+              Paste your code into the &apos;Edit file&apos; text editor.
             </li>
             <li className="dark:text-dark-300 text-dark-600 transition-all duration-150 ease-in-out text-sm">
-              Click the 'Preview' tab to preview your new profile.
+              Click the &apos;Preview&apos; tab to preview your new profile.
             </li>
             <li className="dark:text-dark-300 text-dark-600 transition-all duration-150 ease-in-out text-sm">
-              Click 'Commit Changes' to save your new GitHub profile.
+              Click &apos;Commit Changes&apos; to save your new GitHub profile.
             </li>
           </ul>
         </div>

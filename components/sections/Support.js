@@ -44,4 +44,5 @@ const Support = React.forwardRef((props, ref) => {
   );
 });
 
+Support.displayName = "Support";
 export default Support;

@@ -56,6 +56,12 @@ export default function Changelog() {
                     Dark icon added to socials skills section.
                   </p>
                 </li>
+                <li className="flex flex-col items-start gap-y-1">
+                  <div className="w-20">
+                    <MicroButton buttonStyle={"btn-new"} text={"New"} />
+                  </div>
+                  <p className="text-sm mb-0">Changelog added.</p>
+                </li>
               </ul>
             </div>
           </article>

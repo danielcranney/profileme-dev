@@ -37,7 +37,7 @@ export default function Changelog() {
                   </div>
                   <p className="text-sm mb-0">
                     Modal added to show users how to use ProfileMe after
-                    clicking the 'Copy' button.
+                    clicking the &apos;Copy&apos; button.
                   </p>
                 </li>
                 <li className="flex flex-col items-start gap-y-1">
@@ -242,8 +242,8 @@ export default function Changelog() {
                     <MicroButton buttonStyle={"btn-new"} text={"New"} />
                   </div>
                   <p className="text-sm mb-0">
-                    Hashnode link updated to point towards users' blog rather
-                    than profile.
+                    Hashnode link updated to point towards users&apos; blog
+                    rather than profile.
                   </p>
                 </li>
               </ul>

@@ -6,7 +6,7 @@ import Image from "next/image";
 const CopyModal = () => {
   const { dispatch } = useContext(StateContext);
   return (
-    <div className="fixed z-50 flex flex-col flex-grow overflow-hidden transform -translate-x-1/2 -translate-y-1/2 p-6 bg-white border-0 rounded-sm shadow-md w-4/10 dark:bg-dark-900 md:mx-0 md:top-1/2 md:left-1/2 top-1/2 left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-11/12 lg:w-2/3 xl:w-3/5 gap-y-5 border-t-8 border-brand">
+    <div className="fixed z-50 flex flex-col flex-grow overflow-hidden transform -translate-x-1/2 -translate-y-1/2 p-6 bg-white border-0 rounded-sm shadow-md w-4/10 dark:bg-dark-800 md:mx-0 md:top-1/2 md:left-1/2 top-1/2 left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-11/12 lg:w-2/3 xl:w-3/5 gap-y-5 border-t-8 border-brand">
       <div className="flex items-center w-full">
         <h1
           className={`mb-0 text-lg sm:text-xl transition-all duration-150 ease-in-out text-dark-900 dark:text-white`}

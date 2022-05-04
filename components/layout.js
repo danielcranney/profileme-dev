@@ -66,8 +66,8 @@ export default function Layout({ children }) {
 
       {/* Copy Overlay */}
       <div
-        className={`fixed dark:bg-dark-800 bg-slate-900 w-full h-full z-50 delay-150 transition-all duration-150 ease-in-out ${
-          state.modal ? "dark:opacity-90 opacity-50 flex" : "opacity-0 hidden"
+        className={`fixed dark:bg-black bg-slate-900 w-full h-full z-50 delay-150 transition-all duration-150 ease-in-out ${
+          state.modal ? "dark:opacity-50 opacity-50 flex" : "opacity-0 hidden"
         }`}
       ></div>
 

@@ -1,5 +1,7 @@
 import React, { useReducer, useRef } from 'react';
 
+
+
 const useReducerWithMiddleware = (
     reducer,
     initialState,
@@ -23,8 +25,8 @@ const useReducerWithMiddleware = (
     React.useEffect(() => {
         if (!aRef.current) return;
 
-        afterMiddlewareFns.forEach((afterwareMiddlewareFn) =>
-            afterwareMiddlewareFn(aRef.current, state)
+        afterMiddlewareFns.forEach((afterMiddlewareFn) =>
+            afterMiddlewareFn(aRef.current, state)
         );
 
         aRef.current = null;

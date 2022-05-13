@@ -76,7 +76,7 @@ export const iconData = {
       link: "https://www.oracle.com/java/",
     },
     {
-      name: "Javascript",
+      name: "JavaScript",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/javascript-colored.svg",
       iTag: "javascript",
       link: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
@@ -120,7 +120,7 @@ export const iconData = {
       link: "https://developer.apple.com/swift/",
     },
     {
-      name: "Typescript",
+      name: "TypeScript",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/typescript-colored.svg",
       iTag: "typescript",
       link: "https://www.typescriptlang.org/",
@@ -342,7 +342,7 @@ export const iconData = {
       link: "https://www.djangoproject.com/",
     },
     {
-      name: "Lavarel",
+      name: "Laravel",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/laravel-colored.svg",
       iTag: "laravel",
       link: "https://laravel.com/",

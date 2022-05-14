@@ -313,6 +313,12 @@ Table Of Contents:
   .javascript.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/javascript-colored.svg')];
   }
+  .kotlin {
+    @apply bg-[url('https://gist.github.com/Dhina17/b54ba7c6ab6d60fbd1c9f15ec8dda87b/raw/e058f79286b7868c5da49736aa9a3c98c025f279/kotlin.svg')] dark:bg-[url('https://gist.github.com/Dhina17/c792f04031d84746f30c4dd7a4cffe2f/raw/b4cdeba609950ad59dd31798f0b29afffe5f966d/kotlin-dark.svg')];
+  }
+  .kotlin.colored {
+    @apply bg-[url('https://gist.github.com/Dhina17/580adb1a05113ea4e7dc4fb346a657dc/raw/7c6ac7a7e0ebdd2886340a1ffbb2cc31e2d20a30/kotlin-colored.svg')];
+  }
   .perl {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/perl.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/perl-dark.svg')];
   }

@@ -82,6 +82,12 @@ export const iconData = {
       link: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
     },
     {
+      name: "Kotlin",
+      path: "https://gist.githubusercontent.com/Dhina17/580adb1a05113ea4e7dc4fb346a657dc/raw/7c6ac7a7e0ebdd2886340a1ffbb2cc31e2d20a30/kotlin-colored.svg",
+      iTag: "kotlin",
+      link: "https://kotlinlang.org/"
+    },
+    {
       name: "Perl",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/perl-colored.svg",
       iTag: "perl",

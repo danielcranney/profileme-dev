@@ -1207,6 +1207,10 @@ export default function Home() {
                           
                       <a href="${profile[1].linkPrefix}${
                       profile[1].linkSuffix
+                    }${
+                      profile[1].linkSuffixTwo
+                        ? `${profile[1].linkSuffixTwo}`
+                        : ""
                     }" target="_blank" rel="noreferrer"><img src="${
                       profile[1].darkPath
                         ? theme == "dark"

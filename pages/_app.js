@@ -991,12 +991,13 @@ function reducer(state, action) {
         },
       };
     case ACTIONS.REMOVE_SKILL:
+
       return {
         ...state,
         skills: {
           ...state.skills,
           [action.payload.type]: state.skills[action.payload.type].filter(
-            (item) => item !== action.payload.icon
+            (item) => item.name !== action.payload.icon.name
           ),
         },
       };

@@ -58,8 +58,6 @@ export const iconData = {
     {
       name: "Dart",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/dart-colored.svg",
-      darkPath:
-        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/dart-colored.svg",
       iTag: "dart",
       link: "https://dart.dev/",
     },

@@ -1,5 +1,16 @@
-
-            <svg viewBox="0 0 128 128">
-            <path d="M84.466 0L63.887 36.578H22.756L43.321 0z" opacity=".45"></path><path d="M63.887 36.576h41.145L84.468 0H43.323z" opacity=".6"></path><path d="M43.323 73.138l20.565-36.562L43.323 0 22.759 36.576z" opacity=".8"></path><path d="M43.521 128L64.1 91.424h41.145L84.666 128z" opacity=".45"></path><path d="M64.1 91.426H22.955l20.564 36.575h41.145z" opacity=".6"></path><path d="M84.666 54.864L64.102 91.426l20.564 36.575 20.579-36.575z" opacity=".8"></path>
-            </svg>
-          
+<svg xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Layer_1" x="0px" y="0px" width="1300px" height="1300px" viewBox="0 0 1300 1300" enable-background="new 0 0 1300 1300" xml:space="preserve">
+<title>Vector 1</title>
+<desc>Created with Sketch.</desc>
+<g id="Page-1" sketch:type="MSPage">
+	<g id="solidity" transform="translate(402.000000, 118.000000)" sketch:type="MSLayerGroup">
+		<g id="Group" sketch:type="MSShapeGroup">
+			<path id="Shape" opacity="0.45" enable-background="new    " d="M371.772,135.308L241.068,367.61H-20.158l130.614-232.302     H371.772"/>
+			<path id="Shape_1_" opacity="0.6" enable-background="new    " d="M241.068,367.61h261.318L371.772,135.308H110.456     L241.068,367.61z"/>
+			<path id="Shape_2_" opacity="0.8" enable-background="new    " d="M110.456,599.822L241.068,367.61L110.456,135.308     L-20.158,367.61L110.456,599.822z"/>
+			<path id="Shape_3_" opacity="0.45" enable-background="new    " d="M111.721,948.275l130.704-232.303h261.318L373.038,948.275     H111.721"/>
+			<path id="Shape_4_" opacity="0.6" enable-background="new    " d="M242.424,715.973H-18.893l130.613,232.303h261.317     L242.424,715.973z"/>
+			<path id="Shape_5_" opacity="0.8" enable-background="new    " d="M373.038,483.761L242.424,715.973l130.614,232.303     l130.704-232.303L373.038,483.761z"/>
+		</g>
+	</g>
+</g>
+</svg>

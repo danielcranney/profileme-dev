@@ -259,17 +259,16 @@ export default function Home() {
   };
 
   const handleIconToggle = (iconCategory, iconObj, i) => {
-    if (state.skills[iconCategory].includes(iconObj)) {
-      const iconToRemove = state.skills[iconCategory].indexOf(iconObj);
-      if (iconToRemove > -1) {
-        dispatch({
-          type: ACTIONS.REMOVE_SKILL,
-          payload: {
-            type: iconCategory,
-            icon: iconObj,
-          },
-        });
-      }
+    const isIconAlreadySelectedIndex = state.skills[iconCategory].findIndex((item) => item.name === iconObj.name)
+
+    if (isIconAlreadySelectedIndex >= 0) {
+      dispatch({
+        type: ACTIONS.REMOVE_SKILL,
+        payload: {
+          type: iconCategory,
+          icon: iconObj,
+        },
+      });
     } else {
       dispatch({
         type: ACTIONS.ADD_SKILL,

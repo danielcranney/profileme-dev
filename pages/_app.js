@@ -940,7 +940,7 @@ const initialState = {
       linkSuffix: "",
     },
   },
-  sidebarOpen: true,
+  sidebarOpen: false,
   modal: false,
 };
 

@@ -43,8 +43,7 @@ export default function Home() {
           <div className="flex w-full items-center gap-x-8">
             <div className="flex flex-col w-1/2 items-start gap-y-4">
               <h1 className="text-6xl leading-tight mb-0">
-                Show off your{" "}
-                <span className="underline text-brand">skills</span>
+                Show off your <span className="text-brand">skills</span>
               </h1>
               <p className="text-lg">
                 Select from over 60 core languages, frameworks, backend
@@ -358,7 +357,7 @@ export default function Home() {
             </div>
             <div className="flex w-1/2 flex-col items-start gap-y-4">
               <h1 className="text-6xl leading-tight mb-0">
-                Share your <span className="underline text-brand">socials</span>
+                Share your <span className="text-brand">socials</span>
               </h1>
               <p className="text-lg">
                 Add links to all of your social profiles and blogs in seconds.
@@ -373,7 +372,7 @@ export default function Home() {
         <article className="container mx-auto flex items-center justify-center px-24">
           <div className="flex w-1/2 flex-col items-start gap-y-4">
             <h1 className="text-6xl leading-tight mb-0">
-              Add some <span className="underline text-brand">stats</span>
+              Add some <span className="text-brand">stats</span>
             </h1>
             <p className="text-lg">
               Show visitors some key facts through charts, graphs and badges.
@@ -388,6 +387,22 @@ export default function Home() {
               layout="responsive"
             />
           </div>
+        </article>
+      </section>
+
+      {/* Fourth Section */}
+      <section className="w-full flex items-center bg-light-100 dark:bg-dark-800 py-24">
+        <article className="container mx-auto flex items-center justify-center px-24">
+          <div className="flex w-1/2 flex-col items-start gap-y-4">
+            <h1 className="text-6xl leading-tight mb-0">
+              Export <span className="text-brand">snippet</span>
+            </h1>
+            <p className="text-lg">
+              Show visitors some key facts through charts, graphs and badges.
+            </p>
+          </div>
+
+          <div className="w-1/2"></div>
         </article>
       </section>
     </main>

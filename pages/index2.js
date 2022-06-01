@@ -1,5 +1,6 @@
 import React from "react";
 import LandingLayout from "../components/layouts/LandingLayout";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -27,6 +28,7 @@ export default function Home() {
         <article className="container mx-auto flex flex-col items-center">
           <div className="w-4/5 flex relative">
             <div className="absolute w-full h-full bg-gradient-to-t dark:from-dark-800 from-light-100"></div>
+
             <img
               src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/screenshot.png"
               className="overflow-hidden rounded-md shadow-dark-900/5"
@@ -36,7 +38,7 @@ export default function Home() {
         </article>
       </section>
       {/* Third Section */}
-      <section className="w-full flex items-center bg-light-100 dark:bg-dark-800 py-36">
+      <section className="w-full flex items-center bg-light-100 dark:bg-dark-800 py-24">
         <article className="container h-full mx-auto flex-col flex items-start px-24">
           <div className="flex w-full items-center gap-x-8">
             <div className="flex flex-col w-1/2 items-start gap-y-4">
@@ -91,6 +93,13 @@ export default function Home() {
               <div className="flex gap-x-4">
                 <div className="w-14">
                   <img
+                    src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/php-colored.svg"
+                    width="100%"
+                    className="scale-100 transition-all duration-150 ease-in-out"
+                  />
+                </div>
+                <div className="w-14">
+                  <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/vuejs-colored.svg"
                     width="100%"
                     className="scale-100 transition-all duration-150 ease-in-out"
@@ -123,6 +132,14 @@ export default function Home() {
               <div className="flex gap-x-4">
                 <div className="w-14">
                   <img
+                    src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nuxtjs-colored.svg"
+                    width="100%"
+                    className="scale-100 transition-all duration-150 ease-in-out"
+                  />
+                </div>
+
+                <div className="w-14">
+                  <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nestjs-colored.svg"
                     width="100%"
                     className="scale-100 transition-all duration-150 ease-in-out"
@@ -138,6 +155,14 @@ export default function Home() {
 
                 <div className="w-14">
                   <img
+                    src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/babel-colored.svg"
+                    width="100%"
+                    className="scale-100 transition-all duration-150 ease-in-out"
+                  />
+                </div>
+
+                <div className="w-14">
+                  <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/python-colored.svg"
                     width="100%"
                     className="scale-100 transition-all duration-150 ease-in-out"
@@ -146,6 +171,14 @@ export default function Home() {
               </div>
 
               <div className="flex gap-x-4">
+                <div className="w-14">
+                  <img
+                    src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/firebase-colored.svg"
+                    width="100%"
+                    className="scale-100 transition-all duration-150 ease-in-out"
+                  />
+                </div>
+
                 <div className="w-14">
                   <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/flutter-colored.svg"
@@ -222,7 +255,7 @@ export default function Home() {
         </article>
       </section>
       {/* Fourth Section */}
-      <section className="w-full flex items-center bg-white dark:bg-dark-800 py-36">
+      <section className="w-full flex items-center bg-light-100 dark:bg-dark-800 py-24">
         <article className="container h-full mx-auto flex-col flex items-start justify-center px-24">
           <div className="flex w-full items-center gap-x-8">
             <div className="flex w-1/2 flex-col gap-y-6 items-center flex-wrap">
@@ -336,24 +369,24 @@ export default function Home() {
       </section>
 
       {/* Fourth Section */}
-      <section className="w-full flex items-center bg-white dark:bg-dark-800 py-36">
-        <article className="container h-full mx-auto flex items-start justify-center px-24">
+      <section className="w-full flex items-center bg-light-100 dark:bg-dark-800 py-24">
+        <article className="container mx-auto flex items-center justify-center px-24">
           <div className="flex w-1/2 flex-col items-start gap-y-4">
             <h1 className="text-6xl leading-tight mb-0">
               Add some <span className="underline text-brand">stats</span>
             </h1>
             <p className="text-lg">
-              Add links to all of your social profiles and blogs in seconds.
+              Show visitors some key facts through charts, graphs and badges.
             </p>
           </div>
-          <div className="flex w-1/2 items-center gap-x-8">
-            <div className="flex flex-col gap-y-6 items-center flex-wrap">
-              <img
-                src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/stats-illustration.svg"
-                width="100%"
-                className="scale-100 transition-all duration-150 ease-in-out"
-              />
-            </div>
+
+          <div className="w-1/2">
+            <Image
+              src="/stats-illustration.svg"
+              height={925}
+              width={550}
+              layout="responsive"
+            />
           </div>
         </article>
       </section>

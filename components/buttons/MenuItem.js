@@ -25,10 +25,10 @@ const MenuItem = ({ text, section, icon }) => {
       }}
     >
       <span
-        className={`flex items-center w-full ${
+        className={`flex items-center w-full transition-all duration-150 ease-in-out ${
           state.section === section
-            ? "border-white text-white bg-dark-900/20 opacity-100"
-            : "border-brand text-white opacity-75 group-hover:border-dark-900/20 group-hover:text-white group-hover:opacity-100"
+            ? "border-brand text-white bg-dark-900/80 dark:bg-dark-500/20 opacity-100"
+            : "border-dark-800 text-white opacity-75 group-hover:border-dark-900/80 dark:group-hover:bg-dark-500/20 group-hover:text-white group-hover:opacity-100 dark:group-hover:opacity-100"
         }`}
       >
         {icon}

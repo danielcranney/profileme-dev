@@ -4,16 +4,16 @@ import Script from "next/script";
 import { useRouter } from "next/router";
 import * as gtag from "../lib/gtag";
 import { ThemeProvider } from "next-themes";
-import { useReducerWithMiddleware } from '../hooks'
+import { useReducerWithMiddleware } from "../hooks";
 import Layout from "../components/layout";
 import storeStateMiddleware from "../middleware/storeStateMiddleware";
 
 export const StateContext = createContext(null);
 
-export const STORED_STATE_KEY = 'state';
+export const STORED_STATE_KEY = "state";
 
 export const ACTIONS = {
-  HYDRATE_STORED_STATE: 'hydrate-stored-state',
+  HYDRATE_STORED_STATE: "hydrate-stored-state",
   ADD_INTRODUCTION: "add-introduction",
   SELECT_RENDER_MODE: "select-render-mode",
   ADD_SKILL: "add-skill",
@@ -952,7 +952,6 @@ const initialState = {
 // Color Reducer
 function reducer(state, action) {
   switch (action.type) {
-
     // Hydrate the store
     case ACTIONS.HYDRATE_STORED_STATE:
       return action.value;
@@ -995,7 +994,6 @@ function reducer(state, action) {
         },
       };
     case ACTIONS.REMOVE_SKILL:
-
       return {
         ...state,
         skills: {
@@ -1128,8 +1126,12 @@ function reducer(state, action) {
 }
 
 function MyApp({ Component, pageProps }) {
-
-  const [state, dispatch] = useReducerWithMiddleware(reducer, initialState ,[], [storeStateMiddleware])
+  const [state, dispatch] = useReducerWithMiddleware(
+    reducer,
+    initialState,
+    [],
+    [storeStateMiddleware]
+  );
   const router = useRouter();
   useEffect(() => {
     const handleRouteChange = (url) => {
@@ -1142,10 +1144,11 @@ function MyApp({ Component, pageProps }) {
   }, [router.events]);
 
   useEffect(() => {
-    const retrievedStoredState = JSON.parse(localStorage.getItem(STORED_STATE_KEY))
+    const retrievedStoredState = JSON.parse(
+      localStorage.getItem(STORED_STATE_KEY)
+    );
 
     if (retrievedStoredState) {
-
       dispatch({
         type: ACTIONS.HYDRATE_STORED_STATE,
         value: retrievedStoredState,

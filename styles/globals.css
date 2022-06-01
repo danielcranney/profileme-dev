@@ -92,7 +92,7 @@ Table Of Contents:
   }
 
   .menu > li {
-    @apply flex items-center hover:cursor-pointer overflow-hidden hover:bg-dark-900/20 transition-all duration-150 ease-in-out;
+    @apply flex items-center hover:cursor-pointer overflow-hidden hover:bg-dark-900/80 transition-all duration-150 ease-in-out;
   }
   .menu > li > span {
     @apply border-l-4 h-full flex items-center px-6 py-3 transition-all duration-150 ease-in-out font-semibold uppercase tracking-wide text-xs;
@@ -124,7 +124,7 @@ Table Of Contents:
   }
 
   aside {
-    @apply fixed left-0 z-30 flex flex-col w-full h-full pb-6 pt-20 bg-brand border-t-0 border-b border-r-0 dark:border-dark-600 border-light-200 md:flex-grow md:border-b-0 transform transition-all duration-150 ease-in-out overflow-hidden md:w-64 top-0;
+    @apply fixed left-0 z-30 flex flex-col w-full h-full pb-6 pt-20 bg-dark-800 dark:bg-dark-700 border-t-0 border-b border-r-0 dark:border-dark-600 border-light-200 md:flex-grow md:border-b-0 transform transition-all duration-150 ease-in-out overflow-hidden md:w-64 top-0;
   }
 
   .section-header-wrapper {

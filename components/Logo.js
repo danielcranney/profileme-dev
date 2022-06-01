@@ -17,7 +17,7 @@ const Logo = () => {
         <span
           className={`transition-all duration-150 ease-in-out ${
             state.sidebarOpen
-              ? "text-dark-700 hover:text-dark-700"
+              ? "text-brand hover:text-dark-700"
               : "text-brand-alt"
           }`}
         >

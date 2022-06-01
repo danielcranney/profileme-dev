@@ -24,16 +24,73 @@ export default function Home() {
       </section>
       {/* Second Section */}
       <section className="w-full flex items-center bg-light-100 dark:bg-dark-900 h-screen">
-        <article className="container mx-auto flex flex-col py-4 items-center">
-          <h1 className="text-6xl text-center leading-tight">About</h1>
+        <article className="container mx-auto flex flex-col py-4 items-start">
+          <h1 className="text-6xl text-center leading-tight">Features</h1>
           <p className="text-lg">Hero section text</p>
         </article>
       </section>
       {/* Third Section */}
       <section className="w-full flex items-center bg-white dark:bg-dark-800 h-screen">
-        <article className="container mx-auto flex flex-col py-4 items-center">
-          <h1 className="text-6xl text-center leading-tight">About</h1>
-          <p className="text-lg">Hero section text</p>
+        <article className="container mx-auto flex-col flex py-4 items-start px-24">
+          <div className="flex w-full">
+            <div className="flex flex-col w-full items-center">
+              <h1 className="text-6xl leading-tight">Show off your skills</h1>
+              <p className="text-lg">
+                Select from over 60 core languages, frameworks, backend
+                technologies and web 3 tech.
+              </p>
+              <div className="flex gap-x-4">
+                <div className="w-12">
+                  <img
+                    src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/php-colored.svg"
+                    width="100%"
+                  />
+                </div>
+                <div className="w-12">
+                  <img
+                    src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/react-colored.svg"
+                    width="100%"
+                  />
+                </div>
+                <div className="w-12">
+                  <img
+                    src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nextjs-colored.svg"
+                    width="100%"
+                  />
+                </div>
+                <div className="w-12">
+                  <img
+                    src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/c-colored.svg"
+                    width="100%"
+                  />
+                </div>
+                <div className="w-12">
+                  <img
+                    src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/html5-colored.svg"
+                    width="100%"
+                  />
+                </div>
+                <div className="w-12">
+                  <img
+                    src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/javascript-colored.svg"
+                    width="100%"
+                  />
+                </div>
+                <div className="w-12">
+                  <img
+                    src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/tailwindcss-colored.svg"
+                    width="100%"
+                  />
+                </div>
+                <div className="w-12">
+                  <img
+                    src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/typescript-colored.svg"
+                    width="100%"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
         </article>
       </section>
     </main>

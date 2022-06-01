@@ -12,8 +12,9 @@ import Skills from "../components/sections/Skills";
 import Socials from "../components/sections/Socials";
 import Badges from "../components/sections/Badges";
 import Support from "../components/sections/Support";
+import FormLayout from "../components/layouts/FormLayout";
 
-export default function Home() {
+export default function CreateProfile() {
   const { state, dispatch } = useContext(StateContext);
   const [mounted, setMounted] = useState(false);
   const { systemTheme, theme, setTheme } = useTheme();
@@ -259,7 +260,9 @@ export default function Home() {
   };
 
   const handleIconToggle = (iconCategory, iconObj, i) => {
-    const isIconAlreadySelectedIndex = state.skills[iconCategory].findIndex((item) => item.name === iconObj.name)
+    const isIconAlreadySelectedIndex = state.skills[iconCategory].findIndex(
+      (item) => item.name === iconObj.name
+    );
 
     if (isIconAlreadySelectedIndex >= 0) {
       dispatch({
@@ -1358,3 +1361,7 @@ export default function Home() {
     </>
   );
 }
+
+CreateProfile.getLayout = function getLayout(page) {
+  return <FormLayout>{page}</FormLayout>;
+};

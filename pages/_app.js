@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 import * as gtag from "../lib/gtag";
 import { ThemeProvider } from "next-themes";
 import { useReducerWithMiddleware } from "../hooks";
-import Layout from "../components/layout";
 import storeStateMiddleware from "../middleware/storeStateMiddleware";
 
 export const StateContext = createContext(null);
@@ -1156,6 +1155,8 @@ function MyApp({ Component, pageProps }) {
     }
   }, []);
 
+  const getLayout = Component.getLayout || ((page) => page);
+
   return (
     <>
       <Script
@@ -1179,9 +1180,7 @@ function MyApp({ Component, pageProps }) {
       />
       <ThemeProvider enableSystem={true} attribute="class">
         <StateContext.Provider value={{ state, dispatch }}>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          {getLayout(<Component {...pageProps} />)}
         </StateContext.Provider>
       </ThemeProvider>
     </>

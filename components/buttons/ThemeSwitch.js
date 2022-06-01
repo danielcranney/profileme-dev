@@ -54,7 +54,7 @@ const ThemeSwitch = () => {
       onClick={() => {
         setTheme(currentTheme == "dark" ? "light" : "dark");
       }}
-      className={`ml-auto w-16 h-9 btn-sm relative ${
+      className={`w-16 h-9 btn-sm relative ${
         state.sidebarOpen
           ? "bg-dark-900/20 md:bg-light-200/50 dark:bg-dark-700"
           : "bg-light-200/50 dark:bg-dark-700"

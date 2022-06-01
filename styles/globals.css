@@ -160,6 +160,10 @@ Table Of Contents:
     @apply flex items-center px-3 py-3 text-xs font-semibold uppercase transition-all duration-150 ease-in-out rounded-md no-underline;
   }
 
+  .btn-lg {
+    @apply flex items-center px-5 py-4 text-sm tracking-wider font-semibold uppercase transition-all duration-150 ease-in-out rounded-md no-underline;
+  }
+
   .btn-square {
     @apply flex items-center justify-center h-9 w-6 transition-all duration-150 ease-in-out rounded-md;
   }

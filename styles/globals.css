@@ -771,14 +771,16 @@ Table Of Contents:
 /*-----------------------
 CHANGELOG STYLES
 -----------------------*/
-.btn-new {
-  @apply bg-emerald-500/10 px-1.5 py-1 text-xs font-semibold rounded-md border border-emerald-500/30 text-emerald-900 dark:text-white transition-all duration-150 ease-in-out;
-}
+@layer components {
+  .btn-new {
+    @apply bg-emerald-500/10 px-1.5 py-1 text-xs font-semibold rounded-md border border-emerald-500/30 text-emerald-900 dark:text-white transition-all duration-150 ease-in-out;
+  }
 
-.btn-updated {
-  @apply bg-blue-500/10 px-1.5 py-1 text-xs font-semibold rounded-md border border-blue-500/30 text-blue-800 dark:text-white transition-all duration-150 ease-in-out;
-}
+  .btn-updated {
+    @apply bg-blue-500/10 px-1.5 py-1 text-xs font-semibold rounded-md border border-blue-500/30 text-blue-800 dark:text-white transition-all duration-150 ease-in-out;
+  }
 
-.btn-fixed {
-  @apply bg-yellow-500/10 px-1.5 py-1 text-xs font-semibold rounded-md border border-yellow-500/30 text-yellow-800 dark:text-white transition-all duration-150 ease-in-out;
+  .btn-fixed {
+    @apply bg-yellow-500/10 px-1.5 py-1 text-xs font-semibold rounded-md border border-yellow-500/30 text-yellow-800 dark:text-white transition-all duration-150 ease-in-out;
+  }
 }

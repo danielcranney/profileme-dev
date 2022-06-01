@@ -3,6 +3,7 @@ import LandingLayout from "../components/layouts/LandingLayout";
 import Image from "next/image";
 
 export default function Home() {
+
   return (
     <main className="w-full min-h-screen overflow-auto flex flex-col bg-white dark:bg-dark-800">
       {/* First Section */}
@@ -402,7 +403,14 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="w-1/2"></div>
+          <div className="w-1/2">
+            <Image
+              src="/snippet.svg"
+              height={925}
+              width={550}
+              layout="responsive"
+            />
+          </div>
         </article>
       </section>
     </main>

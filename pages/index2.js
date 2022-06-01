@@ -337,7 +337,7 @@ export default function Home() {
 
       {/* Fourth Section */}
       <section className="w-full flex items-center bg-white dark:bg-dark-800 py-36">
-        <article className="container h-full mx-auto flex-col flex items-start justify-center px-24">
+        <article className="container h-full mx-auto flex items-start justify-center px-24">
           <div className="flex w-1/2 flex-col items-start gap-y-4">
             <h1 className="text-6xl leading-tight mb-0">
               Add some <span className="underline text-brand">stats</span>
@@ -346,9 +346,13 @@ export default function Home() {
               Add links to all of your social profiles and blogs in seconds.
             </p>
           </div>
-          <div className="flex w-full items-center gap-x-8">
-            <div className="flex w-1/2 flex-col gap-y-6 items-center flex-wrap">
-              Left
+          <div className="flex w-1/2 items-center gap-x-8">
+            <div className="flex flex-col gap-y-6 items-center flex-wrap">
+              <img
+                src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/stats-illustration.svg"
+                width="100%"
+                className="scale-100 transition-all duration-150 ease-in-out"
+              />
             </div>
           </div>
         </article>

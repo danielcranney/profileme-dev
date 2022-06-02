@@ -121,7 +121,7 @@ export default function FormLayout({ children }) {
           </span>
           <span className="">Changelog added</span>
         </p>
-        <div className="flex items-center relative">
+        <div className="flex items-center relative ml-auto md:ml-0">
           {state.popOutMenuOpen ? (
             <div
               ref={menuNode}

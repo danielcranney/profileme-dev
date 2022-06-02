@@ -16,9 +16,7 @@ const Logo = () => {
         ProfileMe
         <span
           className={`transition-all duration-150 ease-in-out ${
-            state.sidebarOpen
-              ? "text-brand hover:text-dark-700"
-              : "text-brand-alt"
+            state.sidebarOpen ? "text-brand-alt" : "text-brand-alt"
           }`}
         >
           .dev

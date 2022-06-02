@@ -28,6 +28,7 @@ export const ACTIONS = {
   ADD_SUPPORT: "add-support",
   TOGGLE_COPY_MODAL: "toggle-copy-modal",
   TOGGLE_SIDEBAR: "toggle-sidebar",
+  TOGGLE_POPOUT_MENU: "toggle-popout-menu",
 };
 
 // Icon Store
@@ -945,6 +946,7 @@ const initialState = {
     },
   },
   sidebarOpen: false,
+  popOutMenuOpen: false,
   modal: false,
 };
 
@@ -1118,6 +1120,11 @@ function reducer(state, action) {
       return {
         ...state,
         sidebarOpen: !state.sidebarOpen,
+      };
+    case ACTIONS.TOGGLE_POPOUT_MENU:
+      return {
+        ...state,
+        popoutMenuOpen: !state.popoutMenuOpen,
       };
     default:
       throw new Error();

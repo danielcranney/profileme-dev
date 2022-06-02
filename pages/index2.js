@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import LandingLayout from "../components/layouts/LandingLayout";
 import Image from "next/image";
+import Link from "next/link";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { nord } from "react-syntax-highlighter/dist/cjs/styles/prism";
+import { StateContext } from "../pages/_app";
 
 export default function Home() {
   const codeString = `Hi 👋 My name is Peter Parker
@@ -19,6 +21,8 @@ Web Developer
 * 🤝  I'm open to collaborating on interesting JavaScript projects
 * ⚡  I moonlight as a super hero`;
 
+  const { state, dispatch } = useContext(StateContext);
+
   return (
     <main className="w-full min-h-screen overflow-auto flex flex-col bg-white dark:bg-dark-800">
       {/* First Section */}
@@ -34,7 +38,7 @@ Web Developer
             your profile with just a few clicks!
           </p>
           <div className="flex items-center gap-x-4">
-            <button className="btn-gray btn-lg">Visit Repo</button>
+            <button className="btn-gray btn-lg">Visit Repo (Developers)</button>
             <button className="btn-brand btn-lg">Get Started</button>
           </div>
         </article>
@@ -399,8 +403,6 @@ Web Developer
             <div className="block relative h-80 overflow-hidden">
               <Image
                 src="/stats-illustration.svg"
-                height={925}
-                width={550}
                 layout="fill"
                 className="object-fit"
               />
@@ -414,7 +416,7 @@ Web Developer
         <article className="container mx-auto flex flex-col items-center justify-center px-48 gap-x-8">
           <div className="flex w-full flex-col items-start gap-y-4">
             <h1 className="text-6xl leading-tight mb-0">
-              Copy <span className="text-brand">snippet</span>
+              Copy your <span className="text-brand">snippet</span>
             </h1>
             <p className="text-lg">
               When you're done, copy your profile code and you're ready to go!

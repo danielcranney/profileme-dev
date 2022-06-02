@@ -1,8 +1,23 @@
 import React from "react";
 import LandingLayout from "../components/layouts/LandingLayout";
 import Image from "next/image";
+import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
+import { nord } from "react-syntax-highlighter/dist/cjs/styles/prism";
 
 export default function Home() {
+  const codeString = `Hi 👋 My name is Peter Parker
+=============================
+
+Web Developer
+-------------
+
+* 🌍  I'm based in London, England
+* 🖥️  See my portfolio at [peterparker.com](http://peterparker.com)
+* ✉️  You can contact me at [peter@pparker.com](mailto:peter@pparker.com)
+* 🚀  I'm currently working on [peterparker.com](http://peterparker.com)
+* 🧠  I'm learning a new JavaScript framework
+* 🤝  I'm open to collaborating on interesting JavaScript projects
+* ⚡  I moonlight as a super hero`;
 
   return (
     <main className="w-full min-h-screen overflow-auto flex flex-col bg-white dark:bg-dark-800">
@@ -40,7 +55,7 @@ export default function Home() {
       </section>
       {/* Third Section */}
       <section className="w-full flex items-center bg-light-100 dark:bg-dark-800 py-24">
-        <article className="container h-full mx-auto flex-col flex items-start px-24">
+        <article className="container mx-auto flex-col flex items-start px-24">
           <div className="flex w-full items-center gap-x-8">
             <div className="flex flex-col w-1/2 items-start gap-y-4">
               <h1 className="text-6xl leading-tight mb-0">
@@ -256,7 +271,7 @@ export default function Home() {
       </section>
       {/* Fourth Section */}
       <section className="w-full flex items-center bg-light-100 dark:bg-dark-800 py-24">
-        <article className="container h-full mx-auto flex-col flex items-start justify-center px-24">
+        <article className="container mx-auto flex-col flex items-start justify-center px-24">
           <div className="flex w-full items-center gap-x-8">
             <div className="flex w-1/2 flex-col gap-y-6 items-center flex-wrap">
               <div className="flex gap-x-4">
@@ -380,36 +395,36 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="w-1/2">
-            <Image
-              src="/stats-illustration.svg"
-              height={925}
-              width={550}
-              layout="responsive"
-            />
+          <div className="w-1/2 block relative">
+            <div className="block relative h-80 overflow-hidden">
+              <Image
+                src="/stats-illustration.svg"
+                height={925}
+                width={550}
+                layout="fill"
+                className="object-fit"
+              />
+            </div>
           </div>
         </article>
       </section>
 
       {/* Fourth Section */}
       <section className="w-full flex items-center bg-light-100 dark:bg-dark-800 py-24">
-        <article className="container mx-auto flex items-center justify-center px-24">
-          <div className="flex w-1/2 flex-col items-start gap-y-4">
+        <article className="container mx-auto flex flex-col items-center justify-center px-48 gap-x-8">
+          <div className="flex w-full flex-col items-start gap-y-4">
             <h1 className="text-6xl leading-tight mb-0">
-              Export <span className="text-brand">snippet</span>
+              Copy <span className="text-brand">snippet</span>
             </h1>
             <p className="text-lg">
-              Show visitors some key facts through charts, graphs and badges.
+              When you're done, copy your profile code and you're ready to go!
             </p>
           </div>
 
-          <div className="w-1/2">
-            <Image
-              src="/snippet.svg"
-              height={925}
-              width={550}
-              layout="responsive"
-            />
+          <div className="w-full relative">
+            <SyntaxHighlighter language="markdown" style={nord} showLineNumbers>
+              {codeString}
+            </SyntaxHighlighter>
           </div>
         </article>
       </section>

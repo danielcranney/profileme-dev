@@ -66,7 +66,27 @@ export default function LandingLayout({ children }) {
 
       <div className="flex items-center fixed top-0 w-full h-16 z-40 bg-white dark:bg-dark-800 border-b-0 border-slate-200 dark:border-dark-700">
         <div className="container mx-auto flex items-center gap-x-3">
-          <Logo />
+          {/* Logo */}
+          <Link href={"/"}>
+            <a
+              className={`mb-0 text-lg sm:text-xl transition-all duration-150 ease-in-out no-underline ${
+                state.sidebarOpen
+                  ? "text-dark-900 hover:text-dark-900 dark:text-white"
+                  : "text-dark-900 dark:text-dark-900"
+              }`}
+            >
+              ProfileMe
+              <span
+                className={`transition-all duration-150 ease-in-out ${
+                  state.sidebarOpen
+                    ? "text-brand hover:text-dark-700"
+                    : "text-brand-alt"
+                }`}
+              >
+                .dev
+              </span>
+            </a>
+          </Link>
 
           {/* Changelog Link */}
           <Link href="/changelog">

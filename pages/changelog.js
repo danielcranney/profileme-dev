@@ -10,7 +10,7 @@ export default function Changelog() {
     <main>
       {/* COLUMN 2 - INPUTS */}
       <section
-        className={`w-full flex overflow-scroll bg-light-100 dark:bg-dark-700`}
+        className={`w-full flex overflow-scroll bg-light-100 dark:bg-dark-800`}
       >
         <div className="container mx-auto py-24">
           <h1 className="text-5xl">Changelog</h1>

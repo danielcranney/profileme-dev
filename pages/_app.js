@@ -27,8 +27,8 @@ export const ACTIONS = {
   DELETE_REPO: "delete-repo",
   ADD_SUPPORT: "add-support",
   TOGGLE_COPY_MODAL: "toggle-copy-modal",
-  TOGGLE_SIDEBAR: "toggle-sidebar",
-  TOGGLE_POPOUT_MENU: "toggle-popout-menu",
+  TOGGLE_ELEMENT: "toggle-element",
+  CLOSE_ELEMENT: "close-element",
 };
 
 // Icon Store
@@ -1116,15 +1116,16 @@ function reducer(state, action) {
         ...state,
         modal: action.payload,
       };
-    case ACTIONS.TOGGLE_SIDEBAR:
+    case ACTIONS.TOGGLE_ELEMENT:
       return {
         ...state,
-        sidebarOpen: !state.sidebarOpen,
+        [action.payload.elementToToggle]:
+          !state[action.payload.elementToToggle],
       };
-    case ACTIONS.TOGGLE_POPOUT_MENU:
+    case ACTIONS.CLOSE_ELEMENT:
       return {
         ...state,
-        popoutMenuOpen: !state.popoutMenuOpen,
+        [action.payload.elementToClose]: false,
       };
     default:
       throw new Error();

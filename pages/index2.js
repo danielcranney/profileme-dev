@@ -65,11 +65,11 @@ Web Developer
       <section className="w-full flex items-center bg-light-100 dark:bg-dark-800 py-24">
         <article className="container mx-auto flex-col flex items-start px-6 sm:px-24">
           <div className="flex flex-col md:flex-row w-full items-center gap-x-8">
-            <div className="flex flex-col w-full md:w-1/2 items-start gap-y-4">
+            <div className="flex flex-col w-full md:w-1/2 items-center md:items-start gap-y-4">
               <h2 className="text-4xl sm:text-5xl md:text-6xl leading-tight mb-0">
                 Show off your <span className="text-brand">skills</span>
               </h2>
-              <p className="text-lg">
+              <p className="text-lg text-center md:text-left">
                 Select from over 60 core languages, frameworks, backend
                 technologies and web 3 tech.
               </p>
@@ -270,7 +270,7 @@ Web Developer
       </section>
       {/* Fourth Section */}
       <section className="w-full flex items-center bg-light-100 dark:bg-dark-800 py-24">
-        <article className="container mx-auto flex-col flex items-start justify-center px-6 md:px-24">
+        <article className="container mx-auto flex-col flex items-start justify-center px-6 md:px-24 sm:px-12">
           <div className="flex flex-col-reverse md:flex-row w-full items-center gap-x-8 gap-y-8">
             <div className="flex w-full md:w-1/2 flex-col gap-y-6 items-center flex-wrap">
               <div className="flex gap-x-4">
@@ -370,11 +370,11 @@ Web Developer
                 </div>
               </div>
             </div>
-            <div className="flex w-full md:w-1/2 flex-col items-start gap-y-4">
+            <div className="flex w-full md:w-1/2 flex-col md:items-start items-center gap-y-4">
               <h2 className="text-4xl sm:text-5xl md:text-6xl leading-tight mb-0">
                 Share your <span className="text-brand">socials</span>
               </h2>
-              <p className="text-lg">
+              <p className="text-lg text-center md:text-left">
                 Add links to all of your social profiles and blogs in seconds.
               </p>
             </div>
@@ -384,18 +384,18 @@ Web Developer
 
       {/* Fourth Section */}
       <section className="w-full flex items-center bg-light-100 dark:bg-dark-800 py-24">
-        <article className="container mx-auto flex flex-col md:flex-row items-center justify-center px-6 md:px-24">
-          <div className="flex w-full md:w-1/2 flex-col items-start gap-y-4">
+        <article className="container mx-auto flex flex-col md:flex-row items-center justify-center px-6 md:px-24 sm:px-12">
+          <div className="flex w-full md:w-1/2 flex-col items-center md:items-start gap-y-4">
             <h2 className="text-4xl sm:text-5xl md:text-6xl leading-tight mb-0">
               Add some <span className="text-brand">stats</span>
             </h2>
-            <p className="text-lg">
+            <p className="text-lg text-center md:text-left">
               Show visitors some key facts through charts, graphs and badges.
             </p>
           </div>
 
           <div className="w-full md:w-1/2 block relative">
-            <div className="block relative h-80 overflow-hidden">
+            <div className="block relative h-48 sm:h-80 overflow-hidden">
               <Image
                 src="/stats-illustration.svg"
                 layout="fill"
@@ -409,11 +409,11 @@ Web Developer
       {/* Fourth Section */}
       <section className="w-full flex items-center bg-light-100 dark:bg-dark-800 py-24">
         <article className="container mx-auto flex flex-col items-center justify-center px-6 md:px-48 gap-x-8">
-          <div className="flex w-full flex-col items-start gap-y-4">
-            <h1 className="text-6xl leading-tight mb-0">
+          <div className="flex w-full flex-col items-center gap-y-4">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl leading-tight mb-0">
               Copy your <span className="text-brand">snippet</span>
-            </h1>
-            <p className="text-lg">
+            </h2>
+            <p className="text-lg text-center">
               When you're done, copy your profile code and you're ready to go!
             </p>
           </div>

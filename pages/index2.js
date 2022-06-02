@@ -415,9 +415,16 @@ Web Developer
           </div>
 
           <div className="w-full md:w-1/2 block relative">
-            <div className="block relative h-48 sm:h-80 overflow-hidden">
+            <div className="dark:hidden block relative h-48 sm:h-80 overflow-hidden">
               <Image
                 src="/stats-illustration.svg"
+                layout="fill"
+                className="object-fit"
+              />
+            </div>
+            <div className="hidden dark:block relative h-48 sm:h-80 overflow-hidden">
+              <Image
+                src="/stats-illustration-dark.svg"
                 layout="fill"
                 className="object-fit"
               />

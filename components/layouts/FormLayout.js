@@ -58,7 +58,7 @@ export default function FormLayout({ children }) {
     <div className="flex flex-col min-h-screen h-auto md:h-screen relative">
       <Head>
         <title>
-          ProfileMe.dev | Create an awesome GitHub profile in minutes
+          ProfileMe.dev | Create an amazing GitHub profile in minutes
         </title>
         <meta
           name="viewport"
@@ -67,7 +67,7 @@ export default function FormLayout({ children }) {
         <meta charSet="utf-8" />
         <meta
           name="description"
-          content="ProfileMe.dev | Create an awesome GitHub profile in minutes"
+          content="ProfileMe.dev | Create an amazing GitHub profile in minutes"
         />
         <meta name="author" content="Dan Cranney" />
         <meta property="og:site_name" content="ProfileMe.dev" />
@@ -75,7 +75,7 @@ export default function FormLayout({ children }) {
         <meta property="og:title" content="ProfileMe.dev" />
         <meta
           property="og:description"
-          content="Create an awesome GitHub profile in minutes"
+          content="Create an amazing GitHub profile in minutes"
         />
         <meta
           property="og:image"
@@ -90,7 +90,7 @@ export default function FormLayout({ children }) {
         />
         <meta
           property="twitter:description"
-          content="Create an awesome GitHub profile in minutes"
+          content="Create an amazing GitHub profile in minutes"
         />
         <meta property="twitter:creator" content="@danielcranney" />
       </Head>

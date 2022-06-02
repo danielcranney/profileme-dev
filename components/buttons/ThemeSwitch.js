@@ -13,7 +13,7 @@ const ThemeSwitch = () => {
     if (currentTheme === "dark") {
       return (
         <svg
-          className="w-5 h-5 transition-all duration-150 ease-in-out text-white dark:flex hidden"
+          className="w-4 sm:w-5 h-4 sm:h-5 transition-all duration-150 ease-in-out text-white dark:flex hidden"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -54,14 +54,14 @@ const ThemeSwitch = () => {
       onClick={() => {
         setTheme(currentTheme == "dark" ? "light" : "dark");
       }}
-      className={`w-16 h-9 btn-sm relative ${
+      className={`w-16 h-8 sm:h-9 btn-xs sm:btn-sm relative ${
         state.sidebarOpen
           ? "bg-dark-900/20 md:bg-light-200/50 dark:bg-dark-700"
           : "bg-light-200/50 dark:bg-dark-700"
       }`}
     >
       <div
-        className={`w-7 h-7 bg-brand text-white rounded-md absolute flex items-center justify-center transition-all duration-300 ease-in-out dark:left-[calc(100%-2rem)] left-1`}
+        className={`w-6 sm:w-7 h-6 sm:h-7 bg-brand text-white rounded-md absolute flex items-center justify-center transition-all duration-300 ease-in-out dark:left-[calc(100%-2rem)] left-1 sm:left-1`}
       >
         {renderThemeChanger()}
       </div>

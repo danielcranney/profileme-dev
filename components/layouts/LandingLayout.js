@@ -59,7 +59,7 @@ export default function LandingLayout({ children }) {
     <div className="flex flex-col min-h-screen h-auto relative">
       <Head>
         <title>
-          ProfileMe.dev | Create an awesome GitHub profile in minutes
+          ProfileMe.dev | Create an amazing GitHub profile in minutes
         </title>
         <meta
           name="viewport"
@@ -68,7 +68,7 @@ export default function LandingLayout({ children }) {
         <meta charSet="utf-8" />
         <meta
           name="description"
-          content="ProfileMe.dev | Create an awesome GitHub profile in minutes"
+          content="ProfileMe.dev | Create an amazing GitHub profile in minutes"
         />
         <meta name="author" content="Dan Cranney" />
         <meta property="og:site_name" content="ProfileMe.dev" />
@@ -76,7 +76,7 @@ export default function LandingLayout({ children }) {
         <meta property="og:title" content="ProfileMe.dev" />
         <meta
           property="og:description"
-          content="Create an awesome GitHub profile in minutes"
+          content="Create an amazing GitHub profile in minutes"
         />
         <meta
           property="og:image"
@@ -91,21 +91,17 @@ export default function LandingLayout({ children }) {
         />
         <meta
           property="twitter:description"
-          content="Create an awesome GitHub profile in minutes"
+          content="Create an amazing GitHub profile in minutes"
         />
         <meta property="twitter:creator" content="@danielcranney" />
       </Head>
 
-      <div className="flex items-center fixed top-0 w-full h-16 z-40 bg-white dark:bg-dark-800 border-b-0 border-slate-200 dark:border-dark-700">
+      <div className="flex items-center fixed top-0 w-full h-16 z-40 bg-white dark:bg-dark-800 border-b-0 border-slate-200 dark:border-dark-700 px-4">
         <div className="container mx-auto flex items-center gap-x-1.5">
           {/* Logo */}
           <Link href={"/"}>
             <a
-              className={`font-bold tracking-tight mb-0 text-lg sm:text-xl transition-all duration-500 ease-in-out no-underline ${
-                state.sidebarOpen
-                  ? "text-dark-900 hover:text-dark-900 dark:hover:text-white dark:text-white"
-                  : "text-dark-900 dark:text-dark-900"
-              }`}
+              className={`font-bold tracking-tight mb-0 text-lg sm:text-xl transition-all duration-500 ease-in-out no-underline text-dark-900 dark:text-white`}
             >
               ProfileMe
               <span
@@ -127,7 +123,7 @@ export default function LandingLayout({ children }) {
             onClick={() => {
               router.push("/create-profile");
             }}
-            className="btn-brand btn-sm"
+            className="btn-brand btn-xs sm:btn-sm"
           >
             Create Profile
           </button>
@@ -272,62 +268,59 @@ export default function LandingLayout({ children }) {
         </div>
       </div>
 
-      {children}
-
-      {/* Footer */}
-      <footer className="w-full flex items-center bg-white dark:bg-dark-900 py-12">
-        <div className="container mx-auto flex items-end gap-x-3">
-          <div className="mr-auto">
-            {/* Logo */}
-            <Link href={"/"}>
-              <a
-                className={`font-bold tracking-tight mb-0 text-lg sm:text-xl transition-all duration-150 ease-in-out no-underline ${
-                  state.sidebarOpen
-                    ? "text-dark-900 hover:text-dark-900 dark:text-white"
-                    : "text-dark-900 dark:text-dark-900"
-                }`}
-              >
-                ProfileMe
-                <span
-                  className={`transition-all duration-150 ease-in-out ${
-                    state.sidebarOpen
-                      ? "text-brand hover:text-dark-700"
-                      : "text-brand-alt"
-                  }`}
+      <main className="w-full min-h-screen overflow-auto flex flex-col bg-white dark:bg-dark-800">
+        {children}
+        {/* Footer */}
+        <footer className="w-full flex items-center bg-white dark:bg-dark-900 py-12">
+          <div className="container mx-auto flex flex-col md:flex-row items-end gap-x-3 px-6 gap-y-3">
+            <div className="mr-auto flex flex-col grow w-full">
+              {/* Logo */}
+              <Link href={"/"}>
+                <a
+                  className={`font-bold tracking-tight mb-0 text-lg sm:text-xl transition-all duration-500 ease-in-out no-underline text-dark-900 dark:text-white`}
                 >
-                  .dev
-                </span>
-              </a>
-            </Link>
+                  ProfileMe
+                  <span
+                    className={`transition-all duration-150 ease-in-out ${
+                      state.sidebarOpen
+                        ? "text-brand hover:text-dark-700"
+                        : "text-brand-alt"
+                    }`}
+                  >
+                    .dev
+                  </span>
+                </a>
+              </Link>
 
-            {/* Changelog Link */}
-            <p className="mb-0 text-sm">
-              &copy; Copyright 2022 ProfileMe.dev. All rights reserved.
-            </p>
-          </div>
-          <div className="flex flex-col items-end">
-            <SocialIcons />
+              {/* Changelog Link */}
+              <p className="mb-0 text-sm w-full">
+                &copy; Copyright 2022 ProfileMe.dev. All rights reserved.
+              </p>
+            </div>
+            <div className="flex flex-col md:items-end w-full items-start">
+              <SocialIcons />
 
-            <div className="flex gap-x-1.5 items-center">
-              <Link href="/">
-                <a className="text-xs">Home</a>
-              </Link>
-              <span className="text-dark-400 dark:text-white">·</span>
-              <Link href="/create-profile">
-                <a className="text-xs">Create Profile</a>
-              </Link>
-              <span className="text-dark-400 dark:text-white">·</span>
-              <Link href="/changelog">
-                <a className="text-xs">Changelog</a>
-              </Link>
-              <span className="text-dark-400 dark:text-white">·</span>
-              <a href="mailto:danielcranney@gmail.com" className="text-xs">
-                Leave Feedback
-              </a>
+              <div className="flex gap-x-1.5 items-center">
+                <Link href="/">
+                  <a className="text-xs">Home</a>
+                </Link>
+                <span className="text-dark-400 dark:text-white">·</span>
+                <Link href="/create-profile">
+                  <a className="text-xs">Create Profile</a>
+                </Link>
+                <span className="text-dark-400 dark:text-white">·</span>
+                <Link href="/changelog">
+                  <a className="text-xs">Changelog</a>
+                </Link>
+                <span className="text-dark-400 dark:text-white">·</span>
+                <a href="mailto:danielcranney@gmail.com" className="text-xs">
+                  Leave Feedback
+                </a>
+              </div>
             </div>
           </div>
-        </div>
-      </footer>
+        </footer>
+      </main>
     </div>
   );
 }

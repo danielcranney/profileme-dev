@@ -240,14 +240,14 @@ export default function FormLayout({ children }) {
                 },
               });
             }}
-            className={`relative cursor-pointer transition-all duration-150 ease-in-out flex items-center justify-center rounded-md h-9 w-9 ${
+            className={`relative cursor-pointer transition-all duration-150 ease-in-out flex items-center justify-center rounded-md h-8 w-8 sm:h-9 sm:w-9 ${
               state.popOutMenuOpen
-                ? "bg-dark-900/20 dark:bg-dark-600 text-white hover:text-white"
+                ? "bg-light-200 dark:bg-dark-600 text-white hover:text-white"
                 : "btn-gray"
             } group`}
           >
             <svg
-              className="w-5 h-5 text-dark-500 group-hover:text-dark-700 dark:text-white dark:group-hover:text-white"
+              className="w-4 sm:w-5 h-4 sm:h-5 text-dark-500 group-hover:text-dark-700 dark:text-white dark:group-hover:text-white"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"

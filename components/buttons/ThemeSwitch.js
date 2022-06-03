@@ -29,7 +29,7 @@ const ThemeSwitch = () => {
     } else {
       return (
         <svg
-          className="w-5 h-5 transition-all duration-150 ease-in-out text-white flex dark:hidden"
+          className="w-4 sm:w-5 h-4 sm:h-5 transition-all duration-150 ease-in-out text-white flex dark:hidden"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -50,22 +50,27 @@ const ThemeSwitch = () => {
   }, []);
 
   return (
-    <button
-      onClick={() => {
-        setTheme(currentTheme == "dark" ? "light" : "dark");
-      }}
-      className={`w-16 h-8 sm:h-9 btn-xs sm:btn-sm relative ${
-        state.sidebarOpen
-          ? "bg-light-200/50 dark:bg-dark-700"
-          : "bg-light-200/50 dark:bg-dark-700"
-      }`}
-    >
+    <div className="flex relative">
       <div
-        className={`w-6 sm:w-7 h-6 sm:h-7 bg-brand text-white rounded-md absolute flex items-center justify-center transition-all duration-300 ease-in-out dark:left-[calc(100%-2rem)] left-1 sm:left-1`}
+        className={`absolute w-full h-6 -translate-y-1/2 top-1/2 rounded-md ${
+          state.sidebarOpen
+            ? "bg-light-200/50 dark:bg-dark-900"
+            : "bg-light-200/50 dark:bg-dark-900"
+        }`}
+      ></div>
+      <button
+        onClick={() => {
+          setTheme(currentTheme == "dark" ? "light" : "dark");
+        }}
+        className={`w-14 sm:w-16 h-8 sm:h-9 btn-xs sm:btn-sm relative`}
       >
-        {renderThemeChanger()}
-      </div>
-    </button>
+        <div
+          className={`w-8 sm:w-9 h-8 sm:h-9 bg-brand text-white rounded-md absolute flex items-center justify-center transition-all duration-300 ease-in-out dark:left-[calc(100%-2.25rem)] left-0`}
+        >
+          {renderThemeChanger()}
+        </div>
+      </button>
+    </div>
   );
 };
 

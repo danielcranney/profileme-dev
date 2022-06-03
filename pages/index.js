@@ -77,19 +77,19 @@ Web Developer
       {/* Third Section */}
       <section className="w-full flex items-center bg-light-100 dark:bg-dark-800 py-24">
         <article className="container mx-auto flex-col flex items-start">
-          <div className="flex flex-col md:flex-row w-full items-center gap-x-8">
+          <div className="flex flex-col md:flex-row w-full items-center gap-x-8 gap-y-8">
             <div className="flex flex-col w-full md:w-1/2 items-center md:items-start gap-y-4">
               <h2 className="text-4xl sm:text-5xl md:text-6xl leading-tight mb-0">
                 Show off your <span className="text-brand">skills</span>
               </h2>
-              <p className="text-lg text-center md:text-left">
+              <p className="text-lg text-center md:text-left mb-0">
                 Select from over 60 core languages, frameworks, backend
                 technologies and web 3 tech.
               </p>
             </div>
-            <div className="flex flex-col gap-y-6 w-full md:w-1/2 items-end">
-              <div className="grid grid-cols-5 gap-8 md:gap-4">
-                <div className="w-auto md:w-12">
+            <div className="flex flex-col gap-y-4 md:ml-auto">
+              <div className="flex gap-x-4 items-center">
+                <div className="w-10 sm:w-12 md:w-12">
                   <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/c-colored.svg"
                     width="100%"
@@ -97,7 +97,7 @@ Web Developer
                     alt="C icon"
                   />
                 </div>
-                <div className="w-auto md:w-12">
+                <div className="w-10 sm:w-12 md:w-12">
                   <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/html5-colored.svg"
                     width="100%"
@@ -105,7 +105,7 @@ Web Developer
                     alt="HTML5"
                   />
                 </div>
-                <div className="w-auto md:w-12">
+                <div className="w-10 sm:w-12 md:w-12">
                   <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/javascript-colored.svg"
                     width="100%"
@@ -113,7 +113,7 @@ Web Developer
                     alt="JavaScript"
                   />
                 </div>
-                <div className="w-auto md:w-12">
+                <div className="w-10 sm:w-12 md:w-12">
                   <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/tailwindcss-colored.svg"
                     width="100%"
@@ -121,7 +121,7 @@ Web Developer
                     alt="Tailwind CSS"
                   />
                 </div>
-                <div className="w-auto md:w-12">
+                <div className="w-10 sm:w-12 md:w-12">
                   <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/typescript-colored.svg"
                     width="100%"
@@ -131,8 +131,8 @@ Web Developer
                 </div>
               </div>
 
-              <div className="grid grid-cols-5 gap-8 md:gap-4">
-                <div className="w-auto md:w-12">
+              <div className="flex gap-x-4 items-center">
+                <div className="w-10 sm:w-12 md:w-12">
                   <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/php-colored.svg"
                     width="100%"
@@ -140,7 +140,7 @@ Web Developer
                     alt="PHP"
                   />
                 </div>
-                <div className="w-auto md:w-12">
+                <div className="w-10 sm:w-12 md:w-12">
                   <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/vuejs-colored.svg"
                     width="100%"
@@ -148,7 +148,7 @@ Web Developer
                     alt="Vue JS"
                   />
                 </div>
-                <div className="w-auto md:w-12">
+                <div className="w-10 sm:w-12 md:w-12">
                   <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/supabase-colored.svg"
                     width="100%"
@@ -156,7 +156,7 @@ Web Developer
                     alt="Supabase"
                   />
                 </div>
-                <div className="w-auto md:w-12">
+                <div className="w-10 sm:w-12 md:w-12">
                   <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/figma-colored.svg"
                     width="100%"
@@ -164,7 +164,7 @@ Web Developer
                     alt="Figma"
                   />
                 </div>
-                <div className="w-auto md:w-12">
+                <div className="w-10 sm:w-12 md:w-12">
                   <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/react-colored.svg"
                     width="100%"
@@ -174,8 +174,8 @@ Web Developer
                 </div>
               </div>
 
-              <div className="grid grid-cols-5 gap-8 md:gap-4">
-                <div className="w-auto md:w-12">
+              <div className="flex gap-x-4 items-center">
+                <div className="w-10 sm:w-12 md:w-12">
                   <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nuxtjs-colored.svg"
                     width="100%"
@@ -183,7 +183,7 @@ Web Developer
                     alt="Next JS"
                   />
                 </div>
-                <div className="w-auto md:w-12">
+                <div className="w-10 sm:w-12 md:w-12">
                   <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nestjs-colored.svg"
                     width="100%"
@@ -191,7 +191,7 @@ Web Developer
                     alt="Nest JS"
                   />
                 </div>
-                <div className="w-auto md:w-12">
+                <div className="w-10 sm:w-12 md:w-12">
                   <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/angularjs-colored.svg"
                     width="100%"
@@ -199,7 +199,7 @@ Web Developer
                     alt="Angular JS"
                   />
                 </div>
-                <div className="w-auto md:w-12">
+                <div className="w-10 sm:w-12 md:w-12">
                   <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/babel-colored.svg"
                     width="100%"
@@ -213,7 +213,7 @@ Web Developer
                     alt="Babel"
                   />
                 </div>
-                <div className="w-auto md:w-12">
+                <div className="w-10 sm:w-12 md:w-12">
                   <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/python-colored.svg"
                     width="100%"
@@ -223,8 +223,8 @@ Web Developer
                 </div>
               </div>
 
-              <div className="grid grid-cols-5 gap-8 md:gap-4">
-                <div className="w-auto md:w-12">
+              <div className="flex gap-x-4 items-center">
+                <div className="w-10 sm:w-12 md:w-12">
                   <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/firebase-colored.svg"
                     width="100%"
@@ -232,7 +232,7 @@ Web Developer
                     alt="Firebase"
                   />
                 </div>
-                <div className="w-auto md:w-12">
+                <div className="w-10 sm:w-12 md:w-12">
                   <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/flutter-colored.svg"
                     width="100%"
@@ -240,7 +240,7 @@ Web Developer
                     alt="Flutter"
                   />
                 </div>
-                <div className="w-auto md:w-12">
+                <div className="w-10 sm:w-12 md:w-12">
                   <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/express-colored.svg"
                     width="100%"
@@ -254,7 +254,7 @@ Web Developer
                     alt="Express JS"
                   />
                 </div>
-                <div className="w-auto md:w-12">
+                <div className="w-10 sm:w-12 md:w-12">
                   <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/gatsby-colored.svg"
                     width="100%"
@@ -262,7 +262,7 @@ Web Developer
                     alt="Gatbsy"
                   />
                 </div>
-                <div className="w-auto md:w-12">
+                <div className="w-10 sm:w-12 md:w-12">
                   <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/graphql-colored.svg"
                     width="100%"
@@ -272,8 +272,8 @@ Web Developer
                 </div>
               </div>
 
-              <div className="grid grid-cols-5 gap-8 md:gap-4">
-                <div className="w-auto md:w-12">
+              <div className="flex gap-x-4 items-center">
+                <div className="w-10 sm:w-12 md:w-12">
                   <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/bootstrap-colored.svg"
                     width="100%"
@@ -281,7 +281,7 @@ Web Developer
                     alt="Bootstrap"
                   />
                 </div>
-                <div className="w-auto md:w-12">
+                <div className="w-10 sm:w-12 md:w-12">
                   <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/swift-colored.svg"
                     width="100%"
@@ -289,7 +289,7 @@ Web Developer
                     alt="Swift"
                   />
                 </div>
-                <div className="w-auto md:w-12">
+                <div className="w-10 sm:w-12 md:w-12">
                   <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/dart-colored.svg"
                     width="100%"
@@ -297,7 +297,7 @@ Web Developer
                     alt="Dart"
                   />
                 </div>
-                <div className="w-auto md:w-12">
+                <div className="w-10 sm:w-12 md:w-12">
                   <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/svelte-colored.svg"
                     width="100%"
@@ -305,7 +305,7 @@ Web Developer
                     alt="Svelte"
                   />
                 </div>
-                <div className="w-auto md:w-12">
+                <div className="w-10 sm:w-12 md:w-12">
                   <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/sass-colored.svg"
                     width="100%"
@@ -322,9 +322,9 @@ Web Developer
       <section className="w-full flex items-center bg-light-100 dark:bg-dark-800 py-24">
         <article className="container mx-auto flex-col flex items-start justify-center">
           <div className="flex flex-col-reverse md:flex-row w-full items-center gap-x-8 gap-y-8">
-            <div className="flex w-full md:w-1/2 flex-col gap-y-6 items-center flex-wrap">
-              <div className="flex gap-x-4">
-                <div className="w-10 sm:w-14">
+            <div className="flex flex-col gap-y-4">
+              <div className="flex gap-4 mx-auto items-center">
+                <div className="w-10 sm:w-12 md:w-12">
                   <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/polywork.svg"
                     width="100%"
@@ -332,7 +332,7 @@ Web Developer
                     alt="Polywork"
                   />
                 </div>
-                <div className="w-10 sm:w-14">
+                <div className="w-10 sm:w-12 md:w-12">
                   <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/facebook.svg"
                     width="100%"
@@ -340,7 +340,7 @@ Web Developer
                     alt="Facebook"
                   />
                 </div>
-                <div className="w-10 sm:w-14">
+                <div className="w-10 sm:w-12 md:w-12">
                   <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/instagram.svg"
                     width="100%"
@@ -348,7 +348,7 @@ Web Developer
                     alt="Instagram"
                   />
                 </div>
-                <div className="w-10 sm:w-14">
+                <div className="w-10 sm:w-12 md:w-12">
                   <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/hashnode.svg"
                     width="100%"
@@ -356,7 +356,7 @@ Web Developer
                     alt="Hashnode"
                   />
                 </div>
-                <div className="w-10 sm:w-14">
+                <div className="w-10 sm:w-12 md:w-12">
                   <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/codesandbox.svg"
                     width="100%"
@@ -370,7 +370,7 @@ Web Developer
                     alt="CodeSandbox"
                   />
                 </div>
-                <div className="w-10 sm:w-14">
+                <div className="w-10 sm:w-12 md:w-12">
                   <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/twitch.svg"
                     width="100%"
@@ -380,8 +380,9 @@ Web Developer
                 </div>
               </div>
 
-              <div className="flex gap-x-4">
-                <div className="w-10 sm:w-14">
+              <div className="flex gap-4 mx-auto items-center">
+                <div className="w-10 sm:w-12 md:w-12"></div>
+                <div className="w-10 sm:w-12 md:w-12">
                   <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/stackoverflow.svg"
                     width="100%"
@@ -390,7 +391,7 @@ Web Developer
                   />
                 </div>
 
-                <div className="w-10 sm:w-14">
+                <div className="w-10 sm:w-12 md:w-12">
                   <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/youtube.svg"
                     width="100%"
@@ -399,7 +400,7 @@ Web Developer
                   />
                 </div>
 
-                <div className="w-10 sm:w-14">
+                <div className="w-10 sm:w-12 md:w-12">
                   <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/discord.svg"
                     width="100%"
@@ -408,7 +409,7 @@ Web Developer
                   />
                 </div>
 
-                <div className="w-10 sm:w-14">
+                <div className="w-10 sm:w-12 md:w-12">
                   <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/dribbble.svg"
                     width="100%"
@@ -416,10 +417,13 @@ Web Developer
                     alt="Dribbble"
                   />
                 </div>
+                <div className="w-10 sm:w-12 md:w-12"></div>
               </div>
 
-              <div className="flex gap-x-4">
-                <div className="w-10 sm:w-14">
+              <div className="flex gap-4 mx-auto items-center">
+                <div className="w-10 sm:w-12 md:w-12"></div>
+                <div className="w-10 sm:w-12 md:w-12"></div>
+                <div className="w-10 sm:w-12 md:w-12">
                   <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/twitter.svg"
                     width="100%"
@@ -428,7 +432,7 @@ Web Developer
                   />
                 </div>
 
-                <div className="w-10 sm:w-14">
+                <div className="w-10 sm:w-12 md:w-12">
                   <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/medium.svg"
                     width="100%"
@@ -442,13 +446,16 @@ Web Developer
                     alt="Medium"
                   />
                 </div>
+                <div className="w-10 sm:w-12 md:w-12"></div>
+                <div className="w-10 sm:w-12 md:w-12"></div>
               </div>
             </div>
-            <div className="flex w-full md:w-1/2 flex-col md:items-start items-center gap-y-4">
+
+            <div className="flex grow flex-col md:items-end justify-end items-center gap-y-4 md:ml-auto">
               <h2 className="text-4xl sm:text-5xl md:text-6xl leading-tight mb-0">
                 Share your <span className="text-brand">socials</span>
               </h2>
-              <p className="text-lg text-center md:text-left">
+              <p className="text-lg mb-0">
                 Add links to all of your social profiles and blogs in seconds.
               </p>
             </div>
@@ -458,12 +465,12 @@ Web Developer
 
       {/* Fourth Section */}
       <section className="w-full flex items-center bg-light-100 dark:bg-dark-800 py-24">
-        <article className="container mx-auto flex flex-col md:flex-row items-center justify-center">
+        <article className="container mx-auto flex flex-col md:flex-row items-center justify-center gap-y-8">
           <div className="flex w-full md:w-1/2 flex-col items-center md:items-start gap-y-4">
             <h2 className="text-4xl sm:text-5xl md:text-6xl leading-tight mb-0">
               Add some <span className="text-brand">stats</span>
             </h2>
-            <p className="text-lg text-center md:text-left">
+            <p className="text-lg text-center md:text-left mb-0">
               Show visitors some key facts through charts, graphs and badges.
             </p>
           </div>
@@ -491,12 +498,12 @@ Web Developer
 
       {/* Fourth Section */}
       <section className="w-full flex items-center bg-light-100 dark:bg-dark-800 py-24">
-        <article className="container mx-auto flex flex-col items-center justify-center md:px-48 gap-x-8">
+        <article className="container mx-auto flex flex-col items-center justify-center md:px-48 gap-x-8 gap-y-8">
           <div className="flex w-full flex-col items-center gap-y-4">
             <h2 className="text-4xl sm:text-5xl md:text-6xl leading-tight mb-0">
               Copy your <span className="text-brand">snippet</span>
             </h2>
-            <p className="text-lg text-center">
+            <p className="text-lg text-center mb-0">
               When you&apos;re done, copy your profile code and you&apos;re
               ready to go!
             </p>

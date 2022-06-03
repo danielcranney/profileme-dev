@@ -40,6 +40,8 @@ module.exports = {
         90: "22.5rem",
         92: "23rem",
         94: "23.5rem",
+        104: "26rem",
+        114: "28.5rem",
         128: "32rem",
       },
       transitionProperty: {

@@ -96,7 +96,7 @@ export default function LandingLayout({ children }) {
         <meta property="twitter:creator" content="@danielcranney" />
       </Head>
 
-      <div className="flex items-center fixed top-0 w-full h-16 z-40 bg-white dark:bg-dark-800 border-b-0 border-slate-200 dark:border-dark-700 px-4">
+      <div className="flex items-center fixed top-0 w-full h-16 z-40 bg-white dark:bg-dark-800 border-b-0 border-slate-200 dark:border-dark-700">
         <div className="container mx-auto flex items-center gap-x-1.5">
           {/* Logo */}
           <Link href={"/"}>
@@ -272,7 +272,7 @@ export default function LandingLayout({ children }) {
         {children}
         {/* Footer */}
         <footer className="w-full flex items-center bg-white dark:bg-dark-900 py-12">
-          <div className="container mx-auto flex flex-col md:flex-row items-end gap-x-3 px-6 gap-y-3">
+          <div className="container mx-auto flex flex-col md:flex-row items-end gap-x-3 gap-y-3">
             <div className="mr-auto flex flex-col grow w-full">
               {/* Logo */}
               <Link href={"/"}>

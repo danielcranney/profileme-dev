@@ -29,7 +29,7 @@ Web Developer
     <>
       {/* First Section */}
       <section className="w-full flex items-center bg-light-100 dark:bg-dark-800 min-h-screen relative">
-        <article className="container mx-auto flex flex-col items-center gap-y-4 px-6">
+        <article className="container mx-auto flex flex-col items-center gap-y-4">
           <h1 className="text-4xl sm:text-5xl md:text-6xl text-center leading-tight mb-0">
             Create an amazing
             <br />
@@ -61,7 +61,7 @@ Web Developer
       </section>
       {/* Second Section */}
       <section className="z-10 w-full flex items-center bg-light-100 dark:bg-dark-800 h-auto -mt-20">
-        <article className="container mx-auto flex flex-col items-center px-6">
+        <article className="container mx-auto flex flex-col items-center">
           <div className="w-full sm:w-4/5 flex relative">
             <div className="absolute w-full h-full bg-gradient-to-t dark:from-dark-800 from-light-100"></div>
 
@@ -76,7 +76,7 @@ Web Developer
       </section>
       {/* Third Section */}
       <section className="w-full flex items-center bg-light-100 dark:bg-dark-800 py-24">
-        <article className="container mx-auto flex-col flex items-start px-6 sm:px-24">
+        <article className="container mx-auto flex-col flex items-start">
           <div className="flex flex-col md:flex-row w-full items-center gap-x-8">
             <div className="flex flex-col w-full md:w-1/2 items-center md:items-start gap-y-4">
               <h2 className="text-4xl sm:text-5xl md:text-6xl leading-tight mb-0">
@@ -320,7 +320,7 @@ Web Developer
       </section>
       {/* Fourth Section */}
       <section className="w-full flex items-center bg-light-100 dark:bg-dark-800 py-24">
-        <article className="container mx-auto flex-col flex items-start justify-center px-6 md:px-24 sm:px-12">
+        <article className="container mx-auto flex-col flex items-start justify-center">
           <div className="flex flex-col-reverse md:flex-row w-full items-center gap-x-8 gap-y-8">
             <div className="flex w-full md:w-1/2 flex-col gap-y-6 items-center flex-wrap">
               <div className="flex gap-x-4">
@@ -458,7 +458,7 @@ Web Developer
 
       {/* Fourth Section */}
       <section className="w-full flex items-center bg-light-100 dark:bg-dark-800 py-24">
-        <article className="container mx-auto flex flex-col md:flex-row items-center justify-center px-6 md:px-24 sm:px-12">
+        <article className="container mx-auto flex flex-col md:flex-row items-center justify-center">
           <div className="flex w-full md:w-1/2 flex-col items-center md:items-start gap-y-4">
             <h2 className="text-4xl sm:text-5xl md:text-6xl leading-tight mb-0">
               Add some <span className="text-brand">stats</span>
@@ -491,7 +491,7 @@ Web Developer
 
       {/* Fourth Section */}
       <section className="w-full flex items-center bg-light-100 dark:bg-dark-800 py-24">
-        <article className="container mx-auto flex flex-col items-center justify-center px-6 md:px-48 gap-x-8">
+        <article className="container mx-auto flex flex-col items-center justify-center md:px-48 gap-x-8">
           <div className="flex w-full flex-col items-center gap-y-4">
             <h2 className="text-4xl sm:text-5xl md:text-6xl leading-tight mb-0">
               Copy your <span className="text-brand">snippet</span>

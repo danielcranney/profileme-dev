@@ -56,7 +56,7 @@ const ThemeSwitch = () => {
       }}
       className={`w-16 h-8 sm:h-9 btn-xs sm:btn-sm relative ${
         state.sidebarOpen
-          ? "bg-dark-900/20 md:bg-light-200/50 dark:bg-dark-700"
+          ? "bg-light-200/50 dark:bg-dark-700"
           : "bg-light-200/50 dark:bg-dark-700"
       }`}
     >

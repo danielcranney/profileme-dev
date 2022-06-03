@@ -1161,7 +1161,7 @@ function MyApp({ Component, pageProps }) {
         value: retrievedStoredState,
       });
     }
-  }, []);
+  }, [dispatch]);
 
   const getLayout = Component.getLayout || ((page) => page);
 

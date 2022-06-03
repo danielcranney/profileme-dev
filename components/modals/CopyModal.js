@@ -79,6 +79,7 @@ const CopyModal = () => {
             layout={"responsive"}
             width={600}
             height={292}
+            alt="How to use ProfileMe.dev animation"
           />
           <p className="text-xs mt-2">
             How to use ProfileMe to update your GitHub profile

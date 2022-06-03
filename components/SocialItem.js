@@ -34,6 +34,7 @@ const SocialItem = forwardRef((props, ref) => {
             }
             width={20}
             height={20}
+            alt={`${account}`}
           />
         }
       />

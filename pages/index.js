@@ -69,6 +69,7 @@ Web Developer
               src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/screenshot.png"
               className="overflow-hidden rounded-md shadow-dark-900/5"
               width="100%"
+              alt="Screenshot of PofileMe.dev"
             />
           </div>
         </article>
@@ -93,6 +94,7 @@ Web Developer
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/c-colored.svg"
                     width="100%"
                     className="scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="C icon"
                   />
                 </div>
                 <div className="w-auto md:w-12">
@@ -100,6 +102,7 @@ Web Developer
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/html5-colored.svg"
                     width="100%"
                     className="scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="HTML5"
                   />
                 </div>
                 <div className="w-auto md:w-12">
@@ -107,6 +110,7 @@ Web Developer
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/javascript-colored.svg"
                     width="100%"
                     className="scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="JavaScript"
                   />
                 </div>
                 <div className="w-auto md:w-12">
@@ -114,6 +118,7 @@ Web Developer
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/tailwindcss-colored.svg"
                     width="100%"
                     className="scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="Tailwind CSS"
                   />
                 </div>
                 <div className="w-auto md:w-12">
@@ -121,6 +126,7 @@ Web Developer
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/typescript-colored.svg"
                     width="100%"
                     className="scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="TypeScript"
                   />
                 </div>
               </div>
@@ -131,6 +137,7 @@ Web Developer
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/php-colored.svg"
                     width="100%"
                     className="scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="PHP"
                   />
                 </div>
                 <div className="w-auto md:w-12">
@@ -138,6 +145,7 @@ Web Developer
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/vuejs-colored.svg"
                     width="100%"
                     className="scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="Vue JS"
                   />
                 </div>
                 <div className="w-auto md:w-12">
@@ -145,6 +153,7 @@ Web Developer
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/supabase-colored.svg"
                     width="100%"
                     className="scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="Supabase"
                   />
                 </div>
                 <div className="w-auto md:w-12">
@@ -152,6 +161,7 @@ Web Developer
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/figma-colored.svg"
                     width="100%"
                     className="scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="Figma"
                   />
                 </div>
                 <div className="w-auto md:w-12">
@@ -159,6 +169,7 @@ Web Developer
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/react-colored.svg"
                     width="100%"
                     className="scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="React JS"
                   />
                 </div>
               </div>
@@ -169,6 +180,7 @@ Web Developer
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nuxtjs-colored.svg"
                     width="100%"
                     className="scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="Next JS"
                   />
                 </div>
                 <div className="w-auto md:w-12">
@@ -176,6 +188,7 @@ Web Developer
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nestjs-colored.svg"
                     width="100%"
                     className="scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="Nest JS"
                   />
                 </div>
                 <div className="w-auto md:w-12">
@@ -183,6 +196,7 @@ Web Developer
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/angularjs-colored.svg"
                     width="100%"
                     className="scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="Angular JS"
                   />
                 </div>
                 <div className="w-auto md:w-12">
@@ -190,11 +204,13 @@ Web Developer
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/babel-colored.svg"
                     width="100%"
                     className="flex dark:hidden scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="Babel"
                   />
                   <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/babel-dark.svg"
                     width="100%"
                     className="dark:flex hidden scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="Babel"
                   />
                 </div>
                 <div className="w-auto md:w-12">
@@ -202,6 +218,7 @@ Web Developer
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/python-colored.svg"
                     width="100%"
                     className="scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="Python"
                   />
                 </div>
               </div>
@@ -212,6 +229,7 @@ Web Developer
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/firebase-colored.svg"
                     width="100%"
                     className="scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="Firebase"
                   />
                 </div>
                 <div className="w-auto md:w-12">
@@ -219,6 +237,7 @@ Web Developer
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/flutter-colored.svg"
                     width="100%"
                     className="scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="Flutter"
                   />
                 </div>
                 <div className="w-auto md:w-12">
@@ -226,11 +245,13 @@ Web Developer
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/express-colored.svg"
                     width="100%"
                     className="flex dark:hidden scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="Express JS"
                   />
                   <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/express-dark.svg"
                     width="100%"
                     className="hidden dark:flex scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="Express JS"
                   />
                 </div>
                 <div className="w-auto md:w-12">
@@ -238,6 +259,7 @@ Web Developer
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/gatsby-colored.svg"
                     width="100%"
                     className="scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="Gatbsy"
                   />
                 </div>
                 <div className="w-auto md:w-12">
@@ -245,6 +267,7 @@ Web Developer
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/graphql-colored.svg"
                     width="100%"
                     className="scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="GraphQL"
                   />
                 </div>
               </div>
@@ -255,6 +278,7 @@ Web Developer
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/bootstrap-colored.svg"
                     width="100%"
                     className="scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="Bootstrap"
                   />
                 </div>
                 <div className="w-auto md:w-12">
@@ -262,6 +286,7 @@ Web Developer
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/swift-colored.svg"
                     width="100%"
                     className="scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="Swift"
                   />
                 </div>
                 <div className="w-auto md:w-12">
@@ -269,6 +294,7 @@ Web Developer
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/dart-colored.svg"
                     width="100%"
                     className="scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="Dart"
                   />
                 </div>
                 <div className="w-auto md:w-12">
@@ -276,6 +302,7 @@ Web Developer
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/svelte-colored.svg"
                     width="100%"
                     className="scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="Svelte"
                   />
                 </div>
                 <div className="w-auto md:w-12">
@@ -283,6 +310,7 @@ Web Developer
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/sass-colored.svg"
                     width="100%"
                     className="scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="SaaS"
                   />
                 </div>
               </div>
@@ -301,6 +329,7 @@ Web Developer
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/polywork.svg"
                     width="100%"
                     className="scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="Polywork"
                   />
                 </div>
                 <div className="w-10 sm:w-14">
@@ -308,6 +337,7 @@ Web Developer
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/facebook.svg"
                     width="100%"
                     className="scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="Facebook"
                   />
                 </div>
                 <div className="w-10 sm:w-14">
@@ -315,6 +345,7 @@ Web Developer
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/instagram.svg"
                     width="100%"
                     className="scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="Instagram"
                   />
                 </div>
                 <div className="w-10 sm:w-14">
@@ -322,6 +353,7 @@ Web Developer
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/hashnode.svg"
                     width="100%"
                     className="scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="Hashnode"
                   />
                 </div>
                 <div className="w-10 sm:w-14">
@@ -329,11 +361,13 @@ Web Developer
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/codesandbox.svg"
                     width="100%"
                     className="flex dark:hidden scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="CodeSandbox"
                   />
                   <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/codesandbox-dark.svg"
                     width="100%"
                     className="dark:flex hidden scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="CodeSandbox"
                   />
                 </div>
                 <div className="w-10 sm:w-14">
@@ -341,6 +375,7 @@ Web Developer
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/twitch.svg"
                     width="100%"
                     className="scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="Twitch"
                   />
                 </div>
               </div>
@@ -351,6 +386,7 @@ Web Developer
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/stackoverflow.svg"
                     width="100%"
                     className="scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="Stack Overflow"
                   />
                 </div>
 
@@ -359,6 +395,7 @@ Web Developer
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/youtube.svg"
                     width="100%"
                     className="scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="YouTube"
                   />
                 </div>
 
@@ -367,6 +404,7 @@ Web Developer
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/discord.svg"
                     width="100%"
                     className="scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="Discord"
                   />
                 </div>
 
@@ -375,6 +413,7 @@ Web Developer
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/dribbble.svg"
                     width="100%"
                     className="scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="Dribbble"
                   />
                 </div>
               </div>
@@ -385,6 +424,7 @@ Web Developer
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/twitter.svg"
                     width="100%"
                     className="scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="Twitter"
                   />
                 </div>
 
@@ -393,11 +433,13 @@ Web Developer
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/medium.svg"
                     width="100%"
                     className="flex dark:hidden scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="Medium"
                   />
                   <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/medium-dark.svg"
                     width="100%"
                     className="dark:flex hidden scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="Medium"
                   />
                 </div>
               </div>
@@ -432,6 +474,7 @@ Web Developer
                 src="/stats-illustration.svg"
                 layout="fill"
                 className="object-fit"
+                alt="Statistics illustration"
               />
             </div>
             <div className="hidden dark:block relative h-48 sm:h-80 overflow-hidden">
@@ -439,6 +482,7 @@ Web Developer
                 src="/stats-illustration-dark.svg"
                 layout="fill"
                 className="object-fit"
+                alt="Statistics illustration"
               />
             </div>
           </div>
@@ -453,7 +497,8 @@ Web Developer
               Copy your <span className="text-brand">snippet</span>
             </h2>
             <p className="text-lg text-center">
-              When you're done, copy your profile code and you're ready to go!
+              When you&apos;re done, copy your profile code and you&apos;re
+              ready to go!
             </p>
           </div>
 

@@ -138,7 +138,7 @@ export default function CreateProfile() {
         }));
       }
     });
-  }, [state]);
+  }, [state, mounted]);
 
   useEffect(() => {
     if (!mounted) return;

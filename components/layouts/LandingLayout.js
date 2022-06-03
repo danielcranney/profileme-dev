@@ -115,7 +115,7 @@ export default function LandingLayout({ children }) {
           </Link>
 
           {/* ThemeSwitch */}
-          <div class="ml-1 mr-auto">
+          <div className="ml-1 mr-auto">
             <ThemeSwitch />
           </div>
 
@@ -164,7 +164,7 @@ export default function LandingLayout({ children }) {
                     <Link href="/changelog">
                       <a className="px-3 flex items-center font-normal no-underline w-full h-full text-dark-400/80 dark:text-light-300 dark:hover:text-white transition-all duration-150 ease-in-out hover:text-dark-700 gap-x-2">
                         <svg
-                          class="w-5 h-5"
+                          className="w-5 h-5"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"

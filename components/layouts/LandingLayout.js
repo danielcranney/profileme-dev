@@ -115,7 +115,7 @@ export default function LandingLayout({ children }) {
           </Link>
 
           {/* ThemeSwitch */}
-          <div class="ml-1 mr-auto">
+          <div className="ml-1 mr-auto">
             <ThemeSwitch />
           </div>
 

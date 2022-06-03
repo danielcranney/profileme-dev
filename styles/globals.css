@@ -149,7 +149,7 @@ Table Of Contents:
 /*****************************/
 @layer components {
   .btn-xs {
-    @apply flex items-center px-2 py-2 text-xs font-semibold transition-all duration-150 ease-in-out rounded-md no-underline;
+    @apply flex items-center px-2.5 py-2 text-xs font-semibold transition-all duration-150 ease-in-out rounded-md no-underline;
   }
 
   .btn-sm {

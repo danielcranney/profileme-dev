@@ -243,7 +243,7 @@ export default function LandingLayout({ children }) {
                   },
                 });
               }}
-              className={`relative cursor-pointer transition-all duration-150 ease-in-out flex items-center justify-center rounded-md h-9 w-9 ${
+              className={`relative cursor-pointer transition-all duration-150 ease-in-out flex items-center justify-center rounded-md h-8 sm:h-9 w-8 sm:w-9 ${
                 state.popOutMenuOpen
                   ? "bg-light-200 dark:bg-dark-600 text-white hover:text-white"
                   : "btn-gray"

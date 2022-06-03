@@ -65,7 +65,7 @@ const ThemeSwitch = () => {
         className={`w-14 sm:w-16 h-8 sm:h-9 btn-xs sm:btn-sm relative`}
       >
         <div
-          className={`w-8 sm:w-9 h-8 sm:h-9 bg-brand text-white rounded-md absolute flex items-center justify-center transition-all duration-300 ease-in-out dark:left-[calc(100%-2.25rem)] left-0`}
+          className={`w-8 sm:w-9 h-8 sm:h-9 bg-brand text-white rounded-md absolute flex items-center justify-center transition-all duration-300 ease-in-out dark:sm:left-[calc(100%-2.25rem)] dark:left-[calc(100%-2rem)] left-0`}
         >
           {renderThemeChanger()}
         </div>

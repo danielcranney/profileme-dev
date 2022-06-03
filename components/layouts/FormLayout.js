@@ -121,11 +121,16 @@ export default function FormLayout({ children }) {
           </span>
           <span className="">Changelog added</span>
         </p>
-        <div className="flex items-center relative ml-auto md:ml-0">
+        <div className="flex items-center relative ml-auto lg:ml-0 gap-x-2">
+          {/* ThemeSwitch */}
+          <div>
+            <ThemeSwitch />
+          </div>
+
           {state.popOutMenuOpen ? (
             <div
               ref={menuNode}
-              className="absolute top-12 overflow-hidden w-48 right-0 bg-white dark:bg-dark-700 rounded-md shadow-sm shadow-dark-700/10"
+              className="absolute top-12 overflow-hidden w-48 right-0 bg-white dark:bg-dark-700 rounded-md shadow-sm shadow-dark-700/10 border-light-200 dark:border-dark-600 border"
             >
               <ul className="flex flex-col">
                 <li className="border-b h-10 px-3 border-light-100 dark:border-dark-600 flex items-center group">

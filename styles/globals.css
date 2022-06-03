@@ -54,7 +54,7 @@ Table Of Contents:
   h5,
   h6 {
     @apply font-bold tracking-tight mb-2
-    transition-all duration-150 ease-in-out dark:text-white text-dark-800;
+    transition-all duration-150 ease-in-out dark:text-white text-dark-700;
   }
   h1 {
     @apply text-4xl;

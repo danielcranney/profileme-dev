@@ -865,7 +865,7 @@ const initialState = {
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/codesandbox.svg",
       darkPath:
         "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/codesandbox-dark.svg",
-      linkPrefix: "https://www.codesandbox.com/",
+      linkPrefix: "https://codesandbox.io/u/",
       linkSuffix: "",
     },
     codepen: {

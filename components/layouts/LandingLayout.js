@@ -97,7 +97,7 @@ export default function LandingLayout({ children }) {
       </Head>
 
       <div className="flex items-center fixed top-0 w-full h-16 z-40 bg-white dark:bg-dark-800 border-b-0 border-slate-200 dark:border-dark-700">
-        <div className="container mx-auto flex items-center gap-x-1.5">
+        <div className="container mx-auto flex items-center gap-x-2">
           {/* Logo */}
           <Link href={"/"}>
             <a

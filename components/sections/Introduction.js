@@ -8,6 +8,7 @@ import SectionHeader from "../SectionHeader";
 const Introduction = React.forwardRef((props, ref) => {
   // Introduction refs
   const nameRef = useRef();
+  const animatedHandRef = useRef();
   const shortDescriptionRef = useRef();
   const longDescriptionRef = useRef();
   const locationRef = useRef();
@@ -43,6 +44,14 @@ const Introduction = React.forwardRef((props, ref) => {
             type={"name"}
             inputPlaceholder={"Peter Parker"}
           />
+           {/* Animated Hand */}
+           <IntroItem ref={animatedHandRef}
+                      formLabelText={'Waving Hand Animation?'}
+                      section={'introduction'}
+                      type={'animatedHand'}
+                      dropdown={true}
+                      inputPlaceholder={'No'}
+           />
           {/* Short Description */}
           <IntroItem
             ref={shortDescriptionRef}

@@ -761,6 +761,7 @@ const initialState = {
   // Introduction State
   introduction: {
     name: "",
+    animatedHand: 0,
     shortDescription: "",
     longDescription: "",
     location: "",

@@ -1,6 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
 import { StateContext } from "../../pages/_app";
 import { useTheme } from "next-themes";
+import { motion } from "framer-motion";
+import { outerContainer } from "../../lib/framerMotion";
+import { logoItem } from "../../lib/framerMotion";
 
 const ThemeSwitch = () => {
   const { state, dispatch } = useContext(StateContext);
@@ -50,7 +53,7 @@ const ThemeSwitch = () => {
   }, []);
 
   return (
-    <div className="flex relative">
+    <div className="flex relative mr-auto">
       <div
         className={`absolute w-full h-6 -translate-y-1/2 top-1/2 rounded-md ${
           state.sidebarOpen

@@ -6,6 +6,16 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { nord } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import { StateContext } from "./_app";
 import { useRouter } from "next/router";
+import { motion } from "framer-motion";
+
+import {
+  outerContainer,
+  heroItem,
+  slideUpContainer,
+  slideFromLeft,
+  slideFromRight,
+  slideFromBottom,
+} from "../lib/framerMotion";
 
 export default function Home() {
   const router = useRouter();
@@ -29,17 +39,35 @@ Web Developer
     <>
       {/* First Section */}
       <section className="w-full flex items-center bg-light-100 dark:bg-dark-800 min-h-screen relative">
-        <article className="container mx-auto flex flex-col items-center gap-y-4">
-          <h1 className="text-4xl sm:text-5xl md:text-6xl text-center leading-tight mb-0">
+        <motion.article
+          initial="hidden"
+          animate="visible"
+          variants={outerContainer}
+          viewport={{ once: true }}
+          className="container mx-auto flex flex-col items-center gap-y-4"
+        >
+          <motion.h1
+            variants={heroItem}
+            transition={{ type: "spring", duration: 0.3, bounce: 0.8 }}
+            className="text-4xl sm:text-5xl md:text-6xl text-center leading-tight mb-0"
+          >
             Create an amazing
             <br />
             <span className="text-brand">GitHub profile</span> in minutes
-          </h1>
-          <p className="text-lg text-center">
+          </motion.h1>
+          <motion.p
+            variants={heroItem}
+            transition={{ type: "spring", duration: 0.3, bounce: 0.8 }}
+            className="text-lg text-center"
+          >
             Show off your skills, experience and projects. Generate markdown for
             your profile with just a few clicks!
-          </p>
-          <div className="flex items-center gap-x-4">
+          </motion.p>
+          <motion.div
+            variants={heroItem}
+            transition={{ type: "spring", duration: 0.3, bounce: 0.1 }}
+            className="flex items-center gap-x-4"
+          >
             <a
               href="https://github.com/danielcranney/profileme-dev/"
               target="_blank"
@@ -49,19 +77,29 @@ Web Developer
               Visit Repo (Developers)
             </a>
             <button
+              variants={heroItem}
               onClick={() => {
                 router.push("/create-profile");
               }}
-              className="btn-brand btn-sm sm:btn-md md:btn-lg"
+              className="transition-all duration-150 ease-in-out btn-brand btn-sm sm:btn-md md:btn-lg"
             >
               Create Profile
             </button>
-          </div>
-        </article>
+          </motion.div>
+        </motion.article>
       </section>
       {/* Second Section */}
       <section className="z-10 w-full flex items-center bg-light-100 dark:bg-dark-800 h-auto -mt-20">
-        <article className="container mx-auto flex flex-col items-center">
+        <motion.article
+          initial="hidden"
+          animate="visible"
+          variants={slideUpContainer}
+          transition={{
+            y: { type: "spring", bounce: 0.3, duration: 0.6 },
+            default: { duration: 2 },
+          }}
+          className="container mx-auto flex flex-col items-center"
+        >
           <div className="w-full sm:w-4/5 flex relative">
             <div className="absolute w-full h-full bg-gradient-to-t dark:from-dark-800 from-light-100"></div>
 
@@ -72,13 +110,20 @@ Web Developer
               alt="Screenshot of PofileMe.dev"
             />
           </div>
-        </article>
+        </motion.article>
       </section>
       {/* Third Section */}
       <section className="w-full flex items-center bg-light-100 dark:bg-dark-800 py-24">
         <article className="container mx-auto flex-col flex items-start">
           <div className="flex flex-col md:flex-row w-full items-center gap-x-8 gap-y-8">
-            <div className="flex flex-col w-full md:w-1/2 items-center md:items-start gap-y-4">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              variants={slideFromLeft}
+              viewport={{ once: true }}
+              transition={{ type: "spring", duration: 0.8, bounce: 0.3 }}
+              className="flex flex-col w-full md:w-1/2 items-center md:items-start gap-y-4"
+            >
               <h2 className="text-4xl sm:text-5xl md:text-6xl leading-tight mb-0">
                 Show off your <span className="text-brand">skills</span>
               </h2>
@@ -86,8 +131,16 @@ Web Developer
                 Select from over 60 core languages, frameworks, backend
                 technologies and web 3 tech.
               </p>
-            </div>
-            <div className="flex flex-col gap-y-4 md:ml-auto">
+            </motion.div>
+
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              variants={slideFromRight}
+              viewport={{ once: true }}
+              transition={{ type: "spring", duration: 0.8, bounce: 0.3 }}
+              className="flex flex-col gap-y-4 md:ml-auto"
+            >
               <div className="flex gap-x-4 items-center">
                 <div className="w-10 sm:w-12 md:w-12">
                   <img
@@ -314,7 +367,7 @@ Web Developer
                   />
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </article>
       </section>
@@ -322,7 +375,14 @@ Web Developer
       <section className="w-full flex items-center bg-light-100 dark:bg-dark-800 py-24">
         <article className="container mx-auto flex-col flex items-start justify-center">
           <div className="flex flex-col-reverse md:flex-row w-full items-center gap-x-8 gap-y-8">
-            <div className="flex flex-col gap-y-4">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              variants={slideFromLeft}
+              viewport={{ once: true }}
+              transition={{ type: "spring", duration: 0.8, bounce: 0.3 }}
+              className="flex flex-col gap-y-4"
+            >
               <div className="flex gap-4 mx-auto items-center">
                 <div className="w-10 sm:w-12 md:w-12">
                   <img
@@ -449,16 +509,23 @@ Web Developer
                 <div className="w-10 sm:w-12 md:w-12"></div>
                 <div className="w-10 sm:w-12 md:w-12"></div>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="flex grow flex-col md:items-end justify-end items-center gap-y-4 md:ml-auto">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              variants={slideFromRight}
+              viewport={{ once: true }}
+              transition={{ type: "spring", duration: 0.8, bounce: 0.3 }}
+              className="flex grow flex-col md:items-end justify-end items-center gap-y-4 md:ml-auto"
+            >
               <h2 className="text-4xl sm:text-5xl md:text-6xl leading-tight mb-0">
                 Share your <span className="text-brand">socials</span>
               </h2>
               <p className="text-lg mb-0">
                 Add links to all of your social profiles and blogs in seconds.
               </p>
-            </div>
+            </motion.div>
           </div>
         </article>
       </section>
@@ -466,16 +533,30 @@ Web Developer
       {/* Fourth Section */}
       <section className="w-full flex items-center bg-light-100 dark:bg-dark-800 py-24">
         <article className="container mx-auto flex flex-col md:flex-row items-center justify-center gap-y-8">
-          <div className="flex w-full md:w-1/2 flex-col items-center md:items-start gap-y-4">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            variants={slideFromLeft}
+            viewport={{ once: true }}
+            transition={{ type: "spring", duration: 0.8, bounce: 0.3 }}
+            className="flex w-full md:w-1/2 flex-col items-center md:items-start gap-y-4"
+          >
             <h2 className="text-4xl sm:text-5xl md:text-6xl leading-tight mb-0">
               Add some <span className="text-brand">stats</span>
             </h2>
             <p className="text-lg text-center md:text-left mb-0">
               Show visitors some key facts through charts, graphs and badges.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="w-full md:w-1/2 block relative">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            variants={slideFromRight}
+            viewport={{ once: true }}
+            transition={{ type: "spring", duration: 0.8, bounce: 0.3 }}
+            className="w-full md:w-1/2 block relative"
+          >
             <div className="dark:hidden block relative h-48 sm:h-80 overflow-hidden">
               <Image
                 src="/stats-illustration.svg"
@@ -492,14 +573,21 @@ Web Developer
                 alt="Statistics illustration"
               />
             </div>
-          </div>
+          </motion.div>
         </article>
       </section>
 
       {/* Fourth Section */}
       <section className="w-full flex items-center bg-light-100 dark:bg-dark-800 py-24">
         <article className="container mx-auto flex flex-col items-center justify-center md:px-48 gap-x-8 gap-y-8">
-          <div className="flex w-full flex-col items-center gap-y-4">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            variants={slideFromBottom}
+            viewport={{ once: true }}
+            transition={{ type: "spring", duration: 0.8, bounce: 0.3 }}
+            className="flex w-full flex-col items-center gap-y-4"
+          >
             <h2 className="text-4xl sm:text-5xl md:text-6xl leading-tight mb-0">
               Copy your <span className="text-brand">snippet</span>
             </h2>
@@ -507,13 +595,20 @@ Web Developer
               When you&apos;re done, copy your profile code and you&apos;re
               ready to go!
             </p>
-          </div>
+          </motion.div>
 
-          <div className="w-full relative">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            variants={slideFromBottom}
+            viewport={{ once: true }}
+            transition={{ type: "spring", duration: 0.8, bounce: 0.3 }}
+            className="w-full relative"
+          >
             <SyntaxHighlighter language="markdown" style={nord} showLineNumbers>
               {codeString}
             </SyntaxHighlighter>
-          </div>
+          </motion.div>
         </article>
       </section>
     </>

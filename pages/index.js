@@ -6,6 +6,14 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { nord } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import { StateContext } from "./_app";
 import { useRouter } from "next/router";
+import { AnimatePresence, motion } from "framer-motion";
+
+import {
+  slideFromLeftMd,
+  slideFromRightMd,
+  slideFromBottomMd,
+  slideFromBottomSm,
+} from "../lib/framerMotion";
 
 export default function Home() {
   const router = useRouter();
@@ -29,7 +37,20 @@ Web Developer
     <>
       {/* First Section */}
       <section className="w-full flex items-center bg-light-100 dark:bg-dark-800 min-h-screen relative">
-        <article className="container mx-auto flex flex-col items-center gap-y-4">
+        <motion.article
+          initial="hidden"
+          animate="visible"
+          variants={slideFromBottomSm}
+          transition={{
+            type: "spring",
+            bounce: 1,
+            y: { duration: 0.5 },
+            opacity: { duration: 2 },
+            default: { duration: 2 },
+          }}
+          viewport={{ once: true }}
+          className="container mx-auto flex flex-col items-center gap-y-4"
+        >
           <h1 className="text-4xl sm:text-5xl md:text-6xl text-center leading-tight mb-0">
             Create an amazing
             <br />
@@ -52,33 +73,55 @@ Web Developer
               onClick={() => {
                 router.push("/create-profile");
               }}
-              className="btn-brand btn-sm sm:btn-md md:btn-lg"
+              className="transition-all duration-150 ease-in-out btn-brand btn-sm sm:btn-md md:btn-lg"
             >
               Create Profile
             </button>
           </div>
-        </article>
+        </motion.article>
       </section>
       {/* Second Section */}
       <section className="z-10 w-full flex items-center bg-light-100 dark:bg-dark-800 h-auto -mt-20">
-        <article className="container mx-auto flex flex-col items-center">
-          <div className="w-full sm:w-4/5 flex relative">
-            <div className="absolute w-full h-full bg-gradient-to-t dark:from-dark-800 from-light-100"></div>
+        <AnimatePresence>
+          <motion.article
+            key="screenshot"
+            initial="hidden"
+            animate="visible"
+            variants={slideFromBottomSm}
+            transition={{
+              delay: 0.2,
+              ease: "easeInOut",
+              y: { duration: 0.5 },
+              opacity: { duration: 2 },
+              default: { duration: 2 },
+            }}
+            className="container mx-auto flex flex-col items-center"
+          >
+            <div className="w-full sm:w-4/5 flex relative">
+              <div className="absolute w-full h-full bg-gradient-to-t dark:from-dark-800 from-light-100"></div>
 
-            <img
-              src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/screenshot.png"
-              className="overflow-hidden rounded-md shadow-dark-900/5"
-              width="100%"
-              alt="Screenshot of PofileMe.dev"
-            />
-          </div>
-        </article>
+              <img
+                src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/screenshot.png"
+                className="overflow-hidden rounded-md shadow-dark-900/5"
+                width="100%"
+                alt="Screenshot of PofileMe.dev"
+              />
+            </div>
+          </motion.article>
+        </AnimatePresence>
       </section>
       {/* Third Section */}
       <section className="w-full flex items-center bg-light-100 dark:bg-dark-800 py-24">
         <article className="container mx-auto flex-col flex items-start">
           <div className="flex flex-col md:flex-row w-full items-center gap-x-8 gap-y-8">
-            <div className="flex flex-col w-full md:w-1/2 items-center md:items-start gap-y-4">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              variants={slideFromLeftMd}
+              viewport={{ once: true }}
+              transition={{ type: "spring", duration: 0.5, bounce: 0.25 }}
+              className="flex flex-col w-full md:w-1/2 items-center md:items-start gap-y-4"
+            >
               <h2 className="text-4xl sm:text-5xl md:text-6xl leading-tight mb-0">
                 Show off your <span className="text-brand">skills</span>
               </h2>
@@ -86,8 +129,16 @@ Web Developer
                 Select from over 60 core languages, frameworks, backend
                 technologies and web 3 tech.
               </p>
-            </div>
-            <div className="flex flex-col gap-y-4 md:ml-auto">
+            </motion.div>
+
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              variants={slideFromRightMd}
+              viewport={{ once: true }}
+              transition={{ type: "spring", duration: 0.5, bounce: 0.25 }}
+              className="flex flex-col gap-y-4 md:ml-auto"
+            >
               <div className="flex gap-x-4 items-center">
                 <div className="w-10 sm:w-12 md:w-12">
                   <img
@@ -314,7 +365,7 @@ Web Developer
                   />
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </article>
       </section>
@@ -322,7 +373,14 @@ Web Developer
       <section className="w-full flex items-center bg-light-100 dark:bg-dark-800 py-24">
         <article className="container mx-auto flex-col flex items-start justify-center">
           <div className="flex flex-col-reverse md:flex-row w-full items-center gap-x-8 gap-y-8">
-            <div className="flex flex-col gap-y-4">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              variants={slideFromLeftMd}
+              viewport={{ once: true }}
+              transition={{ type: "spring", duration: 0.5, bounce: 0.25 }}
+              className="flex flex-col gap-y-4"
+            >
               <div className="flex gap-4 mx-auto items-center">
                 <div className="w-10 sm:w-12 md:w-12">
                   <img
@@ -449,16 +507,23 @@ Web Developer
                 <div className="w-10 sm:w-12 md:w-12"></div>
                 <div className="w-10 sm:w-12 md:w-12"></div>
               </div>
-            </div>
+            </motion.div>
 
-            <div className="flex grow flex-col md:items-end justify-end items-center gap-y-4 md:ml-auto">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              variants={slideFromRightMd}
+              viewport={{ once: true }}
+              transition={{ type: "spring", duration: 0.5, bounce: 0.25 }}
+              className="flex grow flex-col md:items-end justify-end items-center gap-y-4 md:ml-auto"
+            >
               <h2 className="text-4xl sm:text-5xl md:text-6xl leading-tight mb-0">
                 Share your <span className="text-brand">socials</span>
               </h2>
               <p className="text-lg mb-0">
                 Add links to all of your social profiles and blogs in seconds.
               </p>
-            </div>
+            </motion.div>
           </div>
         </article>
       </section>
@@ -466,16 +531,30 @@ Web Developer
       {/* Fourth Section */}
       <section className="w-full flex items-center bg-light-100 dark:bg-dark-800 py-24">
         <article className="container mx-auto flex flex-col md:flex-row items-center justify-center gap-y-8">
-          <div className="flex w-full md:w-1/2 flex-col items-center md:items-start gap-y-4">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            variants={slideFromLeftMd}
+            viewport={{ once: true }}
+            transition={{ type: "spring", duration: 0.5, bounce: 0.25 }}
+            className="flex w-full md:w-1/2 flex-col items-center md:items-start gap-y-4"
+          >
             <h2 className="text-4xl sm:text-5xl md:text-6xl leading-tight mb-0">
               Add some <span className="text-brand">stats</span>
             </h2>
             <p className="text-lg text-center md:text-left mb-0">
               Show visitors some key facts through charts, graphs and badges.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="w-full md:w-1/2 block relative">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            variants={slideFromRightMd}
+            viewport={{ once: true }}
+            transition={{ type: "spring", duration: 0.5, bounce: 0.25 }}
+            className="w-full md:w-1/2 block relative"
+          >
             <div className="dark:hidden block relative h-48 sm:h-80 overflow-hidden">
               <Image
                 src="/stats-illustration.svg"
@@ -492,14 +571,21 @@ Web Developer
                 alt="Statistics illustration"
               />
             </div>
-          </div>
+          </motion.div>
         </article>
       </section>
 
       {/* Fourth Section */}
       <section className="w-full flex items-center bg-light-100 dark:bg-dark-800 py-24">
         <article className="container mx-auto flex flex-col items-center justify-center md:px-48 gap-x-8 gap-y-8">
-          <div className="flex w-full flex-col items-center gap-y-4">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            variants={slideFromBottomMd}
+            viewport={{ once: true }}
+            transition={{ type: "spring", duration: 0.5, bounce: 0.25 }}
+            className="flex w-full flex-col items-center gap-y-4"
+          >
             <h2 className="text-4xl sm:text-5xl md:text-6xl leading-tight mb-0">
               Copy your <span className="text-brand">snippet</span>
             </h2>
@@ -507,13 +593,20 @@ Web Developer
               When you&apos;re done, copy your profile code and you&apos;re
               ready to go!
             </p>
-          </div>
+          </motion.div>
 
-          <div className="w-full relative">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            variants={slideFromBottomMd}
+            viewport={{ once: true }}
+            transition={{ type: "spring", duration: 0.5, bounce: 0.25 }}
+            className="w-full relative"
+          >
             <SyntaxHighlighter language="markdown" style={nord} showLineNumbers>
               {codeString}
             </SyntaxHighlighter>
-          </div>
+          </motion.div>
         </article>
       </section>
     </>

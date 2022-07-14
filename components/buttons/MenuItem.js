@@ -12,7 +12,8 @@ const MenuItem = ({ text, section, icon }) => {
     <li
       className="group"
       onClick={() => {
-        if (router.pathname !== "") {
+        console.log("Pathname is: " + router.pathname);
+        if (router.pathname !== "/create-profile") {
           router.push("/");
         }
         dispatch({

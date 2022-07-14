@@ -6,19 +6,19 @@ import { useTheme } from "next-themes";
 // Import state and actions
 import { ACTIONS } from "../../pages/_app";
 import { StateContext } from "../../pages/_app";
-import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
-import { colorStore } from "../../pages/_app";
-// Import components
-import MenuItem from "../buttons/MenuItem";
-import SidebarFooter from "../misc/SidebarFooter";
-let TurndownService = require("turndown").default;
-import LeaveFeedback from "../buttons/LeaveFeedback";
-import CopyModal from "../modals/CopyModal";
-import HamburgerMenuIcon from "../buttons/HamburgerMenuIcon";
 import ThemeSwitch from "../buttons/ThemeSwitch";
-import Logo from "../Logo";
+
 import { useRouter } from "next/router";
 import { SocialIcons } from "../misc/SocialIcons";
+import { AnimatePresence, motion } from "framer-motion";
+
+import {
+  slideFromLeftMd,
+  slideFromRightMd,
+  slideFromBottomMd,
+  slideFromBottomSm,
+  slideFromTopSm,
+} from "../../lib/framerMotion";
 
 export default function LandingLayout({ children }) {
   const { state, dispatch } = useContext(StateContext);
@@ -96,7 +96,20 @@ export default function LandingLayout({ children }) {
         <meta property="twitter:creator" content="@danielcranney" />
       </Head>
 
-      <div className="flex items-center fixed top-0 w-full h-16 z-40 bg-white dark:bg-dark-800 border-b-0 border-slate-200 dark:border-dark-700">
+      <motion.header
+        initial="hidden"
+        animate="visible"
+        exit="hidden"
+        variants={slideFromTopSm}
+        transition={{
+          ease: "easeInOut",
+          y: { duration: 0.3 },
+          opacity: { duration: 0.6 },
+          default: { duration: 0.6 },
+        }}
+        viewport={{ once: true }}
+        className="flex items-center fixed top-0 w-full h-16 z-40 bg-white dark:bg-dark-800 border-b-0 border-slate-200 dark:border-dark-700"
+      >
         <div className="container mx-auto flex items-center gap-x-2">
           {/* Logo */}
           <Link href={"/"}>
@@ -266,7 +279,7 @@ export default function LandingLayout({ children }) {
             </button>
           </div>
         </div>
-      </div>
+      </motion.header>
 
       <main className="w-full min-h-screen overflow-auto flex flex-col bg-white dark:bg-dark-800">
         {children}

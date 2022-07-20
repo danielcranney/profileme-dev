@@ -205,6 +205,12 @@ export const iconData = {
       link: "https://tailwindcss.com/",
     },
     {
+      name: "FacileCSS",
+      path: "https://www.facilecss.com/icon.png",
+      iTag: "facilecss",
+      link: "https://facilecss.com",
+    },
+    {
       name: "Bootstrap",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/bootstrap-colored.svg",
       iTag: "bootstrap",

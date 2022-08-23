@@ -49,7 +49,7 @@ module.exports = {
       },
       colors: {
         brand: "#139ae1",
-        "brand-alt": "#1ba8f2",
+        "brand-alt": "#0D7DBA",
         dark: {
           300: "#b5b9d6",
           400: "#53566b",

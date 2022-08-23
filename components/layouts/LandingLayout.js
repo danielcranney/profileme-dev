@@ -13,7 +13,6 @@ import { useRouter } from "next/router";
 import { SocialIcons } from "../misc/SocialIcons";
 import { topBarContainer } from "../../lib/framerMotion";
 
-
 export default function LandingLayout({ children }) {
   const { state, dispatch } = useContext(StateContext);
   const router = useRouter();
@@ -268,60 +267,59 @@ export default function LandingLayout({ children }) {
         </motion.div>
       </div>
 
-
       <main className="w-full min-h-screen overflow-auto flex flex-col bg-white dark:bg-dark-800">
         {children}
         {/* Footer */}
-        <footer className="w-full flex items-center bg-white dark:bg-dark-900 py-12">
-          <div className="container mx-auto flex flex-col md:flex-row items-end gap-x-3 gap-y-3">
-            <div className="mr-auto flex flex-col grow w-full">
-              {/* Logo */}
-              <Link href={"/"}>
-                <a
-                  className={`font-bold tracking-tight mb-0 text-lg sm:text-xl transition-all duration-500 ease-in-out no-underline text-dark-900 dark:text-white`}
+      </main>
+      <footer className="w-full flex items-center bg-white dark:bg-dark-900 py-12">
+        <div className="container mx-auto flex flex-col md:flex-row items-end gap-x-3 gap-y-3">
+          <div className="mr-auto flex flex-col grow w-full">
+            {/* Logo */}
+            <Link href={"/"}>
+              <a
+                className={`font-bold tracking-tight mb-0 text-lg sm:text-xl transition-all duration-500 ease-in-out no-underline text-dark-900 dark:text-white`}
+              >
+                ProfileMe
+                <span
+                  className={`transition-all duration-150 ease-in-out ${
+                    state.sidebarOpen
+                      ? "text-brand hover:text-dark-700"
+                      : "text-brand-alt"
+                  }`}
                 >
-                  ProfileMe
-                  <span
-                    className={`transition-all duration-150 ease-in-out ${
-                      state.sidebarOpen
-                        ? "text-brand hover:text-dark-700"
-                        : "text-brand-alt"
-                    }`}
-                  >
-                    .dev
-                  </span>
-                </a>
+                  .dev
+                </span>
+              </a>
+            </Link>
+
+            {/* Changelog Link */}
+            <p className="mb-0 text-sm w-full">
+              &copy; Copyright 2022 ProfileMe.dev. All rights reserved.
+            </p>
+          </div>
+          <div className="flex flex-col md:items-end w-full items-start">
+            <SocialIcons />
+
+            <div className="flex gap-x-1.5 items-center">
+              <Link href="/">
+                <a className="text-xs">Home</a>
               </Link>
-
-              {/* Changelog Link */}
-              <p className="mb-0 text-sm w-full">
-                &copy; Copyright 2022 ProfileMe.dev. All rights reserved.
-              </p>
-            </div>
-            <div className="flex flex-col md:items-end w-full items-start">
-              <SocialIcons />
-
-              <div className="flex gap-x-1.5 items-center">
-                <Link href="/">
-                  <a className="text-xs">Home</a>
-                </Link>
-                <span className="text-dark-400 dark:text-white">·</span>
-                <Link href="/create-profile">
-                  <a className="text-xs">Create Profile</a>
-                </Link>
-                <span className="text-dark-400 dark:text-white">·</span>
-                <Link href="/changelog">
-                  <a className="text-xs">Changelog</a>
-                </Link>
-                <span className="text-dark-400 dark:text-white">·</span>
-                <a href="mailto:danielcranney@gmail.com" className="text-xs">
-                  Leave Feedback
-                </a>
-              </div>
+              <span className="text-dark-400 dark:text-white">·</span>
+              <Link href="/create-profile">
+                <a className="text-xs">Create Profile</a>
+              </Link>
+              <span className="text-dark-400 dark:text-white">·</span>
+              <Link href="/changelog">
+                <a className="text-xs">Changelog</a>
+              </Link>
+              <span className="text-dark-400 dark:text-white">·</span>
+              <a href="mailto:danielcranney@gmail.com" className="text-xs">
+                Leave Feedback
+              </a>
             </div>
           </div>
-        </footer>
-      </main>
+        </div>
+      </footer>
     </div>
   );
 }

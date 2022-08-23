@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { MicroButton } from "../components/buttons/MicroButton";
 import LandingLayout from "../components/layouts/LandingLayout";
+import GitHubIcon from "../components/misc/GitHubIcon";
 import { ACTIONS } from "./_app";
 import { StateContext } from "./_app";
 
@@ -14,7 +15,153 @@ export default function Changelog() {
         <h1 className="text-5xl">Changelog</h1>
         <p>All of the changes made to ProfileMe.dev since launch.</p>
 
+        <div className="flex w-full bg-white dark:bg-dark-900/40 py-2.5 px-3 rounded-md items-center transition-all duration-150 ease-in-out">
+          <p className="mb-0">
+            If you are a developer and would like to contribute to
+            ProfileMe.dev, please visit the GitHub repo and make a pull request.
+          </p>
+          <a
+            target="_blank"
+            rel="noreferrer"
+            href="https://github.com/danielcranney/profileme-dev/commits/main"
+            className="btn-md btn-brand ml-auto self-end group gap-x-1.5"
+          >
+            <GitHubIcon />
+            Visit GitHub
+          </a>
+        </div>
+
         <section className="flex flex-col gap-y-8 md:gap-y-0 mt-8">
+          {/* July 14th 2022 */}
+          <article className="flex gap-x-6 flex-col md:flex-row gap-y-3 border-b border-light-200 dark:border-dark-600 transition-all duration-150 ease-in-out pb-8 md:pb-0">
+            {/* Left Column */}
+            <div className="w-full md:w-1/4 flex flex-col border-r-0 md:border-r border-light-200 dark:border-dark-600 py-0 md:py-6 transition-all duration-150 ease-in-out">
+              <h3>July 14th 2022</h3>
+              <p className="text-sm mb-0">
+                Posted by{" "}
+                <a href="mailto:danielcranney@gmail.com">Dan Cranney</a>
+              </p>
+            </div>
+
+            {/* Right Column */}
+            <div className="w-full md:w-3/4 flex flex-col py-0 md:py-6 transition-all duration-150 ease-in-out">
+              <ul className="gap-y-4 flex flex-col mb-0">
+                <li className="flex flex-col items-start gap-y-1">
+                  <div className="w-20">
+                    <MicroButton buttonStyle={"btn-new"} text={"New"} />
+                  </div>
+                  <p className="text-sm mb-0">
+                    On-load animations added to homepage.
+                  </p>
+                </li>
+              </ul>
+            </div>
+          </article>
+
+          {/* June 28th 2022 */}
+          <article className="flex gap-x-6 flex-col md:flex-row gap-y-3 border-b border-light-200 dark:border-dark-600 transition-all duration-150 ease-in-out pb-8 md:pb-0">
+            {/* Left Column */}
+            <div className="w-full md:w-1/4 flex flex-col border-r-0 md:border-r border-light-200 dark:border-dark-600 py-0 md:py-6 transition-all duration-150 ease-in-out">
+              <h3>June 28th 2022</h3>
+              <p className="text-sm mb-0">
+                Posted by{" "}
+                <a href="mailto:danielcranney@gmail.com">Dan Cranney</a>
+              </p>
+            </div>
+
+            {/* Right Column */}
+            <div className="w-full md:w-3/4 flex flex-col py-0 md:py-6 transition-all duration-150 ease-in-out">
+              <ul className="gap-y-4 flex flex-col mb-0">
+                <li className="flex flex-col items-start gap-y-1">
+                  <div className="w-20">
+                    <MicroButton buttonStyle={"btn-new"} text={"New"} />
+                  </div>
+                  <p className="text-sm mb-0">
+                    Waving hand option added to introduction section. Pull
+                    request submitted by{" "}
+                    <a
+                      href="https://github.com/danielcranney/profileme-dev/commits?author=paytonjewell"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      paytonjewel
+                    </a>
+                    .
+                  </p>
+                </li>
+              </ul>
+            </div>
+          </article>
+
+          {/* June 25th 2022 */}
+          <article className="flex gap-x-6 flex-col md:flex-row gap-y-3 border-b border-light-200 dark:border-dark-600 transition-all duration-150 ease-in-out pb-8 md:pb-0">
+            {/* Left Column */}
+            <div className="w-full md:w-1/4 flex flex-col border-r-0 md:border-r border-light-200 dark:border-dark-600 py-0 md:py-6 transition-all duration-150 ease-in-out">
+              <h3>June 25th 2022</h3>
+              <p className="text-sm mb-0">
+                Posted by{" "}
+                <a href="mailto:danielcranney@gmail.com">Dan Cranney</a>
+              </p>
+            </div>
+
+            {/* Right Column */}
+            <div className="w-full md:w-3/4 flex flex-col py-0 md:py-6 transition-all duration-150 ease-in-out">
+              <ul className="gap-y-4 flex flex-col mb-0">
+                <li className="flex flex-col items-start gap-y-1">
+                  <div className="w-20">
+                    <MicroButton buttonStyle={"btn-fixed"} text={"Fixed"} />
+                  </div>
+                  <p className="text-sm mb-0">
+                    GitHub and Twitter icon links fixed{" "}
+                    <a
+                      href="https://github.com/danielcranney/profileme-dev/commits?author=Dharmik48"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Dharmik48
+                    </a>
+                    .
+                  </p>
+                </li>
+              </ul>
+            </div>
+          </article>
+
+          {/* June 4th 2022 */}
+          <article className="flex gap-x-6 flex-col md:flex-row gap-y-3 border-b border-light-200 dark:border-dark-600 transition-all duration-150 ease-in-out pb-8 md:pb-0">
+            {/* Left Column */}
+            <div className="w-full md:w-1/4 flex flex-col border-r-0 md:border-r border-light-200 dark:border-dark-600 py-0 md:py-6 transition-all duration-150 ease-in-out">
+              <h3>June 4th 2022</h3>
+              <p className="text-sm mb-0">
+                Posted by{" "}
+                <a href="mailto:danielcranney@gmail.com">Dan Cranney</a>
+              </p>
+            </div>
+
+            {/* Right Column */}
+            <div className="w-full md:w-3/4 flex flex-col py-0 md:py-6 transition-all duration-150 ease-in-out">
+              <ul className="gap-y-4 flex flex-col mb-0">
+                <li className="flex flex-col items-start gap-y-1">
+                  <div className="w-20">
+                    <MicroButton buttonStyle={"btn-fixed"} text={"Fixed"} />
+                  </div>
+                  <p className="text-sm mb-0">
+                    CodeSandbox link now works correctly. Pull request submitted
+                    by{" "}
+                    <a
+                      href="https://github.com/danielcranney/profileme-dev/commits?author=bachitterch"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      Bachitterch
+                    </a>
+                    .
+                  </p>
+                </li>
+              </ul>
+            </div>
+          </article>
+
           {/* June 1st 2022 */}
           <article className="flex gap-x-6 flex-col md:flex-row gap-y-3 border-b border-light-200 dark:border-dark-600 transition-all duration-150 ease-in-out pb-8 md:pb-0">
             {/* Left Column */}

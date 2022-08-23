@@ -5,6 +5,7 @@ import { ACTIONS } from "./_app";
 import { StateContext } from "./_app";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 import { colorStore } from "./_app";
+
 let TurndownService = require("turndown").default;
 // Import components
 import Introduction from "../components/sections/Introduction";
@@ -423,6 +424,7 @@ export default function CreateProfile() {
             ref={introductionRef}
             className={`${
               state.introduction.name ||
+              state.introduction.animatedHand ||
               state.introduction.shortDescription ||
               state.introduction.longDescription ||
               state.introduction.location ||
@@ -439,7 +441,27 @@ export default function CreateProfile() {
             }`}
           >
             {!state.introduction.name ? null : (
-              <h1>Hi 👋 My name is {state.introduction.name}</h1>
+              <div>
+                {state.introduction.animatedHand == 0 && (
+                  <h1>Hi 👋 My name is {state.introduction.name}</h1>
+                )}
+                {state.introduction.animatedHand != 0 && (
+                  <h1>
+                    Hi{" "}
+                    <span>
+                      <img
+                        style={{ display: "inline" }}
+                        height={"36px"}
+                        width={"36px"}
+                        src={
+                          "https://user-images.githubusercontent.com/18350557/176309783-0785949b-9127-417c-8b55-ab5a4333674e.gif"
+                        }
+                      />
+                    </span>
+                    My name is {state.introduction.name}
+                  </h1>
+                )}
+              </div>
             )}
             {state.introduction.shortDescription ? (
               <h2>{state.introduction.shortDescription}</h2>
@@ -830,7 +852,7 @@ export default function CreateProfile() {
           ) : (
             <>
               {renderedMarkdown.introduction ? (
-                <p className="text-xs whitespace-pre-line">
+                <p className="text-xs whitespace-pre-line break-all">
                   {renderedMarkdown.introduction}
                 </p>
               ) : null}

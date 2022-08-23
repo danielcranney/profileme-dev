@@ -51,6 +51,7 @@ Web Developer
             transition={{ type: "spring", duration: 0.3, bounce: 0.8 }}
             className="text-4xl sm:text-5xl md:text-6xl text-center leading-tight mb-0"
           >
+
             Create an amazing
             <br />
             <span className="text-brand">GitHub profile</span> in minutes
@@ -85,7 +86,9 @@ Web Developer
             >
               Create Profile
             </button>
+
           </motion.div>
+
         </motion.article>
       </section>
       {/* Second Section */}

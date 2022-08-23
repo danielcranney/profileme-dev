@@ -89,7 +89,7 @@ export default function LandingLayout({ children }) {
         <meta property="twitter:creator" content="@danielcranney" />
       </Head>
 
-      <div className="flex items-center fixed top-0 w-full h-16 z-40 bg-white dark:bg-dark-800 border-b-0 border-slate-200 dark:border-dark-700">
+      <header className="flex items-center fixed top-0 w-full h-16 z-40 bg-white dark:bg-dark-800 border-b-0 border-slate-200 dark:border-dark-700">
         <motion.div
           initial="hidden"
           animate="visible"
@@ -265,7 +265,7 @@ export default function LandingLayout({ children }) {
             </button>
           </div>
         </motion.div>
-      </div>
+      </header>
 
       <main className="w-full min-h-screen overflow-auto flex flex-col bg-white dark:bg-dark-800">
         {children}

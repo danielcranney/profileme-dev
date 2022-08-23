@@ -261,6 +261,7 @@ export default function CreateProfile() {
   };
 
   const handleIconToggle = (iconCategory, iconObj, i) => {
+    const currentIndex = Object.keys(state.skills).reduce((length, iconCategory) => length + state.skills[iconCategory].length,0);
     const isIconAlreadySelectedIndex = state.skills[iconCategory].findIndex(
       (item) => item.name === iconObj.name
     );
@@ -279,7 +280,7 @@ export default function CreateProfile() {
         payload: {
           type: iconCategory,
           icon: iconObj,
-          position: i,
+          position: currentIndex,
         },
       });
     }
@@ -543,7 +544,7 @@ export default function CreateProfile() {
             </ul>
           </div>
 
-          {/* GitHub, Twitter and Titch Badges */}
+          {/* GitHub, Twitter and Twitch Badges */}
           <div
             className={`flex flex-wrap gap-x-2 gap-y-2 ${
               state.badges.githubFollowers.selected ||
@@ -598,10 +599,10 @@ export default function CreateProfile() {
                 : "mb-4"
             }`}
           >
-            {/* Core Icons Display */}
-            {!state.skills.core || state.skills.core.length < 1 ? null : (
+            {/* Icons Display */}
+            {Object.values(state.skills).some((arr) => arr.length> 0) ? (
               <div className="flex gap-x-1.5 flex-wrap gap-y-1.5">
-                {state.skills.core.map((icon) => {
+                {Object.values(state.skills).flat().map((icon) => {
                   return (
                     <div key={`${icon.path}`} className="relative">
                       <a href={`${icon.link}`} target="_blank" rel="noreferrer">
@@ -629,174 +630,7 @@ export default function CreateProfile() {
                   );
                 })}
               </div>
-            )}
-
-            {/* Frontend Icons Display */}
-            {!state.skills.frontend ||
-            state.skills.frontend.length < 1 ? null : (
-              <div className="flex gap-x-1.5 flex-wrap gap-y-1.5">
-                {state.skills.frontend.map((icon) => {
-                  return (
-                    <div key={`${icon.path}`} className="relative">
-                      <a href={`${icon.link}`} target="_blank" rel="noreferrer">
-                        {icon.darkPath ? (
-                          <img
-                            src={
-                              theme == "dark"
-                                ? `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored-dark.svg`
-                                : `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored.svg`
-                            }
-                            alt={`${icon.name}`}
-                            width="36"
-                            height="36"
-                          />
-                        ) : (
-                          <img
-                            src={`https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored.svg`}
-                            alt={`${icon.name}`}
-                            width="36"
-                            height="36"
-                          />
-                        )}
-                      </a>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-
-            {/* Backend Icons Display */}
-            {!state.skills.backend || state.skills.backend.length < 1 ? null : (
-              <div className="flex gap-x-1.5 flex-wrap gap-y-1.5">
-                {state.skills.backend.map((icon) => {
-                  return (
-                    <div key={`${icon.path}`} className="relative">
-                      <a href={`${icon.link}`} target="_blank" rel="noreferrer">
-                        {icon.darkPath ? (
-                          <img
-                            src={
-                              theme == "dark"
-                                ? `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored-dark.svg`
-                                : `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored.svg`
-                            }
-                            alt={`${icon.name}`}
-                            width="36"
-                            height="36"
-                          />
-                        ) : (
-                          <img
-                            src={`https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored.svg`}
-                            alt={`${icon.name}`}
-                            width="36"
-                            height="36"
-                          />
-                        )}
-                      </a>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-
-            {/* Other Icons Display */}
-            {!state.skills.other || state.skills.other.length < 1 ? null : (
-              <div className="flex gap-x-1.5 flex-wrap gap-y-1.5">
-                {state.skills.other.map((icon) => {
-                  return (
-                    <div key={`${icon.path}`} className="relative">
-                      <a href={`${icon.link}`} target="_blank" rel="noreferrer">
-                        {icon.darkPath ? (
-                          <img
-                            src={
-                              theme == "dark"
-                                ? `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored-dark.svg`
-                                : `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored.svg`
-                            }
-                            alt={`${icon.name}`}
-                            width="36"
-                            height="36"
-                          />
-                        ) : (
-                          <img
-                            src={`https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored.svg`}
-                            alt={`${icon.name}`}
-                            width="36"
-                            height="36"
-                          />
-                        )}
-                      </a>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-
-            {/* Software Icons Display */}
-            {!state.skills.software ||
-            state.skills.software.length < 1 ? null : (
-              <div className="flex gap-x-1.5 flex-wrap gap-y-1.5">
-                {state.skills.software.map((icon) => {
-                  return (
-                    <div key={`${icon.path}`} className="relative">
-                      <a href={`${icon.link}`} target="_blank" rel="noreferrer">
-                        {icon.darkPath ? (
-                          <img
-                            src={
-                              theme == "dark"
-                                ? `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored-dark.svg`
-                                : `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored.svg`
-                            }
-                            alt={`${icon.name}`}
-                            width="36"
-                            height="36"
-                          />
-                        ) : (
-                          <img
-                            src={`https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored.svg`}
-                            alt={`${icon.name}`}
-                            width="36"
-                            height="36"
-                          />
-                        )}
-                      </a>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
-
-            {/* Web3 Icons Display */}
-            {!state.skills.web3 || state.skills.web3.length < 1 ? null : (
-              <div className="flex gap-x-1.5 flex-wrap gap-y-1.5">
-                {state.skills.web3.map((icon) => {
-                  return (
-                    <div key={`${icon.path}`} className="relative">
-                      <a href={`${icon.link}`} target="_blank" rel="noreferrer">
-                        {icon.darkPath ? (
-                          <img
-                            src={
-                              theme == "dark"
-                                ? `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored-dark.svg`
-                                : `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored.svg`
-                            }
-                            alt={`${icon.name}`}
-                            width="36"
-                            height="36"
-                          />
-                        ) : (
-                          <img
-                            src={`https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored.svg`}
-                            alt={`${icon.name}`}
-                            width="36"
-                            height="36"
-                          />
-                        )}
-                      </a>
-                    </div>
-                  );
-                })}
-              </div>
-            )}
+            ) : null}
           </div>
 
           {/* Socials Title Preview */}

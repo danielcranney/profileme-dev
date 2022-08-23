@@ -2,6 +2,7 @@ import React, { useEffect, useContext, useRef, useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
 // Import state and actions
 import { ACTIONS } from "../../pages/_app";
@@ -10,15 +11,8 @@ import ThemeSwitch from "../buttons/ThemeSwitch";
 
 import { useRouter } from "next/router";
 import { SocialIcons } from "../misc/SocialIcons";
-import { AnimatePresence, motion } from "framer-motion";
+import { topBarContainer } from "../../lib/framerMotion";
 
-import {
-  slideFromLeftMd,
-  slideFromRightMd,
-  slideFromBottomMd,
-  slideFromBottomSm,
-  slideFromTopSm,
-} from "../../lib/framerMotion";
 
 export default function LandingLayout({ children }) {
   const { state, dispatch } = useContext(StateContext);
@@ -96,24 +90,16 @@ export default function LandingLayout({ children }) {
         <meta property="twitter:creator" content="@danielcranney" />
       </Head>
 
-      <motion.header
-        initial="hidden"
-        animate="visible"
-        exit="hidden"
-        variants={slideFromTopSm}
-        transition={{
-          ease: "easeInOut",
-          y: { duration: 0.3 },
-          opacity: { duration: 0.6 },
-          default: { duration: 0.6 },
-        }}
-        viewport={{ once: true }}
-        className="flex items-center fixed top-0 w-full h-16 z-40 bg-white dark:bg-dark-800 border-b-0 border-slate-200 dark:border-dark-700"
-      >
-        <div className="container mx-auto flex items-center gap-x-2">
+      <div className="flex items-center fixed top-0 w-full h-16 z-40 bg-white dark:bg-dark-800 border-b-0 border-slate-200 dark:border-dark-700">
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={topBarContainer}
+          className="container mx-auto flex items-center gap-x-2"
+        >
           {/* Logo */}
           <Link href={"/"}>
-            <a
+            <motion.a
               className={`font-bold tracking-tight mb-0 text-lg sm:text-xl transition-all duration-500 ease-in-out no-underline text-dark-900 dark:text-white`}
             >
               ProfileMe
@@ -124,22 +110,21 @@ export default function LandingLayout({ children }) {
               >
                 .dev
               </span>
-            </a>
+            </motion.a>
           </Link>
 
           {/* ThemeSwitch */}
-          <div className="ml-1 mr-auto">
-            <ThemeSwitch />
-          </div>
 
-          <button
+          <ThemeSwitch />
+
+          <motion.button
             onClick={() => {
               router.push("/create-profile");
             }}
             className="btn-brand btn-xs sm:btn-sm"
           >
             Create Profile
-          </button>
+          </motion.button>
 
           {/* Popout Menu */}
           <div className="flex items-center relative">
@@ -278,8 +263,9 @@ export default function LandingLayout({ children }) {
               </svg>
             </button>
           </div>
-        </div>
-      </motion.header>
+        </motion.div>
+      </div>
+
 
       <main className="w-full min-h-screen overflow-auto flex flex-col bg-white dark:bg-dark-800">
         {children}

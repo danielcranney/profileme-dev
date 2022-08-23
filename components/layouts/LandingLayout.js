@@ -232,6 +232,8 @@ export default function LandingLayout({ children }) {
               </div>
             ) : null}
             <button
+              aria-label="Menu"
+              aria-expanded={state.popOutMenuOpen}
               ref={menuIconNode}
               onClick={() => {
                 dispatch({

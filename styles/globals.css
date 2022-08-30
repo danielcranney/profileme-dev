@@ -54,7 +54,7 @@ Table Of Contents:
   h5,
   h6 {
     @apply font-bold tracking-tight mb-2
-    transition-all duration-150 ease-in-out dark:text-white text-dark-800;
+    transition-all duration-150 ease-in-out dark:text-white text-dark-700;
   }
   h1 {
     @apply text-4xl;
@@ -92,7 +92,7 @@ Table Of Contents:
   }
 
   .menu > li {
-    @apply flex items-center hover:cursor-pointer overflow-hidden hover:bg-dark-900/20 transition-all duration-150 ease-in-out;
+    @apply flex items-center hover:cursor-pointer overflow-hidden transition-all duration-150 ease-in-out;
   }
   .menu > li > span {
     @apply border-l-4 h-full flex items-center px-6 py-3 transition-all duration-150 ease-in-out font-semibold uppercase tracking-wide text-xs;
@@ -124,7 +124,7 @@ Table Of Contents:
   }
 
   aside {
-    @apply fixed left-0 z-30 flex flex-col w-full h-full pb-6 pt-20 bg-brand border-t-0 border-b border-r-0 dark:border-dark-600 border-light-200 md:flex-grow md:border-b-0 transform transition-all duration-150 ease-in-out overflow-hidden md:w-64 top-0;
+    @apply fixed left-0 z-30 flex flex-col w-full h-full pb-6 pt-20 bg-dark-700 dark:bg-dark-700 border-t-0 border-b border-r-0 dark:border-dark-600 border-light-200 md:flex-grow md:border-b-0 transform transition-all duration-150 ease-in-out overflow-hidden md:w-64 top-0;
   }
 
   .section-header-wrapper {
@@ -149,7 +149,7 @@ Table Of Contents:
 /*****************************/
 @layer components {
   .btn-xs {
-    @apply flex items-center px-2 py-2 text-xs font-semibold transition-all duration-150 ease-in-out rounded-md no-underline;
+    @apply flex items-center px-2.5 py-2 text-xs font-semibold transition-all duration-150 ease-in-out rounded-md no-underline;
   }
 
   .btn-sm {
@@ -158,6 +158,10 @@ Table Of Contents:
 
   .btn-md {
     @apply flex items-center px-3 py-3 text-xs font-semibold uppercase transition-all duration-150 ease-in-out rounded-md no-underline;
+  }
+
+  .btn-lg {
+    @apply flex items-center px-5 py-4 text-sm tracking-wider font-semibold uppercase transition-all duration-150 ease-in-out rounded-md no-underline;
   }
 
   .btn-square {
@@ -767,14 +771,38 @@ Table Of Contents:
 /*-----------------------
 CHANGELOG STYLES
 -----------------------*/
-.btn-new {
-  @apply bg-emerald-500/10 px-1.5 py-1 text-xs font-semibold rounded-md border border-emerald-500/30 text-emerald-900 dark:text-white transition-all duration-150 ease-in-out;
+@layer components {
+  .btn-new {
+    @apply bg-emerald-500/10 px-1.5 py-1 text-xs font-semibold rounded-md border border-emerald-500/30 text-emerald-900 dark:text-white transition-all duration-150 ease-in-out;
+  }
+
+  .btn-updated {
+    @apply bg-blue-500/10 px-1.5 py-1 text-xs font-semibold rounded-md border border-blue-500/30 text-blue-800 dark:text-white transition-all duration-150 ease-in-out;
+  }
+
+  .btn-fixed {
+    @apply bg-yellow-500/10 px-1.5 py-1 text-xs font-semibold rounded-md border border-yellow-500/30 text-yellow-800 dark:text-white transition-all duration-150 ease-in-out;
+  }
 }
 
-.btn-updated {
-  @apply bg-blue-500/10 px-1.5 py-1 text-xs font-semibold rounded-md border border-blue-500/30 text-blue-800 dark:text-white transition-all duration-150 ease-in-out;
+/**********************/
+/*     Animations     */
+/**********************/
+.wave {
+  animation-name: wave-animation;  /* Refers to the name of your @keyframes element below */
+  animation-duration: 2.5s;        /* Change to speed up or slow down */
+  animation-iteration-count: infinite;  /* Never stop waving :) */
+  transform-origin: 70% 70%;       /* Pivot around the bottom-left palm */
+  display: inline-block;
 }
 
-.btn-fixed {
-  @apply bg-yellow-500/10 px-1.5 py-1 text-xs font-semibold rounded-md border border-yellow-500/30 text-yellow-800 dark:text-white transition-all duration-150 ease-in-out;
+@keyframes wave-animation {
+  0% { transform: rotate( 0.0deg) }
+  10% { transform: rotate(14.0deg) }  /* The following five values can be played with to make the waving more or less extreme */
+  20% { transform: rotate(-8.0deg) }
+  30% { transform: rotate(14.0deg) }
+  40% { transform: rotate(-4.0deg) }
+  50% { transform: rotate(10.0deg) }
+  60% { transform: rotate( 0.0deg) }  /* Reset for the last half to pause */
+  100% { transform: rotate( 0.0deg) }
 }

@@ -12,7 +12,8 @@ const MenuItem = ({ text, section, icon }) => {
     <li
       className="group"
       onClick={() => {
-        if (router.pathname !== "") {
+        console.log("Pathname is: " + router.pathname);
+        if (router.pathname !== "/create-profile") {
           router.push("/");
         }
         dispatch({
@@ -20,15 +21,18 @@ const MenuItem = ({ text, section, icon }) => {
           payload: section,
         });
         dispatch({
-          type: ACTIONS.TOGGLE_SIDEBAR,
+          type: ACTIONS.TOGGLE_ELEMENT,
+          payload: {
+            elementToToggle: "sidebarOpen",
+          },
         });
       }}
     >
       <span
-        className={`flex items-center w-full ${
+        className={`flex items-center w-full transition-all duration-150 ease-in-out ${
           state.section === section
-            ? "border-white text-white bg-dark-900/20 opacity-100"
-            : "border-brand text-white opacity-75 group-hover:border-dark-900/20 group-hover:text-white group-hover:opacity-100"
+            ? "border-brand text-white bg-dark-800/40 dark:bg-dark-500/20 opacity-100"
+            : "bg-transparent group-hover:bg-dark-800/40 dark:bg-transparent dark:group-hover:bg-dark-500/20 text-white border-dark-700 group-hover:border-dark-500 opacity-75 group-hover:text-white group-hover:opacity-100 dark:group-hover:opacity-100"
         }`}
       >
         {icon}

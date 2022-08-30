@@ -7,6 +7,16 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: "1.3rem",
+        sm: "2rem",
+        lg: "4rem",
+        xl: "5rem",
+        "2xl": "6rem",
+      },
+    },
     extend: {
       spacing: {
         9.5: "2.375rem",
@@ -30,6 +40,8 @@ module.exports = {
         90: "22.5rem",
         92: "23rem",
         94: "23.5rem",
+        104: "26rem",
+        114: "28.5rem",
         128: "32rem",
       },
       transitionProperty: {
@@ -37,7 +49,7 @@ module.exports = {
       },
       colors: {
         brand: "#139ae1",
-        "brand-alt": "#1ba8f2",
+        "brand-alt": "#0D7DBA",
         dark: {
           300: "#b5b9d6",
           400: "#53566b",

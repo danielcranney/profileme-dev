@@ -13,7 +13,10 @@ const HamburgerMenuIcon = () => {
       }`}
       onClick={() => {
         dispatch({
-          type: ACTIONS.TOGGLE_SIDEBAR,
+          type: ACTIONS.TOGGLE_ELEMENT,
+          payload: {
+            elementToToggle: "sidebarOpen",
+          },
         });
       }}
     >

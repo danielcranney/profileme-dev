@@ -1,6 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
 import { StateContext } from "../../pages/_app";
 import { useTheme } from "next-themes";
+import { motion } from "framer-motion";
+import { outerContainer } from "../../lib/framerMotion";
+import { logoItem } from "../../lib/framerMotion";
 
 const ThemeSwitch = () => {
   const { state, dispatch } = useContext(StateContext);
@@ -13,7 +16,7 @@ const ThemeSwitch = () => {
     if (currentTheme === "dark") {
       return (
         <svg
-          className="w-5 h-5 transition-all duration-150 ease-in-out text-white dark:flex hidden"
+          className="w-4 sm:w-5 h-4 sm:h-5 transition-all duration-150 ease-in-out text-white dark:flex hidden"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -29,7 +32,7 @@ const ThemeSwitch = () => {
     } else {
       return (
         <svg
-          className="w-5 h-5 transition-all duration-150 ease-in-out text-white flex dark:hidden"
+          className="w-4 sm:w-5 h-4 sm:h-5 transition-all duration-150 ease-in-out text-white flex dark:hidden"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -50,22 +53,28 @@ const ThemeSwitch = () => {
   }, []);
 
   return (
-    <button
-      onClick={() => {
-        setTheme(currentTheme == "dark" ? "light" : "dark");
-      }}
-      className={`ml-auto w-16 h-9 btn-sm relative ${
-        state.sidebarOpen
-          ? "bg-dark-900/20 md:bg-light-200/50 dark:bg-dark-700"
-          : "bg-light-200/50 dark:bg-dark-700"
-      }`}
-    >
+    <div className="flex relative mr-auto">
       <div
-        className={`w-7 h-7 bg-brand text-white rounded-md absolute flex items-center justify-center transition-all duration-300 ease-in-out dark:left-[calc(100%-2rem)] left-1`}
+        className={`absolute w-full h-6 -translate-y-1/2 top-1/2 rounded-md ${
+          state.sidebarOpen
+            ? "bg-light-200/50 dark:bg-dark-900"
+            : "bg-light-200/50 dark:bg-dark-900"
+        }`}
+      ></div>
+      <button
+        aria-label="change theme"
+        onClick={() => {
+          setTheme(currentTheme == "dark" ? "light" : "dark");
+        }}
+        className={`w-14 sm:w-16 h-8 sm:h-9 btn-xs sm:btn-sm relative`}
       >
-        {renderThemeChanger()}
-      </div>
-    </button>
+        <div
+          className={`w-8 sm:w-9 h-8 sm:h-9 bg-brand text-white rounded-md absolute flex items-center justify-center transition-all duration-300 ease-in-out dark:sm:left-[calc(100%-2.25rem)] dark:left-[calc(100%-2rem)] left-0`}
+        >
+          {renderThemeChanger()}
+        </div>
+      </button>
+    </div>
   );
 };
 

@@ -1,14 +1,18 @@
-import React, { useReducer, createContext, useEffect } from "react";
+import React, { createContext, useEffect } from "react";
 import "../styles/globals.css";
 import Script from "next/script";
 import { useRouter } from "next/router";
 import * as gtag from "../lib/gtag";
 import { ThemeProvider } from "next-themes";
-import Layout from "../components/layout";
+import { useReducerWithMiddleware } from "../hooks";
+import storeStateMiddleware from "../middleware/storeStateMiddleware";
 
 export const StateContext = createContext(null);
 
+export const STORED_STATE_KEY = "state";
+
 export const ACTIONS = {
+  HYDRATE_STORED_STATE: "hydrate-stored-state",
   ADD_INTRODUCTION: "add-introduction",
   SELECT_RENDER_MODE: "select-render-mode",
   ADD_SKILL: "add-skill",
@@ -23,7 +27,8 @@ export const ACTIONS = {
   DELETE_REPO: "delete-repo",
   ADD_SUPPORT: "add-support",
   TOGGLE_COPY_MODAL: "toggle-copy-modal",
-  TOGGLE_SIDEBAR: "toggle-sidebar",
+  TOGGLE_ELEMENT: "toggle-element",
+  CLOSE_ELEMENT: "close-element",
 };
 
 // Icon Store
@@ -756,6 +761,7 @@ const initialState = {
   // Introduction State
   introduction: {
     name: "",
+    animatedHand: 0,
     shortDescription: "",
     longDescription: "",
     location: "",
@@ -860,7 +866,7 @@ const initialState = {
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/codesandbox.svg",
       darkPath:
         "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/codesandbox-dark.svg",
-      linkPrefix: "https://www.codesandbox.com/",
+      linkPrefix: "https://codesandbox.io/u/",
       linkSuffix: "",
     },
     codepen: {
@@ -940,13 +946,18 @@ const initialState = {
       linkSuffix: "",
     },
   },
-  sidebarOpen: true,
+  sidebarOpen: false,
+  popOutMenuOpen: false,
   modal: false,
 };
 
 // Color Reducer
 function reducer(state, action) {
   switch (action.type) {
+    // Hydrate the store
+    case ACTIONS.HYDRATE_STORED_STATE:
+      return action.value;
+
     // Show Sections
     case ACTIONS.SHOW_SECTION:
       return {
@@ -990,7 +1001,7 @@ function reducer(state, action) {
         skills: {
           ...state.skills,
           [action.payload.type]: state.skills[action.payload.type].filter(
-            (item) => item !== action.payload.icon
+            (item) => item.name !== action.payload.icon.name
           ),
         },
       };
@@ -1106,10 +1117,16 @@ function reducer(state, action) {
         ...state,
         modal: action.payload,
       };
-    case ACTIONS.TOGGLE_SIDEBAR:
+    case ACTIONS.TOGGLE_ELEMENT:
       return {
         ...state,
-        sidebarOpen: !state.sidebarOpen,
+        [action.payload.elementToToggle]:
+          !state[action.payload.elementToToggle],
+      };
+    case ACTIONS.CLOSE_ELEMENT:
+      return {
+        ...state,
+        [action.payload.elementToClose]: false,
       };
     default:
       throw new Error();
@@ -1117,7 +1134,12 @@ function reducer(state, action) {
 }
 
 function MyApp({ Component, pageProps }) {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducerWithMiddleware(
+    reducer,
+    initialState,
+    [],
+    [storeStateMiddleware]
+  );
   const router = useRouter();
   useEffect(() => {
     const handleRouteChange = (url) => {
@@ -1128,6 +1150,21 @@ function MyApp({ Component, pageProps }) {
       router.events.off("routeChangeComplete", handleRouteChange);
     };
   }, [router.events]);
+
+  useEffect(() => {
+    const retrievedStoredState = JSON.parse(
+      localStorage.getItem(STORED_STATE_KEY)
+    );
+
+    if (retrievedStoredState) {
+      dispatch({
+        type: ACTIONS.HYDRATE_STORED_STATE,
+        value: retrievedStoredState,
+      });
+    }
+  }, []);
+
+  const getLayout = Component.getLayout || ((page) => page);
 
   return (
     <>
@@ -1152,9 +1189,7 @@ function MyApp({ Component, pageProps }) {
       />
       <ThemeProvider enableSystem={true} attribute="class">
         <StateContext.Provider value={{ state, dispatch }}>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          {getLayout(<Component {...pageProps} />)}
         </StateContext.Provider>
       </ThemeProvider>
     </>

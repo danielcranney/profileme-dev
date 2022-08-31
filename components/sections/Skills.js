@@ -57,6 +57,14 @@ const Skills = React.forwardRef(({ handleIconToggle }, ref) => {
             title={"Web3"}
             iconType={"web3"}
           />
+          {/* CLOUD  */}
+          <IconSelector
+            handleIconToggle={handleIconToggle}
+            title={"Cloud"}
+            iconType={"cloud"}
+          />
+
+
           <section className="flex mt-4">
             <PreviousSection sectionToGoTo={"introduction"} />
             <NextSection sectionToGoTo={"socials"} />

@@ -242,6 +242,13 @@ export const iconData = {
       iTag: "svelte",
       link: "https://svelte.dev/",
     },
+    {
+      name: "Servomon",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/servomon-colored.svg",
+      iTag: "servomon",
+      link: "https://servemon.netlify.app/"
+
+    }
   ],
   backend: [
     {

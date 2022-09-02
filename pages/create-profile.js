@@ -39,6 +39,7 @@ export default function CreateProfile() {
       dribbble: "",
       facebook: "",
       github: "",
+      gitlab: "",
       hashnode: "",
       instagram: "",
       linkedin: "",

@@ -878,7 +878,7 @@ export default function CreateProfile() {
               )}
 
               {renderedMarkdown.skillsTitle ? (
-                <p className="mt-4 whitespace-pre-line">{`### Skills`}</p>
+                <p className="mt-4 whitespace-pre-line">{`### Skills \n`}</p>
               ) : null}
 
               <div className="break-all whitespace-pre-line">
@@ -888,7 +888,7 @@ export default function CreateProfile() {
                 renderedMarkdown.skills.other.length < 1 &&
                 renderedMarkdown.skills.software.length < 1 &&
                 renderedMarkdown.skills.web3.length < 1 ? null : (
-                  <span>{`<p align="left">`}</span>
+                  <span>{`<p align="left">\n`}</span>
                 )}
 
                 {renderedMarkdown.skills.core.length > 0 ? (
@@ -897,17 +897,15 @@ export default function CreateProfile() {
                       return (
                         <span key={`${icon.path}`}>
                           {icon.darkPath ? (
-                            <>{`
-                                <a href="${
+                            <>{`<a href="${
                                   icon.link
                                 }" target="_blank" rel="noreferrer"><img src="${
                               theme == "dark" ? icon.darkPath : icon.path
                             }" width="36" height="36" alt="${
                               icon.name
-                            }" /></a>`}</>
+                            }" /></a>\n`}</>
                           ) : (
-                            <>{`
-                                <a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>`}</>
+                            <>{`<a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>\n`}</>
                           )}
                         </span>
                       );
@@ -921,17 +919,15 @@ export default function CreateProfile() {
                       return (
                         <span key={`${icon.path}`}>
                           {icon.darkPath ? (
-                            <>{`
-                                <a href="${
+                            <>{`<a href="${
                                   icon.link
                                 }" target="_blank" rel="noreferrer"><img src="${
                               theme == "dark" ? icon.darkPath : icon.path
                             }" width="36" height="36" alt="${
                               icon.name
-                            }" /></a>`}</>
+                            }" /></a>\n`}</>
                           ) : (
-                            <>{`
-                                <a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>`}</>
+                            <>{`<a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>\n`}</>
                           )}
                         </span>
                       );
@@ -945,17 +941,15 @@ export default function CreateProfile() {
                       return (
                         <span key={`${icon.path}`}>
                           {icon.darkPath ? (
-                            <>{`
-                                <a href="${
+                            <>{`<a href="${
                                   icon.link
                                 }" target="_blank" rel="noreferrer"><img src="${
                               theme == "dark" ? icon.darkPath : icon.path
                             }" width="36" height="36" alt="${
                               icon.name
-                            }" /></a>`}</>
+                            }" /></a>\n`}</>
                           ) : (
-                            <>{`
-                                <a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>`}</>
+                            <>{`<a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>\n`}</>
                           )}
                         </span>
                       );
@@ -969,17 +963,15 @@ export default function CreateProfile() {
                       return (
                         <span key={`${icon.path}`}>
                           {icon.darkPath ? (
-                            <>{`
-                                <a href="${
+                            <>{`<a href="${
                                   icon.link
                                 }" target="_blank" rel="noreferrer"><img src="${
                               theme == "dark" ? icon.darkPath : icon.path
                             }" width="36" height="36" alt="${
                               icon.name
-                            }" /></a>`}</>
+                            }" /></a>\n`}</>
                           ) : (
-                            <>{`
-                                <a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>`}</>
+                            <>{`<a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>\n`}</>
                           )}
                         </span>
                       );
@@ -993,17 +985,15 @@ export default function CreateProfile() {
                       return (
                         <span key={`${icon.path}`}>
                           {icon.darkPath ? (
-                            <>{`
-                                <a href="${
+                            <>{`<a href="${
                                   icon.link
                                 }" target="_blank" rel="noreferrer"><img src="${
                               theme == "dark" ? icon.darkPath : icon.path
                             }" width="36" height="36" alt="${
                               icon.name
-                            }" /></a>`}</>
+                            }" /></a>\n`}</>
                           ) : (
-                            <>{`
-                                <a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>`}</>
+                            <>{`<a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>\n`}</>
                           )}
                         </span>
                       );
@@ -1017,17 +1007,15 @@ export default function CreateProfile() {
                       return (
                         <span key={`${icon.path}`}>
                           {icon.darkPath ? (
-                            <>{`
-                                <a href="${
+                            <>{`<a href="${
                                   icon.link
                                 }" target="_blank" rel="noreferrer"><img src="${
                               theme == "dark" ? icon.darkPath : icon.path
                             }" width="36" height="36" alt="${
                               icon.name
-                            }" /></a>`}</>
+                            }" /></a>\n`}</>
                           ) : (
-                            <>{`
-                                <a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>`}</>
+                            <>{`<a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>\n`}</>
                           )}
                         </span>
                       );
@@ -1041,8 +1029,7 @@ export default function CreateProfile() {
                 renderedMarkdown.skills.other.length < 1 &&
                 renderedMarkdown.skills.software.length < 1 &&
                 renderedMarkdown.skills.web3.length < 1 ? null : (
-                  <span>{`
-                    </p>
+                  <span>{`</p>
                     `}</span>
                 )}
               </div>

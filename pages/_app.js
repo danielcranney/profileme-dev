@@ -242,6 +242,12 @@ export const iconData = {
       iTag: "svelte",
       link: "https://svelte.dev/",
     },
+    {
+      name: "Chakra UI",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/chakraui.svg",
+      iTag: "chakraui",
+      link: "https://chakra-ui.com/",
+    },
   ],
   backend: [
     {

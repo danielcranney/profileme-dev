@@ -342,7 +342,10 @@ Table Of Contents:
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/python-colored.svg')];
   }
   .rlang {
-    @apply bg-[url('https://raw.githubusercontent.com/M4rk3h/profileme-dev/main/public/icons/skills/rlang-colored.svg')] dark:bg-[url('https://raw.githubusercontent.com/M4rk3h/profileme-dev/main/public/icons/skills/rlang-dark.svg')];
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/rlang.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/rlang-dark.svg')];
+  }
+  .rlang.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/rlang-colored.svg')];
   }
   .ruby {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/ruby.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/ruby-dark.svg')];

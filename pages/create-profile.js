@@ -610,8 +610,8 @@ export default function CreateProfile() {
                           <img
                             src={
                               theme == "dark"
-                                ? `https://raw.githubusercontent.com/M4rk3h/profileme-dev/main/public/icons/skills/${icon.iTag}-colored-dark.svg`
-                                : `https://raw.githubusercontent.com/M4rk3h/profileme-dev/main/public/icons/skills/${icon.iTag}-colored.svg`
+                                ? `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored-dark.svg`
+                                : `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored.svg`
                             }
                             alt={`${icon.name}`}
                             width="36"
@@ -619,7 +619,7 @@ export default function CreateProfile() {
                           />
                         ) : (
                           <img
-                            src={`https://raw.githubusercontent.com/M4rk3h/profileme-dev/main/public/icons/skills/${icon.iTag}-colored.svg`}
+                            src={`https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored.svg`}
                             alt={`${icon.name}`}
                             width="36"
                             height="36"

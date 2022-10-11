@@ -110,9 +110,9 @@ export const iconData = {
     },
     {
       name: "rlang",
-      path: "https://raw.githubusercontent.com/M4rk3h/readme-generator/main/public/icons/skills/rlang-colored.svg",
+      path: "https://raw.githubusercontent.com/M4rk3h/profileme-dev/main/public/icons/skills/rlang-colored.svg",
       darkPath:
-        "https://raw.githubusercontent.com/M4rk3h/readme-generator/main/public/icons/skills/rlang-dark.svg",
+        "https://raw.githubusercontent.com/M4rk3h/profileme-dev/main/public/icons/skills/rlang-dark.svg",
       iTag: "r",
       link: "https://www.r-project.org/",
     },

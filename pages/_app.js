@@ -109,7 +109,7 @@ export const iconData = {
       link: "https://www.python.org/",
     },
     {
-      name: "R",
+      name: "rlang",
       path: "https://raw.githubusercontent.com/M4rk3h/readme-generator/main/public/icons/skills/rlang-colored.svg",
       darkPath:
         "https://raw.githubusercontent.com/M4rk3h/readme-generator/main/public/icons/skills/rlang-dark.svg",

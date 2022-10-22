@@ -267,7 +267,7 @@ export default function LandingLayout({ children }) {
         </motion.div>
       </header>
 
-      <main className="w-full min-h-screen overflow-auto flex flex-col bg-white dark:bg-dark-800">
+      <main className="w-full min-h-screen overflow-hidden flex flex-col bg-white dark:bg-dark-800">
         {children}
         {/* Footer */}
       </main>

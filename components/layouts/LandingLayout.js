@@ -271,7 +271,7 @@ export default function LandingLayout({ children }) {
         {children}
         {/* Footer */}
       </main>
-      <footer className="w-full flex items-center bg-white dark:bg-dark-900 py-12">
+      <footer className="w-full flex items-center bg-white dark:bg-dark-900 py-12 relative">
         <div className="container mx-auto flex flex-col md:flex-row items-end gap-x-3 gap-y-3">
           <div className="mr-auto flex flex-col grow w-full">
             {/* Logo */}

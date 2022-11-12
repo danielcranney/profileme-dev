@@ -351,6 +351,14 @@ export const iconData = {
       link: "https://www.djangoproject.com/",
     },
     {
+      name: "Ruby on Rails",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/rails.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/rails-dark.svg",
+      iTag: "rails",
+      link: "https://rubyonrails.org/",
+    },
+    {
       name: "Laravel",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/laravel-colored.svg",
       iTag: "laravel",

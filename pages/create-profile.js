@@ -261,7 +261,10 @@ export default function CreateProfile() {
   };
 
   const handleIconToggle = (iconCategory, iconObj, i) => {
-    const currentIndex = Object.keys(state.skills).reduce((length, iconCategory) => length + state.skills[iconCategory].length,0);
+    const currentIndex = Object.keys(state.skills).reduce(
+      (length, iconCategory) => length + state.skills[iconCategory].length,
+      0
+    );
     const isIconAlreadySelectedIndex = state.skills[iconCategory].findIndex(
       (item) => item.name === iconObj.name
     );
@@ -600,35 +603,41 @@ export default function CreateProfile() {
             }`}
           >
             {/* Icons Display */}
-            {Object.values(state.skills).some((arr) => arr.length> 0) ? (
+            {Object.values(state.skills).some((arr) => arr.length > 0) ? (
               <div className="flex gap-x-1.5 flex-wrap gap-y-1.5">
-                {Object.values(state.skills).flat().map((icon) => {
-                  return (
-                    <div key={`${icon.path}`} className="relative">
-                      <a href={`${icon.link}`} target="_blank" rel="noreferrer">
-                        {icon.darkPath ? (
-                          <img
-                            src={
-                              theme == "dark"
-                                ? `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored-dark.svg`
-                                : `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored.svg`
-                            }
-                            alt={`${icon.name}`}
-                            width="36"
-                            height="36"
-                          />
-                        ) : (
-                          <img
-                            src={`https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored.svg`}
-                            alt={`${icon.name}`}
-                            width="36"
-                            height="36"
-                          />
-                        )}
-                      </a>
-                    </div>
-                  );
-                })}
+                {Object.values(state.skills)
+                  .flat()
+                  .map((icon) => {
+                    return (
+                      <div key={`${icon.path}`} className="relative">
+                        <a
+                          href={`${icon.link}`}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {icon.darkPath ? (
+                            <img
+                              src={
+                                theme == "dark"
+                                  ? `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored-dark.svg`
+                                  : `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored.svg`
+                              }
+                              alt={`${icon.name}`}
+                              width="36"
+                              height="36"
+                            />
+                          ) : (
+                            <img
+                              src={`https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored.svg`}
+                              alt={`${icon.name}`}
+                              width="36"
+                              height="36"
+                            />
+                          )}
+                        </a>
+                      </div>
+                    );
+                  })}
               </div>
             ) : null}
           </div>
@@ -857,17 +866,17 @@ export default function CreateProfile() {
                 </p>
               ) : null}
 
+              {!renderedMarkdown.badges.githubFollowers.selected ? null : (
+                <span className="text-xs break-all whitespace-pre-line">
+                  {`<a href="${state.socials.github.linkPrefix}${state.socials.github.linkSuffix}" target="_blank" rel="noreferrer"><img
+                  src="https://img.shields.io/github/followers/${state.socials.github.linkSuffix}?logo=github&style=for-the-badge&color=${state.badges.cardStyle.iconColor}&labelColor=${state.badges.cardStyle.bgColor}" /></a>`}
+                </span>
+              )}
               {!renderedMarkdown.badges.twitterFollowers.selected ? null : (
                 <span className="text-xs break-all whitespace-pre-line">
                   {`<a href="${state.socials.twitter.linkPrefix}${state.socials.twitter.linkSuffix}" target="_blank" rel="noreferrer"><img
                   src="https://img.shields.io/twitter/follow/${state.socials.twitter.linkSuffix}?logo=twitter&style=for-the-badge&color=${state.badges.cardStyle.iconColor}&labelColor=${state.badges.cardStyle.bgColor}"
                 /></a>`}
-                </span>
-              )}
-              {!renderedMarkdown.badges.githubFollowers.selected ? null : (
-                <span className="text-xs break-all whitespace-pre-line">
-                  {`<a href="${state.socials.github.linkPrefix}${state.socials.github.linkSuffix}" target="_blank" rel="noreferrer"><img
-                  src="https://img.shields.io/github/followers/${state.socials.github.linkSuffix}?logo=github&style=for-the-badge&color=${state.badges.cardStyle.iconColor}&labelColor=${state.badges.cardStyle.bgColor}" /></a>`}
                 </span>
               )}
               {!renderedMarkdown.badges.twitchStatus.selected ? null : (
@@ -898,8 +907,8 @@ export default function CreateProfile() {
                         <span key={`${icon.path}`}>
                           {icon.darkPath ? (
                             <>{`<a href="${
-                                  icon.link
-                                }" target="_blank" rel="noreferrer"><img src="${
+                              icon.link
+                            }" target="_blank" rel="noreferrer"><img src="${
                               theme == "dark" ? icon.darkPath : icon.path
                             }" width="36" height="36" alt="${
                               icon.name
@@ -920,8 +929,8 @@ export default function CreateProfile() {
                         <span key={`${icon.path}`}>
                           {icon.darkPath ? (
                             <>{`<a href="${
-                                  icon.link
-                                }" target="_blank" rel="noreferrer"><img src="${
+                              icon.link
+                            }" target="_blank" rel="noreferrer"><img src="${
                               theme == "dark" ? icon.darkPath : icon.path
                             }" width="36" height="36" alt="${
                               icon.name
@@ -942,8 +951,8 @@ export default function CreateProfile() {
                         <span key={`${icon.path}`}>
                           {icon.darkPath ? (
                             <>{`<a href="${
-                                  icon.link
-                                }" target="_blank" rel="noreferrer"><img src="${
+                              icon.link
+                            }" target="_blank" rel="noreferrer"><img src="${
                               theme == "dark" ? icon.darkPath : icon.path
                             }" width="36" height="36" alt="${
                               icon.name
@@ -964,8 +973,8 @@ export default function CreateProfile() {
                         <span key={`${icon.path}`}>
                           {icon.darkPath ? (
                             <>{`<a href="${
-                                  icon.link
-                                }" target="_blank" rel="noreferrer"><img src="${
+                              icon.link
+                            }" target="_blank" rel="noreferrer"><img src="${
                               theme == "dark" ? icon.darkPath : icon.path
                             }" width="36" height="36" alt="${
                               icon.name
@@ -986,8 +995,8 @@ export default function CreateProfile() {
                         <span key={`${icon.path}`}>
                           {icon.darkPath ? (
                             <>{`<a href="${
-                                  icon.link
-                                }" target="_blank" rel="noreferrer"><img src="${
+                              icon.link
+                            }" target="_blank" rel="noreferrer"><img src="${
                               theme == "dark" ? icon.darkPath : icon.path
                             }" width="36" height="36" alt="${
                               icon.name
@@ -1008,8 +1017,8 @@ export default function CreateProfile() {
                         <span key={`${icon.path}`}>
                           {icon.darkPath ? (
                             <>{`<a href="${
-                                  icon.link
-                                }" target="_blank" rel="noreferrer"><img src="${
+                              icon.link
+                            }" target="_blank" rel="noreferrer"><img src="${
                               theme == "dark" ? icon.darkPath : icon.path
                             }" width="36" height="36" alt="${
                               icon.name

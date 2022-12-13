@@ -95,9 +95,9 @@ const Introduction = React.forwardRef((props, ref) => {
             <IntroLinkItem
               ref={portfolioLinkRef}
               section={"introduction"}
-              linkPrefix={"http://"}
+              linkPrefix={"http"}
               type={"portfolioLink"}
-              inputPlaceholder={"myapp.com"}
+              inputPlaceholder={"(s)://myapp.com"}
             />
           </article>
           {/* Email  */}
@@ -123,8 +123,8 @@ const Introduction = React.forwardRef((props, ref) => {
               ref={workingOnLinkRef}
               section={"introduction"}
               type={"workingOnLink"}
-              linkPrefix={"http://"}
-              inputPlaceholder={"myapp.com"}
+              linkPrefix={"http"}
+              inputPlaceholder={"(s)://myapp.com"}
             />
           </article>
 

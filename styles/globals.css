@@ -572,6 +572,25 @@ Table Of Contents:
   .flutter.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/flutter-colored.svg')];
   }
+  /** Cloud Providers **/
+  .aws {
+    @apply bg-[url('https://raw.githubusercontent.com/meisterveda/profileme-dev/cloudproviders-skill-addition/public/icons/skills/aws.svg')] dark:bg-[url('https://raw.githubusercontent.com/meisterveda/profileme-dev/cloudproviders-skill-addition/public/icons/skills/aws-dark.svg')];
+  }
+  .aws.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/meisterveda/profileme-dev/cloudproviders-skill-addition/public/icons/skills/aws-colored.svg')];
+  }
+  .azure {
+    @apply bg-[url('https://raw.githubusercontent.com/meisterveda/profileme-dev/cloudproviders-skill-addition/public/icons/skills/azure.svg')] dark:bg-[url('https://raw.githubusercontent.com/meisterveda/profileme-dev/cloudproviders-skill-addition/public/icons/skills/azure-dark.svg')];
+  }
+  .azure.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/meisterveda/profileme-dev/cloudproviders-skill-addition/public/icons/skills/azure-colored.svg')];
+  }
+  .gcp {
+    @apply bg-[url('https://raw.githubusercontent.com/meisterveda/profileme-dev/cloudproviders-skill-addition/public/icons/skills/gcp.svg')] dark:bg-[url('https://raw.githubusercontent.com/meisterveda/profileme-dev/cloudproviders-skill-addition/public/icons/skills/gcp-dark.svg')];
+  }
+  .gcp.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/meisterveda/profileme-dev/cloudproviders-skill-addition/public/icons/skills/gcp-colored.svg')];
+  }
   /** Software icons **/
   .photoshop {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/photoshop.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/photoshop-dark.svg')];

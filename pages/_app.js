@@ -341,6 +341,26 @@ export const iconData = {
       link: "https://supabase.io/",
     },
   ],
+  cloudProviders: [
+    {
+      name: "aws",
+      path: "https://raw.githubusercontent.com/meisterveda/profileme-dev/cloudproviders-skill-addition/public/icons/skills/amazonaws-colored.svg",
+      iTag: "aws",
+      link: "https://aws.amazon.com/",
+    },
+    {
+      name: "azure",
+      path: "https://raw.githubusercontent.com/meisterveda/profileme-dev/cloudproviders-skill-addition/public/icons/skills/azure-colored.svg",
+      iTag: "azure",
+      link: "https://azure.microsoft.com",
+    },
+    {
+      name: "gcp",
+      path: "https://raw.githubusercontent.com/meisterveda/profileme-dev/cloudproviders-skill-addition/public/icons/skills/gcp-colored.svg",
+      iTag: "gcp",
+      link: "https://cloud.google.com/",
+    },
+  ],
   other: [
     {
       name: ".NET",
@@ -785,6 +805,7 @@ const initialState = {
     core: [],
     frontend: [],
     backend: [],
+    cloudProviders: [],
     other: [],
     software: [],
     web3: [],

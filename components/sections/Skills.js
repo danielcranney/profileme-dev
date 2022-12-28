@@ -39,6 +39,12 @@ const Skills = React.forwardRef(({ handleIconToggle }, ref) => {
             title={"Backend and Database"}
             iconType={"backend"}
           />
+          {/* Cloud Providers */}
+          <IconSelector
+            handleIconToggle={handleIconToggle}
+            title={"Cloud Providers"}
+            iconType={"cloudProviders"}
+          />
           {/* Other */}
           <IconSelector
             handleIconToggle={handleIconToggle}

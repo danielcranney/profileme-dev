@@ -849,9 +849,8 @@ export default function CreateProfile() {
           >
             {withSupport && <h3>Support</h3> }
             <ul className="list-none">
-              {Object.entries(renderedMarkdown.support).map(([key, value]) => {
-                if (value.linkSuffix) {
-                  return (
+              {Object.entries(renderedMarkdown.support).map(([key, value]) =>
+                value.linkSuffix ? (
                     <li
                       className="inline-block p-1"
                       key={assembleSupportLink(key)}
@@ -864,9 +863,8 @@ export default function CreateProfile() {
                         />
                       </a>
                     </li>
-                  );
-                }
-              })}
+                ) : null
+              )}
             </ul>
           </div>
         </article>

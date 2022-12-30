@@ -2,7 +2,7 @@ import React, { useEffect, useContext, useRef, useState } from "react";
 import { useTheme } from "next-themes";
 // Import state and actions
 import { ACTIONS } from "./_app";
-import { StateContext } from "./_app";
+import { StateContext, supportStore } from "./_app";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 import { colorStore } from "./_app";
 
@@ -60,13 +60,17 @@ export default function CreateProfile() {
       topLangsCard: false,
       reposCard: false,
     },
-    support: {
-      buymeacoffee: "",
-    },
+    support: Object.keys(supportStore).reduce((obj, key) => (
+        {
+          ...obj,
+          [key]: "",
+        }
+      ), {}),
   });
   const [socialsShowing, setSocialsShowing] = useState(false);
   const [badgesShowing, setBadgesShowing] = useState(false);
   const [copySuccess, setCopySuccess] = useState("Copy");
+  const [withSupport, setWithSupport] = useState(false);
 
   // Section Refs
   const introductionRef = useRef(null);
@@ -201,6 +205,12 @@ export default function CreateProfile() {
     setMounted(true);
   }, []);
 
+  useEffect(() => {
+    setWithSupport(
+      Object.values(state.support).some(value => value.linkSuffix !== "")
+    );
+  }, [state]);
+
   const executeScroll = (ref) => {
     if (!ref.current) return;
     ref.current.scrollIntoView({
@@ -220,6 +230,14 @@ export default function CreateProfile() {
     } catch (err) {
       setCopySuccess("Failed to copy!");
     }
+  };
+
+  const assembleSupportLink = key => {
+    return `${state.support[key].linkPrefix}${state.support[key].linkSuffix}`;
+  };
+
+  const getSupportPreviewIMG = (key, value) => {
+    return value?.previewIMG || supportStore[key].previewIMG
   };
 
   const handleBadgeToggle = (e) => {
@@ -827,24 +845,29 @@ export default function CreateProfile() {
 
           <div
             ref={supportRef}
-            className={`flex flex-col gap-x-2 gap-y-2 ${
-              state.support.buymeacoffee.linkSuffix ? "mt-4" : ""
-            }`}
+            className={`flex flex-col gap-x-2 gap-y-2 ${withSupport ? "mt-4" : ""}`}
           >
-            {state.support.buymeacoffee.linkSuffix ? (
-              <>
-                <h3>Support</h3>
-                <a
-                  href={`${state.support.buymeacoffee.linkPrefix}${state.support.buymeacoffee.linkSuffix}`}
-                >
-                  <img
-                    src={`https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png`}
-                    className="object-scale-down"
-                    width="150"
-                  />
-                </a>
-              </>
-            ) : null}
+            {withSupport && <h3>Support</h3> }
+            <ul className="list-none">
+              {Object.entries(renderedMarkdown.support).map(([key, value]) => {
+                if (value.linkSuffix) {
+                  return (
+                    <li
+                      className="inline-block p-1"
+                      key={assembleSupportLink(key)}
+                    >
+                      <a href={assembleSupportLink(key)}>
+                        <img
+                          src={getSupportPreviewIMG(key, value)}
+                          className="object-scale-down"
+                          width="150"
+                        />
+                      </a>
+                    </li>
+                  );
+                }
+              })}
+            </ul>
           </div>
         </article>
 
@@ -1199,11 +1222,18 @@ export default function CreateProfile() {
                 ) : null}
               </p>
 
-              {!renderedMarkdown.support.buymeacoffee.linkSuffix ? null : (
+              {Object.values(renderedMarkdown.support).every(value => value.linkSuffix === "") ? null : (
                 <>
                   <p className="mt-4 whitespace-pre-line">### Support Me</p>
-                  {`<a
-                  href="${state.support.buymeacoffee.linkPrefix}${state.support.buymeacoffee.linkSuffix}"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" width="200" /></a>`}
+                  <p>{`<ul style="list-style-type: none; margin: 0;">`}</p>
+                  {Object.entries(renderedMarkdown.support).map(([key, value]) =>
+                    !value.linkSuffix ? null : (
+                      <p key={key}>
+                        {`<li style="display: inline-block; margin-right: 0.25rem;"><a href="${assembleSupportLink(key)}"><img src="${getSupportPreviewIMG(key, value)}" width="150"/></a></li>`}
+                      </p>
+                    )
+                  )}
+                  {`</ul>`}
                 </>
               )}
             </>

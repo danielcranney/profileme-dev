@@ -10,6 +10,7 @@ const Support = React.forwardRef((props, ref) => {
 
   // Support Ref
   const buymeacoffeeRef = useRef();
+  const kofiRef = useRef();
 
   return (
     <>
@@ -33,6 +34,15 @@ const Support = React.forwardRef((props, ref) => {
             inputPlaceholder={"yourname"}
             formLabelText={"Buy Me a Coffee:"}
             linkPrefix={state.support.buymeacoffee.linkPrefix}
+            action={ACTIONS.ADD_SUPPORT}
+          />
+          <SocialItem
+            ref={kofiRef}
+            section={"support"}
+            account={"kofi"}
+            inputPlaceholder={"yourname"}
+            formLabelText={"Buy Me a Coffee:"}
+            linkPrefix={state.support.kofi.linkPrefix}
             action={ACTIONS.ADD_SUPPORT}
           />
           <section className="flex mt-4">

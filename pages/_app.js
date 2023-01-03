@@ -892,6 +892,11 @@ const initialState = {
       linkPrefix: "https://",
       linkSuffix: "",
     },
+    leetcode: {
+      path: "https://raw.githubusercontent.com/mrtyagi07/profileme-dev/leetcode/public/icons/socials/leetcode.svg",
+      linkPrefix: "https://www.leetcode.com/",
+      linkSuffix: "",
+    },
   },
   badges: {
     twitterFollowers: {

@@ -48,6 +48,7 @@ export default function CreateProfile() {
       stackoverflow: "",
       twitter: "",
       youtube: "",
+      leetcode: "",
     },
     badges: {
       twitterFollowers: false,
@@ -654,6 +655,7 @@ export default function CreateProfile() {
               socialsShowing ? "mb-4" : ""
             }`}
           >
+            console.log(state.socials);
             {Object.entries(state.socials).map((profile) => {
               return profile[1].linkSuffix ? (
                 <a

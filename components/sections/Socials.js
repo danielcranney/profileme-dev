@@ -28,6 +28,7 @@ const Socials = React.forwardRef((props, ref) => {
   const twitchRef = useRef();
   const twitterRef = useRef();
   const youtubeRef = useRef();
+  const leetcodeRef = useRef();
 
   return (
     <>
@@ -248,6 +249,16 @@ const Socials = React.forwardRef((props, ref) => {
             inputPlaceholder={"yourname"}
             formLabelText={"RSS url:"}
             linkPrefix={state.socials.rss.linkPrefix}
+            action={ACTIONS.ADD_SOCIAL_PROFILE}
+          />
+          {/* LEETCODE Input */}
+          <SocialItem
+            ref={leetcodeRef}
+            section={"socials"}
+            account={"leetcode"}
+            inputPlaceholder={"username"}
+            formLabelText={"Leetcode url:"}
+            linkPrefix={state.socials.leetcode.linkPrefix}
             action={ACTIONS.ADD_SOCIAL_PROFILE}
           />
           <section className="flex mt-4">

@@ -206,14 +206,6 @@ export default function CreateProfile() {
     setMounted(true);
   }, []);
 
-  /**
-  useEffect(() => {
-    setWithSupport(
-      Object.values(state.support).some(value => value.linkSuffix !== "")
-    );
-  }, [state]);
-  */
-
   const executeScroll = (ref) => {
     if (!ref.current) return;
     ref.current.scrollIntoView({

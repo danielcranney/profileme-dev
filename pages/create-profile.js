@@ -70,7 +70,8 @@ export default function CreateProfile() {
   const [socialsShowing, setSocialsShowing] = useState(false);
   const [badgesShowing, setBadgesShowing] = useState(false);
   const [copySuccess, setCopySuccess] = useState("Copy");
-  const [withSupport, setWithSupport] = useState(false);
+  const withSupport = Object.values(state.support)
+    .some(value => value.linkSuffix !== "");
 
   // Section Refs
   const introductionRef = useRef(null);
@@ -205,11 +206,13 @@ export default function CreateProfile() {
     setMounted(true);
   }, []);
 
+  /**
   useEffect(() => {
     setWithSupport(
       Object.values(state.support).some(value => value.linkSuffix !== "")
     );
   }, [state]);
+  */
 
   const executeScroll = (ref) => {
     if (!ref.current) return;

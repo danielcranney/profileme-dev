@@ -237,7 +237,7 @@ export default function CreateProfile() {
   };
 
   const getSupportPreviewIMG = (key, value) => {
-    return value?.previewIMG || supportStore[key].previewIMG
+    return value?.previewIMG ?? supportStore[key].previewIMG;
   };
 
   const handleBadgeToggle = (e) => {
@@ -847,10 +847,12 @@ export default function CreateProfile() {
             ref={supportRef}
             className={`flex flex-col gap-x-2 gap-y-2 ${withSupport ? "mt-4" : ""}`}
           >
-            {withSupport && <h3>Support</h3> }
-            <ul className="list-none">
-              {Object.entries(renderedMarkdown.support).map(([key, value]) =>
-                value.linkSuffix ? (
+            {withSupport && (
+              <>
+                <h3>Support</h3>
+                <ul className="list-none">
+                {Object.entries(renderedMarkdown.support).map(([key, value]) =>
+                  value.linkSuffix ? (
                     <li
                       className="inline-block p-1"
                       key={assembleSupportLink(key)}
@@ -863,9 +865,11 @@ export default function CreateProfile() {
                         />
                       </a>
                     </li>
-                ) : null
-              )}
-            </ul>
+                  ) : null
+                )}
+                </ul>
+              </>
+            )}
           </div>
         </article>
 

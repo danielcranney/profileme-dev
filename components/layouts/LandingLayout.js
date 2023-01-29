@@ -294,7 +294,8 @@ export default function LandingLayout({ children }) {
 
             {/* Changelog Link */}
             <p className="mb-0 text-sm w-full">
-              &copy; Copyright 2022 ProfileMe.dev. All rights reserved.
+              &copy; Copyright {new Date().getFullYear()} ProfileMe.dev. All
+              rights reserved.
             </p>
           </div>
           <div className="flex flex-col md:items-end w-full items-start">

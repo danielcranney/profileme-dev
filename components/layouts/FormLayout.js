@@ -79,14 +79,14 @@ export default function FormLayout({ children }) {
         />
         <meta
           property="og:image"
-          content="http://raw.githubusercontent.com/danielcranney/profileme-dev/main/public/social-image.jpg"
+          content="https://raw.githubusercontent.com/danielcranney/repo-storage/main/profile-me-social-image.png"
         />
         <meta property="og:url" content="http://www.profileme.dev" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:title" content="ProfileMe.dev" />
         <meta
           property="twitter:image"
-          content="http://raw.githubusercontent.com/danielcranney/profileme-dev/main/public/social-image.jpg"
+          content="https://raw.githubusercontent.com/danielcranney/repo-storage/main/profile-me-social-image.png"
         />
         <meta
           property="twitter:description"

@@ -254,6 +254,12 @@ export const iconData = {
       iTag: "svelte",
       link: "https://svelte.dev/",
     },
+    {
+      name: "Vite",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/vite-colored.svg",
+      iTag: "vite",
+      link: "https://vitejs.dev/",
+    },
   ],
   backend: [
     {

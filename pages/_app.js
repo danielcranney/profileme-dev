@@ -67,6 +67,12 @@ export const iconData = {
       link: "https://dart.dev/",
     },
     {
+      name: "Git",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/git-colored.svg",
+      iTag: "git",
+      link: "https://git-scm.com/",
+    },
+    {
       name: "Go",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/go-colored.svg",
       iTag: "go",

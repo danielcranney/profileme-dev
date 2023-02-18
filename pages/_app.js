@@ -217,6 +217,12 @@ export const iconData = {
       link: "https://tailwindcss.com/",
     },
     {
+      name: "chakra",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/chakra-colored.svg",
+      iTag: "chakra",
+      link: "https://chakrajs.dev/",
+    },
+    {
       name: "Bootstrap",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/bootstrap-colored.svg",
       iTag: "bootstrap",

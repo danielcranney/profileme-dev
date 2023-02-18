@@ -219,7 +219,7 @@ export const iconData = {
     {
       name: "chakra",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/chakra-colored.svg",
-      iTag: "chakra",
+      iTag: "Chakra UI",
       link: "https://chakra-ui.com/",
     },
     {

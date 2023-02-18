@@ -217,9 +217,9 @@ export const iconData = {
       link: "https://tailwindcss.com/",
     },
     {
-      name: "chakra",
+      name: "Chakra UI",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/chakra-colored.svg",
-      iTag: "Chakra UI",
+      iTag: "chakra",
       link: "https://chakra-ui.com/",
     },
     {

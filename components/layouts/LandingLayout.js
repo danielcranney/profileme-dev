@@ -12,6 +12,7 @@ import ThemeSwitch from "../buttons/ThemeSwitch";
 import { useRouter } from "next/router";
 import { SocialIcons } from "../misc/SocialIcons";
 import { topBarContainer } from "../../lib/framerMotion";
+import Logo from "../Logo";
 
 export default function LandingLayout({ children }) {
   const { state, dispatch } = useContext(StateContext);
@@ -89,7 +90,7 @@ export default function LandingLayout({ children }) {
         <meta property="twitter:creator" content="@danielcranney" />
       </Head>
 
-      <header className="flex items-center fixed top-0 w-full h-16 z-40 bg-white dark:bg-dark-800 border-b-0 border-slate-200 dark:border-dark-700">
+      <header className="flex items-center fixed top-0 w-full h-16 z-40 bg-light-100 dark:bg-dark-800 border-b-0 border-slate-200 dark:border-dark-700">
         <motion.div
           initial="hidden"
           animate="visible"
@@ -97,23 +98,9 @@ export default function LandingLayout({ children }) {
           className="container mx-auto flex items-center gap-x-2"
         >
           {/* Logo */}
-          <Link href={"/"}>
-            <motion.a
-              className={`font-bold tracking-tight mb-0 text-lg sm:text-xl transition-all duration-500 ease-in-out no-underline text-dark-900 dark:text-white`}
-            >
-              ProfileMe
-              <span
-                className={`transition-all duration-150 ease-in-out ${
-                  state.sidebarOpen ? "text-brand-alt" : "text-brand-alt"
-                }`}
-              >
-                .dev
-              </span>
-            </motion.a>
-          </Link>
+          <Logo />
 
           {/* ThemeSwitch */}
-
           <ThemeSwitch />
 
           <motion.button
@@ -275,28 +262,15 @@ export default function LandingLayout({ children }) {
         <div className="container mx-auto flex flex-col md:flex-row items-end gap-x-3 gap-y-3">
           <div className="mr-auto flex flex-col grow w-full">
             {/* Logo */}
-            <Link href={"/"}>
-              <a
-                className={`font-bold tracking-tight mb-0 text-lg sm:text-xl transition-all duration-500 ease-in-out no-underline text-dark-900 dark:text-white`}
-              >
-                ProfileMe
-                <span
-                  className={`transition-all duration-150 ease-in-out ${
-                    state.sidebarOpen
-                      ? "text-brand hover:text-dark-700"
-                      : "text-brand-alt"
-                  }`}
-                >
-                  .dev
-                </span>
-              </a>
-            </Link>
+            <Logo />
 
             {/* Changelog Link */}
-            <p className="mb-0 text-sm w-full">
-              &copy; Copyright {new Date().getFullYear()} ProfileMe.dev. All
-              rights reserved.
-            </p>
+            <div className="mb-0 text-sm w-full">
+              <p>
+                &copy; Copyright {new Date().getFullYear()}{" "}
+                <Link href={"/"}>ProfileMe.dev</Link>. All rights reserved.
+              </p>
+            </div>
           </div>
           <div className="flex flex-col md:items-end w-full items-start">
             <SocialIcons />

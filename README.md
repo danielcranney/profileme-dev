@@ -18,11 +18,13 @@ Users can easily build and customise their GitHub profile, working with the foll
 
 ## Tech Stack
 
-This project was built with NextJS (built on React) and TailwindCSS, and is client-only (with no backend).
+This project was built with:
+- NextJS 
+- TailwindCSS
 
 ## Installation
 
-ProfileMe has a very simple, two-step installation process.
+ProfileMe.dev has a very simple, two-step installation process.
 
 **1. Install dependencies**
 

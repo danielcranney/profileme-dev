@@ -75,7 +75,12 @@ Web Developer
               Create Profile
             </button>
           </div>
-          <a className="transition-all duration-150 ease-in-out btn-gray btn-sm sm:btn-sm tracking-wide">
+          <a
+            className="transition-all duration-150 ease-in-out btn-gray btn-sm sm:btn-sm tracking-wide"
+            href="https://github.com/sponsors/danielcranney"
+            rel="noreferrer"
+            target="_blank"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="w-4 h-4 mr-2 icon icon-tabler icon-tabler-heart"

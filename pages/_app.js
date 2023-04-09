@@ -235,6 +235,14 @@ export const iconData = {
       link: "https://mui.com/",
     },
     {
+      name: "Remix",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/remix.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/remix-dark.svg",
+      iTag: "remix",
+      link: "https://remix.run/",
+    },
+    {
       name: "Redux",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/redux-colored.svg",
       iTag: "redux",

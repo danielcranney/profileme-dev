@@ -269,6 +269,12 @@ export const iconData = {
   ],
   backend: [
     {
+      name: "Render",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/render.svg",
+      iTag: "render",
+      link: "https://render.com/",
+    },
+    {
       name: "NodeJS",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nodejs-colored.svg",
       iTag: "nodejs",

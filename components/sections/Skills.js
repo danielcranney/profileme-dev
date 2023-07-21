@@ -6,6 +6,7 @@ import SectionHeader from "../SectionHeader";
 import { iconData } from "../../lib/iconData";
 
 const Skills = React.forwardRef(({ handleIconToggle }, ref) => {
+
   return (
     <>
       <section className="section-header-wrapper">
@@ -26,37 +27,43 @@ const Skills = React.forwardRef(({ handleIconToggle }, ref) => {
           <IconSelector
             handleIconToggle={handleIconToggle}
             title={"Core"}
-            category={iconData["core"]}
+            iconType={"core"}
+            iconData={iconData}
           />
           {/* Frontend */}
           <IconSelector
             handleIconToggle={handleIconToggle}
             title={"Frontend"}
-            category={iconData["frontend"]}
+            iconType={"frontend"}
+            iconData={iconData}
           />
           {/* Backend and DB */}
           <IconSelector
             handleIconToggle={handleIconToggle}
             title={"Backend and Database"}
-            category={iconData["backend"]}
+            iconType={"backend"}
+            iconData={iconData}
           />
           {/* Other */}
           <IconSelector
             handleIconToggle={handleIconToggle}
             title={"Other"}
-            category={iconData["other"]}
+            iconType={"other"}
+            iconData={iconData}
           />
           {/* Software */}
           <IconSelector
             handleIconToggle={handleIconToggle}
             title={"Software"}
-            category={iconData["software"]}
+            iconType={"software"}
+            iconData={iconData}
           />
           {/* Web 3 */}
           <IconSelector
             handleIconToggle={handleIconToggle}
             title={"Web3"}
-            category={iconData["web3"]}
+            iconType={"web3"}
+            iconData={iconData}
           />
           <section className="flex mt-4">
             <PreviousSection sectionToGoTo={"introduction"} />

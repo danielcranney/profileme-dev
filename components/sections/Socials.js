@@ -146,7 +146,7 @@ const Socials = React.forwardRef((props, ref) => {
             ref={youtubeRef}
             section={"socials"}
             account={"youtube"}
-            inputPlaceholder={"yourhandle"}
+            inputPlaceholder={"yourname"}
             formLabelText={"YouTube channel:"}
             linkPrefix={state.socials.youtube.linkPrefix}
             action={ACTIONS.ADD_SOCIAL_PROFILE}

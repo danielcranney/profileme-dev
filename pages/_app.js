@@ -372,6 +372,60 @@ export const iconData = {
       iTag: "aws",
       link: "https://aws.amazon.com",
     },
+    {
+      name: "Arduino",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/arduino-colored.svg",
+      iTag: "arduino",
+      link: "https://arduino.amazon.com",
+    },
+    {
+      name: "Blender",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/blender-colored.svg",
+      iTag: "blender",
+      link: "https://blender.amazon.com",
+    },
+    {
+      name: "Digital Ocean",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/digitalocean-colored.svg",
+      iTag: "digitalocean",
+      link: "https://digital-ocean.amazon.com",
+    },
+    {
+      name: "Docker",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/docker-colored.svg",
+      iTag: "docker",
+      link: "https://docker.amazon.com",
+    },
+    {
+      name: "Linux",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/linux-colored.svg",
+      iTag: "linux",
+      link: "https://linux.amazon.com",
+    },
+    {
+      name: "MacOS",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/macos-colored.svg",
+      iTag: "macos",
+      link: "https://macos.amazon.com",
+    },
+    {
+      name: "PyTorch",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/pytorch-colored.svg",
+      iTag: "pytorch",
+      link: "https://pytorch.amazon.com",
+    },
+    {
+      name: "Raspberry Pi",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/raspberrypi-colored.svg",
+      iTag: "raspberrypi",
+      link: "https://raspberrypi.amazon.com",
+    },
+    {
+      name: "TensorFlow",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/tensorflow-colored.svg",
+      iTag: "tensorflow",
+      link: "https://tensorflow.amazon.com",
+    },
   ],
   software: [
     {

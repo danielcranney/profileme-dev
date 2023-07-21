@@ -6,7 +6,6 @@ import SectionHeader from "../SectionHeader";
 import { iconData } from "../../lib/iconData";
 
 const Skills = React.forwardRef(({ handleIconToggle }, ref) => {
-
   return (
     <>
       <section className="section-header-wrapper">

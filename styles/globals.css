@@ -270,7 +270,6 @@ Table Of Contents:
 /****************************/
 /*     Custom Dev Icons     */
 /****************************/
-/** Core icons **/
 @layer utilities {
   .c {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/c.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/c-dark.svg')];
@@ -380,7 +379,7 @@ Table Of Contents:
   .typescript.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/typescript-colored.svg')];
   }
-  /** Frontend icons **/
+
   .html5 {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/html5.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/html5-dark.svg')];
   }

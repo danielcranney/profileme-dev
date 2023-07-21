@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import { StateContext } from "../pages/_app";
-
+import { iconData } from "../pages/_app";
 import FormLabel from "./forms/FormLabel";
 import ExtraSmallTick from "./misc/ExtraSmallTick";
 import { useTheme } from "next-themes";
 
-const IconSelector = ({ handleIconToggle, title, category }) => {
+const IconSelector = ({ handleIconToggle, title, iconType }) => {
   const { state } = useContext(StateContext);
   const { theme } = useTheme();
 
@@ -15,7 +15,7 @@ const IconSelector = ({ handleIconToggle, title, category }) => {
         <FormLabel text={title} icon={"💻"} />
       </div>
       <div className="flex flex-wrap text-4xl gap-x-2 gap-y-2">
-        {category.map((icon, index) => {
+        {iconData[iconType].map((icon, index) => {
           return (
             <button
               key={`${icon.path}`}

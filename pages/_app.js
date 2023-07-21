@@ -366,6 +366,12 @@ export const iconData = {
       iTag: "flutter",
       link: "https://flutter.dev/",
     },
+    {
+      name: "Amazon Web Services",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/aws-colored.svg",
+      iTag: "aws",
+      link: "https://aws.amazon.com",
+    },
   ],
   software: [
     {

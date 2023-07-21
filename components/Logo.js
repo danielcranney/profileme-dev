@@ -8,13 +8,20 @@ const Logo = () => {
   return (
     <Link
       href={"/"}
-      className={`font-bold tracking-tight mb-0 text-lg sm:text-xl transition-all duration-150 ease-in-out no-underline text-dark-900 dark:text-white`}
+      className={`font-bold tracking-tight mb-0 text-lg sm:text-xl transition-all duration-150 ease-in-out no-underline
+       ${
+         state.sidebarOpen
+           ? "text-white dark:text-white"
+           : "text-dark-900 dark:text-white"
+       }
+
+      `}
     >
       ProfileMe
       <span
         className={`transition-all duration-150 ease-in-out ${
           state.sidebarOpen
-            ? "text-brand-alt dark:text-brand"
+            ? "text-brand dark:text-brand"
             : "text-brand-alt dark:text-brand"
         }`}
       >

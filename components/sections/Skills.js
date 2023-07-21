@@ -3,7 +3,7 @@ import NextSection from "../buttons/NextSection";
 import PreviousSection from "../buttons/PreviousSection";
 import IconSelector from "../IconSelector";
 import SectionHeader from "../SectionHeader";
-import { iconData } from "../../lib/iconData";
+import { iconData } from "../../pages/_app";
 
 const Skills = React.forwardRef(({ handleIconToggle }, ref) => {
   return (

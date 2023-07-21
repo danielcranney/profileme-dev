@@ -113,15 +113,9 @@ export default function FormLayout({ children }) {
       </div>
 
       <header
-        className={`${state.sidebarOpen ? "pl-70" : "pl-56"} w-full pr-6`}
+        className={`${state.sidebarOpen ? "pl-70" : "pl-56"} w-full pr-6 flex justify-end items-center`}
       >
-        <p className="text-dark-700 mr-auto mb-0 text-xs gap-x-2 items-center hidden lg:flex">
-          <span className="btn-xs btn-gray-outline font-bold">
-            New feature:
-          </span>
-          <span className="">Changelog added</span>
-        </p>
-        <div className="flex items-center relative ml-auto lg:ml-0 gap-x-2">
+        <div className="flex items-center relative ml-auto justify-end lg:ml-0 gap-x-2">
           {/* ThemeSwitch */}
           <div>
             <ThemeSwitch />

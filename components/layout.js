@@ -105,15 +105,6 @@ export default function Layout({ children }) {
         <LeaveFeedback />
       </div>
 
-      <header className={`${state.sidebarOpen ? "pl-70" : "pl-56"} w-full`}>
-        <p className="text-dark-700 mr-auto mb-0 text-xs gap-x-2 items-center hidden lg:flex">
-          <span className="btn-xs btn-gray-outline font-bold">
-            New feature:
-          </span>
-          <span className="">Changelog added</span>
-        </p>
-      </header>
-
       <main>
         {/* COLUMN 1 - SIDEBAR */}
         <aside

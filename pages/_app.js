@@ -922,7 +922,7 @@ const initialState = {
     },
     youtube: {
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/youtube.svg",
-      linkPrefix: "https://www.youtube.com/c/",
+      linkPrefix: "https://www.youtube.com/",
       linkSuffix: "",
     },
     discord: {

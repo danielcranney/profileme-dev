@@ -98,7 +98,19 @@ export default function LandingLayout({ children }) {
           className="container mx-auto flex items-center gap-x-2"
         >
           {/* Logo */}
-          <Logo />
+          <motion.button
+            onClick={() => router.push("/")}
+            className={`font-bold tracking-tight mb-0 text-lg sm:text-xl transition-all duration-500 ease-in-out no-underline text-dark-900 dark:text-white`}
+          >
+            ProfileMe
+            <span
+              className={`transition-all duration-150 ease-in-out ${
+                state.sidebarOpen ? "text-brand-alt" : "text-brand-alt"
+              }`}
+            >
+              .dev
+            </span>
+          </motion.button>
 
           {/* ThemeSwitch */}
           <ThemeSwitch />
@@ -169,7 +181,7 @@ export default function LandingLayout({ children }) {
                     </Link>
                   </li>
                   <li className="border-b border-light-100 dark:border-dark-600 h-10 flex group">
-                    <a
+                    <Link
                       className="px-3 flex items-center font-normal no-underline w-full h-full text-dark-400/80 dark:text-light-300 hover:text-dark-700 dark:hover:text-white transition-all duration-150 ease-in-out gap-x-2 group"
                       href="https://github.com/danielcranney/profileme-dev/"
                       target="_blank"
@@ -192,7 +204,7 @@ export default function LandingLayout({ children }) {
                       <span className="text-xs font-semibold uppercase">
                         GitHub Repo
                       </span>
-                    </a>
+                    </Link>
                   </li>
                   <li className="border-b-0 h-10 flex group">
                     <a

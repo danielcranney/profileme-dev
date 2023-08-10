@@ -6,8 +6,7 @@ import { motion } from "framer-motion";
 const Logo = () => {
   const { state, dispatch } = useContext(StateContext);
   return (
-    <Link href={"/"}
-        className={`font-bold tracking-tight mb-0 text-lg sm:text-xl transition-all duration-150 ease-in-out no-underline ${
+    <Link href={"/"}  className={`font-bold tracking-tight mb-0 text-lg sm:text-xl transition-all duration-150 ease-in-out no-underline ${
           state.sidebarOpen
             ? "text-white hover:text-white"
             : "text-dark-900 dark:text-white"

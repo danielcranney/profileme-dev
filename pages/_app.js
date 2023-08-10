@@ -651,6 +651,15 @@ export const iconData = {
       link: "https://www.terra.money/",
     },
   ],
+  cloud:[
+    {
+      name:"googlecloud",
+      path:"https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/googlecloud-colored.svg",
+      iTag: "devicon-googlecloud-plain",
+      link:"https://cloud.google.com/"
+
+    }
+  ]
 };
 
 export const ACTIONS = {
@@ -903,6 +912,7 @@ const initialState = {
     other: [],
     software: [],
     web3: [],
+    cloud: [],
   },
   // Socials State
   socials: {

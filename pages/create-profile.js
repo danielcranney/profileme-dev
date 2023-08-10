@@ -15,6 +15,30 @@ import Badges from "../components/sections/Badges";
 import Support from "../components/sections/Support";
 import FormLayout from "../components/layouts/FormLayout";
 
+function build_markdown_skill(category) {
+  return (
+  <>
+    {category.map((icon) => {
+      return (
+        <span key={`${icon.path}`}>
+          <>{`<a href="${icon.link}" target="_blank" rel="noreferrer">
+          <picture>`}
+            {icon.darkPath ? (
+              `<source media="(prefers-color-scheme: dark)" srcset="${icon.darkPath}" />`
+            ) : (``)
+            }
+            {`
+            <source media="(prefers-color-scheme: light)" srcset="${icon.path}" />
+            <img src="${icon.path}" width="36" height="36" alt="${icon.name}" />
+          </picture>
+          </a>\n`}</>
+        </span>
+      );
+    })}
+  </>
+  )
+}
+
 export default function CreateProfile() {
   const { state, dispatch } = useContext(StateContext);
   const [mounted, setMounted] = useState(false);
@@ -629,16 +653,20 @@ export default function CreateProfile() {
                           rel="noreferrer"
                         >
                           {icon.darkPath ? (
-                            <img
-                              src={
-                                theme == "dark"
-                                  ? `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored-dark.svg`
-                                  : `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored.svg`
-                              }
-                              alt={`${icon.name}`}
-                              width="36"
-                              height="36"
-                            />
+                            <picture>
+                              <source 
+                                media="(prefers-color-scheme: dark)" 
+                                srcSet={`https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored-dark.svg.png`} >
+                              </source>
+                              <img
+                                src={
+                                  `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored.svg`
+                                }
+                                alt={`${icon.name}`}
+                                width="36"
+                                height="36"
+                              />
+                            </picture>
                           ) : (
                             <img
                               src={`https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored.svg`}
@@ -919,137 +947,29 @@ export default function CreateProfile() {
                 renderedMarkdown.skills.web3.length < 1 ? null : (
                   <span>{`<p align="left">\n`}</span>
                 )}
-
+                
                 {renderedMarkdown.skills.core.length > 0 ? (
-                  <>
-                    {renderedMarkdown.skills.core.map((icon) => {
-                      return (
-                        <span key={`${icon.path}`}>
-                          {icon.darkPath ? (
-                            <>{`<a href="${
-                              icon.link
-                            }" target="_blank" rel="noreferrer"><img src="${
-                              theme == "dark" ? icon.darkPath : icon.path
-                            }" width="36" height="36" alt="${
-                              icon.name
-                            }" /></a>\n`}</>
-                          ) : (
-                            <>{`<a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>\n`}</>
-                          )}
-                        </span>
-                      );
-                    })}
-                  </>
+                  build_markdown_skill(renderedMarkdown.skills.core)
                 ) : null}
 
                 {renderedMarkdown.skills.frontend.length > 0 ? (
-                  <>
-                    {renderedMarkdown.skills.frontend.map((icon) => {
-                      return (
-                        <span key={`${icon.path}`}>
-                          {icon.darkPath ? (
-                            <>{`<a href="${
-                              icon.link
-                            }" target="_blank" rel="noreferrer"><img src="${
-                              theme == "dark" ? icon.darkPath : icon.path
-                            }" width="36" height="36" alt="${
-                              icon.name
-                            }" /></a>\n`}</>
-                          ) : (
-                            <>{`<a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>\n`}</>
-                          )}
-                        </span>
-                      );
-                    })}
-                  </>
+                  build_markdown_skill(renderedMarkdown.skills.frontend)
                 ) : null}
 
                 {renderedMarkdown.skills.backend.length > 0 ? (
-                  <>
-                    {renderedMarkdown.skills.backend.map((icon) => {
-                      return (
-                        <span key={`${icon.path}`}>
-                          {icon.darkPath ? (
-                            <>{`<a href="${
-                              icon.link
-                            }" target="_blank" rel="noreferrer"><img src="${
-                              theme == "dark" ? icon.darkPath : icon.path
-                            }" width="36" height="36" alt="${
-                              icon.name
-                            }" /></a>\n`}</>
-                          ) : (
-                            <>{`<a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>\n`}</>
-                          )}
-                        </span>
-                      );
-                    })}
-                  </>
+                  build_markdown_skill(renderedMarkdown.skills.backend)
                 ) : null}
 
                 {renderedMarkdown.skills.other.length > 0 ? (
-                  <>
-                    {renderedMarkdown.skills.other.map((icon) => {
-                      return (
-                        <span key={`${icon.path}`}>
-                          {icon.darkPath ? (
-                            <>{`<a href="${
-                              icon.link
-                            }" target="_blank" rel="noreferrer"><img src="${
-                              theme == "dark" ? icon.darkPath : icon.path
-                            }" width="36" height="36" alt="${
-                              icon.name
-                            }" /></a>\n`}</>
-                          ) : (
-                            <>{`<a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>\n`}</>
-                          )}
-                        </span>
-                      );
-                    })}
-                  </>
+                  build_markdown_skill(renderedMarkdown.skills.other)
                 ) : null}
 
                 {renderedMarkdown.skills.software.length > 0 ? (
-                  <>
-                    {renderedMarkdown.skills.software.map((icon) => {
-                      return (
-                        <span key={`${icon.path}`}>
-                          {icon.darkPath ? (
-                            <>{`<a href="${
-                              icon.link
-                            }" target="_blank" rel="noreferrer"><img src="${
-                              theme == "dark" ? icon.darkPath : icon.path
-                            }" width="36" height="36" alt="${
-                              icon.name
-                            }" /></a>\n`}</>
-                          ) : (
-                            <>{`<a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>\n`}</>
-                          )}
-                        </span>
-                      );
-                    })}
-                  </>
+                  build_markdown_skill(renderedMarkdown.skills.software)
                 ) : null}
 
                 {renderedMarkdown.skills.web3.length > 0 ? (
-                  <>
-                    {renderedMarkdown.skills.web3.map((icon) => {
-                      return (
-                        <span key={`${icon.path}`}>
-                          {icon.darkPath ? (
-                            <>{`<a href="${
-                              icon.link
-                            }" target="_blank" rel="noreferrer"><img src="${
-                              theme == "dark" ? icon.darkPath : icon.path
-                            }" width="36" height="36" alt="${
-                              icon.name
-                            }" /></a>\n`}</>
-                          ) : (
-                            <>{`<a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>\n`}</>
-                          )}
-                        </span>
-                      );
-                    })}
-                  </>
+                  build_markdown_skill(renderedMarkdown.skills.web3)
                 ) : null}
 
                 {renderedMarkdown.skills.core.length < 1 &&
@@ -1078,20 +998,19 @@ export default function CreateProfile() {
                 return profile[1].linkSuffix ? (
                   <span key={`profile-${profile[0]}`}>
                     {`
-                          
                       <a href="${profile[1].linkPrefix}${
                       profile[1].linkSuffix
                     }${
                       profile[1].linkSuffixTwo
                         ? `${profile[1].linkSuffixTwo}`
                         : ""
-                    }" target="_blank" rel="noreferrer"><img src="${
-                      profile[1].darkPath
-                        ? theme == "dark"
-                          ? `${profile[1].darkPath}`
-                          : `${profile[1].path}`
-                        : `${profile[1].path}`
-                    }" width="32" height="32" /></a>`}
+                    }" target="_blank" rel="noreferrer">
+                    <picture>
+                    <source media="(prefers-color-scheme: dark)" srcset="${`${profile[1].darkPath}`}" />
+                    <source media="(prefers-color-scheme: light)" srcset="${`${profile[1].path}`}" />
+                    <img src="${`${profile[1].path}`}" width="32" height="32" />
+                    </picture>
+                    </a>`}
                   </span>
                 ) : null;
               })}

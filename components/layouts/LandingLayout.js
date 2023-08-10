@@ -99,7 +99,10 @@ export default function LandingLayout({ children }) {
         >
           {/* Logo */}
           <motion.button
-            onClick={() => router.push("/")}
+            onClick={() => {
+              router.push("/");
+            }}
+
             className={`font-bold tracking-tight mb-0 text-lg sm:text-xl transition-all duration-500 ease-in-out no-underline text-dark-900 dark:text-white`}
           >
             ProfileMe
@@ -272,8 +275,22 @@ export default function LandingLayout({ children }) {
       <footer className="w-full flex items-center bg-white dark:bg-dark-900 py-12 relative">
         <div className="container mx-auto flex flex-col md:flex-row items-end gap-x-3 gap-y-3">
           <div className="mr-auto flex flex-col grow w-full">
-            {/* Logo */}
-            <Logo />
+            {/* Logo */} 
+            <Link
+              href={"/"}
+              className={`font-bold tracking-tight mb-0 text-lg sm:text-xl transition-all duration-500 ease-in-out no-underline text-dark-900 dark:text-white`}
+            >
+              ProfileMe
+              <span
+                className={`transition-all duration-150 ease-in-out ${
+                  state.sidebarOpen
+                    ? "text-brand hover:text-dark-700"
+                    : "text-brand-alt"
+                }`}
+              >
+                .dev
+              </span>
+            </Link>
 
             {/* Changelog Link */}
             <div className="mb-0 text-sm w-full">

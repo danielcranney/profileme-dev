@@ -333,10 +333,10 @@ export const iconData = {
       link: "https://flask.palletsprojects.com/en/2.0.x/",
     },
     {
-      name: "render",
+      name: "Render",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/render-colored.svg",
       darkPath:
-        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/render-colored-dark.svg",
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/render-dark.svg",
       iTag: "render",
       link: "https://render.com/",
     },

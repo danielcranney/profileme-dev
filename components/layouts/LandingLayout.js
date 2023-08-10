@@ -98,6 +98,9 @@ export default function LandingLayout({ children }) {
         >
           {/* Logo */}
           <motion.button
+            onClick={() => {
+              router.push("/");
+            }}
             className={`font-bold tracking-tight mb-0 text-lg sm:text-xl transition-all duration-500 ease-in-out no-underline text-dark-900 dark:text-white`}
           >
             ProfileMe

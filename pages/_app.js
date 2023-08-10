@@ -651,15 +651,14 @@ export const iconData = {
       link: "https://www.terra.money/",
     },
   ],
-  cloud:[
+  cloud: [
     {
-      name:"googlecloud",
-      path:"https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/googlecloud-colored.svg",
-      iTag: "devicon-googlecloud-plain",
-      link:"https://cloud.google.com/"
-
-    }
-  ]
+      name: "Google Cloud",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/googlecloud-colored.svg",
+      iTag: "googlecloud",
+      link: "https://cloud.google.com/",
+    },
+  ],
 };
 
 export const ACTIONS = {

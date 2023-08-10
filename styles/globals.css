@@ -864,6 +864,13 @@ Table Of Contents:
   .terra.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/terra-colored.svg')];
   }
+  /** Cloud icons **/
+  .googlecloud {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/googlecloud.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/googlecloud-dark.svg')];
+  }
+  .googlecloud.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/googlecloud-colored.svg')];
+  }
 }
 
 /*-----------------------

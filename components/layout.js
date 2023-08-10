@@ -83,36 +83,28 @@ export default function Layout({ children }) {
 
       {/* Dark Theme Icon */}
       <div className="fixed top-3.5 right-6 z-40 flex gap-x-3 items-center h-9">
-        <Link
-          href="/changelog"
-          className={`z-40 hidden sm:flex ${
-            state.sidebarOpen
-              ? "text-dark-800 hover:text-white md:text-brand md:hover:text-dark-800"
-              : "text-brand hover:text-dark-800 md:text-brand md:hover:text-dark-800"
-          } text-xs px-0`}
-          onClick={() => {
-            dispatch({
-              type: ACTIONS.SHOW_SECTION,
-              payload: null,
-            });
-          }}
-        >
-          Changelog
+        <Link href="/changelog" 
+            rel="noreferrer"
+            className={`z-40 hidden sm:flex ${
+              state.sidebarOpen
+                ? "text-dark-800 hover:text-white md:text-brand md:hover:text-dark-800"
+                : "text-brand hover:text-dark-800 md:text-brand md:hover:text-dark-800"
+            } text-xs px-0`}
+            onClick={() => {
+              dispatch({
+                type: ACTIONS.SHOW_SECTION,
+                payload: null,
+              });
+            }}
+          >
+            Changelog
+        
         </Link>
 
         <ThemeSwitch />
 
         <LeaveFeedback />
       </div>
-
-      <header className={`${state.sidebarOpen ? "pl-70" : "pl-56"} w-full`}>
-        <p className="text-dark-700 mr-auto mb-0 text-xs gap-x-2 items-center hidden lg:flex">
-          <span className="btn-xs btn-gray-outline font-bold">
-            New feature:
-          </span>
-          <span className="">Changelog added</span>
-        </p>
-      </header>
 
       <main>
         {/* COLUMN 1 - SIDEBAR */}

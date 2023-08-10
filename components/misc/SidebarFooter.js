@@ -12,7 +12,7 @@ const SidebarFooter = () => {
       </article>
 
       <p className="text-xs text-white dark:text-white mb-0">
-        &copy; 2022 Dan Cranney
+        &copy; {new Date().getFullYear()} Dan Cranney
       </p>
 
       <div className="flex text-xs text-white dark:text-white">

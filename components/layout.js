@@ -48,14 +48,14 @@ export default function Layout({ children }) {
         />
         <meta
           property="og:image"
-          content="http://raw.githubusercontent.com/danielcranney/profileme-dev/main/public/social-image.jpg"
+          content="https://raw.githubusercontent.com/danielcranney/repo-storage/main/profile-me-social-image.png"
         />
         <meta property="og:url" content="http://www.profileme.dev" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:title" content="ProfileMe.dev" />
         <meta
           property="twitter:image"
-          content="http://raw.githubusercontent.com/danielcranney/profileme-dev/main/public/social-image.jpg"
+          content="https://raw.githubusercontent.com/danielcranney/repo-storage/main/profile-me-social-image.png"
         />
         <meta
           property="twitter:description"
@@ -83,9 +83,8 @@ export default function Layout({ children }) {
 
       {/* Dark Theme Icon */}
       <div className="fixed top-3.5 right-6 z-40 flex gap-x-3 items-center h-9">
-        <Link href="/changelog">
-          <a
-            rel="noreferrer"
+
+        <Link href="/changelog" rel="noreferrer"
             className={`z-40 hidden sm:flex ${
               state.sidebarOpen
                 ? "text-dark-800 hover:text-white md:text-brand md:hover:text-dark-800"
@@ -99,22 +98,13 @@ export default function Layout({ children }) {
             }}
           >
             Changelog
-          </a>
+        
         </Link>
 
         <ThemeSwitch />
 
         <LeaveFeedback />
       </div>
-
-      <header className={`${state.sidebarOpen ? "pl-70" : "pl-56"} w-full`}>
-        <p className="text-dark-700 mr-auto mb-0 text-xs gap-x-2 items-center hidden lg:flex">
-          <span className="btn-xs btn-gray-outline font-bold">
-            New feature:
-          </span>
-          <span className="">Changelog added</span>
-        </p>
-      </header>
 
       <main>
         {/* COLUMN 1 - SIDEBAR */}

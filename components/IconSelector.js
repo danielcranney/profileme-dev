@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { StateContext } from "../pages/_app";
-import { iconData } from "../pages/_app";
 import FormLabel from "./forms/FormLabel";
 import ExtraSmallTick from "./misc/ExtraSmallTick";
 import { useTheme } from "next-themes";
+import { iconData } from "../pages/_app";
 
 const IconSelector = ({ handleIconToggle, title, iconType }) => {
   const { state } = useContext(StateContext);
@@ -30,7 +30,9 @@ const IconSelector = ({ handleIconToggle, title, iconType }) => {
                   {icon.name}
                 </p>
               </div>
-              {state.skills[iconType].some(item => item.name === icon.name) ? (
+              {state.skills[iconType].some(
+                (item) => item.name === icon.name
+              ) ? (
                 <div className="absolute top-0 left-0 w-4 h-4 p-0 overflow-hidden text-xs bg-white border-0 rounded-lg z-10">
                   <ExtraSmallTick />
                 </div>
@@ -38,7 +40,7 @@ const IconSelector = ({ handleIconToggle, title, iconType }) => {
 
               <i
                 className={`${icon.iTag} w-9 h-9 ${
-                    state.skills[iconType].some(item => item.name === icon.name)
+                  state.skills[iconType].some((item) => item.name === icon.name)
                     ? "colored"
                     : "text-light-400 dark:text-light-500"
                 }`}

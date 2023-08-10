@@ -42,42 +42,31 @@ Web Developer
         <motion.article
           initial="hidden"
           animate="visible"
-          variants={outerContainer}
+          variants={heroItem}
+          transition={{ type: "spring", duration: 0.3, bounce: 0.1 }}
           viewport={{ once: true }}
           className="container mx-auto flex flex-col items-center gap-y-4"
         >
-          <motion.h1
-            variants={heroItem}
-            transition={{ type: "spring", duration: 0.3, bounce: 0.8 }}
-            className="text-4xl sm:text-5xl md:text-6xl text-center leading-tight mb-0"
-          >
+          <h1 className="text-4xl sm:text-5xl md:text-6xl text-center leading-tight mb-0">
             Create an amazing
             <br />
             <span className="text-brand">GitHub profile</span> in minutes
-          </motion.h1>
-          <motion.p
-            variants={heroItem}
-            transition={{ type: "spring", duration: 0.3, bounce: 0.8 }}
-            className="text-lg text-center"
-          >
+          </h1>
+          <p className="text-lg text-center">
             Show off your skills, experience and projects. Generate markdown for
             your profile with just a few clicks!
-          </motion.p>
-          <motion.div
-            variants={heroItem}
-            transition={{ type: "spring", duration: 0.3, bounce: 0.1 }}
-            className="flex items-center gap-x-4"
-          >
+          </p>
+          <div className="flex items-center gap-x-4">
             <a
               href="https://github.com/danielcranney/profileme-dev/"
               target="_blank"
               rel="noreferrer"
-              className="btn-gray btn-sm sm:btn-md md:btn-lg"
+              className="transition-all duration-150 ease-in-out btn-gray btn-sm sm:btn-md md:btn-lg"
             >
               Visit Repo (Developers)
             </a>
+
             <button
-              variants={heroItem}
               onClick={() => {
                 router.push("/create-profile");
               }}
@@ -85,7 +74,30 @@ Web Developer
             >
               Create Profile
             </button>
-          </motion.div>
+          </div>
+          <a
+            className="transition-all duration-150 ease-in-out btn-gray btn-sm sm:btn-sm tracking-wide"
+            href="https://github.com/sponsors/danielcranney"
+            rel="noreferrer"
+            target="_blank"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-4 h-4 mr-2 icon icon-tabler icon-tabler-heart"
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              strokeWidth="2"
+              stroke="currentColor"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path>
+            </svg>
+            Sponsor Project
+          </a>
         </motion.article>
       </section>
       {/* Second Section */}

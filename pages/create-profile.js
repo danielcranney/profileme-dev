@@ -29,8 +29,7 @@ export default function CreateProfile() {
       other: [],
       software: [],
       web3: [],
-      cloud:[],
-
+      cloud: [],
     },
     socials: {
       behance: "",
@@ -73,9 +72,11 @@ export default function CreateProfile() {
   const [socialsShowing, setSocialsShowing] = useState(false);
   const [badgesShowing, setBadgesShowing] = useState(false);
   const [copySuccess, setCopySuccess] = useState("Copy");
-  const withSupport = Object.values(state.support).some(
-    (value) => value.linkSuffix !== ""
-  );
+ const withSupport =
+   Array.isArray(state.support) &&
+   Object.values(state.support).some(
+     (value) => value && value.linkSuffix !== ""
+   );
 
   function build_markdown_skill(category) {
     return (

@@ -842,7 +842,7 @@ export const colorStore = {
   ],
 };
 
-/** 
+/**
  * Temporary store for dynamically creating
  * support anchors for first-time and re-visiting users.
  * */
@@ -858,8 +858,8 @@ export const supportStore = {
     previewIMG: "https://storage.ko-fi.com/cdn/kofi2.png?v=3",
     linkPrefix: "https://www.ko-fi.com/",
     linkSuffix: "",
-  }
-}
+  },
+};
 
 // Color State
 const initialState = {
@@ -941,7 +941,7 @@ const initialState = {
     },
     youtube: {
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/youtube.svg",
-      linkPrefix: "https://www.youtube.com/c/",
+      linkPrefix: "https://www.youtube.com/@",
       linkSuffix: "",
     },
     discord: {

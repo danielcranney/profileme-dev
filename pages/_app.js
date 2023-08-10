@@ -343,8 +343,6 @@ export const iconData = {
     {
       name: "Render",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/render-colored.svg",
-      darkPath:
-        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/render-dark.svg",
       iTag: "render",
       link: "https://render.com/",
     },

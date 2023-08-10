@@ -871,10 +871,10 @@ const withSupport =
           <div
             ref={supportRef}
             className={`flex flex-col gap-x-2 gap-y-2 ${
-              withSupport ? "mt-4" : ""
+              !!withSupport ? "mt-4" : ""
             }`}
           >
-            {withSupport && (
+            {!!withSupport && (
               <>
                 <h3>Support</h3>
                 <ul className="list-none">

@@ -72,16 +72,16 @@ export default function CreateProfile() {
   const [socialsShowing, setSocialsShowing] = useState(false);
   const [badgesShowing, setBadgesShowing] = useState(false);
   const [copySuccess, setCopySuccess] = useState("Copy");
-const withSupport =
-  state && state.support && Array.isArray(state.support)
-    ? Object.values(state.support).some(
-        (value) =>
-          value &&
-          value.linkSuffix !== undefined &&
-          value.linkSuffix !== null &&
-          value.linkSuffix !== ""
-      )
-    : false;
+// const withSupport =
+//   state && state.support && Array.isArray(state.support)
+//     ? Object.values(state.support).some(
+//         (value) =>
+//           value &&
+//           value.linkSuffix !== undefined &&
+//           value.linkSuffix !== null &&
+//           value.linkSuffix !== ""
+//       )
+//     : false;
 
   function build_markdown_skill(category) {
     return (
@@ -872,7 +872,7 @@ const withSupport =
             ) : null}
           </div>
 
-          <div
+          {/* <div
             ref={supportRef}
             className={`flex flex-col gap-x-2 gap-y-2 ${
               !!withSupport ? "mt-4" : ""
@@ -902,7 +902,7 @@ const withSupport =
                 </ul>
               </>
             )}
-          </div>
+          </div> */}
         </article>
 
         {/* Markdown Section Preview */}

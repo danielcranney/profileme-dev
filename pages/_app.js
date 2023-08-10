@@ -842,6 +842,25 @@ export const colorStore = {
   ],
 };
 
+/** 
+ * Temporary store for dynamically creating
+ * support anchors for first-time and re-visiting users.
+ * */
+export const supportStore = {
+  buymeacoffee: {
+    path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/support/buymeacoffee.svg",
+    previewIMG: "https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png",
+    linkPrefix: "https://www.buymeacoffee.com/",
+    linkSuffix: "",
+  },
+  kofi: {
+    path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/support/kofi.svg",
+    previewIMG: "https://storage.ko-fi.com/cdn/kofi2.png?v=3",
+    linkPrefix: "https://www.ko-fi.com/",
+    linkSuffix: "",
+  }
+}
+
 // Color State
 const initialState = {
   section: "introduction",
@@ -1027,13 +1046,7 @@ const initialState = {
       showIcons: true,
     },
   },
-  support: {
-    buymeacoffee: {
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/support/buymeacoffee.svg",
-      linkPrefix: "https://www.buymeacoffee.com/",
-      linkSuffix: "",
-    },
-  },
+  support: supportStore,
   sidebarOpen: false,
   popOutMenuOpen: false,
   modal: false,

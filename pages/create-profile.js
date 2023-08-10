@@ -75,7 +75,11 @@ export default function CreateProfile() {
 const withSupport =
   state && state.support && Array.isArray(state.support)
     ? Object.values(state.support).some(
-        (value) => value && value.linkSuffix !== ""
+        (value) =>
+          value &&
+          value.linkSuffix !== undefined &&
+          value.linkSuffix !== null &&
+          value.linkSuffix !== ""
       )
     : false;
 
@@ -880,7 +884,7 @@ const withSupport =
                 <ul className="list-none">
                   {Object.entries(renderedMarkdown.support).map(
                     ([key, value]) =>
-                      value.linkSuffix ? (
+                      value && value.linkSuffix ? (
                         <li
                           className="inline-block p-1"
                           key={assembleSupportLink(key)}

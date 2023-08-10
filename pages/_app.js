@@ -246,6 +246,14 @@ export const iconData = {
       iTag: "vite",
       link: "https://vitejs.dev/",
     },
+    {
+      name: "Remix",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/remix-colored.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/remix-colored-dark.svg",
+      iTag: "remix",
+      link: "https://remix.run/",
+    },
   ],
   backend: [
     {

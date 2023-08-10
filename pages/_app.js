@@ -333,6 +333,14 @@ export const iconData = {
       link: "https://flask.palletsprojects.com/en/2.0.x/",
     },
     {
+      name: "render",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/render-colored.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/render-colored-dark.svg",
+      iTag: "render",
+      link: "https://render.com/",
+    },
+    {
       name: "Supabase",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/supabase-colored.svg",
       iTag: "supabase",

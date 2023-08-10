@@ -12,6 +12,7 @@ import ThemeSwitch from "../buttons/ThemeSwitch";
 import { useRouter } from "next/router";
 import { SocialIcons } from "../misc/SocialIcons";
 import { topBarContainer } from "../../lib/framerMotion";
+import Logo from "../Logo";
 
 export default function LandingLayout({ children }) {
   const { state, dispatch } = useContext(StateContext);
@@ -73,14 +74,14 @@ export default function LandingLayout({ children }) {
         />
         <meta
           property="og:image"
-          content="http://raw.githubusercontent.com/danielcranney/profileme-dev/main/public/social-image.jpg"
+          content="https://raw.githubusercontent.com/danielcranney/repo-storage/main/profile-me-social-image.png"
         />
         <meta property="og:url" content="http://www.profileme.dev" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:title" content="ProfileMe.dev" />
         <meta
           property="twitter:image"
-          content="http://raw.githubusercontent.com/danielcranney/profileme-dev/main/public/social-image.jpg"
+          content="https://raw.githubusercontent.com/danielcranney/repo-storage/main/profile-me-social-image.png"
         />
         <meta
           property="twitter:description"
@@ -89,7 +90,7 @@ export default function LandingLayout({ children }) {
         <meta property="twitter:creator" content="@danielcranney" />
       </Head>
 
-      <header className="flex items-center fixed top-0 w-full h-16 z-40 bg-white dark:bg-dark-800 border-b-0 border-slate-200 dark:border-dark-700">
+      <header className="flex items-center fixed top-0 w-full h-16 z-40 bg-light-100 dark:bg-dark-800 border-b-0 border-slate-200 dark:border-dark-700">
         <motion.div
           initial="hidden"
           animate="visible"
@@ -101,6 +102,7 @@ export default function LandingLayout({ children }) {
             onClick={() => {
               router.push("/");
             }}
+
             className={`font-bold tracking-tight mb-0 text-lg sm:text-xl transition-all duration-500 ease-in-out no-underline text-dark-900 dark:text-white`}
           >
             ProfileMe
@@ -114,7 +116,6 @@ export default function LandingLayout({ children }) {
           </motion.button>
 
           {/* ThemeSwitch */}
-
           <ThemeSwitch />
 
           <motion.button
@@ -159,26 +160,27 @@ export default function LandingLayout({ children }) {
                     </a>
                   </li>
                   <li className="border-b border-light-100 dark:border-dark-600 h-10 flex group">
-                    <Link href="/changelog">
-                      <a className="px-3 flex items-center font-normal no-underline w-full h-full text-dark-400/80 dark:text-light-300 dark:hover:text-white transition-all duration-150 ease-in-out hover:text-dark-700 gap-x-2">
-                        <svg
-                          className="w-5 h-5"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-                          ></path>
-                        </svg>
-                        <span className="text-xs font-semibold uppercase">
-                          Changelog
-                        </span>
-                      </a>
+                    <Link
+                      href="/changelog"
+                      className="px-3 flex items-center font-normal no-underline w-full h-full text-dark-400/80 dark:text-light-300 dark:hover:text-white transition-all duration-150 ease-in-out hover:text-dark-700 gap-x-2"
+                    >
+                      <svg
+                        className="w-5 h-5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2"
+                          d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
+                        ></path>
+                      </svg>
+                      <span className="text-xs font-semibold uppercase">
+                        Changelog
+                      </span>
                     </Link>
                   </li>
                   <li className="border-b border-light-100 dark:border-dark-600 h-10 flex group">
@@ -273,7 +275,7 @@ export default function LandingLayout({ children }) {
       <footer className="w-full flex items-center bg-white dark:bg-dark-900 py-12 relative">
         <div className="container mx-auto flex flex-col md:flex-row items-end gap-x-3 gap-y-3">
           <div className="mr-auto flex flex-col grow w-full">
-            {/* Logo */}
+            {/* Logo */} 
             <Link
               href={"/"}
               className={`font-bold tracking-tight mb-0 text-lg sm:text-xl transition-all duration-500 ease-in-out no-underline text-dark-900 dark:text-white`}
@@ -291,9 +293,12 @@ export default function LandingLayout({ children }) {
             </Link>
 
             {/* Changelog Link */}
-            <p className="mb-0 text-sm w-full">
-              &copy; Copyright 2022 ProfileMe.dev. All rights reserved.
-            </p>
+            <div className="mb-0 text-sm w-full">
+              <p>
+                &copy; Copyright {new Date().getFullYear()}{" "}
+                <Link href={"/"}>ProfileMe.dev</Link>. All rights reserved.
+              </p>
+            </div>
           </div>
           <div className="flex flex-col md:items-end w-full items-start">
             <SocialIcons />

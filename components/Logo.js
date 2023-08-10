@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { StateContext } from "../pages/_app";
 import Link from "next/link";
+import { motion } from "framer-motion";
 
 const Logo = () => {
   const { state, dispatch } = useContext(StateContext);
@@ -19,7 +20,6 @@ const Logo = () => {
         >
           .dev
         </span>
-  
     </Link>
   );
 };

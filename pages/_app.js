@@ -11,26 +11,6 @@ export const StateContext = createContext(null);
 
 export const STORED_STATE_KEY = "state";
 
-export const ACTIONS = {
-  HYDRATE_STORED_STATE: "hydrate-stored-state",
-  ADD_INTRODUCTION: "add-introduction",
-  SELECT_RENDER_MODE: "select-render-mode",
-  ADD_SKILL: "add-skill",
-  REMOVE_SKILL: "remove-skill",
-  ADD_SOCIAL_PROFILE: "add-social-profile",
-  ADD_ALTERNATIVE_SOCIAL_PROFILE: "add-alternative-social-profile",
-  TOGGLE_BADGE: "toggle-badge",
-  TOGGLE_GITHUB_STATS: "toggle-github-stats",
-  STYLE_BADGES: "style-badges",
-  TOGGLE_STYLE_COLOR: "toggle-style-color",
-  ADD_REPO: "add-repo",
-  DELETE_REPO: "delete-repo",
-  ADD_SUPPORT: "add-support",
-  TOGGLE_COPY_MODAL: "toggle-copy-modal",
-  TOGGLE_ELEMENT: "toggle-element",
-  CLOSE_ELEMENT: "close-element",
-};
-
 // Icon Store
 export const iconData = {
   core: [
@@ -65,6 +45,12 @@ export const iconData = {
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/dart-colored.svg",
       iTag: "dart",
       link: "https://dart.dev/",
+    },
+    {
+      name: "Git",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/git-colored.svg",
+      iTag: "git",
+      link: "https://git-scm.com/",
     },
     {
       name: "Go",
@@ -211,6 +197,12 @@ export const iconData = {
       link: "https://tailwindcss.com/",
     },
     {
+      name: "Chakra UI",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/chakra-colored.svg",
+      iTag: "chakra",
+      link: "https://chakra-ui.com/",
+    },
+    {
       name: "Bootstrap",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/bootstrap-colored.svg",
       iTag: "bootstrap",
@@ -247,6 +239,12 @@ export const iconData = {
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/svelte-colored.svg",
       iTag: "svelte",
       link: "https://svelte.dev/",
+    },
+    {
+      name: "Vite",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/vite-colored.svg",
+      iTag: "vite",
+      link: "https://vitejs.dev/",
     },
   ],
   backend: [
@@ -367,6 +365,70 @@ export const iconData = {
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/flutter-colored.svg",
       iTag: "flutter",
       link: "https://flutter.dev/",
+    },
+    {
+      name: "Amazon Web Services",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/aws-colored.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/aws-colored-dark.svg",
+      iTag: "aws",
+      link: "https://aws.amazon.com",
+    },
+    {
+      name: "Arduino",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/arduino-colored.svg",
+      iTag: "arduino",
+      link: "https://store.arduino.cc/?gclid=Cj0KCQjw2eilBhCCARIsAG0Pf8uueBifykWcsSS4LPESeGQfxGVKJYnzV7bz471XfknQJy_1VINVWM8aAkLtEALw_wcB",
+    },
+    {
+      name: "Blender",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/blender-colored.svg",
+      iTag: "blender",
+      link: "https://www.blender.org/",
+    },
+    {
+      name: "Digital Ocean",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/digitalocean-colored.svg",
+      iTag: "digitalocean",
+      link: "https://www.digitalocean.com",
+    },
+    {
+      name: "Docker",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/docker-colored.svg",
+      iTag: "docker",
+      link: "https://www.docker.com/",
+    },
+    {
+      name: "Linux",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/linux-colored.svg",
+      iTag: "linux",
+      link: "https://www.linux.org",
+    },
+    {
+      name: "MacOS",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/macos-colored.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/macos-colored-dark.svg",
+      iTag: "macos",
+      link: "https://apple.com",
+    },
+    {
+      name: "PyTorch",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/pytorch-colored.svg",
+      iTag: "pytorch",
+      link: "https://pytorch.org/",
+    },
+    {
+      name: "Raspberry Pi",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/raspberrypi-colored.svg",
+      iTag: "raspberrypi",
+      link: "https://www.raspberrypi.org/",
+    },
+    {
+      name: "TensorFlow",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/tensorflow-colored.svg",
+      iTag: "tensorflow",
+      link: "https://www.tensorflow.org/",
     },
   ],
   software: [
@@ -575,6 +637,26 @@ export const iconData = {
       link: "https://www.terra.money/",
     },
   ],
+};
+
+export const ACTIONS = {
+  HYDRATE_STORED_STATE: "hydrate-stored-state",
+  ADD_INTRODUCTION: "add-introduction",
+  SELECT_RENDER_MODE: "select-render-mode",
+  ADD_SKILL: "add-skill",
+  REMOVE_SKILL: "remove-skill",
+  ADD_SOCIAL_PROFILE: "add-social-profile",
+  ADD_ALTERNATIVE_SOCIAL_PROFILE: "add-alternative-social-profile",
+  TOGGLE_BADGE: "toggle-badge",
+  TOGGLE_GITHUB_STATS: "toggle-github-stats",
+  STYLE_BADGES: "style-badges",
+  TOGGLE_STYLE_COLOR: "toggle-style-color",
+  ADD_REPO: "add-repo",
+  DELETE_REPO: "delete-repo",
+  ADD_SUPPORT: "add-support",
+  TOGGLE_COPY_MODAL: "toggle-copy-modal",
+  TOGGLE_ELEMENT: "toggle-element",
+  CLOSE_ELEMENT: "close-element",
 };
 
 // Color Store

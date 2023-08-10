@@ -446,7 +446,7 @@ export const iconData = {
       darkPath:
         "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/illustrator-colored-dark.svg",
       iTag: "illustrator",
-      link: "adobe.com/uk/products/illustrator.html",
+      link: "https://www.adobe.com/uk/products/illustrator.html",
     },
     {
       name: "After Effects",

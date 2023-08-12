@@ -113,7 +113,9 @@ export default function FormLayout({ children }) {
       </div>
 
       <header
-        className={`${state.sidebarOpen ? "pl-70" : "pl-56"} w-full pr-6 flex justify-end items-center`}
+        className={`${
+          state.sidebarOpen ? "pl-70" : "pl-56"
+        } w-full pr-6 flex justify-end items-center`}
       >
         <div className="flex items-center relative ml-auto justify-end lg:ml-0 gap-x-2">
           {/* ThemeSwitch */}
@@ -184,7 +186,8 @@ export default function FormLayout({ children }) {
                   >
                     <svg
                       viewBox="0 0 128 128"
-                      className="w-5 h-5 group fill-current">
+                      className="w-5 h-5 group fill-current"
+                    >
                       <g>
                         <path
                           fillRule="evenodd"
@@ -202,7 +205,7 @@ export default function FormLayout({ children }) {
                 <li className="border-b-0 h-10 flex group">
                   <a
                     className="flex items-center px-3 font-normal no-underline w-full h-full text-dark-400/80 dark:text-light-300 dark:hover:text-white transition-all duration-150 ease-in-out hover:text-dark-700 gap-x-2 group  group-hover:text-dark-700 dark:group-hover:text-white"
-                    href="http://www.twitter.com/profilemedev"
+                    href="http://www.x.com/profilemedev"
                     target="_blank"
                     rel="noreferrer"
                   >
@@ -370,7 +373,6 @@ export default function FormLayout({ children }) {
               }
             />
             <li>
-
               <Link
                 href="/"
                 className="px-6 mb-auto mt-4 flex items-center text-xs text-brand hover:text-white no-underline"

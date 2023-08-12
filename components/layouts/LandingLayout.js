@@ -102,7 +102,6 @@ export default function LandingLayout({ children }) {
             onClick={() => {
               router.push("/");
             }}
-
             className={`font-bold tracking-tight mb-0 text-lg sm:text-xl transition-all duration-500 ease-in-out no-underline text-dark-900 dark:text-white`}
           >
             ProfileMe
@@ -212,7 +211,7 @@ export default function LandingLayout({ children }) {
                   <li className="border-b-0 h-10 flex group">
                     <a
                       className="flex items-center px-3 font-normal no-underline w-full h-full text-dark-400/80 dark:text-light-300 dark:hover:text-white transition-all duration-150 ease-in-out hover:text-dark-700 gap-x-2 group  group-hover:text-dark-700 dark:group-hover:text-white"
-                      href="http://www.twitter.com/profilemedev"
+                      href="http://www.x.com/profilemedev"
                       target="_blank"
                       rel="noreferrer"
                     >
@@ -275,7 +274,7 @@ export default function LandingLayout({ children }) {
       <footer className="w-full flex items-center bg-white dark:bg-dark-900 py-12 relative">
         <div className="container mx-auto flex flex-col md:flex-row items-end gap-x-3 gap-y-3">
           <div className="mr-auto flex flex-col grow w-full">
-            {/* Logo */} 
+            {/* Logo */}
             <Link
               href={"/"}
               className={`font-bold tracking-tight mb-0 text-lg sm:text-xl transition-all duration-500 ease-in-out no-underline text-dark-900 dark:text-white`}

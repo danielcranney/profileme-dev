@@ -3,7 +3,7 @@ import React from "react";
 const XIcon = () => {
   return (
     <a
-      href="http://www.twitter.com/danielcranney"
+      href="http://www.x.com/danielcranney"
       target="_blank"
       rel="noreferrer"
       className="no-underline"

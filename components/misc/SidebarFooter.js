@@ -17,7 +17,7 @@ const SidebarFooter = () => {
 
       <div className="flex text-xs text-white dark:text-white">
         <a
-          href="https://www.twitter.com/danielcranney"
+          href="https://www.x.com/danielcranney"
           rel="noreferrer"
           target="_blank"
           className="flex mr-1.5 opacity-70 hover:opacity-100 text-white hover:text-white transition-all duration-150 ease-in-out"

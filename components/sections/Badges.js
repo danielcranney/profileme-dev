@@ -338,7 +338,7 @@ const Badges = React.forwardRef((props, ref) => {
                     });
                   }}
                 >
-                  add your Twitter profile
+                  add your X profile
                 </a>{" "}
                 in the socials section.
               </p>

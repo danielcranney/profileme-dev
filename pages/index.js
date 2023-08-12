@@ -500,7 +500,7 @@ Web Developer
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/twitter.svg"
                     width="100%"
                     className="scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
-                    alt="Twitter"
+                    alt="X"
                   />
                 </div>
 

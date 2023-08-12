@@ -924,7 +924,7 @@ const initialState = {
     },
     twitter: {
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/twitter.svg",
-      linkPrefix: "https://www.twitter.com/",
+      linkPrefix: "https://www.x.com/",
       linkSuffix: "",
     },
     hashnode: {

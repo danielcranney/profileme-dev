@@ -61,7 +61,7 @@ const Socials = React.forwardRef((props, ref) => {
             section={"socials"}
             account={"twitter"}
             inputPlaceholder={"yourname"}
-            formLabelText={"Twitter profile:"}
+            formLabelText={"X profile:"}
             linkPrefix={state.socials.twitter.linkPrefix}
             action={ACTIONS.ADD_SOCIAL_PROFILE}
           />

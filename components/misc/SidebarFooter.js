@@ -1,14 +1,14 @@
 import React from "react";
 import Link from "next/link";
 import GitHubIcon from "./GitHubIcon";
-import TwitterIcon from "./TwitterIcon";
+import XIcon from "./XIcon";
 
 const SidebarFooter = () => {
   return (
     <div className={`z-40 flex flex-col px-6 gap-y-2`}>
       <article className="flex gap-x-2 items-center">
         <GitHubIcon />
-        <TwitterIcon />
+        <XIcon />
       </article>
 
       <p className="text-xs text-white dark:text-white mb-0">

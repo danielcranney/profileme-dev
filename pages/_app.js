@@ -924,6 +924,8 @@ const initialState = {
     },
     twitter: {
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/twitter.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/twitter-dark.svg",
       linkPrefix: "https://www.x.com/",
       linkSuffix: "",
     },

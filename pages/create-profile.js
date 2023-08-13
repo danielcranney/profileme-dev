@@ -88,17 +88,18 @@ export default function CreateProfile() {
       <>
         {category.map((icon) => (
           <span key={`${icon.path}`}>
-            <a href={icon.link} target="_blank" rel="noreferrer">
-              ICON{" "}
-              {/* {icon.darkPath && theme == "dark" && (
-                <picture>
-                  <img src={icon.darkPath} width="36" height="36" alt={icon.name} />
-                </picture>
-              )}
-              {!icon.darkPath && theme == "light" && (
-                <img src={icon.path} width="36" height="36" alt={icon.name} />
-              )} */}
-            </a>
+            <>
+              {`<a href=${icon.link} target="_blank" rel="noreferrer">`}
+              {`<picture>`}
+                {icon.darkPath && theme == "dark" ? ( 
+                  `<img src=${icon.darkPath} width="36" height="36" alt=${icon.name} />`
+                ) : (
+                  `<img src=${icon.path} width="36" height="36" alt=${icon.name} />`
+                )
+                }
+              {`</picture>`}
+              {`</a>`}
+            </>
           </span>
         ))}
       </>

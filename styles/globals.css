@@ -379,6 +379,42 @@ Table Of Contents:
   .typescript.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/typescript-colored.svg')];
   }
+  .processing {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/processing.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/processing-dark.svg')];
+  }
+  .processing.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/processing-colored.svg')];
+  }
+  .p5js {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/p5js.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/p5js-dark.svg')];
+  }
+  .p5js.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/p5js-colored.svg')];
+  }
+  .matlab {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/matlab.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/matlab-dark.svg')];
+  }
+  .matlab.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/matlab-colored.svg')];
+  }
+  .octave {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/octave.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/octave-dark.svg')];
+  }
+  .octave.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/octave-colored.svg')];
+  }
+  .latex {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/latex.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/latex-dark.svg')];
+  }
+  .latex.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/latex-colored.svg')];
+  }
+  .texmacs {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/TeXmacs.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/TeXmacs-dark.svg')];
+  }
+  .texmacs.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/TeXmacs-colored.svg')];
+  }
 
   .html5 {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/html5.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/html5-dark.svg')];

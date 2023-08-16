@@ -951,6 +951,8 @@ const initialState = {
     },
     linkedin: {
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/linkedin.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/linkedin-dark.svg",
       linkPrefix: "https://www.linkedin.com/in/",
       linkSuffix: "",
     },
@@ -981,6 +983,8 @@ const initialState = {
     },
     facebook: {
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/facebook.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/facebook-dark.svg",
       linkPrefix: "https://www.facebook.com/",
       linkSuffix: "",
     },

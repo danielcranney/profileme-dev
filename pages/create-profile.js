@@ -87,23 +87,19 @@ export default function CreateProfile() {
     return (
       <>
         {category.map((icon) => (
-          <span key={`${icon.path}`}>
-            <a href={icon.link} target="_blank" rel="noreferrer">
-              {icon.darkPath && theme == "dark" && (
-                <picture>
-                  <img
-                    src={icon.darkPath}
-                    width="36"
-                    height="36"
-                    alt={icon.name}
-                  />
-                </picture>
+          <>
+            <span key={`${icon.path}`}>
+              {icon.darkPath ? (
+                <>{`<a href="${
+                  icon.link
+                }" target="_blank" rel="noreferrer"><img src="${
+                  theme == "dark" ? icon.darkPath : icon.path
+                }" width="36" height="36" alt="${icon.name}" /></a>`}</>
+              ) : (
+                <>{`<a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>`}</>
               )}
-              {!icon.darkPath && theme == "light" && (
-                <img src={icon.path} width="36" height="36" alt={icon.name} />
-              )}
-            </a>
-          </span>
+            </span>
+          </>
         ))}
       </>
     );
@@ -985,29 +981,9 @@ export default function CreateProfile() {
                   ? build_markdown_skill(renderedMarkdown.skills.web3)
                   : null}
 
-                {renderedMarkdown.skills.cloud.length > 0 ? (
-                  <>
-                    {renderedMarkdown.skills.cloud.map((icon) => {
-                      return (
-                        <span key={`${icon.path}`}>
-                          {icon.darkPath ? (
-                            <>{`
-                                <a href="${
-                                  icon.link
-                                }" target="_blank" rel="noreferrer"><img src="${
-                              theme == "dark" ? icon.darkPath : icon.path
-                            }" width="36" height="36" alt="${
-                              icon.name
-                            }" /></a>`}</>
-                          ) : (
-                            <>{`
-                                <a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>`}</>
-                          )}
-                        </span>
-                      );
-                    })}
-                  </>
-                ) : null}
+                {renderedMarkdown.skills.cloud.length > 0
+                  ? build_markdown_skill(renderedMarkdown.skills.cloud)
+                  : null}
 
                 {renderedMarkdown.skills.core.length < 1 &&
                 renderedMarkdown.skills.frontend.length < 1 &&

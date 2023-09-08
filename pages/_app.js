@@ -929,6 +929,13 @@ const initialState = {
       linkPrefix: "https://www.x.com/",
       linkSuffix: "",
     },
+    threads: {
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/threads.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/threads-dark.svg",
+      linkPrefix: "https://www.threads.net/@",
+      linkSuffix: "",
+    },
     hashnode: {
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/hashnode.svg",
       linkPrefix: "https://",

@@ -25,6 +25,7 @@ const Socials = React.forwardRef((props, ref) => {
   const mediumRef = useRef();
   const rssRef = useRef();
   const stackoverflowRef = useRef();
+  const threadsRef = useRef();
   const twitchRef = useRef();
   const twitterRef = useRef();
   const youtubeRef = useRef();
@@ -63,6 +64,17 @@ const Socials = React.forwardRef((props, ref) => {
             inputPlaceholder={"yourname"}
             formLabelText={"X profile:"}
             linkPrefix={state.socials.twitter.linkPrefix}
+            action={ACTIONS.ADD_SOCIAL_PROFILE}
+          />
+
+          {/* Threads Input */}
+          <SocialItem
+            ref={threadsRef}
+            section={"socials"}
+            account={"threads"}
+            inputPlaceholder={"yourname"}
+            formLabelText={"Threads profile:"}
+            linkPrefix={state.socials.threads.linkPrefix}
             action={ACTIONS.ADD_SOCIAL_PROFILE}
           />
 

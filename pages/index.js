@@ -518,6 +518,21 @@ Web Developer
                     alt="Medium"
                   />
                 </div>
+
+                <div className="w-10 sm:w-12 md:w-12">
+                  <img
+                    src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/threads.svg"
+                    width="100%"
+                    className="flex dark:hidden scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="Threads"
+                  />
+                  <img
+                    src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/threads-dark.svg"
+                    width="100%"
+                    className="dark:flex hidden scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="Threads"
+                  />
+                </div>
                 <div className="w-10 sm:w-12 md:w-12"></div>
                 <div className="w-10 sm:w-12 md:w-12"></div>
               </div>

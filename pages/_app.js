@@ -413,6 +413,12 @@ export const iconData = {
       link: "https://www.docker.com/",
     },
     {
+      name: "Kubernetes",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/kubernetes-colored.svg",
+      iTag: "kubernetes",
+      link: "https://kubernetes.io/",
+    },
+    {
       name: "Linux",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/linux-colored.svg",
       iTag: "linux",

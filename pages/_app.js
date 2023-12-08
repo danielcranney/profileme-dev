@@ -254,6 +254,14 @@ export const iconData = {
       iTag: "remix",
       link: "https://remix.run/",
     },
+    {
+      name: "Netlify",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/netlify-colored.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/netlify-dark.svg",
+      iTag: "netlify",
+      link: "https://www.netlify.com/",
+    },
   ],
   backend: [
     {

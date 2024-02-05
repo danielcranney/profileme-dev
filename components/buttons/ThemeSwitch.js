@@ -1,9 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import { StateContext } from "../../pages/_app";
 import { useTheme } from "next-themes";
-import { motion } from "framer-motion";
-import { outerContainer } from "../../lib/framerMotion";
-import { logoItem } from "../../lib/framerMotion";
 
 const ThemeSwitch = () => {
   const { state, dispatch } = useContext(StateContext);

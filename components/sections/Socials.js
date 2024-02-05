@@ -3,7 +3,6 @@ import { ACTIONS } from "../../pages/_app";
 import { StateContext } from "../../pages/_app";
 import NextSection from "../buttons/NextSection";
 import PreviousSection from "../buttons/PreviousSection";
-import IconSelector from "../IconSelector";
 import SectionHeader from "../SectionHeader";
 import SocialItem from "../../components/SocialItem";
 

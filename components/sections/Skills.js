@@ -20,13 +20,20 @@ const Skills = React.forwardRef(({ handleIconToggle }, ref) => {
         </div>
       </section>
       <section className="flex flex-col overflow-y-auto">
-        {/* Core */}
         <div ref={ref}></div>
         <section className="flex flex-col px-6 pt-6 pb-6 gap-y-6">
+          {/* Core */}
           <IconSelector
             handleIconToggle={handleIconToggle}
             title={"Core"}
             iconType={"core"}
+            iconData={iconData}
+          />
+          {/* Code Editors */}
+          <IconSelector
+            handleIconToggle={handleIconToggle}
+            title={"Code Editors"}
+            iconType={"editors"}
             iconData={iconData}
           />
           {/* Frontend */}
@@ -43,13 +50,7 @@ const Skills = React.forwardRef(({ handleIconToggle }, ref) => {
             iconType={"backend"}
             iconData={iconData}
           />
-          {/* Other */}
-          <IconSelector
-            handleIconToggle={handleIconToggle}
-            title={"Other"}
-            iconType={"other"}
-            iconData={iconData}
-          />
+
           {/* Software */}
           <IconSelector
             handleIconToggle={handleIconToggle}
@@ -64,13 +65,26 @@ const Skills = React.forwardRef(({ handleIconToggle }, ref) => {
             iconType={"web3"}
             iconData={iconData}
           />
-          {/* CLOUD  */}
+          {/* Cloud  */}
           <IconSelector
             handleIconToggle={handleIconToggle}
             title={"Cloud"}
             iconType={"cloud"}
           />
-
+          {/* CMS */}
+          <IconSelector
+            handleIconToggle={handleIconToggle}
+            title={"CMS"}
+            iconType={"cms"}
+            iconData={iconData}
+          />
+          {/* Other */}
+          <IconSelector
+            handleIconToggle={handleIconToggle}
+            title={"Other"}
+            iconType={"other"}
+            iconData={iconData}
+          />
 
           <section className="flex mt-4">
             <PreviousSection sectionToGoTo={"introduction"} />

@@ -946,7 +946,7 @@ export default function CreateProfile() {
                   : null}
 
                 {renderedMarkdown.skills.editors.length > 0
-                  ? build_markdown_skill(renderedMarkdown.editors.scripting)
+                  ? build_markdown_skill(renderedMarkdown.skills.editors)
                   : null}
 
                 {renderedMarkdown.skills.frontend.length > 0

@@ -24,12 +24,15 @@ export default function CreateProfile() {
     skillsTitle: "",
     skills: {
       core: [],
+      scripting: [],
+      editors: [],
       frontend: [],
       backend: [],
-      other: [],
       software: [],
       web3: [],
       cloud: [],
+      cms: [],
+      other: [],
     },
     socials: {
       behance: "",

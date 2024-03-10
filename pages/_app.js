@@ -393,7 +393,6 @@ export const iconData = {
       link: "https://supabase.io/",
     },
   ],
-
   software: [
     {
       name: "Photoshop",
@@ -973,12 +972,15 @@ const initialState = {
   // Skills State
   skills: {
     core: [],
+    scripting: [],
+    editors: [],
     frontend: [],
     backend: [],
-    other: [],
     software: [],
     web3: [],
     cloud: [],
+    cms: [],
+    other: [],
   },
   // Socials State
   socials: {

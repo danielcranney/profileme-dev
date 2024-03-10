@@ -127,6 +127,46 @@ export const iconData = {
       link: "https://www.typescriptlang.org/",
     },
   ],
+  scripting: [
+    {
+      name: "GNU Bash",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/gnubash.svg",
+      iTag: "gnubash",
+      link: "https://www.gnu.org/software/bash/",
+    },
+  ],
+  editors: [
+    {
+      name: "VS Code",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/visualstudiocode.svg",
+      iTag: "visualstudiocode",
+      link: "https://www.visualstudiocode.com",
+    },
+    {
+      name: "Vim",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/vim.svg",
+      iTag: "vim",
+      link: "https://www.vim.org/",
+    },
+    {
+      name: "Neovim",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/neovim.svg",
+      iTag: "neovim",
+      link: "https://neovim.io/",
+    },
+    {
+      name: "Sublime Text",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/sublimetext.svg",
+      iTag: "sublimetext",
+      link: "https://www.sublimetext.com/index2",
+    },
+    {
+      name: "XCode",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/xcode.svg",
+      iTag: "xcode",
+      link: "https://www.xcode.com",
+    },
+  ],
   frontend: [
     {
       name: "HTML5",
@@ -353,98 +393,6 @@ export const iconData = {
       link: "https://supabase.io/",
     },
   ],
-  other: [
-    {
-      name: ".NET",
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/dot-net-colored.svg",
-      iTag: "dot-net",
-      link: "https://dotnet.microsoft.com/en-us/",
-    },
-    {
-      name: "Django",
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/django-colored.svg",
-      darkPath:
-        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/django-colored-dark.svg",
-      iTag: "django",
-      link: "https://www.djangoproject.com/",
-    },
-    {
-      name: "Laravel",
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/laravel-colored.svg",
-      iTag: "laravel",
-      link: "https://laravel.com/",
-    },
-    {
-      name: "Flutter",
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/flutter-colored.svg",
-      iTag: "flutter",
-      link: "https://flutter.dev/",
-    },
-    {
-      name: "Amazon Web Services",
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/aws-colored.svg",
-      darkPath:
-        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/aws-colored-dark.svg",
-      iTag: "aws",
-      link: "https://aws.amazon.com",
-    },
-    {
-      name: "Arduino",
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/arduino-colored.svg",
-      iTag: "arduino",
-      link: "https://store.arduino.cc/?gclid=Cj0KCQjw2eilBhCCARIsAG0Pf8uueBifykWcsSS4LPESeGQfxGVKJYnzV7bz471XfknQJy_1VINVWM8aAkLtEALw_wcB",
-    },
-    {
-      name: "Blender",
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/blender-colored.svg",
-      iTag: "blender",
-      link: "https://www.blender.org/",
-    },
-    {
-      name: "Digital Ocean",
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/digitalocean-colored.svg",
-      iTag: "digitalocean",
-      link: "https://www.digitalocean.com",
-    },
-    {
-      name: "Docker",
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/docker-colored.svg",
-      iTag: "docker",
-      link: "https://www.docker.com/",
-    },
-    {
-      name: "Linux",
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/linux-colored.svg",
-      iTag: "linux",
-      link: "https://www.linux.org",
-    },
-    {
-      name: "MacOS",
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/macos-colored.svg",
-      darkPath:
-        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/macos-colored-dark.svg",
-      iTag: "macos",
-      link: "https://apple.com",
-    },
-    {
-      name: "PyTorch",
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/pytorch-colored.svg",
-      iTag: "pytorch",
-      link: "https://pytorch.org/",
-    },
-    {
-      name: "Raspberry Pi",
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/raspberrypi-colored.svg",
-      iTag: "raspberrypi",
-      link: "https://www.raspberrypi.org/",
-    },
-    {
-      name: "TensorFlow",
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/tensorflow-colored.svg",
-      iTag: "tensorflow",
-      link: "https://www.tensorflow.org/",
-    },
-  ],
   software: [
     {
       name: "Photoshop",
@@ -657,6 +605,124 @@ export const iconData = {
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/googlecloud-colored.svg",
       iTag: "googlecloud",
       link: "https://cloud.google.com/",
+    },
+  ],
+  cms: [
+    {
+      name: "Wordpress",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/wordpress-colored.svg",
+      iTag: "wordpress",
+      link: "https://wordpress.com",
+    },
+    {
+      name: "Framer",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/framer-colored.svg",
+      iTag: "framer",
+      link: "https://framer.com",
+    },
+    {
+      name: "Squarespace",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/squarespace-colored.svg",
+      iTag: "squarespace",
+      link: "https://squarespace.com",
+    },
+    {
+      name: "Wix",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/wix-colored.svg",
+      iTag: "wix",
+      link: "https://wix.com",
+    },
+  ],
+  other: [
+    {
+      name: ".NET",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/dot-net-colored.svg",
+      iTag: "dot-net",
+      link: "https://dotnet.microsoft.com/en-us/",
+    },
+    {
+      name: "Django",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/django-colored.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/django-colored-dark.svg",
+      iTag: "django",
+      link: "https://www.djangoproject.com/",
+    },
+    {
+      name: "Laravel",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/laravel-colored.svg",
+      iTag: "laravel",
+      link: "https://laravel.com/",
+    },
+    {
+      name: "Flutter",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/flutter-colored.svg",
+      iTag: "flutter",
+      link: "https://flutter.dev/",
+    },
+    {
+      name: "Amazon Web Services",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/aws-colored.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/aws-colored-dark.svg",
+      iTag: "aws",
+      link: "https://aws.amazon.com",
+    },
+    {
+      name: "Arduino",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/arduino-colored.svg",
+      iTag: "arduino",
+      link: "https://store.arduino.cc/?gclid=Cj0KCQjw2eilBhCCARIsAG0Pf8uueBifykWcsSS4LPESeGQfxGVKJYnzV7bz471XfknQJy_1VINVWM8aAkLtEALw_wcB",
+    },
+    {
+      name: "Blender",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/blender-colored.svg",
+      iTag: "blender",
+      link: "https://www.blender.org/",
+    },
+    {
+      name: "Digital Ocean",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/digitalocean-colored.svg",
+      iTag: "digitalocean",
+      link: "https://www.digitalocean.com",
+    },
+    {
+      name: "Docker",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/docker-colored.svg",
+      iTag: "docker",
+      link: "https://www.docker.com/",
+    },
+    {
+      name: "Linux",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/linux-colored.svg",
+      iTag: "linux",
+      link: "https://www.linux.org",
+    },
+    {
+      name: "MacOS",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/macos-colored.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/macos-colored-dark.svg",
+      iTag: "macos",
+      link: "https://apple.com",
+    },
+    {
+      name: "PyTorch",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/pytorch-colored.svg",
+      iTag: "pytorch",
+      link: "https://pytorch.org/",
+    },
+    {
+      name: "Raspberry Pi",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/raspberrypi-colored.svg",
+      iTag: "raspberrypi",
+      link: "https://www.raspberrypi.org/",
+    },
+    {
+      name: "TensorFlow",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/tensorflow-colored.svg",
+      iTag: "tensorflow",
+      link: "https://www.tensorflow.org/",
     },
   ],
 };
@@ -906,12 +972,15 @@ const initialState = {
   // Skills State
   skills: {
     core: [],
+    scripting: [],
+    editors: [],
     frontend: [],
     backend: [],
-    other: [],
     software: [],
     web3: [],
     cloud: [],
+    cms: [],
+    other: [],
   },
   // Socials State
   socials: {

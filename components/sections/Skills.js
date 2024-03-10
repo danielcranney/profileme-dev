@@ -28,6 +28,13 @@ const Skills = React.forwardRef(({ handleIconToggle }, ref) => {
             title={"Core"}
             iconType={"core"}
             iconData={iconData}
+          />{" "}
+          {/* Scripting */}
+          <IconSelector
+            handleIconToggle={handleIconToggle}
+            title={"Scripting"}
+            iconType={"scripting"}
+            iconData={iconData}
           />
           {/* Code Editors */}
           <IconSelector
@@ -50,7 +57,6 @@ const Skills = React.forwardRef(({ handleIconToggle }, ref) => {
             iconType={"backend"}
             iconData={iconData}
           />
-
           {/* Software */}
           <IconSelector
             handleIconToggle={handleIconToggle}
@@ -85,7 +91,6 @@ const Skills = React.forwardRef(({ handleIconToggle }, ref) => {
             iconType={"other"}
             iconData={iconData}
           />
-
           <section className="flex mt-4">
             <PreviousSection sectionToGoTo={"introduction"} />
             <NextSection sectionToGoTo={"socials"} />

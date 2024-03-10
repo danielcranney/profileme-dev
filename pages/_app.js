@@ -9,7 +9,7 @@ import storeStateMiddleware from "../middleware/storeStateMiddleware";
 
 export const StateContext = createContext(null);
 
-export const STORED_STATE_KEY = "profileMeLocalState";
+export const STORED_STATE_KEY = "profileMeLocalStateMar24";
 
 // Icon Store
 export const iconData = {

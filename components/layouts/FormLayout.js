@@ -1,18 +1,13 @@
-import React, { useEffect, useContext, useRef, useState } from "react";
+import React, { useEffect, useContext, useRef } from "react";
 import Head from "next/head";
-import Image from "next/image";
 import Link from "next/link";
-import { useTheme } from "next-themes";
 // Import state and actions
 import { ACTIONS } from "../../pages/_app";
 import { StateContext } from "../../pages/_app";
-import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
-import { colorStore } from "../../pages/_app";
 // Import components
 import MenuItem from "../buttons/MenuItem";
 import SidebarFooter from "../misc/SidebarFooter";
 let TurndownService = require("turndown").default;
-import LeaveFeedback from "../buttons/LeaveFeedback";
 import CopyModal from "../modals/CopyModal";
 import HamburgerMenuIcon from "../buttons/HamburgerMenuIcon";
 import ThemeSwitch from "../buttons/ThemeSwitch";

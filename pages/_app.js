@@ -1007,6 +1007,7 @@ const initialState = {
     },
     hashnode: {
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/hashnode.svg",
+      pathDark: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/hashnode-dark.svg",
       linkPrefix: "https://",
       linkSuffix: "",
       linkSuffixTwo: ".hashnode.dev",
@@ -1034,26 +1035,31 @@ const initialState = {
     },
     polywork: {
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/polywork.svg",
+      pathDark: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/polywork-dark.svg",
       linkPrefix: "https://www.polywork.com/",
       linkSuffix: "",
     },
     twitch: {
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/twitch.svg",
+      pathDark: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/twitch-dark.svg",
       linkPrefix: "https://www.twitch.tv/",
       linkSuffix: "",
     },
     youtube: {
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/youtube.svg",
+      pathDark: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/youtube-dark.svg",
       linkPrefix: "https://www.youtube.com/@",
       linkSuffix: "",
     },
     discord: {
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/discord.svg",
+      pathDark: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/discord-dark.svg",
       linkPrefix: "https://discord.com/users/",
       linkSuffix: "",
     },
     instagram: {
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/instagram.svg",
+      darkPath: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/instagram-dark.svg",
       linkPrefix: "http://www.instagram.com/",
       linkSuffix: "",
     },
@@ -1066,11 +1072,13 @@ const initialState = {
     },
     dribbble: {
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/dribbble.svg",
+      darkPath: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/dribbble-dark.svg",
       linkPrefix: "https://www.dribbble.com/",
       linkSuffix: "",
     },
     behance: {
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/behance.svg",
+      darkPath: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/behance-dark.svg",
       linkPrefix: "https://www.behance.com/",
       linkSuffix: "",
     },
@@ -1090,11 +1098,13 @@ const initialState = {
     },
     stackoverflow: {
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/stackoverflow.svg",
+      darkPath: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/stackoverflow-dark.svg",
       linkPrefix: "https://www.stackoverflow.com/users/",
       linkSuffix: "",
     },
     rss: {
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/rss.svg",
+      darkPath: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/rss-dark.svg",
       linkPrefix: "https://",
       linkSuffix: "",
     },

@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import LandingLayout from "../components/layouts/LandingLayout";
 import Image from "next/image";
-import Link from "next/link";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { nord } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import { StateContext } from "./_app";

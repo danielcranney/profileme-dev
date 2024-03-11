@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { MicroButton } from "../components/buttons/MicroButton";
 import LandingLayout from "../components/layouts/LandingLayout";
 import GitHubIcon from "../components/misc/GitHubIcon";
-import { ACTIONS } from "./_app";
 import { StateContext } from "./_app";
 
 export default function Changelog() {

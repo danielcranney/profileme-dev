@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import NextSection from "../buttons/NextSection";
 import PreviousSection from "../buttons/PreviousSection";
 import IconSelector from "../IconSelector";

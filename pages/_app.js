@@ -140,7 +140,7 @@ export const iconData = {
       name: "VS Code",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/visualstudiocode.svg",
       iTag: "visualstudiocode",
-      link: "https://www.visualstudiocode.com",
+      link: "https://code.visualstudio.com/",
     },
     {
       name: "Vim",

@@ -11,6 +11,10 @@ export const StateContext = createContext(null);
 
 export const STORED_STATE_KEY = "profileMeLocalStateMar24";
 
+const PROJECT_URL = process.env.NODE_ENV === 'production'
+  ? 'https://raw.githubusercontent.com/danielcranney/readme-generator/main/public'
+  : 'http://localhost:3000'
+
 // Icon Store
 export const iconData = {
   core: [
@@ -985,116 +989,126 @@ const initialState = {
   // Socials State
   socials: {
     github: {
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/github.svg",
+      path: `${PROJECT_URL}/icons/socials/github.svg`,
       darkPath:
-        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/github-dark.svg",
+        `${PROJECT_URL}/icons/socials/github-dark.svg`,
       linkPrefix: "https://www.github.com/",
       linkSuffix: "",
     },
     twitter: {
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/twitter.svg",
+      path: `${PROJECT_URL}/icons/socials/twitter.svg`,
       darkPath:
-        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/twitter-dark.svg",
+        `${PROJECT_URL}/icons/socials/twitter-dark.svg`,
       linkPrefix: "https://www.x.com/",
       linkSuffix: "",
     },
     threads: {
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/threads.svg",
+      path: `${PROJECT_URL}/icons/socials/threads.svg`,
       darkPath:
-        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/threads-dark.svg",
+        `${PROJECT_URL}/icons/socials/threads-dark.svg`,
       linkPrefix: "https://www.threads.net/@",
       linkSuffix: "",
     },
     hashnode: {
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/hashnode.svg",
+      path: `${PROJECT_URL}/icons/socials/hashnode.svg`,
+      darkPath: `${PROJECT_URL}/icons/socials/hashnode-dark.svg`,
       linkPrefix: "https://",
       linkSuffix: "",
       linkSuffixTwo: ".hashnode.dev",
     },
     medium: {
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/medium.svg",
+      path: `${PROJECT_URL}/icons/socials/medium.svg`,
       darkPath:
-        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/medium-dark.svg",
+        `${PROJECT_URL}/icons/socials/medium-dark.svg`,
       linkPrefix: "http://www.medium.com/",
       linkSuffix: "",
     },
     devdotto: {
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/devdotto.svg",
+      path: `${PROJECT_URL}/icons/socials/devdotto.svg`,
       darkPath:
-        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/devdotto-dark.svg",
+        `${PROJECT_URL}/icons/socials/devdotto-dark.svg`,
       linkPrefix: "https://www.dev.to/",
       linkSuffix: "",
     },
     linkedin: {
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/linkedin.svg",
+      path: `${PROJECT_URL}/icons/socials/linkedin.svg`,
       darkPath:
-        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/linkedin-dark.svg",
+        `${PROJECT_URL}/icons/socials/linkedin-dark.svg`,
       linkPrefix: "https://www.linkedin.com/in/",
       linkSuffix: "",
     },
     polywork: {
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/polywork.svg",
+      path: `${PROJECT_URL}/icons/socials/polywork.svg`,
+      darkPath: `${PROJECT_URL}/icons/socials/polywork-dark.svg`,
       linkPrefix: "https://www.polywork.com/",
       linkSuffix: "",
     },
     twitch: {
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/twitch.svg",
+      path: `${PROJECT_URL}/icons/socials/twitch.svg`,
+      darkPath: `${PROJECT_URL}/icons/socials/twitch-dark.svg`,
       linkPrefix: "https://www.twitch.tv/",
       linkSuffix: "",
     },
     youtube: {
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/youtube.svg",
+      path: `${PROJECT_URL}/icons/socials/youtube.svg`,
+      darkPath: `${PROJECT_URL}/icons/socials/youtube-dark.svg`,
       linkPrefix: "https://www.youtube.com/@",
       linkSuffix: "",
     },
     discord: {
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/discord.svg",
+      path: `${PROJECT_URL}/icons/socials/discord.svg`,
+      darkPath: `${PROJECT_URL}/icons/socials/discord-dark.svg`,
       linkPrefix: "https://discord.com/users/",
       linkSuffix: "",
     },
     instagram: {
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/instagram.svg",
+      path: `${PROJECT_URL}/icons/socials/instagram.svg`,
+      darkPath: `${PROJECT_URL}/icons/socials/instagram-dark.svg`,
       linkPrefix: "http://www.instagram.com/",
       linkSuffix: "",
     },
     facebook: {
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/facebook.svg",
+      path: `${PROJECT_URL}/icons/socials/facebook.svg`,
       darkPath:
-        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/facebook-dark.svg",
+        `${PROJECT_URL}/icons/socials/facebook-dark.svg`,
       linkPrefix: "https://www.facebook.com/",
       linkSuffix: "",
     },
     dribbble: {
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/dribbble.svg",
+      path: `${PROJECT_URL}/icons/socials/dribbble.svg`,
+      darkPath: `${PROJECT_URL}/icons/socials/dribbble-dark.svg`,
       linkPrefix: "https://www.dribbble.com/",
       linkSuffix: "",
     },
     behance: {
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/behance.svg",
+      path: `${PROJECT_URL}/icons/socials/behance.svg`,
+      darkPath: `${PROJECT_URL}/icons/socials/behance-dark.svg`,
       linkPrefix: "https://www.behance.com/",
       linkSuffix: "",
     },
     codesandbox: {
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/codesandbox.svg",
+      path: `${PROJECT_URL}/icons/socials/codesandbox.svg`,
       darkPath:
-        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/codesandbox-dark.svg",
+        `${PROJECT_URL}/icons/socials/codesandbox-dark.svg`,
       linkPrefix: "https://codesandbox.io/u/",
       linkSuffix: "",
     },
     codepen: {
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/codepen.svg",
+      path: `${PROJECT_URL}/icons/socials/codepen.svg`,
       darkPath:
-        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/codepen-dark.svg",
+        `${PROJECT_URL}/icons/socials/codepen-dark.svg`,
       linkPrefix: "https://www.codepen.io/",
       linkSuffix: "",
     },
     stackoverflow: {
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/stackoverflow.svg",
+      path: `${PROJECT_URL}/icons/socials/stackoverflow.svg`,
+      darkPath: `${PROJECT_URL}/icons/socials/stackoverflow-dark.svg`,
       linkPrefix: "https://www.stackoverflow.com/users/",
       linkSuffix: "",
     },
     rss: {
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/rss.svg",
+      path: `${PROJECT_URL}/icons/socials/rss.svg`,
+      darkPath: `${PROJECT_URL}/icons/socials/rss-dark.svg`,
       linkPrefix: "https://",
       linkSuffix: "",
     },

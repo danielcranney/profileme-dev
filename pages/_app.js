@@ -636,6 +636,12 @@ export const iconData = {
       iTag: "wix",
       link: "https://wix.com",
     },
+    {
+      name: "Webflow",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/webflow-colored.svg",
+      iTag: "webflow",
+      link: "https://webflow.com/",
+    },
   ],
   other: [
     {

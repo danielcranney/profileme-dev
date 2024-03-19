@@ -1016,7 +1016,9 @@ export default function CreateProfile() {
                         : ""
                     }" target="_blank" rel="noreferrer">
                     <picture>
-                    <source media="(prefers-color-scheme: dark)" srcset="${`${profile[1].darkPath}`}" />
+                    <source media="(prefers-color-scheme: dark)" srcset="${`${
+                      profile[1].darkPath || profile[1].path
+                    }`}" />
                     <source media="(prefers-color-scheme: light)" srcset="${`${profile[1].path}`}" />
                     <img src="${`${profile[1].path}`}" width="32" height="32" />
                     </picture>

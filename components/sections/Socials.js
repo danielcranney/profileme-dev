@@ -18,6 +18,7 @@ const Socials = React.forwardRef((props, ref) => {
   const dribbbleRef = useRef();
   const facebookRef = useRef();
   const githubRef = useRef();
+  const gitlabRef = useRef();
   const hashnodeRef = useRef();
   const polyworkRef = useRef();
   const instagramRef = useRef();
@@ -53,6 +54,17 @@ const Socials = React.forwardRef((props, ref) => {
             inputPlaceholder={"yourname"}
             formLabelText={"GitHub profile:"}
             linkPrefix={state.socials.github.linkPrefix}
+            action={ACTIONS.ADD_SOCIAL_PROFILE}
+          />
+
+          {/* GitLab Input */}
+          <SocialItem
+            ref={gitlabRef}
+            section={"socials"}
+            account={"gitlab"}
+            inputPlaceholder={"yourname"}
+            formLabelText={"GitLab profile:"}
+            linkPrefix={state.socials.gitlab.linkPrefix}
             action={ACTIONS.ADD_SOCIAL_PROFILE}
           />
 

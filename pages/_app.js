@@ -11,9 +11,10 @@ export const StateContext = createContext(null);
 
 export const STORED_STATE_KEY = "profileMeLocalStateMar24";
 
-const PROJECT_URL = process.env.NODE_ENV === 'production'
-  ? 'https://raw.githubusercontent.com/danielcranney/readme-generator/main/public'
-  : 'http://localhost:3000'
+const PROJECT_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public"
+    : "http://localhost:3000";
 
 // Icon Store
 export const iconData = {
@@ -297,6 +298,14 @@ export const iconData = {
         "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/remix-colored-dark.svg",
       iTag: "remix",
       link: "https://remix.run/",
+    },
+    {
+      name: "Astro",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/astro-colored.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/astro-dark.svg",
+      iTag: "astro",
+      link: "https://astro.build/",
     },
   ],
   backend: [
@@ -990,22 +999,19 @@ const initialState = {
   socials: {
     github: {
       path: `${PROJECT_URL}/icons/socials/github.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/socials/github-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/socials/github-dark.svg`,
       linkPrefix: "https://www.github.com/",
       linkSuffix: "",
     },
     twitter: {
       path: `${PROJECT_URL}/icons/socials/twitter.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/socials/twitter-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/socials/twitter-dark.svg`,
       linkPrefix: "https://www.x.com/",
       linkSuffix: "",
     },
     threads: {
       path: `${PROJECT_URL}/icons/socials/threads.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/socials/threads-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/socials/threads-dark.svg`,
       linkPrefix: "https://www.threads.net/@",
       linkSuffix: "",
     },
@@ -1018,22 +1024,19 @@ const initialState = {
     },
     medium: {
       path: `${PROJECT_URL}/icons/socials/medium.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/socials/medium-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/socials/medium-dark.svg`,
       linkPrefix: "http://www.medium.com/",
       linkSuffix: "",
     },
     devdotto: {
       path: `${PROJECT_URL}/icons/socials/devdotto.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/socials/devdotto-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/socials/devdotto-dark.svg`,
       linkPrefix: "https://www.dev.to/",
       linkSuffix: "",
     },
     linkedin: {
       path: `${PROJECT_URL}/icons/socials/linkedin.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/socials/linkedin-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/socials/linkedin-dark.svg`,
       linkPrefix: "https://www.linkedin.com/in/",
       linkSuffix: "",
     },
@@ -1069,8 +1072,7 @@ const initialState = {
     },
     facebook: {
       path: `${PROJECT_URL}/icons/socials/facebook.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/socials/facebook-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/socials/facebook-dark.svg`,
       linkPrefix: "https://www.facebook.com/",
       linkSuffix: "",
     },
@@ -1088,15 +1090,13 @@ const initialState = {
     },
     codesandbox: {
       path: `${PROJECT_URL}/icons/socials/codesandbox.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/socials/codesandbox-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/socials/codesandbox-dark.svg`,
       linkPrefix: "https://codesandbox.io/u/",
       linkSuffix: "",
     },
     codepen: {
       path: `${PROJECT_URL}/icons/socials/codepen.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/socials/codepen-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/socials/codepen-dark.svg`,
       linkPrefix: "https://www.codepen.io/",
       linkSuffix: "",
     },

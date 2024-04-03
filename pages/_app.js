@@ -653,6 +653,14 @@ export const iconData = {
       iTag: "webflow",
       link: "https://webflow.com/",
     },
+    {
+      name: "Weebly",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/weebly-colored.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/weebly-dark.svg",
+      iTag: "weebly",
+      link: "https://www.weebly.com/",
+    },
   ],
   other: [
     {

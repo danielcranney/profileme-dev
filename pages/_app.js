@@ -460,6 +460,16 @@ export const iconData = {
       link: "https://www.sketch.com/",
     },
   ],
+  mobile: [
+    {
+      name: "NativeScript",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nativescript-colored.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nativescript-colored-dark.svg",
+      iTag: "nativescript",
+      link: "https://nativescript.org/",
+    },
+  ],
   web3: [
     {
       name: "Uniswap",
@@ -1013,6 +1023,7 @@ const initialState = {
     editors: [],
     frontend: [],
     backend: [],
+    mobile: [],
     software: [],
     web3: [],
     cloud: [],

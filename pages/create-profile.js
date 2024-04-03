@@ -30,6 +30,7 @@ export default function CreateProfile() {
       editors: [],
       frontend: [],
       backend: [],
+      mobile: [],
       software: [],
       web3: [],
       cloud: [],

@@ -380,12 +380,6 @@ export const iconData = {
       link: "https://appwrite.io/",
     },
     {
-      name: "Heroku",
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/heroku-colored.svg",
-      iTag: "heroku",
-      link: "https://www.heroku.com/",
-    },
-    {
       name: "Flask",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/flask-colored.svg",
       darkPath:
@@ -461,6 +455,12 @@ export const iconData = {
     },
   ],
   mobile: [
+    {
+      name: "Flutter",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/flutter-colored.svg",
+      iTag: "flutter",
+      link: "https://flutter.dev/",
+    },
     {
       name: "NativeScript",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nativescript-colored.svg",
@@ -624,10 +624,30 @@ export const iconData = {
   ],
   cloud: [
     {
+      name: "Amazon Web Services",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/aws-colored.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/aws-colored-dark.svg",
+      iTag: "aws",
+      link: "https://aws.amazon.com",
+    },
+    {
+      name: "Digital Ocean",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/digitalocean-colored.svg",
+      iTag: "digitalocean",
+      link: "https://www.digitalocean.com",
+    },
+    {
       name: "Google Cloud",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/googlecloud-colored.svg",
       iTag: "googlecloud",
       link: "https://cloud.google.com/",
+    },
+    {
+      name: "Heroku",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/heroku-colored.svg",
+      iTag: "heroku",
+      link: "https://www.heroku.com/",
     },
   ],
   cms: [
@@ -694,20 +714,6 @@ export const iconData = {
       link: "https://laravel.com/",
     },
     {
-      name: "Flutter",
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/flutter-colored.svg",
-      iTag: "flutter",
-      link: "https://flutter.dev/",
-    },
-    {
-      name: "Amazon Web Services",
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/aws-colored.svg",
-      darkPath:
-        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/aws-colored-dark.svg",
-      iTag: "aws",
-      link: "https://aws.amazon.com",
-    },
-    {
       name: "Arduino",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/arduino-colored.svg",
       iTag: "arduino",
@@ -718,12 +724,6 @@ export const iconData = {
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/blender-colored.svg",
       iTag: "blender",
       link: "https://www.blender.org/",
-    },
-    {
-      name: "Digital Ocean",
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/digitalocean-colored.svg",
-      iTag: "digitalocean",
-      link: "https://www.digitalocean.com",
     },
     {
       name: "Docker",

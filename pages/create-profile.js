@@ -76,7 +76,7 @@ export default function CreateProfile() {
   const [badgesShowing, setBadgesShowing] = useState(false);
   const [copySuccess, setCopySuccess] = useState("Copy");
   const withSupport =
-    state && state.support && Array.isArray(state.support)
+    state && state.support
       ? Object.values(state.support).some(
           (value) =>
             value &&

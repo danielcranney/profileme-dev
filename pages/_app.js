@@ -382,7 +382,7 @@ export const iconData = {
       darkPath:
         "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/flask-colored-dark.svg",
       iTag: "flask",
-      link: "https://flask.palletsprojects.com/en/2.0.x/",
+      link: "https://flask.palletsprojects.com/en/2.3.x/",
     },
     {
       name: "Render",

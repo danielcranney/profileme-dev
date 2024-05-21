@@ -168,7 +168,7 @@ export const iconData = {
       name: "XCode",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/xcode.svg",
       iTag: "xcode",
-      link: "https://www.xcode.com",
+      link: "https://developer.apple.com/xcode/",
     },
   ],
   frontend: [

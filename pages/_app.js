@@ -130,6 +130,42 @@ export const iconData = {
       iTag: "typescript",
       link: "https://www.typescriptlang.org/",
     },
+    {
+      name: "Processing",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/processing-colored.svg",
+      iTag: "processing",
+      link: "https://processing.org/",
+    },
+    {
+      name: "p5.js",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/p5js-colored.svg",
+      iTag: "p5js",
+      link: "https://p5js.org/",
+    },
+    {
+      name: "MATLAB",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/matlab-colored.svg",
+      iTag: "matlab",
+      link: "https://it.mathworks.com/products/matlab.html",
+    },
+    {
+      name: "Octave",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/octave-colored.svg",
+      iTag: "octave",
+      link: "https://it.mathworks.com/products/matlab.html",
+    },
+    {
+      name: "LaTeX",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/latex-colored.svg",
+      iTag: "latex",
+      link: "https://www.latex-project.org/",
+    },
+    {
+      name: "TeXmacs",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/TeXmacs-colored.svg",
+      iTag: "texmacs",
+      link: "https://www.texmacs.org/tmweb/home/welcome.en.html",
+    },
   ],
   scripting: [
     {

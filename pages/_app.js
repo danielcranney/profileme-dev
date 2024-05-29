@@ -658,7 +658,7 @@ export const iconData = {
       name: "Arduino",
       path: `${PROJECT_URL}/icons/skills/arduino-colored.svg`,
       iTag: "arduino",
-      link: "https://store.arduino.cc/?gclid=Cj0KCQjw2eilBhCCARIsAG0Pf8uueBifykWcsSS4LPESeGQfxGVKJYnzV7bz471XfknQJy_1VINVWM8aAkLtEALw_wcB",
+      link: "https://store.arduino.cc/",
     },
     {
       name: "Blender",

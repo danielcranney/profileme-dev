@@ -39,8 +39,7 @@ export const iconData = {
     {
       name: "Coffeescript",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/coffeescript-colored.svg",
-      darkPath:
-        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/coffeescript-colored-dark.svg",
+      darkPath: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/coffeescript-colored-dark.svg",
       iTag: "coffeescript",
       link: "https://coffeescript.org/",
     },
@@ -113,8 +112,7 @@ export const iconData = {
     {
       name: "Rust",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/rust-colored.svg",
-      darkPath:
-        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/rust-colored-dark.svg",
+      darkPath: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/rust-colored-dark.svg",
       iTag: "rust",
       link: "https://www.rust-lang.org/",
     },
@@ -187,8 +185,7 @@ export const iconData = {
     {
       name: "NextJs",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nextjs-colored.svg",
-      darkPath:
-        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nextjs-colored-dark.svg",
+      darkPath: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/nextjs-colored-dark.svg",
       iTag: "nextjs",
       link: "https://nextjs.org/docs",
     },
@@ -273,8 +270,7 @@ export const iconData = {
     {
       name: "Babel",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/babel-colored.svg",
-      darkPath:
-        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/babel-colored-dark.svg",
+      darkPath: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/babel-colored-dark.svg",
       iTag: "babel",
       link: "https://babeljs.io/",
     },
@@ -293,8 +289,7 @@ export const iconData = {
     {
       name: "Remix",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/remix-colored.svg",
-      darkPath:
-        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/remix-colored-dark.svg",
+      darkPath: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/remix-colored-dark.svg",
       iTag: "remix",
       link: "https://remix.run/",
     },
@@ -309,8 +304,7 @@ export const iconData = {
     {
       name: "Express",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/express-colored.svg",
-      darkPath:
-        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/express-colored-dark.svg",
+      darkPath: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/express-colored-dark.svg",
       iTag: "express",
       link: "https://expressjs.com/",
     },
@@ -365,8 +359,7 @@ export const iconData = {
     {
       name: "Appwrite",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/appwrite-colored.svg",
-      darkPath:
-        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/appwrite-colored-dark.svg",
+      darkPath: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/appwrite-colored-dark.svg",
       iTag: "appwrite",
       link: "https://appwrite.io/",
     },
@@ -379,8 +372,7 @@ export const iconData = {
     {
       name: "Flask",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/flask-colored.svg",
-      darkPath:
-        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/flask-colored-dark.svg",
+      darkPath: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/flask-colored-dark.svg",
       iTag: "flask",
       link: "https://flask.palletsprojects.com/en/2.0.x/",
     },
@@ -401,40 +393,35 @@ export const iconData = {
     {
       name: "Photoshop",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/photoshop-colored.svg",
-      darkPath:
-        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/photoshop-colored-dark.svg",
+      darkPath: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/photoshop-colored-dark.svg",
       iTag: "photoshop",
       link: "https://www.adobe.com/uk/products/photoshop.html",
     },
     {
       name: "Illustrator",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/illustrator-colored.svg",
-      darkPath:
-        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/illustrator-colored-dark.svg",
+      darkPath: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/illustrator-colored-dark.svg",
       iTag: "illustrator",
       link: "https://www.adobe.com/uk/products/illustrator.html",
     },
     {
       name: "After Effects",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/aftereffects-colored.svg",
-      darkPath:
-        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/aftereffects-colored-dark.svg",
+      darkPath: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/aftereffects-colored-dark.svg",
       iTag: "aftereffects",
       link: "https://www.adobe.com/uk/products/aftereffects.html",
     },
     {
       name: "Premiere Pro",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/premierepro-colored.svg",
-      darkPath:
-        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/premierepro-colored-dark.svg",
+      darkPath: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/premierepro-colored-dark.svg",
       iTag: "premierepro",
       link: "https://www.adobe.com/uk/products/premiere.html",
     },
     {
       name: "XD",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/xd-colored.svg",
-      darkPath:
-        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/xd-colored-dark.svg",
+      darkPath: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/xd-colored-dark.svg",
       iTag: "xd",
       link: "https://www.adobe.com/uk/products/xd.html",
     },
@@ -533,8 +520,7 @@ export const iconData = {
     {
       name: "IPFS",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/ipfs-colored.svg",
-      darkPath:
-        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/ipfs-colored-dark.svg",
+      darkPath: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/ipfs-colored-dark.svg",
       iTag: "ipfs",
       link: "https://ipfs.io/",
     },
@@ -547,8 +533,7 @@ export const iconData = {
     {
       name: "Arweave",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/arweave-colored.svg",
-      darkPath:
-        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/arweave-colored-dark.svg",
+      darkPath: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/arweave-colored-dark.svg",
       iTag: "arweave",
       link: "https://www.arweave.org/",
     },
@@ -579,8 +564,7 @@ export const iconData = {
     {
       name: "Near",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/near-colored.svg",
-      darkPath:
-        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/near-colored-dark.svg",
+      darkPath: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/near-colored-dark.svg",
       iTag: "near",
       link: "https://near.academy/",
     },
@@ -647,8 +631,7 @@ export const iconData = {
     {
       name: "Django",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/django-colored.svg",
-      darkPath:
-        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/django-colored-dark.svg",
+      darkPath: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/django-colored-dark.svg",
       iTag: "django",
       link: "https://www.djangoproject.com/",
     },
@@ -667,8 +650,7 @@ export const iconData = {
     {
       name: "Amazon Web Services",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/aws-colored.svg",
-      darkPath:
-        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/aws-colored-dark.svg",
+      darkPath: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/aws-colored-dark.svg",
       iTag: "aws",
       link: "https://aws.amazon.com",
     },
@@ -705,8 +687,7 @@ export const iconData = {
     {
       name: "MacOS",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/macos-colored.svg",
-      darkPath:
-        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/macos-colored-dark.svg",
+      darkPath: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/macos-colored-dark.svg",
       iTag: "macos",
       link: "https://apple.com",
     },
@@ -990,22 +971,19 @@ const initialState = {
   socials: {
     github: {
       path: `${PROJECT_URL}/icons/socials/github.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/socials/github-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/socials/github-dark.svg`,
       linkPrefix: "https://www.github.com/",
       linkSuffix: "",
     },
     twitter: {
       path: `${PROJECT_URL}/icons/socials/twitter.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/socials/twitter-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/socials/twitter-dark.svg`,
       linkPrefix: "https://www.x.com/",
       linkSuffix: "",
     },
     threads: {
       path: `${PROJECT_URL}/icons/socials/threads.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/socials/threads-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/socials/threads-dark.svg`,
       linkPrefix: "https://www.threads.net/@",
       linkSuffix: "",
     },
@@ -1018,22 +996,19 @@ const initialState = {
     },
     medium: {
       path: `${PROJECT_URL}/icons/socials/medium.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/socials/medium-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/socials/medium-dark.svg`,
       linkPrefix: "http://www.medium.com/",
       linkSuffix: "",
     },
     devdotto: {
       path: `${PROJECT_URL}/icons/socials/devdotto.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/socials/devdotto-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/socials/devdotto-dark.svg`,
       linkPrefix: "https://www.dev.to/",
       linkSuffix: "",
     },
     linkedin: {
       path: `${PROJECT_URL}/icons/socials/linkedin.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/socials/linkedin-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/socials/linkedin-dark.svg`,
       linkPrefix: "https://www.linkedin.com/in/",
       linkSuffix: "",
     },
@@ -1069,8 +1044,7 @@ const initialState = {
     },
     facebook: {
       path: `${PROJECT_URL}/icons/socials/facebook.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/socials/facebook-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/socials/facebook-dark.svg`,
       linkPrefix: "https://www.facebook.com/",
       linkSuffix: "",
     },
@@ -1088,15 +1062,13 @@ const initialState = {
     },
     codesandbox: {
       path: `${PROJECT_URL}/icons/socials/codesandbox.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/socials/codesandbox-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/socials/codesandbox-dark.svg`,
       linkPrefix: "https://codesandbox.io/u/",
       linkSuffix: "",
     },
     codepen: {
       path: `${PROJECT_URL}/icons/socials/codepen.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/socials/codepen-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/socials/codepen-dark.svg`,
       linkPrefix: "https://www.codepen.io/",
       linkSuffix: "",
     },

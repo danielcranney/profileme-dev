@@ -315,6 +315,14 @@ export const iconData = {
       link: "https://expressjs.com/",
     },
     {
+      name: "Spring Boot",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/springboot-colored.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/springboot-dark.svg",
+      iTag: "springboot",
+      link: "https://spring.io/projects/spring-boot",
+    },
+    {
       name: "Fast API",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/fastapi-colored.svg",
       iTag: "fastapi",

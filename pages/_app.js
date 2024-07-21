@@ -142,31 +142,31 @@ export const iconData = {
   editors: [
     {
       name: "VS Code",
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/visualstudiocode.svg",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/visualstudiocode-colored.svg",
       iTag: "visualstudiocode",
       link: "https://code.visualstudio.com/",
     },
     {
       name: "Vim",
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/vim.svg",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/vim-colored.svg",
       iTag: "vim",
       link: "https://www.vim.org/",
     },
     {
       name: "Neovim",
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/neovim.svg",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/neovim-colored.svg",
       iTag: "neovim",
       link: "https://neovim.io/",
     },
     {
       name: "Sublime Text",
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/sublimetext.svg",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/sublimetext-colored.svg",
       iTag: "sublimetext",
       link: "https://www.sublimetext.com/index2",
     },
     {
       name: "XCode",
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/xcode.svg",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/xcode-colored.svg",
       iTag: "xcode",
       link: "https://www.xcode.com",
     },

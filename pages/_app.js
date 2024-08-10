@@ -298,6 +298,14 @@ export const iconData = {
       iTag: "remix",
       link: "https://remix.run/",
     },
+    {
+      name: "Ember.js",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/emberjs-colored.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/emberjs-dark.svg",
+      iTag: "emberjs",
+      link: "https://emberjs.com/",
+    },
   ],
   backend: [
     {

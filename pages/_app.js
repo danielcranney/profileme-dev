@@ -605,6 +605,12 @@ export const iconData = {
   ],
   cloud: [
     {
+      name: "Microsoft Azure",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/azure-colored.svg",
+      iTag: "azure",
+      link: "https://azure.microsoft.com/",
+    },
+    {
       name: "Google Cloud",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/googlecloud-colored.svg",
       iTag: "googlecloud",

@@ -605,6 +605,14 @@ export const iconData = {
   ],
   cloud: [
     {
+      name: "Amazon Web Services",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/aws-colored.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/aws-colored-dark.svg",
+      iTag: "aws",
+      link: "https://aws.amazon.com",
+    },
+    {
       name: "Microsoft Azure",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/azure-colored.svg",
       iTag: "azure",
@@ -669,14 +677,6 @@ export const iconData = {
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/flutter-colored.svg",
       iTag: "flutter",
       link: "https://flutter.dev/",
-    },
-    {
-      name: "Amazon Web Services",
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/aws-colored.svg",
-      darkPath:
-        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/aws-colored-dark.svg",
-      iTag: "aws",
-      link: "https://aws.amazon.com",
     },
     {
       name: "Arduino",

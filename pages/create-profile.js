@@ -91,16 +91,16 @@ export default function CreateProfile() {
       <>
         {category.map((icon) => (
           <>
-            <span key={`${icon.path}`}>
-              {icon.darkPath ? (
-                <>{`<a href="${
-                  icon.link
-                }" target="_blank" rel="noreferrer"><img src="${
-                  theme == "dark" ? icon.darkPath : icon.path
-                }" width="36" height="36" alt="${icon.name}" /></a>`}</>
-              ) : (
-                <>{`<a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>`}</>
-              )}
+            <span key={`skill-${icon.name}`}>
+              {`
+                <a href="${icon.link}" target="_blank" rel="noreferrer">
+                  <picture>
+                  <source media="(prefers-color-scheme: dark)" srcset="${`${icon.darkPath ? icon.darkPath : icon.path}`}" />
+                  <source media="(prefers-color-scheme: light)" srcset="${`${icon.path}`}" />
+                  <img src="${`${icon.path}`}" width="36" height="36" alt="${icon.name}" />
+                  </picture>
+                </a>
+              `}
             </span>
           </>
         ))}

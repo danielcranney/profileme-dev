@@ -507,9 +507,11 @@ export default function CreateProfile() {
             ) : null}
 
             {state.introduction.longDescription ? (
-              <p className="whitespace-pre-line">
-                {state.introduction.longDescription}
-              </p>
+              state.introduction.longDescription.split('\n').map((line) => (
+                <p className="whitespace-pre-line">
+                  {line}
+                </p>
+              ))
             ) : null}
 
             <ul

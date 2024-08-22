@@ -97,9 +97,9 @@ export default function CreateProfile() {
                   icon.link
                 }" target="_blank" rel="noreferrer"><img src="${
                   theme == "dark" ? icon.darkPath : icon.path
-                }" width="36" height="36" alt="${icon.name}" /></a>`}</>
+                }" width="36" height="36" alt="${icon.name}" title="${icon.name}"/></a>`}</>
               ) : (
-                <>{`<a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>`}</>
+                <>{`<a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" title="${icon.name}"/></a>`}</>
               )}
             </span>
           </>
@@ -661,6 +661,7 @@ export default function CreateProfile() {
                                   : `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored.svg`
                               }
                               alt={`${icon.name}`}
+                              title={`${icon.name}`}
                               width="36"
                               height="36"
                             />
@@ -668,6 +669,7 @@ export default function CreateProfile() {
                             <img
                               src={`https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored.svg`}
                               alt={`${icon.name}`}
+                              title={`${icon.name}`}
                               width="36"
                               height="36"
                             />
@@ -705,6 +707,8 @@ export default function CreateProfile() {
                   <img
                     height="32"
                     width="32"
+                    alt={`${profile[1].label}`}
+                    title={`${profile[1].label}`}
                     src={
                       profile[1].darkPath
                         ? theme == "dark"
@@ -1018,7 +1022,7 @@ export default function CreateProfile() {
                     <picture>
                     <source media="(prefers-color-scheme: dark)" srcset="${`${profile[1].darkPath}`}" />
                     <source media="(prefers-color-scheme: light)" srcset="${`${profile[1].path}`}" />
-                    <img src="${`${profile[1].path}`}" width="32" height="32" />
+                    <img src="${`${profile[1].path}`}" width="32" height="32" alt="${profile[1].label}" title="${profile[1].label}" />
                     </picture>
                     </a>`}
                   </span>

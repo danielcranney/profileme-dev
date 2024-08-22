@@ -989,6 +989,7 @@ const initialState = {
   // Socials State
   socials: {
     github: {
+      label: "Github",
       path: `${PROJECT_URL}/icons/socials/github.svg`,
       darkPath:
         `${PROJECT_URL}/icons/socials/github-dark.svg`,
@@ -996,6 +997,7 @@ const initialState = {
       linkSuffix: "",
     },
     twitter: {
+      label: "Twitter",
       path: `${PROJECT_URL}/icons/socials/twitter.svg`,
       darkPath:
         `${PROJECT_URL}/icons/socials/twitter-dark.svg`,
@@ -1003,6 +1005,7 @@ const initialState = {
       linkSuffix: "",
     },
     threads: {
+      label: "Threads",
       path: `${PROJECT_URL}/icons/socials/threads.svg`,
       darkPath:
         `${PROJECT_URL}/icons/socials/threads-dark.svg`,
@@ -1010,6 +1013,7 @@ const initialState = {
       linkSuffix: "",
     },
     hashnode: {
+      label: "Hashnode",
       path: `${PROJECT_URL}/icons/socials/hashnode.svg`,
       darkPath: `${PROJECT_URL}/icons/socials/hashnode-dark.svg`,
       linkPrefix: "https://",
@@ -1017,6 +1021,7 @@ const initialState = {
       linkSuffixTwo: ".hashnode.dev",
     },
     medium: {
+      label: "Medium",
       path: `${PROJECT_URL}/icons/socials/medium.svg`,
       darkPath:
         `${PROJECT_URL}/icons/socials/medium-dark.svg`,
@@ -1024,6 +1029,7 @@ const initialState = {
       linkSuffix: "",
     },
     devdotto: {
+      label: "DEV",
       path: `${PROJECT_URL}/icons/socials/devdotto.svg`,
       darkPath:
         `${PROJECT_URL}/icons/socials/devdotto-dark.svg`,
@@ -1031,6 +1037,7 @@ const initialState = {
       linkSuffix: "",
     },
     linkedin: {
+      label: "LinkedIn",
       path: `${PROJECT_URL}/icons/socials/linkedin.svg`,
       darkPath:
         `${PROJECT_URL}/icons/socials/linkedin-dark.svg`,
@@ -1038,36 +1045,42 @@ const initialState = {
       linkSuffix: "",
     },
     polywork: {
+      label: "Polywork",
       path: `${PROJECT_URL}/icons/socials/polywork.svg`,
       darkPath: `${PROJECT_URL}/icons/socials/polywork-dark.svg`,
       linkPrefix: "https://www.polywork.com/",
       linkSuffix: "",
     },
     twitch: {
+      label: "Twitch",
       path: `${PROJECT_URL}/icons/socials/twitch.svg`,
       darkPath: `${PROJECT_URL}/icons/socials/twitch-dark.svg`,
       linkPrefix: "https://www.twitch.tv/",
       linkSuffix: "",
     },
     youtube: {
+      label: "YouTube",
       path: `${PROJECT_URL}/icons/socials/youtube.svg`,
       darkPath: `${PROJECT_URL}/icons/socials/youtube-dark.svg`,
       linkPrefix: "https://www.youtube.com/@",
       linkSuffix: "",
     },
     discord: {
+      label: "Discord",
       path: `${PROJECT_URL}/icons/socials/discord.svg`,
       darkPath: `${PROJECT_URL}/icons/socials/discord-dark.svg`,
       linkPrefix: "https://discord.com/users/",
       linkSuffix: "",
     },
     instagram: {
+      label: "Instragram",
       path: `${PROJECT_URL}/icons/socials/instagram.svg`,
       darkPath: `${PROJECT_URL}/icons/socials/instagram-dark.svg`,
       linkPrefix: "http://www.instagram.com/",
       linkSuffix: "",
     },
     facebook: {
+      label: "Facebook",
       path: `${PROJECT_URL}/icons/socials/facebook.svg`,
       darkPath:
         `${PROJECT_URL}/icons/socials/facebook-dark.svg`,
@@ -1075,18 +1088,21 @@ const initialState = {
       linkSuffix: "",
     },
     dribbble: {
+      label: "Dribble",
       path: `${PROJECT_URL}/icons/socials/dribbble.svg`,
       darkPath: `${PROJECT_URL}/icons/socials/dribbble-dark.svg`,
       linkPrefix: "https://www.dribbble.com/",
       linkSuffix: "",
     },
     behance: {
+      label: "Behance",
       path: `${PROJECT_URL}/icons/socials/behance.svg`,
       darkPath: `${PROJECT_URL}/icons/socials/behance-dark.svg`,
       linkPrefix: "https://www.behance.com/",
       linkSuffix: "",
     },
     codesandbox: {
+      label: "CodeSandbox",
       path: `${PROJECT_URL}/icons/socials/codesandbox.svg`,
       darkPath:
         `${PROJECT_URL}/icons/socials/codesandbox-dark.svg`,
@@ -1094,6 +1110,7 @@ const initialState = {
       linkSuffix: "",
     },
     codepen: {
+      label: "CodePen",
       path: `${PROJECT_URL}/icons/socials/codepen.svg`,
       darkPath:
         `${PROJECT_URL}/icons/socials/codepen-dark.svg`,
@@ -1101,12 +1118,14 @@ const initialState = {
       linkSuffix: "",
     },
     stackoverflow: {
+      label: "Stack Overflow",
       path: `${PROJECT_URL}/icons/socials/stackoverflow.svg`,
       darkPath: `${PROJECT_URL}/icons/socials/stackoverflow-dark.svg`,
       linkPrefix: "https://www.stackoverflow.com/users/",
       linkSuffix: "",
     },
     rss: {
+      label: "RSS",
       path: `${PROJECT_URL}/icons/socials/rss.svg`,
       darkPath: `${PROJECT_URL}/icons/socials/rss-dark.svg`,
       linkPrefix: "https://",

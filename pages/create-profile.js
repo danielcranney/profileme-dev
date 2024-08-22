@@ -92,8 +92,7 @@ export default function CreateProfile() {
         {category.map((icon) => (
           <>
             <span key={`skill-${icon.name}`}>
-              {`
-                <a href="${icon.link}" target="_blank" rel="noreferrer">
+              {`<a href="${icon.link}" target="_blank" rel="noreferrer">
                   <picture>
                   <source media="(prefers-color-scheme: dark)" srcset="${`${icon.darkPath ? icon.darkPath : icon.path}`}" />
                   <source media="(prefers-color-scheme: light)" srcset="${`${icon.path}`}" />

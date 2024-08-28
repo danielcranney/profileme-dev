@@ -637,6 +637,54 @@ export const iconData = {
       link: "https://wix.com",
     },
   ],
+  embedded: [
+    {
+      name: "Arduino",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/arduino-colored.svg",
+      iTag: "arduino",
+      link: "https://store.arduino.cc/?gclid=Cj0KCQjw2eilBhCCARIsAG0Pf8uueBifykWcsSS4LPESeGQfxGVKJYnzV7bz471XfknQJy_1VINVWM8aAkLtEALw_wcB",
+    },
+    {
+      name: "Raspberry Pi",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/raspberrypi-colored.svg",
+      iTag: "raspberrypi",
+      link: "https://www.raspberrypi.org/",
+    },
+    {
+      name: "Yocto Project",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/yocto-colored.svg",
+      iTag: "yocto",
+      link: "https://www.yoctoproject.org/",
+    },
+  ],
+  operatingSystem: [
+    {
+      name: "Linux",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/linux-colored.svg",
+      iTag: "linux",
+      link: "https://www.linux.org",
+    },
+    {
+      name: "MacOS",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/macos-colored.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/macos-colored-dark.svg",
+      iTag: "macos",
+      link: "https://apple.com",
+    },
+    {
+      name: "Fedora",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/fedora-colored.svg",
+      iTag: "fedora",
+      link: "https://fedoraproject.org/",
+    },
+    {
+      name: "Ubuntu",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/ubuntu-colored.svg",
+      iTag: "ubuntu",
+      link: "https://ubuntu.com/",
+    },
+  ],
   other: [
     {
       name: ".NET",
@@ -673,12 +721,6 @@ export const iconData = {
       link: "https://aws.amazon.com",
     },
     {
-      name: "Arduino",
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/arduino-colored.svg",
-      iTag: "arduino",
-      link: "https://store.arduino.cc/?gclid=Cj0KCQjw2eilBhCCARIsAG0Pf8uueBifykWcsSS4LPESeGQfxGVKJYnzV7bz471XfknQJy_1VINVWM8aAkLtEALw_wcB",
-    },
-    {
       name: "Blender",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/blender-colored.svg",
       iTag: "blender",
@@ -697,30 +739,10 @@ export const iconData = {
       link: "https://www.docker.com/",
     },
     {
-      name: "Linux",
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/linux-colored.svg",
-      iTag: "linux",
-      link: "https://www.linux.org",
-    },
-    {
-      name: "MacOS",
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/macos-colored.svg",
-      darkPath:
-        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/macos-colored-dark.svg",
-      iTag: "macos",
-      link: "https://apple.com",
-    },
-    {
       name: "PyTorch",
       path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/pytorch-colored.svg",
       iTag: "pytorch",
       link: "https://pytorch.org/",
-    },
-    {
-      name: "Raspberry Pi",
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/raspberrypi-colored.svg",
-      iTag: "raspberrypi",
-      link: "https://www.raspberrypi.org/",
     },
     {
       name: "TensorFlow",
@@ -984,6 +1006,8 @@ const initialState = {
     web3: [],
     cloud: [],
     cms: [],
+    embedded: [],
+    operatingSystem: [],
     other: [],
   },
   // Socials State

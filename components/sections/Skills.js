@@ -84,6 +84,20 @@ const Skills = React.forwardRef(({ handleIconToggle }, ref) => {
             iconType={"cms"}
             iconData={iconData}
           />
+          {/* Embedded */}
+          <IconSelector
+            handleIconToggle={handleIconToggle}
+            title={"Embedded"}
+            iconType={"embedded"}
+            iconData={iconData}
+          />
+          {/* Operating Systems */}
+          <IconSelector
+            handleIconToggle={handleIconToggle}
+            title={"Operating Systems"}
+            iconType={"operatingSystem"}
+            iconData={iconData}
+          />
           {/* Other */}
           <IconSelector
             handleIconToggle={handleIconToggle}

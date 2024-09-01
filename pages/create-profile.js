@@ -19,11 +19,6 @@ export default function CreateProfile() {
   const [mounted, setMounted] = useState(false);
   const { systemTheme, theme, setTheme } = useTheme();
   const currentTheme = theme === "system" ? systemTheme : theme;
-
-  const PROJECT_URL = process.env.NODE_ENV === 'production'
-    ? 'https://raw.githubusercontent.com/danielcranney/readme-generator/main/public'
-    : 'http://localhost:3000'
-
   const [renderedMarkdown, setRenderedMarkdown] = useState({
     introduction: "",
     skillsTitle: "",

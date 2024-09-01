@@ -863,10 +863,10 @@ Table Of Contents:
   .raspberrypi.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/raspberrypi-colored.svg')];
   }
-  .yoctoproject {
+  .yocto {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/yocto.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/yocto-dark.svg')];
   }
-  .yoctoproject.colored {
+  .yocto.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/yocto-colored.svg')];
   }
   /** Operating System icons **/

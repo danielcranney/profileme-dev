@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useRef, useState } from "react";
 import { useTheme } from "next-themes";
 // Import state and actions
-import { ACTIONS } from "./_app";
+import { ACTIONS, SKILL_CATEGORIES } from "./_app";
 import { StateContext, supportStore } from "./_app";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 import { colorStore } from "./_app";
@@ -22,18 +22,7 @@ export default function CreateProfile() {
   const [renderedMarkdown, setRenderedMarkdown] = useState({
     introduction: "",
     skillsTitle: "",
-    skills: {
-      core: [],
-      scripting: [],
-      editors: [],
-      frontend: [],
-      backend: [],
-      software: [],
-      web3: [],
-      cloud: [],
-      cms: [],
-      other: [],
-    },
+    skills: Object.fromEntries(SKILL_CATEGORIES.map(category => [category.name, []])),
     socials: {
       behance: "",
       codepen: "",

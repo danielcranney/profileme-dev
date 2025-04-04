@@ -188,12 +188,12 @@ const Badges = React.forwardRef((props, ref) => {
             />
 
             {/* GitHub Commits Graph Badge */}
-            <ToggleBadgeButton
+            {/* <ToggleBadgeButton
               badgeType={"githubCommitsGraph"}
               profileLink={"github"}
               badgeText={"Commits Graph"}
               handleBadgeToggle={handleBadgeToggle}
-            />
+            /> */}
 
             {/* Top Languages Card */}
             <ToggleBadgeButton

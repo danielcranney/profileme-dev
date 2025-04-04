@@ -975,6 +975,11 @@ const initialState = {
       linkPrefix: "https://www.github.com/",
       linkSuffix: "",
     },
+    gitlab: {
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/gitlab.svg",
+      linkPrefix: "https://www.gitlab.com/",
+      linkSuffix: "",
+    },
     twitter: {
       path: `${PROJECT_URL}/icons/socials/twitter.svg`,
       darkPath: `${PROJECT_URL}/icons/socials/twitter-dark.svg`,

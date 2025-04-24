@@ -321,6 +321,20 @@ Web Developer
                 </div>
                 <div className="w-10 sm:w-12 md:w-12">
                   <img
+                    src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/spring-boot-colored.svg"
+                    width="100%"
+                    className="flex dark:hidden scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="Spring Boot"
+                  />
+                  <img
+                    src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/spring-boot-dark.svg"
+                    width="100%"
+                    className="hidden dark:flex scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
+                    alt="Spring Boot"
+                  />
+                </div>
+                <div className="w-10 sm:w-12 md:w-12">
+                  <img
                     src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/gatsby-colored.svg"
                     width="100%"
                     className="scale-100 transition-all duration-300 hover:scale-125 ease-in-out"

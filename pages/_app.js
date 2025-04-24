@@ -309,6 +309,13 @@ export const iconData = {
       link: "https://expressjs.com/",
     },
     {
+      name: "Spring Boot",
+      path: `${PROJECT_URL}/icons/skills/spring-boot.svg`,
+      darkPath: `${PROJECT_URL}/icons/skills/spring-boot-dark.svg`,
+      iTag: "springboot",
+      link: "https://spring.io/",
+    },
+    {
       name: "Fast API",
       path: `${PROJECT_URL}/icons/skills/fastapi-colored.svg`,
       iTag: "fastapi",

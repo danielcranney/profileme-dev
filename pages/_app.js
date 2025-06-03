@@ -11,9 +11,10 @@ export const StateContext = createContext(null);
 
 export const STORED_STATE_KEY = "profileMeLocalStateMar24";
 
-const PROJECT_URL = process.env.NODE_ENV === 'production'
-  ? 'https://raw.githubusercontent.com/danielcranney/readme-generator/main/public'
-  : 'http://localhost:3000'
+const PROJECT_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public"
+    : "http://localhost:3000";
 
 // Icon Store
 export const iconData = {
@@ -35,6 +36,13 @@ export const iconData = {
       path: `${PROJECT_URL}/icons/skills/csharp-colored.svg`,
       iTag: "csharp",
       link: "https://docs.microsoft.com/en-us/dotnet/csharp/",
+    },
+    {
+      name: "Spring Boot",
+      path: `${PROJECT_URL}/icons/skills/spring-boot.svg`,
+      darkPath: `${PROJECT_URL}/icons/skills/spring-boot-dark.svg`,
+      iTag: "springboot",
+      link: "https://spring.io/",
     },
     {
       name: "Coffeescript",

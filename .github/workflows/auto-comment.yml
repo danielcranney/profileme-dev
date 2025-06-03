@@ -18,13 +18,11 @@ jobs:
             const issueNumber = context.payload.issue.number;
             const username = context.payload.issue.user.login;
 
-            const comment = `
-👋 Hey @${username} — thanks for opening an issue!
+            const comment = `👋 Hey @${username} — thanks for opening an issue!
 
 Before we dive in, make sure to check out our [contributing guide](CONTRIBUTING.md) and see if this has already been reported.
 
-We appreciate your help! 💖
-            `;
+We appreciate your help! 💖`;
 
             await github.rest.issues.createComment({
               owner: context.repo.owner,

@@ -97,7 +97,7 @@ Table Of Contents:
   .menu > li {
     @apply flex items-center hover:cursor-pointer overflow-hidden transition-all duration-150 ease-in-out;
   }
-  .menu > li > span {
+  .menu > li > button {
     @apply border-l-4 h-full flex items-center px-6 py-3 transition-all duration-150 ease-in-out font-semibold uppercase tracking-wide text-xs;
   }
 }

@@ -93,6 +93,12 @@ export const iconData = {
       link: "https://kotlinlang.org/",
     },
     {
+      name: "Lua",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/lua-colored.svg",
+      iTag: "lua",
+      link: "https://lua.org/",
+    },
+    {
       name: "Perl",
       path: `${PROJECT_URL}/icons/skills/perl-colored.svg`,
       iTag: "perl",

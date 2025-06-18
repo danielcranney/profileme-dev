@@ -176,6 +176,12 @@ export const iconData = {
       link: "https://neovim.io/",
     },
     {
+      name: "Emacs",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/emacs-colored.svg",
+      iTag: "emacs",
+      link: "https://www.gnu.org/software/emacs/",
+    },
+    {
       name: "Sublime Text",
       path: `${PROJECT_URL}/icons/skills/sublimetext-colored.svg`,
       iTag: "sublimetext",

@@ -24,12 +24,15 @@ export default function CreateProfile() {
     skillsTitle: "",
     skills: {
       core: [],
+      scripting: [],
+      editors: [],
       frontend: [],
       backend: [],
-      other: [],
       software: [],
       web3: [],
       cloud: [],
+      cms: [],
+      other: [],
     },
     socials: {
       behance: "",
@@ -40,6 +43,7 @@ export default function CreateProfile() {
       dribbble: "",
       facebook: "",
       github: "",
+      gitlab: "",
       hashnode: "",
       instagram: "",
       linkedin: "",
@@ -73,7 +77,7 @@ export default function CreateProfile() {
   const [badgesShowing, setBadgesShowing] = useState(false);
   const [copySuccess, setCopySuccess] = useState("Copy");
   const withSupport =
-    state && state.support && Array.isArray(state.support)
+    state && state.support
       ? Object.values(state.support).some(
           (value) =>
             value &&
@@ -305,7 +309,7 @@ export default function CreateProfile() {
     });
   };
 
-  const handleIconToggle = (iconCategory, iconObj, i) => {
+  const handleIconToggle = (iconCategory, iconObj) => {
     const currentIndex = Object.keys(state.skills).reduce(
       (length, iconCategory) => length + state.skills[iconCategory].length,
       0
@@ -624,12 +628,15 @@ export default function CreateProfile() {
           {/* Skills Section Preview */}
           <div ref={skillsTitleRef} className="flex">
             {state.skills.core.length === 0 &&
+            state.skills.scripting.length === 0 &&
+            state.skills.editors.length === 0 &&
             state.skills.frontend.length === 0 &&
             state.skills.backend.length === 0 &&
-            state.skills.other.length === 0 &&
             state.skills.software.length === 0 &&
             state.skills.web3.length === 0 &&
-            state.skills.cloud.length === 0 ? null : (
+            state.skills.cloud.length === 0 &&
+            state.skills.cms.length === 0 &&
+            state.skills.other.length === 0 ? null : (
               <h3>Skills</h3>
             )}
           </div>
@@ -639,12 +646,15 @@ export default function CreateProfile() {
             ref={skillsRef}
             className={`flex flex-wrap gap-y-1.5 gap-x-1.5 ${
               state.skills.core.length < 1 &&
+              state.skills.scripting.length < 1 &&
+              state.skills.editors.length < 1 &&
               state.skills.frontend.length < 1 &&
               state.skills.backend.length < 1 &&
-              state.skills.other.length < 1 &&
               state.skills.software.length < 1 &&
               state.skills.web3.length < 1 &&
-              state.skills.cloud.length < 1
+              state.skills.cloud.length < 1 &&
+              state.skills.cms.length < 1 &&
+              state.skills.other.length < 1
                 ? "mb-0"
                 : "mb-4"
             }`}
@@ -949,16 +959,27 @@ export default function CreateProfile() {
 
               <div className="break-all whitespace-pre-line">
                 {renderedMarkdown.skills.core.length < 1 &&
+                renderedMarkdown.skills.scripting.length < 1 &&
+                renderedMarkdown.skills.editors.length < 1 &&
                 renderedMarkdown.skills.frontend.length < 1 &&
                 renderedMarkdown.skills.backend.length < 1 &&
                 renderedMarkdown.skills.other.length < 1 &&
                 renderedMarkdown.skills.software.length < 1 &&
-                renderedMarkdown.skills.web3.length < 1 ? null : (
+                renderedMarkdown.skills.web3.length < 1 &&
+                renderedMarkdown.skills.cms.length < 1 ? null : (
                   <span>{`<p align="left">\n`}</span>
                 )}
 
                 {renderedMarkdown.skills.core.length > 0
                   ? build_markdown_skill(renderedMarkdown.skills.core)
+                  : null}
+
+                {renderedMarkdown.skills.scripting.length > 0
+                  ? build_markdown_skill(renderedMarkdown.skills.scripting)
+                  : null}
+
+                {renderedMarkdown.skills.editors.length > 0
+                  ? build_markdown_skill(renderedMarkdown.skills.editors)
                   : null}
 
                 {renderedMarkdown.skills.frontend.length > 0
@@ -967,10 +988,6 @@ export default function CreateProfile() {
 
                 {renderedMarkdown.skills.backend.length > 0
                   ? build_markdown_skill(renderedMarkdown.skills.backend)
-                  : null}
-
-                {renderedMarkdown.skills.other.length > 0
-                  ? build_markdown_skill(renderedMarkdown.skills.other)
                   : null}
 
                 {renderedMarkdown.skills.software.length > 0
@@ -985,13 +1002,24 @@ export default function CreateProfile() {
                   ? build_markdown_skill(renderedMarkdown.skills.cloud)
                   : null}
 
+                {renderedMarkdown.skills.cms.length > 0
+                  ? build_markdown_skill(renderedMarkdown.skills.cms)
+                  : null}
+
+                {renderedMarkdown.skills.other.length > 0
+                  ? build_markdown_skill(renderedMarkdown.skills.other)
+                  : null}
+
                 {renderedMarkdown.skills.core.length < 1 &&
+                renderedMarkdown.skills.scripting.length < 1 &&
+                renderedMarkdown.skills.editors.length < 1 &&
                 renderedMarkdown.skills.frontend.length < 1 &&
                 renderedMarkdown.skills.backend.length < 1 &&
-                renderedMarkdown.skills.other.length < 1 &&
                 renderedMarkdown.skills.software.length < 1 &&
                 renderedMarkdown.skills.web3.length < 1 &&
-                renderedMarkdown.skills.cloud.length < 1 ? null : (
+                renderedMarkdown.skills.cloud.length < 1 &&
+                renderedMarkdown.skills.cms.length < 1 &&
+                renderedMarkdown.skills.other.length < 1 ? null : (
                   <span>{`
                     </p>
                     `}</span>

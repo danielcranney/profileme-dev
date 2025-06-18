@@ -326,7 +326,7 @@ const Badges = React.forwardRef((props, ref) => {
             />
           </article>
           <article className="flex flex-col mb-4 gap-y-4">
-            <h3 className="mb-0">Twitter</h3>
+            <h3 className="mb-0">X (Twitter)</h3>
             {!state.socials.twitter.linkSuffix ? (
               <p className="mb-2 text-xs">
                 Please{" "}
@@ -343,7 +343,7 @@ const Badges = React.forwardRef((props, ref) => {
                 in the socials section.
               </p>
             ) : null}
-            {/* Twitter Followers Badge */}
+            {/* X Followers Badge */}
             <ToggleBadgeButton
               badgeType={"twitterFollowers"}
               profileLink={"twitter"}

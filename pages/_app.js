@@ -631,7 +631,8 @@ export const iconData = {
     {
       name: "Django",
       path: `${PROJECT_URL}/icons/skills/django-colored.svg`,
-      darkPath: `${PROJECT_URL}/icons/skills/django-colored-dark.svg`,
+      darkPath:
+        `${PROJECT_URL}/icons/skills/django-colored-dark.svg`,
       iTag: "django",
       link: "https://www.djangoproject.com/",
     },
@@ -649,8 +650,9 @@ export const iconData = {
     },
     {
       name: "Amazon Web Services",
-      path: `${PROJECT_URL}/icons/skills/aws-colored.svg`,
-      darkPath: `${PROJECT_URL}/icons/skills/aws-colored-dark.svg`,
+      path: `${PROJECT_URL}/icons/skills/skills/aws-colored.svg`,
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/aws-colored-dark.svg",
       iTag: "aws",
       link: "https://aws.amazon.com",
     },
@@ -658,7 +660,7 @@ export const iconData = {
       name: "Arduino",
       path: `${PROJECT_URL}/icons/skills/arduino-colored.svg`,
       iTag: "arduino",
-      link: "https://store.arduino.cc/",
+      link: "https://store.arduino.cc/?gclid=Cj0KCQjw2eilBhCCARIsAG0Pf8uueBifykWcsSS4LPESeGQfxGVKJYnzV7bz471XfknQJy_1VINVWM8aAkLtEALw_wcB",
     },
     {
       name: "Blender",
@@ -679,6 +681,12 @@ export const iconData = {
       link: "https://www.docker.com/",
     },
     {
+      name: "Kubernetes",
+      path: `${PROJECT_URL}/icons/skills/kubernetes-colored.svg`,
+      iTag: "kubernetes",
+      link: "https://kubernetes.io/",
+    },
+    {
       name: "Linux",
       path: `${PROJECT_URL}/icons/skills/linux-colored.svg`,
       iTag: "linux",
@@ -687,7 +695,8 @@ export const iconData = {
     {
       name: "MacOS",
       path: `${PROJECT_URL}/icons/skills/macos-colored.svg`,
-      darkPath: `${PROJECT_URL}/icons/skills/macos-colored-dark.svg`,
+      darkPath:
+        `${PROJECT_URL}/icons/skills/macos-colored-dark.svg`,
       iTag: "macos",
       link: "https://apple.com",
     },

@@ -22,7 +22,9 @@ export default function CreateProfile() {
   const [renderedMarkdown, setRenderedMarkdown] = useState({
     introduction: "",
     skillsTitle: "",
-    skills: Object.fromEntries(SKILL_CATEGORIES.map(category => [category.name, []])),
+    skills: Object.fromEntries(
+      SKILL_CATEGORIES.map((category) => [category.name, []])
+    ),
     socials: {
       behance: "",
       codepen: "",
@@ -63,8 +65,12 @@ export default function CreateProfile() {
     ),
   });
 
-  const skillsEmpty = Object.keys(state.skills).every(key => state.skills[key].length === 0);
-  const markdownSkillsEmpty = Object.keys(renderedMarkdown.skills).every(key => renderedMarkdown.skills[key].length === 0);
+  const skillsEmpty = Object.keys(state.skills).every(
+    (key) => state.skills[key].length === 0
+  );
+  const markdownSkillsEmpty = Object.keys(renderedMarkdown.skills).every(
+    (key) => renderedMarkdown.skills[key].length === 0
+  );
 
   const [socialsShowing, setSocialsShowing] = useState(false);
   const [badgesShowing, setBadgesShowing] = useState(false);
@@ -91,11 +97,12 @@ export default function CreateProfile() {
                   icon.link
                 }" target="_blank" rel="noreferrer"><img src="${
                   theme == "dark" ? icon.darkPath : icon.path
-                }" width="36" height="36" alt="${icon.name}" title="${icon.name}"/></a>`}</>
+                }" width="36" height="36" alt="${icon.name}" title="${
+                  icon.name
+                }"/></a>`}</>
               ) : (
                 <>{`<a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" title="${icon.name}"/></a>`}</>
               )}
-
             </span>
           </>
         ))}
@@ -513,13 +520,13 @@ export default function CreateProfile() {
               <h2>{state.introduction.shortDescription}</h2>
             ) : null}
 
-            {state.introduction.longDescription ? (
-              state.introduction.longDescription.split('\n').map((line) => (
-                <p className="whitespace-pre-line">
-                  {line}
-                </p>
-              ))
-            ) : null}
+            {state.introduction.longDescription
+              ? state.introduction.longDescription.split("\n").map((line) => (
+                  <p className="whitespace-pre-line" key={line}>
+                    {line}
+                  </p>
+                ))
+              : null}
 
             <ul
               className={`${
@@ -623,9 +630,7 @@ export default function CreateProfile() {
 
           {/* Skills Section Preview */}
           <div ref={skillsTitleRef} className="flex">
-            {skillsEmpty ? null : (
-              <h3>Skills</h3>
-            )}
+            {skillsEmpty ? null : <h3>Skills</h3>}
           </div>
 
           {/* Skills Section Preview */}
@@ -633,8 +638,8 @@ export default function CreateProfile() {
             ref={skillsRef}
             className={`flex flex-wrap gap-y-1.5 gap-x-1.5 ${
               skillsEmpty ? "mb-0" : "mb-4"
-            }`}>
-
+            }`}
+          >
             {/* Icons Display */}
             {Object.values(state.skills).some((arr) => arr.length > 0) ? (
               <div className="flex gap-x-1.5 flex-wrap gap-y-1.5">
@@ -942,12 +947,11 @@ export default function CreateProfile() {
                   <span>{`<p align="left">\n`}</span>
                 )}
 
-                {Object.keys(renderedMarkdown.skills).map(category =>
+                {Object.keys(renderedMarkdown.skills).map((category) =>
                   renderedMarkdown.skills[category].length > 0
                     ? build_markdown_skill(renderedMarkdown.skills[category])
                     : null
-                  )
-                }
+                )}
 
                 {markdownSkillsEmpty ? null : (
                   <span>{`
@@ -981,7 +985,9 @@ export default function CreateProfile() {
                     <picture>
                     <source media="(prefers-color-scheme: dark)" srcset="${`${profile[1].darkPath}`}" />
                     <source media="(prefers-color-scheme: light)" srcset="${`${profile[1].path}`}" />
-                    <img src="${`${profile[1].path}`}" width="32" height="32" alt="${profile[1].label}" title="${profile[1].label}" />
+                    <img src="${`${profile[1].path}`}" width="32" height="32" alt="${
+                      profile[1].label
+                    }" title="${profile[1].label}" />
                     </picture>
                     </a>`}
                   </span>

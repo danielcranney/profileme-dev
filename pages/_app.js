@@ -11,9 +11,10 @@ export const StateContext = createContext(null);
 
 export const STORED_STATE_KEY = "profileMeLocalStateMar24";
 
-const PROJECT_URL = process.env.NODE_ENV === 'production'
-  ? 'https://raw.githubusercontent.com/danielcranney/readme-generator/main/public'
-  : 'http://localhost:3000'
+const PROJECT_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public"
+    : "http://localhost:3000";
 
 export const SKILL_CATEGORIES = [
   { name: "core", label: "Core" },
@@ -25,7 +26,7 @@ export const SKILL_CATEGORIES = [
   { name: "web3", label: "Web3" },
   { name: "cloud", label: "Cloud" },
   { name: "cms", label: "CMS" },
-  { name: "other", label: "Other" }
+  { name: "other", label: "Other" },
 ];
 
 // Icon Store
@@ -678,8 +679,7 @@ export const iconData = {
     {
       name: "Django",
       path: `${PROJECT_URL}/icons/skills/django-colored.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/skills/django-colored-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/skills/django-colored-dark.svg`,
       iTag: "django",
       link: "https://www.djangoproject.com/",
     },
@@ -742,8 +742,7 @@ export const iconData = {
     {
       name: "MacOS",
       path: `${PROJECT_URL}/icons/skills/macos-colored.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/skills/macos-colored-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/skills/macos-colored-dark.svg`,
       iTag: "macos",
       link: "https://apple.com",
     },
@@ -1011,7 +1010,9 @@ const initialState = {
     additionalInfo: "",
   },
   // Skills State
-  skills: Object.fromEntries(SKILL_CATEGORIES.map(category => [category.name, []])),
+  skills: Object.fromEntries(
+    SKILL_CATEGORIES.map((category) => [category.name, []])
+  ),
   // Socials State
   socials: {
     github: {

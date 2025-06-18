@@ -99,4 +99,4 @@ Contributions are always welcome! Here's a few tips on how to get started.
 
 ## License
 
-ProfileMe is available under the [GNU General Public License v3.0](https://choosealicense.com/licenses/gpl-3.0/) license. Please read the terms of this license before making modification or amendments to the source code or any of its assets.
+ProfileMe is available under the [GNU AGPLv3 license](https://choosealicense.com/licenses/agpl-3.0/). Please read the terms of this license before making modifications to this project.

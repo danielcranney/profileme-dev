@@ -403,7 +403,7 @@ export const iconData = {
       path: `${PROJECT_URL}/icons/skills/flask-colored.svg`,
       darkPath: `${PROJECT_URL}/icons/skills/flask-colored-dark.svg`,
       iTag: "flask",
-      link: "https://flask.palletsprojects.com/en/2.0.x/",
+      link: "https://flask.palletsprojects.com/en/3.0.x/",
     },
     {
       name: "Render",

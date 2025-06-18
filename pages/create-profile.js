@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useRef, useState } from "react";
 import { useTheme } from "next-themes";
 // Import state and actions
-import { ACTIONS } from "./_app";
+import { ACTIONS, SKILL_CATEGORIES } from "./_app";
 import { StateContext, supportStore } from "./_app";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 import { colorStore } from "./_app";
@@ -22,18 +22,7 @@ export default function CreateProfile() {
   const [renderedMarkdown, setRenderedMarkdown] = useState({
     introduction: "",
     skillsTitle: "",
-    skills: {
-      core: [],
-      scripting: [],
-      editors: [],
-      frontend: [],
-      backend: [],
-      software: [],
-      web3: [],
-      cloud: [],
-      cms: [],
-      other: [],
-    },
+    skills: Object.fromEntries(SKILL_CATEGORIES.map(category => [category.name, []])),
     socials: {
       behance: "",
       codepen: "",
@@ -73,6 +62,10 @@ export default function CreateProfile() {
       {}
     ),
   });
+
+  const skillsEmpty = Object.keys(state.skills).every(key => state.skills[key].length === 0);
+  const markdownSkillsEmpty = Object.keys(renderedMarkdown.skills).every(key => renderedMarkdown.skills[key].length === 0);
+
   const [socialsShowing, setSocialsShowing] = useState(false);
   const [badgesShowing, setBadgesShowing] = useState(false);
   const [copySuccess, setCopySuccess] = useState("Copy");
@@ -628,16 +621,7 @@ export default function CreateProfile() {
 
           {/* Skills Section Preview */}
           <div ref={skillsTitleRef} className="flex">
-            {state.skills.core.length === 0 &&
-            state.skills.scripting.length === 0 &&
-            state.skills.editors.length === 0 &&
-            state.skills.frontend.length === 0 &&
-            state.skills.backend.length === 0 &&
-            state.skills.software.length === 0 &&
-            state.skills.web3.length === 0 &&
-            state.skills.cloud.length === 0 &&
-            state.skills.cms.length === 0 &&
-            state.skills.other.length === 0 ? null : (
+            {skillsEmpty ? null : (
               <h3>Skills</h3>
             )}
           </div>
@@ -646,20 +630,9 @@ export default function CreateProfile() {
           <div
             ref={skillsRef}
             className={`flex flex-wrap gap-y-1.5 gap-x-1.5 ${
-              state.skills.core.length < 1 &&
-              state.skills.scripting.length < 1 &&
-              state.skills.editors.length < 1 &&
-              state.skills.frontend.length < 1 &&
-              state.skills.backend.length < 1 &&
-              state.skills.software.length < 1 &&
-              state.skills.web3.length < 1 &&
-              state.skills.cloud.length < 1 &&
-              state.skills.cms.length < 1 &&
-              state.skills.other.length < 1
-                ? "mb-0"
-                : "mb-4"
-            }`}
-          >
+              skillsEmpty ? "mb-0" : "mb-4"
+            }`}>
+
             {/* Icons Display */}
             {Object.values(state.skills).some((arr) => arr.length > 0) ? (
               <div className="flex gap-x-1.5 flex-wrap gap-y-1.5">
@@ -959,68 +932,18 @@ export default function CreateProfile() {
               ) : null}
 
               <div className="break-all whitespace-pre-line">
-                {renderedMarkdown.skills.core.length < 1 &&
-                renderedMarkdown.skills.scripting.length < 1 &&
-                renderedMarkdown.skills.editors.length < 1 &&
-                renderedMarkdown.skills.frontend.length < 1 &&
-                renderedMarkdown.skills.backend.length < 1 &&
-                renderedMarkdown.skills.other.length < 1 &&
-                renderedMarkdown.skills.software.length < 1 &&
-                renderedMarkdown.skills.web3.length < 1 &&
-                renderedMarkdown.skills.cms.length < 1 ? null : (
+                {markdownSkillsEmpty ? null : (
                   <span>{`<p align="left">\n`}</span>
                 )}
 
-                {renderedMarkdown.skills.core.length > 0
-                  ? build_markdown_skill(renderedMarkdown.skills.core)
-                  : null}
+                {Object.keys(renderedMarkdown.skills).map(category =>
+                  renderedMarkdown.skills[category].length > 0
+                    ? build_markdown_skill(renderedMarkdown.skills[category])
+                    : null
+                  )
+                }
 
-                {renderedMarkdown.skills.scripting.length > 0
-                  ? build_markdown_skill(renderedMarkdown.skills.scripting)
-                  : null}
-
-                {renderedMarkdown.skills.editors.length > 0
-                  ? build_markdown_skill(renderedMarkdown.skills.editors)
-                  : null}
-
-                {renderedMarkdown.skills.frontend.length > 0
-                  ? build_markdown_skill(renderedMarkdown.skills.frontend)
-                  : null}
-
-                {renderedMarkdown.skills.backend.length > 0
-                  ? build_markdown_skill(renderedMarkdown.skills.backend)
-                  : null}
-
-                {renderedMarkdown.skills.software.length > 0
-                  ? build_markdown_skill(renderedMarkdown.skills.software)
-                  : null}
-
-                {renderedMarkdown.skills.web3.length > 0
-                  ? build_markdown_skill(renderedMarkdown.skills.web3)
-                  : null}
-
-                {renderedMarkdown.skills.cloud.length > 0
-                  ? build_markdown_skill(renderedMarkdown.skills.cloud)
-                  : null}
-
-                {renderedMarkdown.skills.cms.length > 0
-                  ? build_markdown_skill(renderedMarkdown.skills.cms)
-                  : null}
-
-                {renderedMarkdown.skills.other.length > 0
-                  ? build_markdown_skill(renderedMarkdown.skills.other)
-                  : null}
-
-                {renderedMarkdown.skills.core.length < 1 &&
-                renderedMarkdown.skills.scripting.length < 1 &&
-                renderedMarkdown.skills.editors.length < 1 &&
-                renderedMarkdown.skills.frontend.length < 1 &&
-                renderedMarkdown.skills.backend.length < 1 &&
-                renderedMarkdown.skills.software.length < 1 &&
-                renderedMarkdown.skills.web3.length < 1 &&
-                renderedMarkdown.skills.cloud.length < 1 &&
-                renderedMarkdown.skills.cms.length < 1 &&
-                renderedMarkdown.skills.other.length < 1 ? null : (
+                {markdownSkillsEmpty ? null : (
                   <span>{`
                     </p>
                     `}</span>

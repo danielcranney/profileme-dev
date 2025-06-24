@@ -75,16 +75,14 @@ export default function CreateProfile() {
   const [socialsShowing, setSocialsShowing] = useState(false);
   const [badgesShowing, setBadgesShowing] = useState(false);
   const [copySuccess, setCopySuccess] = useState("Copy");
-  const withSupport =
-    state && state.support
-      ? Object.values(state.support).some(
-          (value) =>
-            value &&
-            value.linkSuffix !== undefined &&
-            value.linkSuffix !== null &&
-            value.linkSuffix !== ""
-        )
-      : false;
+
+  const withSupport = Object.values(state.support).some(
+    (value) =>
+      value &&
+      value.linkSuffix !== undefined &&
+      value.linkSuffix !== null &&
+      value.linkSuffix !== ""
+  )
 
   function build_markdown_skill(category) {
     return (

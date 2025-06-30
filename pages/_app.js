@@ -11,9 +11,23 @@ export const StateContext = createContext(null);
 
 export const STORED_STATE_KEY = "profileMeLocalStateMar24";
 
-const PROJECT_URL = process.env.NODE_ENV === 'production'
-  ? 'https://raw.githubusercontent.com/danielcranney/readme-generator/main/public'
-  : 'http://localhost:3000'
+const PROJECT_URL =
+  process.env.NODE_ENV === "production"
+    ? "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public"
+    : "http://localhost:3000";
+
+export const SKILL_CATEGORIES = [
+  { name: "core", label: "Core" },
+  { name: "scripting", label: "Scripting" },
+  { name: "editors", label: "Code Editors" },
+  { name: "frontend", label: "Frontend" },
+  { name: "backend", label: "Backend and Database" },
+  { name: "software", label: "Software" },
+  { name: "web3", label: "Web3" },
+  { name: "cloud", label: "Cloud" },
+  { name: "cms", label: "CMS" },
+  { name: "other", label: "Other" },
+];
 
 // Icon Store
 export const iconData = {
@@ -39,8 +53,7 @@ export const iconData = {
     {
       name: "Coffeescript",
       path: `${PROJECT_URL}/icons/skills/coffeescript-colored.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/skills/coffeescript-colored-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/skills/coffeescript-colored-dark.svg`,
       iTag: "coffeescript",
       link: "https://coffeescript.org/",
     },
@@ -81,6 +94,12 @@ export const iconData = {
       link: "https://kotlinlang.org/",
     },
     {
+      name: "Lua",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/lua-colored.svg",
+      iTag: "lua",
+      link: "https://lua.org/",
+    },
+    {
       name: "Perl",
       path: `${PROJECT_URL}/icons/skills/perl-colored.svg`,
       iTag: "perl",
@@ -113,8 +132,7 @@ export const iconData = {
     {
       name: "Rust",
       path: `${PROJECT_URL}/icons/skills/rust-colored.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/skills/rust-colored-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/skills/rust-colored-dark.svg`,
       iTag: "rust",
       link: "https://www.rust-lang.org/",
     },
@@ -142,33 +160,39 @@ export const iconData = {
   editors: [
     {
       name: "VS Code",
-      path: `${PROJECT_URL}/icons/skills/visualstudiocode.svg`,
+      path: `${PROJECT_URL}/icons/skills/visualstudiocode-colored.svg`,
       iTag: "visualstudiocode",
       link: "https://code.visualstudio.com/",
     },
     {
       name: "Vim",
-      path: `${PROJECT_URL}/icons/skills/vim.svg`,
+      path: `${PROJECT_URL}/icons/skills/vim-colored.svg`,
       iTag: "vim",
       link: "https://www.vim.org/",
     },
     {
       name: "Neovim",
-      path: `${PROJECT_URL}/icons/skills/neovim.svg`,
+      path: `${PROJECT_URL}/icons/skills/neovim-colored.svg`,
       iTag: "neovim",
       link: "https://neovim.io/",
     },
     {
+      name: "Emacs",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/emacs-colored.svg",
+      iTag: "emacs",
+      link: "https://www.gnu.org/software/emacs/",
+    },
+    {
       name: "Sublime Text",
-      path: `${PROJECT_URL}/icons/skills/sublimetext.svg`,
+      path: `${PROJECT_URL}/icons/skills/sublimetext-colored.svg`,
       iTag: "sublimetext",
       link: "https://www.sublimetext.com/index2",
     },
     {
       name: "XCode",
-      path: `${PROJECT_URL}/icons/skills/xcode.svg`,
+      path: `${PROJECT_URL}/icons/skills/xcode-colored.svg`,
       iTag: "xcode",
-      link: "https://www.xcode.com",
+      link: "https://developer.apple.com/xcode/",
     },
   ],
   frontend: [
@@ -187,8 +211,7 @@ export const iconData = {
     {
       name: "NextJs",
       path: `${PROJECT_URL}/icons/skills/nextjs-colored.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/skills/nextjs-colored-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/skills/nextjs-colored-dark.svg`,
       iTag: "nextjs",
       link: "https://nextjs.org/docs",
     },
@@ -273,8 +296,7 @@ export const iconData = {
     {
       name: "Babel",
       path: `${PROJECT_URL}/icons/skills/babel-colored.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/skills/babel-colored-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/skills/babel-colored-dark.svg`,
       iTag: "babel",
       link: "https://babeljs.io/",
     },
@@ -293,10 +315,17 @@ export const iconData = {
     {
       name: "Remix",
       path: `${PROJECT_URL}/icons/skills/remix-colored.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/skills/remix-colored-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/skills/remix-colored-dark.svg`,
       iTag: "remix",
       link: "https://remix.run/",
+    },
+    {
+      name: "Ember.js",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/emberjs-colored.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/emberjs-dark.svg",
+      iTag: "emberjs",
+      link: "https://emberjs.com/",
     },
   ],
   backend: [
@@ -309,10 +338,17 @@ export const iconData = {
     {
       name: "Express",
       path: `${PROJECT_URL}/icons/skills/express-colored.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/skills/express-colored-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/skills/express-colored-dark.svg`,
       iTag: "express",
       link: "https://expressjs.com/",
+    },
+    {
+      name: "Spring Boot",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/springboot-colored.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/springboot-dark.svg",
+      iTag: "springboot",
+      link: "https://spring.io/projects/spring-boot",
     },
     {
       name: "Fast API",
@@ -365,8 +401,7 @@ export const iconData = {
     {
       name: "Appwrite",
       path: `${PROJECT_URL}/icons/skills/appwrite-colored.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/skills/appwrite-colored-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/skills/appwrite-colored-dark.svg`,
       iTag: "appwrite",
       link: "https://appwrite.io/",
     },
@@ -379,10 +414,9 @@ export const iconData = {
     {
       name: "Flask",
       path: `${PROJECT_URL}/icons/skills/flask-colored.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/skills/flask-colored-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/skills/flask-colored-dark.svg`,
       iTag: "flask",
-      link: "https://flask.palletsprojects.com/en/2.0.x/",
+      link: "https://flask.palletsprojects.com/en/3.0.x/",
     },
     {
       name: "Render",
@@ -401,40 +435,35 @@ export const iconData = {
     {
       name: "Photoshop",
       path: `${PROJECT_URL}/icons/skills/photoshop-colored.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/skills/photoshop-colored-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/skills/photoshop-colored-dark.svg`,
       iTag: "photoshop",
       link: "https://www.adobe.com/uk/products/photoshop.html",
     },
     {
       name: "Illustrator",
       path: `${PROJECT_URL}/icons/skills/illustrator-colored.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/skills/illustrator-colored-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/skills/illustrator-colored-dark.svg`,
       iTag: "illustrator",
       link: "https://www.adobe.com/uk/products/illustrator.html",
     },
     {
       name: "After Effects",
       path: `${PROJECT_URL}/icons/skills/aftereffects-colored.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/skills/aftereffects-colored-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/skills/aftereffects-colored-dark.svg`,
       iTag: "aftereffects",
       link: "https://www.adobe.com/uk/products/aftereffects.html",
     },
     {
       name: "Premiere Pro",
       path: `${PROJECT_URL}/icons/skills/premierepro-colored.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/skills/premierepro-colored-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/skills/premierepro-colored-dark.svg`,
       iTag: "premierepro",
       link: "https://www.adobe.com/uk/products/premiere.html",
     },
     {
       name: "XD",
       path: `${PROJECT_URL}/icons/skills/xd-colored.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/skills/xd-colored-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/skills/xd-colored-dark.svg`,
       iTag: "xd",
       link: "https://www.adobe.com/uk/products/xd.html",
     },
@@ -533,8 +562,7 @@ export const iconData = {
     {
       name: "IPFS",
       path: `${PROJECT_URL}/icons/skills/ipfs-colored.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/skills/ipfs-colored-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/skills/ipfs-colored-dark.svg`,
       iTag: "ipfs",
       link: "https://ipfs.io/",
     },
@@ -547,8 +575,7 @@ export const iconData = {
     {
       name: "Arweave",
       path: `${PROJECT_URL}/icons/skills/arweave-colored.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/skills/arweave-colored-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/skills/arweave-colored-dark.svg`,
       iTag: "arweave",
       link: "https://www.arweave.org/",
     },
@@ -579,8 +606,7 @@ export const iconData = {
     {
       name: "Near",
       path: `${PROJECT_URL}/icons/skills/near-colored.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/skills/near-colored-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/skills/near-colored-dark.svg`,
       iTag: "near",
       link: "https://near.academy/",
     },
@@ -636,6 +662,12 @@ export const iconData = {
       iTag: "wix",
       link: "https://wix.com",
     },
+    {
+      name: "Webflow",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/webflow-colored.svg",
+      iTag: "webflow",
+      link: "https://webflow.com/",
+    },
   ],
   other: [
     {
@@ -647,8 +679,7 @@ export const iconData = {
     {
       name: "Django",
       path: `${PROJECT_URL}/icons/skills/django-colored.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/skills/django-colored-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/skills/django-colored-dark.svg`,
       iTag: "django",
       link: "https://www.djangoproject.com/",
     },
@@ -666,7 +697,7 @@ export const iconData = {
     },
     {
       name: "Amazon Web Services",
-      path: `${PROJECT_URL}/icons/skills/aws-colored.svg`,
+      path: `${PROJECT_URL}/icons/skills/skills/aws-colored.svg`,
       darkPath:
         `${PROJECT_URL}/icons/skills/aws-colored-dark.svg`,
       iTag: "aws",
@@ -697,6 +728,12 @@ export const iconData = {
       link: "https://www.docker.com/",
     },
     {
+      name: "Kubernetes",
+      path: `${PROJECT_URL}/icons/skills/kubernetes-colored.svg`,
+      iTag: "kubernetes",
+      link: "https://kubernetes.io/",
+    },
+    {
       name: "Linux",
       path: `${PROJECT_URL}/icons/skills/linux-colored.svg`,
       iTag: "linux",
@@ -705,8 +742,7 @@ export const iconData = {
     {
       name: "MacOS",
       path: `${PROJECT_URL}/icons/skills/macos-colored.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/skills/macos-colored-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/skills/macos-colored-dark.svg`,
       iTag: "macos",
       link: "https://apple.com",
     },
@@ -940,13 +976,13 @@ export const colorStore = {
  * */
 export const supportStore = {
   buymeacoffee: {
-    path: "${PROJECT_URL}/icons/support/buymeacoffee.svg",
+    path: `${PROJECT_URL}/icons/support/buymeacoffee.svg`,
     previewIMG: "https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png",
     linkPrefix: "https://www.buymeacoffee.com/",
     linkSuffix: "",
   },
   kofi: {
-    path: "${PROJECT_URL}/icons/support/kofi.svg",
+    path: `${PROJECT_URL}/icons/support/kofi.svg`,
     previewIMG: "https://storage.ko-fi.com/cdn/kofi2.png?v=3",
     linkPrefix: "https://www.ko-fi.com/",
     linkSuffix: "",
@@ -974,42 +1010,39 @@ const initialState = {
     additionalInfo: "",
   },
   // Skills State
-  skills: {
-    core: [],
-    scripting: [],
-    editors: [],
-    frontend: [],
-    backend: [],
-    software: [],
-    web3: [],
-    cloud: [],
-    cms: [],
-    other: [],
-  },
+  skills: Object.fromEntries(
+    SKILL_CATEGORIES.map((category) => [category.name, []])
+  ),
   // Socials State
   socials: {
     github: {
+      label: "Github",
       path: `${PROJECT_URL}/icons/socials/github.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/socials/github-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/socials/github-dark.svg`,
       linkPrefix: "https://www.github.com/",
       linkSuffix: "",
     },
+    gitlab: {
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/gitlab.svg",
+      linkPrefix: "https://www.gitlab.com/",
+      linkSuffix: "",
+    },
     twitter: {
+      label: "Twitter",
       path: `${PROJECT_URL}/icons/socials/twitter.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/socials/twitter-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/socials/twitter-dark.svg`,
       linkPrefix: "https://www.x.com/",
       linkSuffix: "",
     },
     threads: {
+      label: "Threads",
       path: `${PROJECT_URL}/icons/socials/threads.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/socials/threads-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/socials/threads-dark.svg`,
       linkPrefix: "https://www.threads.net/@",
       linkSuffix: "",
     },
     hashnode: {
+      label: "Hashnode",
       path: `${PROJECT_URL}/icons/socials/hashnode.svg`,
       darkPath: `${PROJECT_URL}/icons/socials/hashnode-dark.svg`,
       linkPrefix: "https://",
@@ -1017,96 +1050,105 @@ const initialState = {
       linkSuffixTwo: ".hashnode.dev",
     },
     medium: {
+      label: "Medium",
       path: `${PROJECT_URL}/icons/socials/medium.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/socials/medium-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/socials/medium-dark.svg`,
       linkPrefix: "http://www.medium.com/",
       linkSuffix: "",
     },
     devdotto: {
+      label: "DEV",
       path: `${PROJECT_URL}/icons/socials/devdotto.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/socials/devdotto-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/socials/devdotto-dark.svg`,
       linkPrefix: "https://www.dev.to/",
       linkSuffix: "",
     },
     linkedin: {
+      label: "LinkedIn",
       path: `${PROJECT_URL}/icons/socials/linkedin.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/socials/linkedin-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/socials/linkedin-dark.svg`,
       linkPrefix: "https://www.linkedin.com/in/",
       linkSuffix: "",
     },
     polywork: {
+      label: "Polywork",
       path: `${PROJECT_URL}/icons/socials/polywork.svg`,
       darkPath: `${PROJECT_URL}/icons/socials/polywork-dark.svg`,
       linkPrefix: "https://www.polywork.com/",
       linkSuffix: "",
     },
     twitch: {
+      label: "Twitch",
       path: `${PROJECT_URL}/icons/socials/twitch.svg`,
       darkPath: `${PROJECT_URL}/icons/socials/twitch-dark.svg`,
       linkPrefix: "https://www.twitch.tv/",
       linkSuffix: "",
     },
     youtube: {
+      label: "YouTube",
       path: `${PROJECT_URL}/icons/socials/youtube.svg`,
       darkPath: `${PROJECT_URL}/icons/socials/youtube-dark.svg`,
       linkPrefix: "https://www.youtube.com/@",
       linkSuffix: "",
     },
     discord: {
+      label: "Discord",
       path: `${PROJECT_URL}/icons/socials/discord.svg`,
       darkPath: `${PROJECT_URL}/icons/socials/discord-dark.svg`,
       linkPrefix: "https://discord.com/users/",
       linkSuffix: "",
     },
     instagram: {
+      label: "Instragram",
       path: `${PROJECT_URL}/icons/socials/instagram.svg`,
       darkPath: `${PROJECT_URL}/icons/socials/instagram-dark.svg`,
       linkPrefix: "http://www.instagram.com/",
       linkSuffix: "",
     },
     facebook: {
+      label: "Facebook",
       path: `${PROJECT_URL}/icons/socials/facebook.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/socials/facebook-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/socials/facebook-dark.svg`,
       linkPrefix: "https://www.facebook.com/",
       linkSuffix: "",
     },
     dribbble: {
+      label: "Dribble",
       path: `${PROJECT_URL}/icons/socials/dribbble.svg`,
       darkPath: `${PROJECT_URL}/icons/socials/dribbble-dark.svg`,
       linkPrefix: "https://www.dribbble.com/",
       linkSuffix: "",
     },
     behance: {
+      label: "Behance",
       path: `${PROJECT_URL}/icons/socials/behance.svg`,
       darkPath: `${PROJECT_URL}/icons/socials/behance-dark.svg`,
       linkPrefix: "https://www.behance.com/",
       linkSuffix: "",
     },
     codesandbox: {
+      label: "CodeSandbox",
       path: `${PROJECT_URL}/icons/socials/codesandbox.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/socials/codesandbox-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/socials/codesandbox-dark.svg`,
       linkPrefix: "https://codesandbox.io/u/",
       linkSuffix: "",
     },
     codepen: {
+      label: "CodePen",
       path: `${PROJECT_URL}/icons/socials/codepen.svg`,
-      darkPath:
-        `${PROJECT_URL}/icons/socials/codepen-dark.svg`,
+      darkPath: `${PROJECT_URL}/icons/socials/codepen-dark.svg`,
       linkPrefix: "https://www.codepen.io/",
       linkSuffix: "",
     },
     stackoverflow: {
+      label: "Stack Overflow",
       path: `${PROJECT_URL}/icons/socials/stackoverflow.svg`,
       darkPath: `${PROJECT_URL}/icons/socials/stackoverflow-dark.svg`,
       linkPrefix: "https://www.stackoverflow.com/users/",
       linkSuffix: "",
     },
     rss: {
+      label: "RSS",
       path: `${PROJECT_URL}/icons/socials/rss.svg`,
       darkPath: `${PROJECT_URL}/icons/socials/rss-dark.svg`,
       linkPrefix: "https://",

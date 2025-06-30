@@ -41,7 +41,7 @@ const Support = React.forwardRef((props, ref) => {
             section={"support"}
             account={"kofi"}
             inputPlaceholder={"yourname"}
-            formLabelText={"Buy Me a Coffee:"}
+            formLabelText={"Ko-fi:"}
             linkPrefix={state.support.kofi.linkPrefix}
             action={ACTIONS.ADD_SUPPORT}
           />

@@ -39,7 +39,7 @@ const IconSelector = ({ handleIconToggle, title, iconType }) => {
               ) : null}
 
               <i
-                className={`${icon.iTag} w-9 h-9 ${
+                className={`${icon.iTag} w-9 h-9 icon-size ${
                   state.skills[iconType].some((item) => item.name === icon.name)
                     ? "colored"
                     : "text-light-400 dark:text-light-500"

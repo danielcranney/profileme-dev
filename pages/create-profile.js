@@ -656,9 +656,7 @@ export default function CreateProfile() {
                           {icon.darkPath ? (
                             <img
                               src={
-                                theme == "dark"
-                                  ? `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored-dark.svg`
-                                  : `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored.svg`
+                                theme == "dark" ? icon.darkPath : icon.path
                               }
                               alt={`${icon.name}`}
                               title={`${icon.name}`}
@@ -667,7 +665,7 @@ export default function CreateProfile() {
                             />
                           ) : (
                             <img
-                              src={`https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored.svg`}
+                              src={`${icon.path}`}
                               alt={`${icon.name}`}
                               title={`${icon.name}`}
                               width="36"

@@ -697,7 +697,7 @@ export const iconData = {
     },
     {
       name: "Amazon Web Services",
-      path: `${PROJECT_URL}/icons/skills/skills/aws-colored.svg`,
+      path: `${PROJECT_URL}/icons/skills/aws-colored.svg`,
       darkPath:
         "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/aws-colored-dark.svg",
       iTag: "aws",

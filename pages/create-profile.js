@@ -162,17 +162,20 @@ export default function CreateProfile() {
         section.title === "badges" ||
         section.title === "support"
       ) {
-        Object.entries(state[section.title]).forEach((entry) => {
-          const [key, value] = entry;
+        // Add safety check for state[section.title]
+        if (state[section.title]) {
+          Object.entries(state[section.title]).forEach((entry) => {
+            const [key, value] = entry;
 
-          setRenderedMarkdown((renderedMarkdown) => ({
-            ...renderedMarkdown,
-            [section.title]: {
-              ...renderedMarkdown[section.title],
-              [key]: state[section.title][key],
-            },
-          }));
-        });
+            setRenderedMarkdown((renderedMarkdown) => ({
+              ...renderedMarkdown,
+              [section.title]: {
+                ...renderedMarkdown[section.title],
+                [key]: state[section.title][key],
+              },
+            }));
+          });
+        }
       } else {
         let htmlOfElement = section.ref.current.innerHTML;
         setRenderedMarkdown((renderedMarkdown) => ({
@@ -265,10 +268,18 @@ export default function CreateProfile() {
   };
 
   const assembleSupportLink = (key) => {
-    return `${state.support[key].linkPrefix}${state.support[key].linkSuffix}`;
+    if (!state.support || !state.support[key]) {
+      return "";
+    }
+    return `${state.support[key].linkPrefix || ""}${
+      state.support[key].linkSuffix || ""
+    }`;
   };
 
   const getSupportPreviewIMG = (key, value) => {
+    if (!supportStore[key]) {
+      return "";
+    }
     return value?.previewIMG ?? supportStore[key].previewIMG;
   };
 
@@ -700,8 +711,10 @@ export default function CreateProfile() {
                   key={`${profile[0]}`}
                   target="_blank"
                   rel="noreferrer"
-                  href={`${profile[1].linkPrefix}${profile[1].linkSuffix}${
-                    profile[1].linkSuffixTwo
+                  href={`${profile[1]?.linkPrefix || ""}${
+                    profile[1]?.linkSuffix || ""
+                  }${
+                    profile[1]?.linkSuffixTwo
                       ? `${profile[1].linkSuffixTwo}`
                       : ""
                   }`}
@@ -920,21 +933,43 @@ export default function CreateProfile() {
 
               {!renderedMarkdown.badges.githubFollowers.selected ? null : (
                 <span className="text-xs break-all whitespace-pre-line">
-                  {`<a href="${state.socials.github.linkPrefix}${state.socials.github.linkSuffix}" target="_blank" rel="noreferrer"><img
-                  src="https://img.shields.io/github/followers/${state.socials.github.linkSuffix}?logo=github&style=for-the-badge&color=${state.badges.cardStyle.iconColor}&labelColor=${state.badges.cardStyle.bgColor}" /></a>`}
+                  {`<a href="${state.socials?.github?.linkPrefix || ""}${
+                    state.socials?.github?.linkSuffix || ""
+                  }" target="_blank" rel="noreferrer"><img
+                  src="https://img.shields.io/github/followers/${
+                    state.socials?.github?.linkSuffix || ""
+                  }?logo=github&style=for-the-badge&color=${
+                    state.badges?.cardStyle?.iconColor || ""
+                  }&labelColor=${
+                    state.badges?.cardStyle?.bgColor || ""
+                  }" /></a>`}
                 </span>
               )}
               {!renderedMarkdown.badges.twitterFollowers.selected ? null : (
                 <span className="text-xs break-all whitespace-pre-line">
-                  {`<a href="${state.socials.twitter.linkPrefix}${state.socials.twitter.linkSuffix}" target="_blank" rel="noreferrer"><img
-                  src="https://img.shields.io/twitter/follow/${state.socials.twitter.linkSuffix}?logo=twitter&style=for-the-badge&color=${state.badges.cardStyle.iconColor}&labelColor=${state.badges.cardStyle.bgColor}"
+                  {`<a href="${state.socials?.twitter?.linkPrefix || ""}${
+                    state.socials?.twitter?.linkSuffix || ""
+                  }" target="_blank" rel="noreferrer"><img
+                  src="https://img.shields.io/twitter/follow/${
+                    state.socials?.twitter?.linkSuffix || ""
+                  }?logo=twitter&style=for-the-badge&color=${
+                    state.badges?.cardStyle?.iconColor || ""
+                  }&labelColor=${state.badges?.cardStyle?.bgColor || ""}"
                 /></a>`}
                 </span>
               )}
               {!renderedMarkdown.badges.twitchStatus.selected ? null : (
                 <span className="text-xs break-all whitespace-pre-line">
-                  {`<a href="${state.socials.twitch.linkPrefix}${state.socials.twitch.linkSuffix}" target="_blank" rel="noreferrer"><img
-                  src="https://img.shields.io/twitch/status/${state.socials.twitch.linkSuffix}?logo=twitchsx&style=for-the-badge&color=${state.badges.cardStyle.iconColor}&labelColor=${state.badges.cardStyle.bgColor}&label=TWITCH+STATUS" /></a>`}
+                  {`<a href="${state.socials?.twitch?.linkPrefix || ""}${
+                    state.socials?.twitch?.linkSuffix || ""
+                  }" target="_blank" rel="noreferrer"><img
+                  src="https://img.shields.io/twitch/status/${
+                    state.socials?.twitch?.linkSuffix || ""
+                  }?logo=twitchsx&style=for-the-badge&color=${
+                    state.badges?.cardStyle?.iconColor || ""
+                  }&labelColor=${
+                    state.badges?.cardStyle?.bgColor || ""
+                  }&label=TWITCH+STATUS" /></a>`}
                 </span>
               )}
 
@@ -975,19 +1010,25 @@ export default function CreateProfile() {
                 return profile[1].linkSuffix ? (
                   <span key={`profile-${profile[0]}`}>
                     {`
-                      <a href="${profile[1].linkPrefix}${
-                      profile[1].linkSuffix
+                      <a href="${profile[1]?.linkPrefix || ""}${
+                      profile[1]?.linkSuffix || ""
                     }${
-                      profile[1].linkSuffixTwo
+                      profile[1]?.linkSuffixTwo
                         ? `${profile[1].linkSuffixTwo}`
                         : ""
                     }" target="_blank" rel="noreferrer">
                     <picture>
-                    <source media="(prefers-color-scheme: dark)" srcset="${`${profile[1].darkPath}`}" />
-                    <source media="(prefers-color-scheme: light)" srcset="${`${profile[1].path}`}" />
-                    <img src="${`${profile[1].path}`}" width="32" height="32" alt="${
-                      profile[1].label
-                    }" title="${profile[1].label}" />
+                    <source media="(prefers-color-scheme: dark)" srcset="${`${
+                      profile[1]?.darkPath || ""
+                    }`}" />
+                    <source media="(prefers-color-scheme: light)" srcset="${`${
+                      profile[1]?.path || ""
+                    }`}" />
+                    <img src="${`${
+                      profile[1]?.path || ""
+                    }`}" width="32" height="32" alt="${
+                      profile[1]?.label || ""
+                    }" title="${profile[1]?.label || ""}" />
                     </picture>
                     </a>`}
                   </span>

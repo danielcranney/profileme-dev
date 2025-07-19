@@ -9,7 +9,7 @@ import storeStateMiddleware from "../middleware/storeStateMiddleware";
 
 export const StateContext = createContext(null);
 
-export const STORED_STATE_KEY = "profileMeLocalStateMar24";
+export const STORED_STATE_KEY = "ProfileMe_LocalState";
 
 const PROJECT_URL =
   process.env.NODE_ENV === "production"

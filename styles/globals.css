@@ -23,9 +23,9 @@ Table Of Contents:
 /*     Core Setup     */
 /**********************/
 
-@import url("https://cdn.jsdelivr.net/gh/SebastianAigner/twemoji-amazing@1.0.0/twemoji-amazing.css");
-@import url("https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css");
-@import url("https://use.typekit.net/svx2izk.css");
+@import url('https://cdn.jsdelivr.net/gh/SebastianAigner/twemoji-amazing@1.0.0/twemoji-amazing.css');
+@import url('https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css');
+@import url('https://use.typekit.net/svx2izk.css');
 
 @tailwind base;
 @tailwind components;
@@ -53,8 +53,7 @@ Table Of Contents:
   h4,
   h5,
   h6 {
-    @apply font-bold tracking-tight mb-2
-    transition-all duration-150 ease-in-out dark:text-white text-dark-700;
+    @apply font-bold tracking-tight mb-2 transition-all duration-150 ease-in-out dark:text-white text-dark-700;
   }
   h1 {
     @apply text-4xl;
@@ -864,9 +863,11 @@ Table Of Contents:
   .googlecloud.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/googlecloud-colored.svg')];
   }
-  /** CMS icons **/
-  .framer {
-    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/framer.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/framer-dark.svg')];
+  .azure {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/azure.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/azured-dark.svg')];
+  }
+  .azure.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/azure-colored.svg')];
   }
   .framer.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/framer-colored.svg')];

@@ -321,6 +321,7 @@ function reducer(state, action) {
           },
         },
       };
+
     // Badges Actions
     case ACTIONS.TOGGLE_BADGE:
       return {

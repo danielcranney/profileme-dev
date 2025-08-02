@@ -20,7 +20,6 @@ const SocialItem = forwardRef((props, ref) => {
   const { state, dispatch } = useContext(StateContext);
   const { systemTheme, theme, setTheme } = useTheme();
 
-
   return (
     <article className="flex flex-col flex-1 w-full">
       <FormLabel
@@ -41,7 +40,7 @@ const SocialItem = forwardRef((props, ref) => {
         }
       />
       <div
-        className="flex rounded-md overflow-hidden border
+        className="flex rounded-md overflow-visible border
         bg-white focus-within:bg-white 
       dark:bg-dark-900 dark:focus-within:bg-dark-900
       border-light-200 focus-within:border-light-400

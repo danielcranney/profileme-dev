@@ -326,11 +326,12 @@ export const iconData = {
       link: "https://remix.run/",
     },
     {
-      name: "Ember.js",
-      path: `${PROJECT_URL}/icons/skills/emberjs-colored.svg`,
-      darkPath: `${PROJECT_URL}/icons/skills/emberjs-dark.svg`,
-      iTag: "emberjs",
-      link: "https://emberjs.com/",
+      name: "Netlify",
+      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/netlify-colored.svg",
+      darkPath:
+        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/netlify-dark.svg",
+      iTag: "netlify",
+      link: "https://www.netlify.com/",
     },
   ],
   backend: [

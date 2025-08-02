@@ -4,6 +4,7 @@ import { StateContext } from "../pages/_app";
 import { useTheme } from "next-themes";
 import FormLabel from "./forms/FormLabel";
 import MinimalSocialFormInput from "./forms/MinimalSocialFormInput";
+import { PROJECT_URL } from "../lib/constants/config";
 
 const SocialItem = forwardRef((props, ref) => {
   const {
@@ -19,9 +20,6 @@ const SocialItem = forwardRef((props, ref) => {
   const { state, dispatch } = useContext(StateContext);
   const { systemTheme, theme, setTheme } = useTheme();
 
-  const PROJECT_URL = process.env.NODE_ENV === 'production'
-    ? 'https://raw.githubusercontent.com/danielcranney/readme-generator/main/public'
-    : 'http://localhost:3000'
 
   return (
     <article className="flex flex-col flex-1 w-full">

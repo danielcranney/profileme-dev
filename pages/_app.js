@@ -10,6 +10,7 @@ import { SKILL_CATEGORIES } from "../lib/constants/skillCategories";
 import { ACTIONS } from "../lib/constants/actions";
 import { supportStore } from "../lib/constants/supportStore";
 import { PROJECT_URL } from "../lib/constants/config";
+import { iconData } from "../lib/data/iconData";
 
 export const StateContext = createContext(null);
 

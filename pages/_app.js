@@ -21,13 +21,12 @@ function migrateStoredState(storedState, currentInitialState) {
   const storedVersion = storedState._version || "0.0.0";
   const currentVersion = currentInitialState._version;
 
-  // If versions match, just do a deep merge
+  // If versions match then just deep merge
   if (storedVersion === currentVersion) {
     return deepMergeStoredState(storedState, currentInitialState);
   }
 
-  // For future version migrations, you can add specific migration logic here
-  // For now, we'll just do a deep merge and update the version
+  // If not, deep merge and update the version
   const migratedState = deepMergeStoredState(storedState, currentInitialState);
   migratedState._version = currentVersion;
 
@@ -36,8 +35,7 @@ function migrateStoredState(storedState, currentInitialState) {
 
 // Deep merge function
 function deepMergeStoredState(storedState, currentInitialState) {
-  // Deep merge stored state with current initial state
-  // This ensures all new properties are added with their default values
+  // Store current initial state in migratedState
   const migratedState = { ...currentInitialState };
 
   // Recursively merge stored state with current initial state

@@ -106,8 +106,9 @@ const MinimalSocialFormInput = forwardRef((props, ref) => {
             onClick={handleUseSuggestion}
             className="w-full px-3 py-0 text-left text-xs font-medium text-brand-700 dark:text-brand-300 hover:bg-brand-50 dark:hover:bg-brand-900/20 transition-colors duration-150 rounded whitespace-nowrap overflow-hidden text-ellipsis"
           >
-            📋 Use "{suggestedUsername}" (already used {suggestedUsernameCount}{" "}
-            time{suggestedUsernameCount > 1 ? "s" : ""})
+            📋 Use &apos;{suggestedUsername}&apos; (already used &nbsp;{" "}
+            {suggestedUsernameCount} time{suggestedUsernameCount > 1 ? "s" : ""}
+            )
           </button>
         </div>
       )}

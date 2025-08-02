@@ -15,7 +15,7 @@ const PROJECT_URL =
   process.env.NODE_ENV === "production"
     ? "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public"
     : "http://localhost:3000";
-
+ 
 export const SKILL_CATEGORIES = [
   { name: "core", label: "Core" },
   { name: "scripting", label: "Scripting" },
@@ -28,6 +28,7 @@ export const SKILL_CATEGORIES = [
   { name: "cms", label: "CMS" },
   { name: "other", label: "Other" },
 ];
+ 
 
 // Icon Store
 export const iconData = {
@@ -49,6 +50,13 @@ export const iconData = {
       path: `${PROJECT_URL}/icons/skills/csharp-colored.svg`,
       iTag: "csharp",
       link: "https://docs.microsoft.com/en-us/dotnet/csharp/",
+    },
+    {
+      name: "Spring Boot",
+      path: `${PROJECT_URL}/icons/skills/spring-boot.svg`,
+      darkPath: `${PROJECT_URL}/icons/skills/spring-boot-dark.svg`,
+      iTag: "springboot",
+      link: "https://spring.io/",
     },
     {
       name: "Coffeescript",

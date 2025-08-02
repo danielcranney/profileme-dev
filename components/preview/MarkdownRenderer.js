@@ -9,6 +9,8 @@ export default function MarkdownRenderer({
   markdownSkillsEmpty,
   buildMarkdownSkill,
   supportStore,
+  socialsOrder,
+  skillsOrder,
 }) {
   const assembleSupportLink = (key) => {
     if (!state.support || !state.support[key]) {
@@ -206,11 +208,25 @@ export default function MarkdownRenderer({
             <div className="break-all whitespace-pre-line">
               {markdownSkillsEmpty ? null : <span>{`<p align="left">\n`}</span>}
 
-              {Object.keys(renderedMarkdown.skills).map((category) =>
-                renderedMarkdown.skills[category].length > 0
-                  ? buildMarkdownSkill(renderedMarkdown.skills[category])
-                  : null
-              )}
+              {skillsOrder && skillsOrder.length > 0
+                ? skillsOrder.map((skill, index) => (
+                    <span key={`markdown-skill-${skill.path}-${index}`}>
+                      {`<a href="${
+                        skill.link
+                      }" target="_blank" rel="noreferrer"><img src="${
+                        skill.darkPath
+                          ? `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${skill.iTag}-colored-dark.svg`
+                          : `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${skill.iTag}-colored.svg`
+                      }" alt="${skill.name}" title="${
+                        skill.name
+                      }" width="36" height="36" /></a>`}
+                    </span>
+                  ))
+                : Object.keys(renderedMarkdown.skills).map((category) =>
+                    renderedMarkdown.skills[category].length > 0
+                      ? buildMarkdownSkill(renderedMarkdown.skills[category])
+                      : null
+                  )}
 
               {markdownSkillsEmpty ? null : (
                 <span>{`
@@ -235,29 +251,27 @@ export default function MarkdownRenderer({
               <span>{`
               <p align="left">`}</span>
             ) : null}
-            {Object.entries(renderedMarkdown.socials).map((profile) => {
-              return profile[1].linkSuffix ? (
-                <span key={`profile-${profile[0]}`}>
+            {socialsOrder.map(({ key, data }, index) => {
+              return data.linkSuffix ? (
+                <span key={`profile-${key}-${index}`}>
                   {`
-                    <a href="${profile[1]?.linkPrefix || ""}${
-                    profile[1]?.linkSuffix || ""
+                    <a href="${data?.linkPrefix || ""}${
+                    data?.linkSuffix || ""
                   }${
-                    profile[1]?.linkSuffixTwo
-                      ? `${profile[1].linkSuffixTwo}`
-                      : ""
+                    data?.linkSuffixTwo ? `${data.linkSuffixTwo}` : ""
                   }" target="_blank" rel="noreferrer">
                   <picture>
                   <source media="(prefers-color-scheme: dark)" srcset="${`${
-                    profile[1]?.darkPath || ""
+                    data?.darkPath || ""
                   }`}" />
                   <source media="(prefers-color-scheme: light)" srcset="${`${
-                    profile[1]?.path || ""
+                    data?.path || ""
                   }`}" />
                   <img src="${`${
-                    profile[1]?.path || ""
+                    data?.path || ""
                   }`}" width="32" height="32" alt="${
-                    profile[1]?.label || ""
-                  }" title="${profile[1]?.label || ""}" />
+                    data?.label || ""
+                  }" title="${data?.label || ""}" />
                   </picture>
                   </a>`}
                 </span>

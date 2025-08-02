@@ -75,21 +75,19 @@ export const useMarkdownGeneration = (state, mounted, theme) => {
     return (
       <>
         {category.map((icon) => (
-          <>
-            <span key={`${icon.path}`}>
-              {icon.darkPath ? (
-                <>{`<a href="${
-                  icon.link
-                }" target="_blank" rel="noreferrer"><img src="${
-                  theme == "dark" ? icon.darkPath : icon.path
-                }" width="36" height="36" alt="${icon.name}" title="${
-                  icon.name
-                }"/></a>`}</>
-              ) : (
-                <>{`<a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" title="${icon.name}"/></a>`}</>
-              )}
-            </span>
-          </>
+          <span key={`${icon.path}`}>
+            {icon.darkPath ? (
+              <>{`<a href="${
+                icon.link
+              }" target="_blank" rel="noreferrer"><img src="${
+                theme == "dark" ? icon.darkPath : icon.path
+              }" width="36" height="36" alt="${icon.name}" title="${
+                icon.name
+              }"/></a>`}</>
+            ) : (
+              <>{`<a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" title="${icon.name}"/></a>`}</>
+            )}
+          </span>
         ))}
       </>
     );

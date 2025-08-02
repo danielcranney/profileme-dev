@@ -4,3 +4,5 @@ export { usePreviewState } from "./usePreviewState";
 export { useIconToggle } from "./useIconToggle";
 export { useBadgeHandlers } from "./useBadgeHandlers";
 export { useScrollHandling } from "./useScrollHandling";
+export { useSocialDragDrop } from "./useSocialDragDrop";
+export { useSkillsDragDrop } from "./useSkillsDragDrop";

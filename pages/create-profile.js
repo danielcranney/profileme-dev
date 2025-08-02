@@ -23,6 +23,8 @@ import {
   useIconToggle,
   useBadgeHandlers,
   useScrollHandling,
+  useSocialDragDrop,
+  useSkillsDragDrop,
 } from "../hooks";
 
 export default function CreateProfile() {
@@ -57,6 +59,28 @@ export default function CreateProfile() {
     supportAnchorRef,
   } = useScrollHandling();
 
+  // Social drag and drop functionality
+  const {
+    draggedIndex: socialDraggedIndex,
+    isDragging: isSocialDragging,
+    handleDragStart: onSocialDragStart,
+    handleDragOver: onSocialDragOver,
+    handleDrop: onSocialDrop,
+    getOrderedSocials,
+    resetSocialOrder,
+  } = useSocialDragDrop();
+
+  // Skills drag and drop functionality
+  const {
+    draggedIndex: skillsDraggedIndex,
+    isDragging: isSkillsDragging,
+    handleDragStart: onSkillsDragStart,
+    handleDragOver: onSkillsDragOver,
+    handleDrop: onSkillsDrop,
+    getOrderedSkills,
+    resetSkillsOrder,
+  } = useSkillsDragDrop();
+
   // Computed values
   const skillsEmpty = Object.keys(state.skills).every(
     (key) => state.skills[key].length === 0
@@ -74,6 +98,12 @@ export default function CreateProfile() {
             value.linkSuffix !== ""
         )
       : false;
+
+  // Get ordered socials for rendering
+  const socialsOrder = getOrderedSocials();
+
+  // Get ordered skills for rendering
+  const skillsOrder = getOrderedSkills();
 
   // Effects
   useEffect(() => {
@@ -123,6 +153,8 @@ export default function CreateProfile() {
           copySuccess={copySuccess}
           setCopySuccess={setCopySuccess}
           markdownRef={markdownRef}
+          resetSocialOrder={resetSocialOrder}
+          resetSkillsOrder={resetSkillsOrder}
         />
 
         {/* Preview Section */}
@@ -135,6 +167,18 @@ export default function CreateProfile() {
             badgesShowing={badgesShowing}
             supportStore={supportStore}
             withSupport={withSupport}
+            socialsOrder={socialsOrder}
+            onSocialDragStart={onSocialDragStart}
+            onSocialDragOver={onSocialDragOver}
+            onSocialDrop={onSocialDrop}
+            isSocialDragging={isSocialDragging}
+            socialDraggedIndex={socialDraggedIndex}
+            skillsOrder={skillsOrder}
+            onSkillsDragStart={onSkillsDragStart}
+            onSkillsDragOver={onSkillsDragOver}
+            onSkillsDrop={onSkillsDrop}
+            isSkillsDragging={isSkillsDragging}
+            skillsDraggedIndex={skillsDraggedIndex}
           />
         </div>
 
@@ -152,6 +196,8 @@ export default function CreateProfile() {
             buildMarkdownSkill={buildMarkdownSkill}
             supportStore={supportStore}
             markdownRef={markdownRef}
+            socialsOrder={socialsOrder}
+            skillsOrder={skillsOrder}
           />
         </div>
       </section>

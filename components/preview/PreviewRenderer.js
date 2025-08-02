@@ -1,5 +1,7 @@
 import React from "react";
 import { useTheme } from "next-themes";
+import DraggableSocialIcon from "./DraggableSocialIcon";
+import DraggableSkillIcon from "./DraggableSkillIcon";
 
 export default function PreviewRenderer({
   state,
@@ -9,6 +11,18 @@ export default function PreviewRenderer({
   badgesShowing,
   supportStore,
   withSupport,
+  socialsOrder,
+  onSocialDragStart,
+  onSocialDragOver,
+  onSocialDrop,
+  isSocialDragging,
+  socialDraggedIndex,
+  skillsOrder,
+  onSkillsDragStart,
+  onSkillsDragOver,
+  onSkillsDrop,
+  isSkillsDragging,
+  skillsDraggedIndex,
 }) {
   const { theme } = useTheme();
 
@@ -331,43 +345,20 @@ export default function PreviewRenderer({
               }`}
             >
               {/* Icons Display */}
-              {Object.values(state.skills).some((arr) => arr.length > 0) ? (
+              {skillsOrder && skillsOrder.length > 0 ? (
                 <div className="flex gap-x-1.5 flex-wrap gap-y-1.5">
-                  {Object.values(state.skills)
-                    .flat()
-                    .map((icon) => {
-                      return (
-                        <div key={`${icon.path}`} className="relative">
-                          <a
-                            href={`${icon.link}`}
-                            target="_blank"
-                            rel="noreferrer"
-                          >
-                            {icon.darkPath ? (
-                              <img
-                                src={
-                                  theme == "dark"
-                                    ? `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored-dark.svg`
-                                    : `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored.svg`
-                                }
-                                alt={`${icon.name}`}
-                                title={`${icon.name}`}
-                                width="36"
-                                height="36"
-                              />
-                            ) : (
-                              <img
-                                src={`https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored.svg`}
-                                alt={`${icon.name}`}
-                                title={`${icon.name}`}
-                                width="36"
-                                height="36"
-                              />
-                            )}
-                          </a>
-                        </div>
-                      );
-                    })}
+                  {skillsOrder.map((skill, index) => (
+                    <DraggableSkillIcon
+                      key={`skill-${skill.path}-${index}`}
+                      skill={skill}
+                      index={index}
+                      onDragStart={onSkillsDragStart}
+                      onDragOver={onSkillsDragOver}
+                      onDrop={onSkillsDrop}
+                      isDragging={isSkillsDragging}
+                      draggedIndex={skillsDraggedIndex}
+                    />
+                  ))}
                 </div>
               ) : null}
             </div>
@@ -388,36 +379,22 @@ export default function PreviewRenderer({
                 socialsShowing ? "mb-4" : ""
               }`}
             >
-              {Object.entries(state.socials).map((profile) => {
-                return profile[1].linkSuffix ? (
-                  <a
-                    key={`${profile[0]}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    href={`${profile[1]?.linkPrefix || ""}${
-                      profile[1]?.linkSuffix || ""
-                    }${
-                      profile[1]?.linkSuffixTwo
-                        ? `${profile[1].linkSuffixTwo}`
-                        : ""
-                    }`}
-                  >
-                    <img
-                      height="32"
-                      width="32"
-                      alt={`${profile[1].label}`}
-                      title={`${profile[1].label}`}
-                      src={
-                        profile[1].darkPath
-                          ? theme == "dark"
-                            ? `${profile[1].darkPath}`
-                            : `${profile[1].path}`
-                          : `${profile[1].path}`
-                      }
+              {/* Show socials based on order, but only those with links */}
+              {socialsOrder && socialsOrder.length > 0
+                ? socialsOrder.map(({ key, data }, index) => (
+                    <DraggableSocialIcon
+                      key={`social-${key}-${index}`}
+                      socialKey={key}
+                      socialData={data}
+                      index={index}
+                      onDragStart={onSocialDragStart}
+                      onDragOver={onSocialDragOver}
+                      onDrop={onSocialDrop}
+                      isDragging={isSocialDragging}
+                      draggedIndex={socialDraggedIndex}
                     />
-                  </a>
-                ) : null;
-              })}
+                  ))
+                : null}
             </div>
           </>
         );
@@ -470,7 +447,11 @@ export default function PreviewRenderer({
 
   return (
     <article id="preview-container" className="relative">
-      {sectionOrder.map((sectionType) => renderSection(sectionType))}
+      {sectionOrder.map((sectionType, index) => (
+        <React.Fragment key={`section-${sectionType}-${index}`}>
+          {renderSection(sectionType)}
+        </React.Fragment>
+      ))}
     </article>
   );
 }

@@ -22,6 +22,30 @@ const initialState = {
   renderMode: "preview",
   // Section order for reordering functionality
   sectionOrder: ["introduction", "skills", "socials", "badges", "support"],
+  // Social order for reordering functionality
+  socialOrder: [
+    "github",
+    "gitlab",
+    "twitter",
+    "threads",
+    "hashnode",
+    "medium",
+    "devdotto",
+    "linkedin",
+    "polywork",
+    "twitch",
+    "youtube",
+    "behance",
+    "codepen",
+    "codesandbox",
+    "discord",
+    "dribbble",
+    "facebook",
+    "rss",
+    "stackoverflow",
+  ],
+  // Skills order for reordering functionality
+  skillsOrder: [],
   // Introduction State
   introduction: {
     name: "",
@@ -467,6 +491,48 @@ function reducer(state, action) {
           "badges",
           "support",
         ],
+      };
+    // Social reordering actions
+    case ACTIONS.REORDER_SOCIALS:
+      return {
+        ...state,
+        socialOrder: action.payload.socialOrder,
+      };
+    case ACTIONS.RESET_SOCIAL_ORDER:
+      return {
+        ...state,
+        socialOrder: [
+          "github",
+          "gitlab",
+          "twitter",
+          "threads",
+          "hashnode",
+          "medium",
+          "devdotto",
+          "linkedin",
+          "polywork",
+          "twitch",
+          "youtube",
+          "behance",
+          "codepen",
+          "codesandbox",
+          "discord",
+          "dribbble",
+          "facebook",
+          "rss",
+          "stackoverflow",
+        ],
+      };
+    // Skills reordering actions
+    case ACTIONS.REORDER_SKILLS:
+      return {
+        ...state,
+        skillsOrder: action.payload.skillsOrder,
+      };
+    case ACTIONS.RESET_SKILLS_ORDER:
+      return {
+        ...state,
+        skillsOrder: [],
       };
     default:
       throw new Error();

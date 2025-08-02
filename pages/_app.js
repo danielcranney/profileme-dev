@@ -26,6 +26,8 @@ export const SKILL_CATEGORIES = [
   { name: "web3", label: "Web3" },
   { name: "cloud", label: "Cloud" },
   { name: "cms", label: "CMS" },
+  { name: "embedded", label: "Embedded"},
+  { name: "operatingSystem", label: "Operating Systems"},
   { name: "other", label: "Other" },
 ];
  
@@ -685,6 +687,53 @@ export const iconData = {
       link: "https://webflow.com/",
     },
   ],
+  embedded: [
+    {
+      name: "Arduino",
+      path: `${PROJECT_URL}/icons/skills/arduino-colored.svg`,
+      iTag: "arduino",
+      link: "https://store.arduino.cc/?gclid=Cj0KCQjw2eilBhCCARIsAG0Pf8uueBifykWcsSS4LPESeGQfxGVKJYnzV7bz471XfknQJy_1VINVWM8aAkLtEALw_wcB",
+    },
+    {
+      name: "Raspberry Pi",
+      path: `${PROJECT_URL}/icons/skills/raspberrypi-colored.svg`,
+      iTag: "raspberrypi",
+      link: "https://www.raspberrypi.org/",
+    },
+    {
+      name: "Yocto Project",
+      path: `${PROJECT_URL}/icons/skills/yocto-colored.svg`,
+      iTag: "yocto",
+      link: "https://www.yoctoproject.org/",
+    },
+  ],
+  operatingSystem: [
+    {
+      name: "Linux",
+      path: `${PROJECT_URL}/icons/skills/linux-colored.svg`,
+      iTag: "linux",
+      link: "https://www.linux.org",
+    },
+    {
+      name: "MacOS",
+      path: `${PROJECT_URL}/icons/skills/macos-colored.svg`,
+      darkPath: `${PROJECT_URL}/icons/skills/macos-colored-dark.svg`,
+      iTag: "macos",
+      link: "https://apple.com",
+    },
+    {
+      name: "Fedora",
+      path: `${PROJECT_URL}/icons/skills/fedora-colored.svg`,
+      iTag: "fedora",
+      link: "https://fedoraproject.org/",
+    },
+    {
+      name: "Ubuntu",
+      path: `${PROJECT_URL}/icons/skills/ubuntu-colored.svg`,
+      iTag: "ubuntu",
+      link: "https://ubuntu.com/",
+    },
+  ],
   other: [
     {
       name: ".NET",
@@ -719,12 +768,6 @@ export const iconData = {
       link: "https://aws.amazon.com",
     },
     {
-      name: "Arduino",
-      path: `${PROJECT_URL}/icons/skills/arduino-colored.svg`,
-      iTag: "arduino",
-      link: "https://store.arduino.cc/?gclid=Cj0KCQjw2eilBhCCARIsAG0Pf8uueBifykWcsSS4LPESeGQfxGVKJYnzV7bz471XfknQJy_1VINVWM8aAkLtEALw_wcB",
-    },
-    {
       name: "Blender",
       path: `${PROJECT_URL}/icons/skills/blender-colored.svg`,
       iTag: "blender",
@@ -749,29 +792,10 @@ export const iconData = {
       link: "https://kubernetes.io/",
     },
     {
-      name: "Linux",
-      path: `${PROJECT_URL}/icons/skills/linux-colored.svg`,
-      iTag: "linux",
-      link: "https://www.linux.org",
-    },
-    {
-      name: "MacOS",
-      path: `${PROJECT_URL}/icons/skills/macos-colored.svg`,
-      darkPath: `${PROJECT_URL}/icons/skills/macos-colored-dark.svg`,
-      iTag: "macos",
-      link: "https://apple.com",
-    },
-    {
       name: "PyTorch",
       path: `${PROJECT_URL}/icons/skills/pytorch-colored.svg`,
       iTag: "pytorch",
       link: "https://pytorch.org/",
-    },
-    {
-      name: "Raspberry Pi",
-      path: `${PROJECT_URL}/icons/skills/raspberrypi-colored.svg`,
-      iTag: "raspberrypi",
-      link: "https://www.raspberrypi.org/",
     },
     {
       name: "TensorFlow",

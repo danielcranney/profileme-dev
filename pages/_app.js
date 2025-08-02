@@ -313,6 +313,12 @@ export const iconData = {
       link: "https://svelte.dev/",
     },
     {
+      name: "Servomon",
+      path: `${PROJECT_URL}/icons/skills/servomon-colored.svg`,
+      iTag: "servomon",
+      link: "https://servemon.netlify.app/"
+    },
+    {
       name: "Vite",
       path: `${PROJECT_URL}/icons/skills/vite-colored.svg`,
       iTag: "vite",
@@ -326,12 +332,11 @@ export const iconData = {
       link: "https://remix.run/",
     },
     {
-      name: "Netlify",
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/netlify-colored.svg",
-      darkPath:
-        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/netlify-dark.svg",
-      iTag: "netlify",
-      link: "https://www.netlify.com/",
+      name: "Ember.js",
+      path: `${PROJECT_URL}/icons/skills/emberjs-colored.svg`,
+      darkPath: `${PROJECT_URL}/icons/skills/emberjs-dark.svg`,
+      iTag: "emberjs",
+      link: "https://emberjs.com/",
     },
   ],
   backend: [
@@ -776,6 +781,7 @@ export const iconData = {
     },
   ],
 };
+
 
 export const ACTIONS = {
   HYDRATE_STORED_STATE: 'hydrate-stored-state',

@@ -6,7 +6,7 @@ const NextSection = ({ sectionToGoTo }) => {
   const { state, dispatch } = useContext(StateContext);
   return (
     <button
-      className="ml-auto btn-xs btn-gray"
+      className="ml-auto btn-sm btn-brand flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200 hover:scale-105"
       onClick={() => {
         dispatch({
           type: ACTIONS.SHOW_SECTION,
@@ -14,7 +14,7 @@ const NextSection = ({ sectionToGoTo }) => {
         });
       }}
     >
-      Next section
+      <span>Next</span>
       <svg
         className="w-4 h-4"
         fill="none"

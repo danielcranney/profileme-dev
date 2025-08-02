@@ -125,7 +125,7 @@ const initialState = {
   // Socials State
   socials: {
     github: {
-      label: "Github",
+      label: "GitHub",
       path: `${PROJECT_URL}/icons/socials/github.svg`,
       darkPath: `${PROJECT_URL}/icons/socials/github-dark.svg`,
       linkPrefix: "https://www.github.com/",

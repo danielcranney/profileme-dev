@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useRef, useState } from "react";
 import { useTheme } from "next-themes";
 // Import state and actions
-import { ACTIONS } from "./_app";
+import { ACTIONS, SKILL_CATEGORIES } from "./_app";
 import { StateContext, supportStore } from "./_app";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 import { colorStore } from "./_app";
@@ -22,18 +22,9 @@ export default function CreateProfile() {
   const [renderedMarkdown, setRenderedMarkdown] = useState({
     introduction: "",
     skillsTitle: "",
-    skills: {
-      core: [],
-      scripting: [],
-      editors: [],
-      frontend: [],
-      backend: [],
-      software: [],
-      web3: [],
-      cloud: [],
-      cms: [],
-      other: [],
-    },
+    skills: Object.fromEntries(
+      SKILL_CATEGORIES.map((category) => [category.name, []])
+    ),
     socials: {
       behance: "",
       codepen: "",
@@ -43,6 +34,7 @@ export default function CreateProfile() {
       dribbble: "",
       facebook: "",
       github: "",
+      gitlab: "",
       hashnode: "",
       instagram: "",
       linkedin: "",
@@ -72,6 +64,14 @@ export default function CreateProfile() {
       {}
     ),
   });
+
+  const skillsEmpty = Object.keys(state.skills).every(
+    (key) => state.skills[key].length === 0
+  );
+  const markdownSkillsEmpty = Object.keys(renderedMarkdown.skills).every(
+    (key) => renderedMarkdown.skills[key].length === 0
+  );
+
   const [socialsShowing, setSocialsShowing] = useState(false);
   const [badgesShowing, setBadgesShowing] = useState(false);
   const [copySuccess, setCopySuccess] = useState("Copy");
@@ -97,9 +97,11 @@ export default function CreateProfile() {
                   icon.link
                 }" target="_blank" rel="noreferrer"><img src="${
                   theme == "dark" ? icon.darkPath : icon.path
-                }" width="36" height="36" alt="${icon.name}" /></a>`}</>
+                }" width="36" height="36" alt="${icon.name}" title="${
+                  icon.name
+                }"/></a>`}</>
               ) : (
-                <>{`<a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>`}</>
+                <>{`<a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" title="${icon.name}"/></a>`}</>
               )}
             </span>
           </>
@@ -160,17 +162,20 @@ export default function CreateProfile() {
         section.title === "badges" ||
         section.title === "support"
       ) {
-        Object.entries(state[section.title]).forEach((entry) => {
-          const [key, value] = entry;
+        // Add safety check for state[section.title]
+        if (state[section.title]) {
+          Object.entries(state[section.title]).forEach((entry) => {
+            const [key, value] = entry;
 
-          setRenderedMarkdown((renderedMarkdown) => ({
-            ...renderedMarkdown,
-            [section.title]: {
-              ...renderedMarkdown[section.title],
-              [key]: state[section.title][key],
-            },
-          }));
-        });
+            setRenderedMarkdown((renderedMarkdown) => ({
+              ...renderedMarkdown,
+              [section.title]: {
+                ...renderedMarkdown[section.title],
+                [key]: state[section.title][key],
+              },
+            }));
+          });
+        }
       } else {
         let htmlOfElement = section.ref.current.innerHTML;
         setRenderedMarkdown((renderedMarkdown) => ({
@@ -263,10 +268,18 @@ export default function CreateProfile() {
   };
 
   const assembleSupportLink = (key) => {
-    return `${state.support[key].linkPrefix}${state.support[key].linkSuffix}`;
+    if (!state.support || !state.support[key]) {
+      return "";
+    }
+    return `${state.support[key].linkPrefix || ""}${
+      state.support[key].linkSuffix || ""
+    }`;
   };
 
   const getSupportPreviewIMG = (key, value) => {
+    if (!supportStore[key]) {
+      return "";
+    }
     return value?.previewIMG ?? supportStore[key].previewIMG;
   };
 
@@ -308,7 +321,7 @@ export default function CreateProfile() {
     });
   };
 
-  const handleIconToggle = (iconCategory, iconObj, i) => {
+  const handleIconToggle = (iconCategory, iconObj) => {
     const currentIndex = Object.keys(state.skills).reduce(
       (length, iconCategory) => length + state.skills[iconCategory].length,
       0
@@ -343,7 +356,8 @@ export default function CreateProfile() {
       <section
         className={`input-column-wrapper ${
           state.sidebarOpen ? "ml-0 md:ml-64 " : ""
-        }`}>
+        }`}
+      >
         {/* Section Displays */}
         {state.section === "introduction" ? (
           <Introduction ref={introductionAnchorRef} />
@@ -379,23 +393,27 @@ export default function CreateProfile() {
             }}
             className={`btn-sm ${
               state.renderMode === "preview" ? "btn-brand" : "btn-gray"
-            }`}>
+            }`}
+          >
             <svg
               className="w-4 h-4 mr-1"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg">
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
-                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+              ></path>
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
-                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+              ></path>
             </svg>
             Preview
           </button>
@@ -410,18 +428,21 @@ export default function CreateProfile() {
             }}
             className={`btn-sm mr-auto ${
               state.renderMode === "markdown" ? "btn-brand" : "btn-gray"
-            }`}>
+            }`}
+          >
             <svg
               className="w-4 h-4 mr-1"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg">
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth="2"
-                d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                d="M19 14l-7 7m0 0l-7-7m7 7V3"
+              ></path>
             </svg>
             Markdown
           </button>
@@ -440,12 +461,14 @@ export default function CreateProfile() {
                 type: ACTIONS.TOGGLE_COPY_MODAL,
                 payload: true,
               });
-            }}>
+            }}
+          >
             <svg
               className="w-4 h-4 mr-1"
               fill="currentColor"
               viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg">
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"></path>
               <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"></path>
             </svg>
@@ -458,7 +481,8 @@ export default function CreateProfile() {
           id="preview-container"
           className={`${
             state.renderMode === "preview" ? "relative" : "hidden"
-          }`}>
+          }`}
+        >
           {/* Introduce Section Preview */}
           <div
             ref={introductionRef}
@@ -478,7 +502,8 @@ export default function CreateProfile() {
               state.introduction.additionalInfo
                 ? "mb-4"
                 : ""
-            }`}>
+            }`}
+          >
             {!state.introduction.name ? null : (
               <div>
                 {state.introduction.animatedHand == 0 && (
@@ -506,11 +531,13 @@ export default function CreateProfile() {
               <h2>{state.introduction.shortDescription}</h2>
             ) : null}
 
-            {state.introduction.longDescription ? (
-              <p className="whitespace-pre-line">
-                {state.introduction.longDescription}
-              </p>
-            ) : null}
+            {state.introduction.longDescription
+              ? state.introduction.longDescription.split("\n").map((line) => (
+                  <p className="whitespace-pre-line" key={line}>
+                    {line}
+                  </p>
+                ))
+              : null}
 
             <ul
               className={`${
@@ -525,7 +552,8 @@ export default function CreateProfile() {
                 state.introduction.additionalInfo
                   ? "mt-4 "
                   : ""
-              }list-disc list-inside`}>
+              }list-disc list-inside`}
+            >
               {state.introduction.location ? (
                 <li>
                   🌍&nbsp; I&apos;m based in {state.introduction.location}
@@ -538,7 +566,8 @@ export default function CreateProfile() {
                   <a
                     href={`http://${state.introduction.portfolioLink}`}
                     target="_blank"
-                    rel="noreferrer">
+                    rel="noreferrer"
+                  >
                     {state.introduction.portfolioTitle}
                   </a>
                 </li>
@@ -558,7 +587,8 @@ export default function CreateProfile() {
                   <a
                     href={`http://${state.introduction.workingOnLink}`}
                     target="_blank"
-                    rel="noreferrer">
+                    rel="noreferrer"
+                  >
                     {state.introduction.workingOnTitle}
                   </a>
                 </li>
@@ -587,7 +617,8 @@ export default function CreateProfile() {
               state.badges.twitterFollowers.selected
                 ? "mb-4"
                 : "mb-0"
-            }`}>
+            }`}
+          >
             {state.badges.githubFollowers.selected ? (
               <img
                 src={`https://img.shields.io/github/followers/${state.socials.github.linkSuffix}?logo=github&style=for-the-badge&color=${state.badges.cardStyle.iconColor}&labelColor=${state.badges.cardStyle.bgColor}`}
@@ -610,37 +641,16 @@ export default function CreateProfile() {
 
           {/* Skills Section Preview */}
           <div ref={skillsTitleRef} className="flex">
-            {state.skills.core.length === 0 &&
-            state.skills.scripting.length === 0 &&
-            state.skills.editors.length === 0 &&
-            state.skills.frontend.length === 0 &&
-            state.skills.backend.length === 0 &&
-            state.skills.software.length === 0 &&
-            state.skills.web3.length === 0 &&
-            state.skills.cloud.length === 0 &&
-            state.skills.cms.length === 0 &&
-            state.skills.other.length === 0 ? null : (
-              <h3>Skills</h3>
-            )}
+            {skillsEmpty ? null : <h3>Skills</h3>}
           </div>
 
           {/* Skills Section Preview */}
           <div
             ref={skillsRef}
             className={`flex flex-wrap gap-y-1.5 gap-x-1.5 ${
-              state.skills.core.length < 1 &&
-              state.skills.scripting.length < 1 &&
-              state.skills.editors.length < 1 &&
-              state.skills.frontend.length < 1 &&
-              state.skills.backend.length < 1 &&
-              state.skills.software.length < 1 &&
-              state.skills.web3.length < 1 &&
-              state.skills.cloud.length < 1 &&
-              state.skills.cms.length < 1 &&
-              state.skills.other.length < 1
-                ? "mb-0"
-                : "mb-4"
-            }`}>
+              skillsEmpty ? "mb-0" : "mb-4"
+            }`}
+          >
             {/* Icons Display */}
             {Object.values(state.skills).some((arr) => arr.length > 0) ? (
               <div className="flex gap-x-1.5 flex-wrap gap-y-1.5">
@@ -652,7 +662,8 @@ export default function CreateProfile() {
                         <a
                           href={`${icon.link}`}
                           target="_blank"
-                          rel="noreferrer">
+                          rel="noreferrer"
+                        >
                           {icon.darkPath ? (
                             <img
                               src={
@@ -661,6 +672,7 @@ export default function CreateProfile() {
                                   : `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored.svg`
                               }
                               alt={`${icon.name}`}
+                              title={`${icon.name}`}
                               width="36"
                               height="36"
                             />
@@ -668,6 +680,7 @@ export default function CreateProfile() {
                             <img
                               src={`https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored.svg`}
                               alt={`${icon.name}`}
+                              title={`${icon.name}`}
                               width="36"
                               height="36"
                             />
@@ -690,21 +703,27 @@ export default function CreateProfile() {
             ref={socialsRef}
             className={`flex flex-wrap gap-x-2 gap-y-2 ${
               socialsShowing ? "mb-4" : ""
-            }`}>
+            }`}
+          >
             {Object.entries(state.socials).map((profile) => {
               return profile[1].linkSuffix ? (
                 <a
                   key={`${profile[0]}`}
                   target="_blank"
                   rel="noreferrer"
-                  href={`${profile[1].linkPrefix}${profile[1].linkSuffix}${
-                    profile[1].linkSuffixTwo
+                  href={`${profile[1]?.linkPrefix || ""}${
+                    profile[1]?.linkSuffix || ""
+                  }${
+                    profile[1]?.linkSuffixTwo
                       ? `${profile[1].linkSuffixTwo}`
                       : ""
-                  }`}>
+                  }`}
+                >
                   <img
                     height="32"
                     width="32"
+                    alt={`${profile[1].label}`}
+                    title={`${profile[1].label}`}
                     src={
                       profile[1].darkPath
                         ? theme == "dark"
@@ -725,7 +744,8 @@ export default function CreateProfile() {
           {/* Badges Section Preview */}
           <div
             ref={badgesRef}
-            className="flex flex-col items-start gap-x-2 gap-y-2">
+            className="flex flex-col items-start gap-x-2 gap-y-2"
+          >
             {state.badges.githubStatsCard.selected ||
             state.badges.githubCommitsGraph.selected ||
             state.badges.githubStreak.selected ||
@@ -737,7 +757,8 @@ export default function CreateProfile() {
               <a
                 href={`http://www.github.com/${state.socials.github.linkSuffix}`}
                 target="_blank"
-                rel="noreferrer">
+                rel="noreferrer"
+              >
                 <img
                   src={`https://github-readme-stats.vercel.app/api?username=${
                     state.socials.github.linkSuffix
@@ -765,7 +786,8 @@ export default function CreateProfile() {
               <a
                 href={`http://www.github.com/${state.socials.github.linkSuffix}`}
                 target="_blank"
-                rel="noreferrer">
+                rel="noreferrer"
+              >
                 <img
                   src={`https://github-readme-streak-stats.herokuapp.com/?user=${state.socials.github.linkSuffix}&stroke=${state.badges.cardStyle.textColor}&background=${state.badges.cardStyle.bgColor}&ring=${state.badges.cardStyle.titleColor}&fire=${state.badges.cardStyle.titleColor}&currStreakNum=${state.badges.cardStyle.textColor}&currStreakLabel=${state.badges.cardStyle.titleColor}&sideNums=${state.badges.cardStyle.textColor}&sideLabels=${state.badges.cardStyle.textColor}&dates=${state.badges.cardStyle.textColor}&hide_border=true`}
                   className="object-scale-down"
@@ -777,9 +799,10 @@ export default function CreateProfile() {
               <a
                 href={`http://www.github.com/${state.socials.github.linkSuffix}`}
                 target="_blank"
-                rel="noreferrer">
+                rel="noreferrer"
+              >
                 <img
-                  src={`https://github-readme-activity-graph.cyclic.app/graph?username=${state.socials.github.linkSuffix}&bg_color=${state.badges.cardStyle.bgColor}&color=${state.badges.cardStyle.textColor}&line=${state.badges.cardStyle.iconColor}&point=${state.badges.cardStyle.textColor}&area_color=${state.badges.cardStyle.bgColor}&area=true&hide_border=true&custom_title=GitHub%20Commits%20Graph`}
+                  src={`https://github-readme-activity-graph.vercel.app/graph?username=${state.socials.github.linkSuffix}&bg_color=${state.badges.cardStyle.bgColor}&color=${state.badges.cardStyle.textColor}&line=${state.badges.cardStyle.iconColor}&point=${state.badges.cardStyle.textColor}&area_color=${state.badges.cardStyle.bgColor}&area=true&hide_border=true&custom_title=GitHub%20Commits%20Graph`}
                 />
               </a>
             ) : null}
@@ -788,7 +811,8 @@ export default function CreateProfile() {
               <a
                 href={`http://www.github.com/${state.socials.github.linkSuffix}`}
                 target="_blank"
-                rel="noreferrer">
+                rel="noreferrer"
+              >
                 <img
                   src={`https://github-readme-stats.vercel.app/api/top-langs/?username=danielcranney&langs_count=10&title_color=${state.badges.cardStyle.titleColor}&text_color=${state.badges.cardStyle.textColor}&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${state.badges.cardStyle.bgColor}&hide_border=true&locale=en&custom_title=Top%20%Languages`}
                 />
@@ -804,7 +828,8 @@ export default function CreateProfile() {
                     <a
                       href={`https://www.github.com/${state.socials.github.linkSuffix}/${state.badges.reposCard.repoOne}`}
                       target="_blank"
-                      rel="noreferrer">
+                      rel="noreferrer"
+                    >
                       <img
                         src={`https://github-readme-stats.vercel.app/api/pin/?username=${state.socials.github.linkSuffix}&repo=${state.badges.reposCard.repoOne}&title_color=${state.badges.cardStyle.titleColor}&text_color=${state.badges.cardStyle.textColor}&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${state.badges.cardStyle.bgColor}&hide_border=true&locale=en`}
                       />
@@ -819,7 +844,8 @@ export default function CreateProfile() {
                     <a
                       href={`https://www.github.com/${state.socials.github.linkSuffix}/${state.badges.reposCard.repoTwo}`}
                       target="_blank"
-                      rel="noreferrer">
+                      rel="noreferrer"
+                    >
                       <img
                         src={`https://github-readme-stats.vercel.app/api/pin/?username=${state.socials.github.linkSuffix}&repo=${state.badges.reposCard.repoTwo}&title_color=${state.badges.cardStyle.titleColor}&text_color=${state.badges.cardStyle.textColor}&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${state.badges.cardStyle.bgColor}&hide_border=true&locale=en`}
                       />
@@ -830,7 +856,8 @@ export default function CreateProfile() {
                     <a
                       href={`https://www.github.com/${state.socials.github.linkSuffix}/${state.badges.reposCard.repoThree}`}
                       target="_blank"
-                      rel="noreferrer">
+                      rel="noreferrer"
+                    >
                       <img
                         src={`https://github-readme-stats.vercel.app/api/pin/?username=${state.socials.github.linkSuffix}&repo=${state.badges.reposCard.repoThree}&title_color=${state.badges.cardStyle.titleColor}&text_color=${state.badges.cardStyle.textColor}&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${state.badges.cardStyle.bgColor}&hide_border=true&locale=en`}
                       />
@@ -841,7 +868,8 @@ export default function CreateProfile() {
                     <a
                       href={`https://www.github.com/${state.socials.github.linkSuffix}/${state.badges.reposCard.repoFour}`}
                       target="_blank"
-                      rel="noreferrer">
+                      rel="noreferrer"
+                    >
                       <img
                         src={`https://github-readme-stats.vercel.app/api/pin/?username=${state.socials.github.linkSuffix}&repo=${state.badges.reposCard.repoFour}&title_color=${state.badges.cardStyle.titleColor}&text_color=${state.badges.cardStyle.textColor}&icon_color=${state.badges.cardStyle.iconColor}&bg_color=${state.badges.cardStyle.bgColor}&hide_border=true&locale=en`}
                       />
@@ -856,7 +884,8 @@ export default function CreateProfile() {
             ref={supportRef}
             className={`flex flex-col gap-x-2 gap-y-2 ${
               !!withSupport ? "mt-4" : ""
-            }`}>
+            }`}
+          >
             {!!withSupport && (
               <>
                 <h3>Support</h3>
@@ -866,7 +895,8 @@ export default function CreateProfile() {
                       value && value.linkSuffix ? (
                         <li
                           className="inline-block p-1"
-                          key={assembleSupportLink(key)}>
+                          key={assembleSupportLink(key)}
+                        >
                           <a href={assembleSupportLink(key)}>
                             <img
                               src={getSupportPreviewIMG(key, value)}
@@ -889,7 +919,8 @@ export default function CreateProfile() {
           ref={markdownRef}
           className={`${
             state.renderMode === "markdown" ? "relative" : "hidden"
-          }`}>
+          }`}
+        >
           {!renderedMarkdown ? (
             <div>You have not rendered any code yet</div>
           ) : (
@@ -902,21 +933,43 @@ export default function CreateProfile() {
 
               {!renderedMarkdown.badges.githubFollowers.selected ? null : (
                 <span className="text-xs break-all whitespace-pre-line">
-                  {`<a href="${state.socials.github.linkPrefix}${state.socials.github.linkSuffix}" target="_blank" rel="noreferrer"><img
-                  src="https://img.shields.io/github/followers/${state.socials.github.linkSuffix}?logo=github&style=for-the-badge&color=${state.badges.cardStyle.iconColor}&labelColor=${state.badges.cardStyle.bgColor}" /></a>`}
+                  {`<a href="${state.socials?.github?.linkPrefix || ""}${
+                    state.socials?.github?.linkSuffix || ""
+                  }" target="_blank" rel="noreferrer"><img
+                  src="https://img.shields.io/github/followers/${
+                    state.socials?.github?.linkSuffix || ""
+                  }?logo=github&style=for-the-badge&color=${
+                    state.badges?.cardStyle?.iconColor || ""
+                  }&labelColor=${
+                    state.badges?.cardStyle?.bgColor || ""
+                  }" /></a>`}
                 </span>
               )}
               {!renderedMarkdown.badges.twitterFollowers.selected ? null : (
                 <span className="text-xs break-all whitespace-pre-line">
-                  {`<a href="${state.socials.twitter.linkPrefix}${state.socials.twitter.linkSuffix}" target="_blank" rel="noreferrer"><img
-                  src="https://img.shields.io/twitter/follow/${state.socials.twitter.linkSuffix}?logo=twitter&style=for-the-badge&color=${state.badges.cardStyle.iconColor}&labelColor=${state.badges.cardStyle.bgColor}"
+                  {`<a href="${state.socials?.twitter?.linkPrefix || ""}${
+                    state.socials?.twitter?.linkSuffix || ""
+                  }" target="_blank" rel="noreferrer"><img
+                  src="https://img.shields.io/twitter/follow/${
+                    state.socials?.twitter?.linkSuffix || ""
+                  }?logo=twitter&style=for-the-badge&color=${
+                    state.badges?.cardStyle?.iconColor || ""
+                  }&labelColor=${state.badges?.cardStyle?.bgColor || ""}"
                 /></a>`}
                 </span>
               )}
               {!renderedMarkdown.badges.twitchStatus.selected ? null : (
                 <span className="text-xs break-all whitespace-pre-line">
-                  {`<a href="${state.socials.twitch.linkPrefix}${state.socials.twitch.linkSuffix}" target="_blank" rel="noreferrer"><img
-                  src="https://img.shields.io/twitch/status/${state.socials.twitch.linkSuffix}?logo=twitchsx&style=for-the-badge&color=${state.badges.cardStyle.iconColor}&labelColor=${state.badges.cardStyle.bgColor}&label=TWITCH+STATUS" /></a>`}
+                  {`<a href="${state.socials?.twitch?.linkPrefix || ""}${
+                    state.socials?.twitch?.linkSuffix || ""
+                  }" target="_blank" rel="noreferrer"><img
+                  src="https://img.shields.io/twitch/status/${
+                    state.socials?.twitch?.linkSuffix || ""
+                  }?logo=twitchsx&style=for-the-badge&color=${
+                    state.badges?.cardStyle?.iconColor || ""
+                  }&labelColor=${
+                    state.badges?.cardStyle?.bgColor || ""
+                  }&label=TWITCH+STATUS" /></a>`}
                 </span>
               )}
 
@@ -925,68 +978,17 @@ export default function CreateProfile() {
               ) : null}
 
               <div className="break-all whitespace-pre-line">
-                {renderedMarkdown.skills.core.length < 1 &&
-                renderedMarkdown.skills.scripting.length < 1 &&
-                renderedMarkdown.skills.editors.length < 1 &&
-                renderedMarkdown.skills.frontend.length < 1 &&
-                renderedMarkdown.skills.backend.length < 1 &&
-                renderedMarkdown.skills.other.length < 1 &&
-                renderedMarkdown.skills.software.length < 1 &&
-                renderedMarkdown.skills.web3.length < 1 &&
-                renderedMarkdown.skills.cms.length < 1 ? null : (
+                {markdownSkillsEmpty ? null : (
                   <span>{`<p align="left">\n`}</span>
                 )}
 
-                {renderedMarkdown.skills.core.length > 0
-                  ? build_markdown_skill(renderedMarkdown.skills.core)
-                  : null}
+                {Object.keys(renderedMarkdown.skills).map((category) =>
+                  renderedMarkdown.skills[category].length > 0
+                    ? build_markdown_skill(renderedMarkdown.skills[category])
+                    : null
+                )}
 
-                {renderedMarkdown.skills.scripting.length > 0
-                  ? build_markdown_skill(renderedMarkdown.skills.scripting)
-                  : null}
-
-                {renderedMarkdown.skills.editors.length > 0
-                  ? build_markdown_skill(renderedMarkdown.skills.editors)
-                  : null}
-
-                {renderedMarkdown.skills.frontend.length > 0
-                  ? build_markdown_skill(renderedMarkdown.skills.frontend)
-                  : null}
-
-                {renderedMarkdown.skills.backend.length > 0
-                  ? build_markdown_skill(renderedMarkdown.skills.backend)
-                  : null}
-
-                {renderedMarkdown.skills.software.length > 0
-                  ? build_markdown_skill(renderedMarkdown.skills.software)
-                  : null}
-
-                {renderedMarkdown.skills.web3.length > 0
-                  ? build_markdown_skill(renderedMarkdown.skills.web3)
-                  : null}
-
-                {renderedMarkdown.skills.cloud.length > 0
-                  ? build_markdown_skill(renderedMarkdown.skills.cloud)
-                  : null}
-
-                {renderedMarkdown.skills.cms.length > 0
-                  ? build_markdown_skill(renderedMarkdown.skills.cms)
-                  : null}
-
-                {renderedMarkdown.skills.other.length > 0
-                  ? build_markdown_skill(renderedMarkdown.skills.other)
-                  : null}
-
-                {renderedMarkdown.skills.core.length < 1 &&
-                renderedMarkdown.skills.scripting.length < 1 &&
-                renderedMarkdown.skills.editors.length < 1 &&
-                renderedMarkdown.skills.frontend.length < 1 &&
-                renderedMarkdown.skills.backend.length < 1 &&
-                renderedMarkdown.skills.software.length < 1 &&
-                renderedMarkdown.skills.web3.length < 1 &&
-                renderedMarkdown.skills.cloud.length < 1 &&
-                renderedMarkdown.skills.cms.length < 1 &&
-                renderedMarkdown.skills.other.length < 1 ? null : (
+                {markdownSkillsEmpty ? null : (
                   <span>{`
                     </p>
                     `}</span>
@@ -1008,17 +1010,25 @@ export default function CreateProfile() {
                 return profile[1].linkSuffix ? (
                   <span key={`profile-${profile[0]}`}>
                     {`
-                      <a href="${profile[1].linkPrefix}${
-                      profile[1].linkSuffix
+                      <a href="${profile[1]?.linkPrefix || ""}${
+                      profile[1]?.linkSuffix || ""
                     }${
-                      profile[1].linkSuffixTwo
+                      profile[1]?.linkSuffixTwo
                         ? `${profile[1].linkSuffixTwo}`
                         : ""
                     }" target="_blank" rel="noreferrer">
                     <picture>
-                    <source media="(prefers-color-scheme: dark)" srcset="${`${profile[1].darkPath}`}" />
-                    <source media="(prefers-color-scheme: light)" srcset="${`${profile[1].path}`}" />
-                    <img src="${`${profile[1].path}`}" width="32" height="32" />
+                    <source media="(prefers-color-scheme: dark)" srcset="${`${
+                      profile[1]?.darkPath || ""
+                    }`}" />
+                    <source media="(prefers-color-scheme: light)" srcset="${`${
+                      profile[1]?.path || ""
+                    }`}" />
+                    <img src="${`${
+                      profile[1]?.path || ""
+                    }`}" width="32" height="32" alt="${
+                      profile[1]?.label || ""
+                    }" title="${profile[1]?.label || ""}" />
                     </picture>
                     </a>`}
                   </span>
@@ -1072,12 +1082,12 @@ export default function CreateProfile() {
                 </p>
               )}
 
-              {!renderedMarkdown.badges.githubCommitsGraph.selected ? null : (
+              {/* {!renderedMarkdown.badges.githubCommitsGraph.selected ? null : (
                 <p className="mb-0 break-all">
                   {`<a
-                      href="http://www.github.com/${state.socials.github.linkSuffix}"><img src="https://github-readme-activity-graph.cyclic.app/graph?username=${state.socials.github.linkSuffix}&bg_color=${state.badges.cardStyle.bgColor}&color=${state.badges.cardStyle.textColor}&line=${state.badges.cardStyle.iconColor}&point=${state.badges.cardStyle.textColor}&area_color=${state.badges.cardStyle.bgColor}&area=true&hide_border=true&custom_title=GitHub%20Commits%20Graph" alt="GitHub Commits Graph" /></a>`}
+                      href="http://www.github.com/${state.socials.github.linkSuffix}"><img src="https://github-readme-activity-graph.vercel.app/graph?username=${state.socials.github.linkSuffix}&bg_color=${state.badges.cardStyle.bgColor}&color=${state.badges.cardStyle.textColor}&line=${state.badges.cardStyle.iconColor}&point=${state.badges.cardStyle.textColor}&area_color=${state.badges.cardStyle.bgColor}&area=true&hide_border=true&custom_title=GitHub%20Commits%20Graph" alt="GitHub Commits Graph" /></a>`}
                 </p>
-              )}
+              )} */}
 
               {!renderedMarkdown.badges.topLangsCard.selected ? null : (
                 <p className="mb-0 break-all whitespace-pre-line">

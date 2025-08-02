@@ -36,10 +36,10 @@ Table Of Contents:
 /**************************/
 @layer base {
   body {
-    @apply min-h-screen bg-dark-900 transition-all duration-150 ease-in-out;
+    @apply bg-dark-900 min-h-screen transition-all duration-150 ease-in-out;
   }
   * {
-    @apply antialiased box-border;
+    @apply box-border antialiased;
   }
 }
 
@@ -78,10 +78,10 @@ Table Of Contents:
     dark:text-dark-300 text-dark-600 transition-all duration-150 ease-in-out;
   }
   a {
-    @apply text-brand hover:cursor-pointer underline font-semibold dark:hover:text-white transition-all duration-150 ease-in-out hover:text-dark-700;
+    @apply font-semibold text-brand hover:text-dark-700 dark:hover:text-white underline transition-all duration-150 ease-in-out hover:cursor-pointer;
   }
   li {
-    @apply dark:text-dark-300 text-dark-600 transition-all duration-150 ease-in-out;
+    @apply text-dark-600 dark:text-dark-300 transition-all duration-150 ease-in-out;
   }
 }
 
@@ -94,10 +94,10 @@ Table Of Contents:
   }
 
   .menu > li {
-    @apply flex items-center hover:cursor-pointer overflow-hidden transition-all duration-150 ease-in-out;
+    @apply flex items-center overflow-hidden transition-all duration-150 ease-in-out hover:cursor-pointer;
   }
-  .menu > li > span {
-    @apply border-l-4 h-full flex items-center px-6 py-3 transition-all duration-150 ease-in-out font-semibold uppercase tracking-wide text-xs;
+  .menu > li > button {
+    @apply flex items-center px-6 py-3 border-l-4 h-full font-semibold text-xs uppercase tracking-wide transition-all duration-150 ease-in-out;
   }
 }
 
@@ -118,31 +118,31 @@ Table Of Contents:
 /**************************/
 @layer base {
   header {
-    @apply fixed z-20 flex items-center w-full h-16 border-b md:relative dark:bg-dark-800 dark:border-dark-600 bg-white border-light-200 transition-all duration-150 ease-in-out;
+    @apply z-20 fixed md:relative flex items-center bg-white dark:bg-dark-800 dark:border-dark-600 border-b border-light-200 w-full h-16 transition-all duration-150 ease-in-out;
   }
 
   main {
-    @apply relative flex flex-col flex-1 md:overflow-hidden md:flex-row top-16 md:top-0;
+    @apply top-16 md:top-0 relative flex md:flex-row flex-col flex-1 md:overflow-hidden;
   }
 
   aside {
-    @apply fixed left-0 z-30 flex flex-col w-full h-full pb-6 pt-20 bg-dark-700 dark:bg-dark-700 border-t-0 border-b border-r-0 dark:border-dark-600 border-light-200 md:flex-grow md:border-b-0 transform transition-all duration-150 ease-in-out overflow-hidden md:w-64 top-0;
+    @apply top-0 left-0 z-30 fixed flex flex-col md:flex-grow bg-dark-700 dark:bg-dark-700 pt-20 pb-6 dark:border-dark-600 border-t-0 border-r-0 border-b md:border-b-0 border-light-200 w-full md:w-64 h-full overflow-hidden transition-all duration-150 ease-in-out transform;
   }
 
   .section-header-wrapper {
-    @apply relative flex flex-col p-6 border-b dark:bg-dark-800 dark:border-dark-600 bg-white border-light-200 md:border-t-0 transition-all duration-150 ease-in-out;
+    @apply relative flex flex-col bg-white dark:bg-dark-800 p-6 dark:border-dark-600 md:border-t-0 border-b border-light-200 transition-all duration-150 ease-in-out;
   }
 
   .input-column-wrapper {
-    @apply flex flex-col flex-1 border-r-0 md:border-r dark:border-dark-600 dark:bg-dark-800 bg-white border-light-200 transition-all duration-150 ease-in-out;
+    @apply flex flex-col flex-1 bg-white dark:bg-dark-800 dark:border-dark-600 border-r-0 md:border-r border-light-200 transition-all duration-150 ease-in-out;
   }
 
   .preview-column-wrapper {
-    @apply relative flex flex-col flex-1 border-t dark:bg-dark-800 dark:border-dark-600 bg-light-100 border-light-200 md:border-t-0 transition-all duration-150 ease-in-out;
+    @apply relative flex flex-col flex-1 bg-light-100 dark:bg-dark-800 dark:border-dark-600 border-t md:border-t-0 border-light-200 transition-all duration-150 ease-in-out;
   }
 
   .preview-column-wrapper .buttons-wrapper {
-    @apply relative p-6 gap-x-2 flex w-full dark:bg-dark-900 dark:border-dark-600 bg-light-100 border-light-200 transition-all duration-150 ease-in-out;
+    @apply relative flex gap-x-2 bg-light-100 dark:bg-dark-900 p-6 dark:border-dark-600 border-light-200 w-full transition-all duration-150 ease-in-out;
   }
 }
 
@@ -151,23 +151,23 @@ Table Of Contents:
 /*****************************/
 @layer components {
   .btn-xs {
-    @apply flex items-center px-2.5 py-2 text-xs font-semibold transition-all duration-150 ease-in-out rounded-md no-underline;
+    @apply flex items-center px-2.5 py-2 rounded-md font-semibold text-xs no-underline transition-all duration-150 ease-in-out;
   }
 
   .btn-sm {
-    @apply flex items-center px-3 py-2.5 text-xs font-semibold uppercase transition-all duration-150 ease-in-out rounded-md no-underline;
+    @apply flex items-center px-3 py-2.5 rounded-md font-semibold text-xs no-underline uppercase transition-all duration-150 ease-in-out;
   }
 
   .btn-md {
-    @apply flex items-center px-3 py-3 text-xs font-semibold uppercase transition-all duration-150 ease-in-out rounded-md no-underline;
+    @apply flex items-center px-3 py-3 rounded-md font-semibold text-xs no-underline uppercase transition-all duration-150 ease-in-out;
   }
 
   .btn-lg {
-    @apply flex items-center px-5 py-4 text-sm tracking-wider font-semibold uppercase transition-all duration-150 ease-in-out rounded-md no-underline;
+    @apply flex items-center px-5 py-4 rounded-md font-semibold text-sm no-underline uppercase tracking-wider transition-all duration-150 ease-in-out;
   }
 
   .btn-square {
-    @apply flex items-center justify-center h-9 w-6 transition-all duration-150 ease-in-out rounded-md;
+    @apply flex justify-center items-center rounded-md w-6 h-9 transition-all duration-150 ease-in-out;
   }
 }
 
@@ -185,7 +185,7 @@ Table Of Contents:
   }
 
   .btn-gray-outline {
-    @apply border border-light-200 dark:border-dark-600;
+    @apply border dark:border-dark-600 border-light-200;
   }
 
   .btn-trans {
@@ -201,7 +201,7 @@ Table Of Contents:
 /***********************/
 @layer components {
   .form-label {
-    @apply flex items-center text-xs dark:text-white text-dark-700 font-semibold uppercase mb-2 self-start transition-all duration-150 ease-in-out;
+    @apply flex items-center self-start mb-2 font-semibold text-dark-700 dark:text-white text-xs uppercase transition-all duration-150 ease-in-out;
   }
 
   .input-field {
@@ -254,7 +254,7 @@ Table Of Contents:
 /***************************/
 @layer base {
   #preview-container {
-    @apply px-6 pb-6 h-full overflow-y-auto dark:bg-dark-900 bg-light-100 dark:text-dark-300 transition-all duration-150 ease-in-out;
+    @apply bg-light-100 dark:bg-dark-900 px-6 pb-6 h-full overflow-y-auto dark:text-dark-300 transition-all duration-150 ease-in-out;
   }
 
   #preview-container p {
@@ -262,7 +262,7 @@ Table Of Contents:
   }
 
   #markdown-container {
-    @apply px-6 pb-6 overflow-y-auto h-full dark:bg-dark-900 bg-light-100 text-xs font-code text-dark-500 dark:text-dark-300 transition-all duration-150 ease-in-out;
+    @apply bg-light-100 dark:bg-dark-900 px-6 pb-6 h-full overflow-y-auto font-code text-dark-500 dark:text-dark-300 text-xs transition-all duration-150 ease-in-out;
   }
 }
 
@@ -270,6 +270,12 @@ Table Of Contents:
 /*     Custom Dev Icons     */
 /****************************/
 @layer utilities {
+  /* Constrain the size of the icons to ensure they do not overspill */
+  .icon-bg {
+    background-size: contain !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+  }
   .c {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/c.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/c-dark.svg')];
   }
@@ -329,6 +335,12 @@ Table Of Contents:
   }
   .kotlin.colored {
     @apply bg-[url('https://gist.github.com/Dhina17/580adb1a05113ea4e7dc4fb346a657dc/raw/7c6ac7a7e0ebdd2886340a1ffbb2cc31e2d20a30/kotlin-colored.svg')];
+  }
+  .lua {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/lua.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/lua-dark.svg')];
+  }
+  .lua.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/lua-colored.svg')];
   }
   .perl {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/perl.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/perl-dark.svg')];
@@ -499,6 +511,12 @@ Table Of Contents:
   .remix.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/remix-colored.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/remix-colored-dark.svg')];
   }
+  .emberjs {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/emberjs.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/emberjs-dark.svg')];
+  }
+  .emberjs.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/emberjs-colored.svg')];
+  }
   /** Scripting Icons **/
   .gnubash {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/gnubash.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/gnubash-dark.svg')];
@@ -518,6 +536,12 @@ Table Of Contents:
   }
   .express.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/express-colored.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/express-colored-dark.svg')];
+  }
+  .springboot {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/springboot.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/springboot-dark.svg')];
+  }
+  .springboot.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/springboot-colored.svg')];
   }
   .graphql {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/graphql.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/graphql-dark.svg')];
@@ -598,11 +622,20 @@ Table Of Contents:
   .vim.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/vim-colored.svg')];
   }
+  .linux {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/linux.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/linux-dark.svg')];
+  }
   .neovim {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/neovim.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/neovim-dark.svg')];
   }
   .neovim.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/neovim-colored.svg')];
+  }
+  .emacs {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/emacs.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/emacs-dark.svg')];
+  }
+  .emacs.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/emacs-colored.svg')];
   }
   .sublimetext {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/sublimetext.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/sublimetext-dark.svg')];
@@ -751,6 +784,12 @@ Table Of Contents:
   .truffle.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/truffle-colored.svg')];
   }
+  .springboot {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/spring-boot.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/spring-boot-dark.svg')];
+  }
+  .springboot.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/spring-boot-colored.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/spring-boot-colored.svg')];
+  }
   .ipfs {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/ipfs.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/ipfs-dark.svg')];
   }
@@ -829,6 +868,124 @@ Table Of Contents:
   }
   .azure.colored {
     @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/azure-colored.svg')];
+  }
+  .framer.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/framer-colored.svg')];
+  }
+  .squarespace {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/squarespace.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/squarespace-dark.svg')];
+  }
+  .squarespace.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/squarespace-colored.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/squarespace-colored-dark.svg')];
+  }
+  .wix {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/wix.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/wix-dark.svg')];
+  }
+  .wix.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/wix-colored.svg')];
+  }
+  .wordpress {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/wordpress.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/wordpress-dark.svg')];
+  }
+  .wordpress.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/wordpress-colored.svg')];
+  }
+  .webflow {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/webflow.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/webflow-dark.svg')];
+  }
+  .webflow.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/webflow-colored.svg')];
+  }
+  /** Other icons **/
+  .dot-net {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/dot-net.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/dot-net-dark.svg')];
+  }
+  .dot-net.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/dot-net-colored.svg')];
+  }
+  .django {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/django.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/django-dark.svg')];
+  }
+  .django.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/django-colored.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/django-colored-dark.svg')];
+  }
+  .laravel {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/laravel.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/laravel-dark.svg')];
+  }
+  .laravel.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/laravel-colored.svg')];
+  }
+  .flutter {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/flutter.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/flutter-dark.svg')];
+  }
+  .flutter.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/flutter-colored.svg')];
+  }
+  .aws {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/aws.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/aws-dark.svg')];
+  }
+  .aws.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/aws-colored.svg')];
+  }
+  .arduino {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/arduino.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/arduino-dark.svg')];
+  }
+  .arduino.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/arduino-colored.svg')];
+  }
+  .blender {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/blender.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/blender-dark.svg')];
+  }
+  .blender.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/blender-colored.svg')];
+  }
+  .digitalocean {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/digitalocean.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/digitalocean-dark.svg')];
+  }
+  .digitalocean.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/digitalocean-colored.svg')];
+  }
+  .docker {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/docker.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/docker-dark.svg')];
+  }
+  .docker.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/docker-colored.svg')];
+  }
+  .linux {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/linux.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/linux-dark.svg')];
+  }
+  .linux.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/linux-colored.svg')];
+  }
+  .macos {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/macos.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/macos-dark.svg')];
+  }
+  .macos.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/macos-colored.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/macos-colored-dark.svg')];
+  }
+  .pytorch {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/pytorch.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/pytorch-dark.svg')];
+  }
+  .pytorch.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/pytorch-colored.svg')];
+  }
+  .raspberrypi {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/raspberrypi.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/raspberrypi-dark.svg')];
+  }
+  .raspberrypi.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/raspberrypi-colored.svg')];
+  }
+  .tensorflow {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/tensorflow.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/tensorflow-dark.svg')];
+  }
+  .tensorflow.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/tensorflow-colored.svg')];
+  }
+  .kubernetes {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/kubernetes.svg')] dark:bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/kubernetes-dark.svg')];
+  }
+  .kubernetes.colored {
+    @apply bg-[url('https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/kubernetes-colored.svg')];
   }
 }
 

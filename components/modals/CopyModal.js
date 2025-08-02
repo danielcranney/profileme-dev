@@ -6,7 +6,7 @@ import Image from "next/image";
 const CopyModal = () => {
   const { dispatch } = useContext(StateContext);
   return (
-    <div className="fixed z-50 flex flex-col flex-grow overflow-hidden transform -translate-x-1/2 -translate-y-1/2 p-6 bg-white border-0 rounded-sm shadow-md w-4/10 dark:bg-dark-800 md:mx-0 md:top-1/2 md:left-1/2 top-1/2 left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-11/12 lg:w-2/3 xl:w-3/5 gap-y-5 border-t-8 border-brand">
+    <div className="fixed z-50 flex flex-col flex-grow overflow-hidden transform -translate-x-1/2 -translate-y-1/2 p-6 bg-white border-0 rounded-sm shadow-md w-4/10 dark:bg-dark-800 md:mx-0 md:top-1/2 md:left-1/2 top-1/2 left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-11/12 lg:w-2/3 xl:w-4/5 gap-y-5 border-t-8 border-brand">
       <div className="flex items-center w-full">
         <h1
           className={`mb-0 text-lg sm:text-xl transition-all duration-150 ease-in-out text-dark-900 dark:text-white`}
@@ -72,6 +72,29 @@ const CopyModal = () => {
               Click &apos;Commit Changes&apos; to save your new GitHub profile.
             </li>
           </ul>
+          <a
+            className="transition-all duration-150 ease-in-out btn-gray btn-sm sm:btn-sm tracking-wide self-start mt-4"
+            href="https://github.com/sponsors/danielcranney"
+            rel="noreferrer"
+            target="_blank"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-4 h-4 mr-2 icon icon-tabler icon-tabler-heart"
+              width="32"
+              height="32"
+              viewBox="0 0 24 24"
+              strokeWidth="2"
+              stroke="currentColor"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+              <path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572"></path>
+            </svg>
+            Sponsor Project
+          </a>
         </div>
         <div className="w-full md:w-1/2 flex-col hidden md:flex">
           <Image

@@ -12,7 +12,7 @@ const MenuItem = ({ text, section, icon }) => {
     <li
       className="group"
       onClick={() => {
-        console.log("Pathname is: " + router.pathname);
+        // console.log("Pathname is: " + router.pathname);
         if (router.pathname !== "/create-profile") {
           router.push("/");
         }
@@ -28,7 +28,7 @@ const MenuItem = ({ text, section, icon }) => {
         });
       }}
     >
-      <span
+      <button
         className={`flex items-center w-full transition-all duration-150 ease-in-out ${
           state.section === section
             ? "border-brand text-white bg-dark-800/40 dark:bg-dark-500/20 opacity-100"
@@ -37,7 +37,7 @@ const MenuItem = ({ text, section, icon }) => {
       >
         {icon}
         {text}
-      </span>
+      </button>
     </li>
   );
 };

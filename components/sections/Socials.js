@@ -18,6 +18,7 @@ const Socials = React.forwardRef((props, ref) => {
   const dribbbleRef = useRef();
   const facebookRef = useRef();
   const githubRef = useRef();
+  const gitlabRef = useRef();
   const hashnodeRef = useRef();
   const polyworkRef = useRef();
   const instagramRef = useRef();
@@ -25,6 +26,7 @@ const Socials = React.forwardRef((props, ref) => {
   const mediumRef = useRef();
   const rssRef = useRef();
   const stackoverflowRef = useRef();
+  const threadsRef = useRef();
   const twitchRef = useRef();
   const twitterRef = useRef();
   const youtubeRef = useRef();
@@ -55,14 +57,36 @@ const Socials = React.forwardRef((props, ref) => {
             action={ACTIONS.ADD_SOCIAL_PROFILE}
           />
 
+          {/* GitLab Input */}
+          <SocialItem
+            ref={gitlabRef}
+            section={"socials"}
+            account={"gitlab"}
+            inputPlaceholder={"yourname"}
+            formLabelText={"GitLab profile:"}
+            linkPrefix={state.socials.gitlab.linkPrefix}
+            action={ACTIONS.ADD_SOCIAL_PROFILE}
+          />
+
           {/* Twitter Input */}
           <SocialItem
             ref={twitterRef}
             section={"socials"}
             account={"twitter"}
             inputPlaceholder={"yourname"}
-            formLabelText={"Twitter profile:"}
+            formLabelText={"X profile:"}
             linkPrefix={state.socials.twitter.linkPrefix}
+            action={ACTIONS.ADD_SOCIAL_PROFILE}
+          />
+
+          {/* Threads Input */}
+          <SocialItem
+            ref={threadsRef}
+            section={"socials"}
+            account={"threads"}
+            inputPlaceholder={"yourname"}
+            formLabelText={"Threads profile:"}
+            linkPrefix={state.socials.threads.linkPrefix}
             action={ACTIONS.ADD_SOCIAL_PROFILE}
           />
 
@@ -146,7 +170,7 @@ const Socials = React.forwardRef((props, ref) => {
             ref={youtubeRef}
             section={"socials"}
             account={"youtube"}
-            inputPlaceholder={"yourname"}
+            inputPlaceholder={"yourhandle"}
             formLabelText={"YouTube channel:"}
             linkPrefix={state.socials.youtube.linkPrefix}
             action={ACTIONS.ADD_SOCIAL_PROFILE}

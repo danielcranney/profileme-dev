@@ -44,14 +44,15 @@ const Introduction = React.forwardRef((props, ref) => {
             type={"name"}
             inputPlaceholder={"Peter Parker"}
           />
-           {/* Animated Hand */}
-           <IntroItem ref={animatedHandRef}
-                      formLabelText={'Waving Hand Animation?'}
-                      section={'introduction'}
-                      type={'animatedHand'}
-                      dropdown={true}
-                      inputPlaceholder={'No'}
-           />
+          {/* Animated Hand */}
+          <IntroItem
+            ref={animatedHandRef}
+            formLabelText={"Waving Hand Animation?"}
+            section={"introduction"}
+            type={"animatedHand"}
+            dropdown={true}
+            inputPlaceholder={"No"}
+          />
           {/* Short Description */}
           <IntroItem
             ref={shortDescriptionRef}
@@ -124,7 +125,7 @@ const Introduction = React.forwardRef((props, ref) => {
               section={"introduction"}
               type={"workingOnLink"}
               linkPrefix={"http://"}
-              inputPlaceholder={"myapp.com"}
+              inputPlaceholder={"(s)://myapp.com"}
             />
           </article>
 

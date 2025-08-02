@@ -1,11 +1,10 @@
 import React, { useEffect, useContext, useRef, useState } from "react";
 import { useTheme } from "next-themes";
 // Import state and actions
-import { ACTIONS } from "./_app";
-import { StateContext } from "./_app";
+import { ACTIONS, SKILL_CATEGORIES } from "./_app";
+import { StateContext, supportStore } from "./_app";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 import { colorStore } from "./_app";
-
 let TurndownService = require("turndown").default;
 // Import components
 import Introduction from "../components/sections/Introduction";
@@ -19,17 +18,13 @@ export default function CreateProfile() {
   const { state, dispatch } = useContext(StateContext);
   const [mounted, setMounted] = useState(false);
   const { systemTheme, theme, setTheme } = useTheme();
+  const currentTheme = theme === "system" ? systemTheme : theme;
   const [renderedMarkdown, setRenderedMarkdown] = useState({
     introduction: "",
     skillsTitle: "",
-    skills: {
-      core: [],
-      frontend: [],
-      backend: [],
-      other: [],
-      software: [],
-      web3: [],
-    },
+    skills: Object.fromEntries(
+      SKILL_CATEGORIES.map((category) => [category.name, []])
+    ),
     socials: {
       behance: "",
       codepen: "",
@@ -39,6 +34,7 @@ export default function CreateProfile() {
       dribbble: "",
       facebook: "",
       github: "",
+      gitlab: "",
       hashnode: "",
       instagram: "",
       linkedin: "",
@@ -60,13 +56,59 @@ export default function CreateProfile() {
       topLangsCard: false,
       reposCard: false,
     },
-    support: {
-      buymeacoffee: "",
-    },
+    support: Object.keys(supportStore).reduce(
+      (obj, key) => ({
+        ...obj,
+        [key]: "",
+      }),
+      {}
+    ),
   });
+
+  const skillsEmpty = Object.keys(state.skills).every(
+    (key) => state.skills[key].length === 0
+  );
+  const markdownSkillsEmpty = Object.keys(renderedMarkdown.skills).every(
+    (key) => renderedMarkdown.skills[key].length === 0
+  );
+
   const [socialsShowing, setSocialsShowing] = useState(false);
   const [badgesShowing, setBadgesShowing] = useState(false);
   const [copySuccess, setCopySuccess] = useState("Copy");
+  const withSupport =
+    state && state.support
+      ? Object.values(state.support).some(
+          (value) =>
+            value &&
+            value.linkSuffix !== undefined &&
+            value.linkSuffix !== null &&
+            value.linkSuffix !== ""
+        )
+      : false;
+
+  function build_markdown_skill(category) {
+    return (
+      <>
+        {category.map((icon) => (
+          <>
+            <span key={`${icon.path}`}>
+              {icon.darkPath ? (
+                <>{`<a href="${
+                  icon.link
+                }" target="_blank" rel="noreferrer"><img src="${
+                  theme == "dark" ? icon.darkPath : icon.path
+                }" width="36" height="36" alt="${icon.name}" title="${
+                  icon.name
+                }"/></a>`}</>
+              ) : (
+                <>{`<a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" title="${icon.name}"/></a>`}</>
+              )}
+            </span>
+          </>
+        ))}
+      </>
+    );
+  }
 
   // Section Refs
   const introductionRef = useRef(null);
@@ -120,17 +162,20 @@ export default function CreateProfile() {
         section.title === "badges" ||
         section.title === "support"
       ) {
-        Object.entries(state[section.title]).forEach((entry) => {
-          const [key, value] = entry;
+        // Add safety check for state[section.title]
+        if (state[section.title]) {
+          Object.entries(state[section.title]).forEach((entry) => {
+            const [key, value] = entry;
 
-          setRenderedMarkdown((renderedMarkdown) => ({
-            ...renderedMarkdown,
-            [section.title]: {
-              ...renderedMarkdown[section.title],
-              [key]: state[section.title][key],
-            },
-          }));
-        });
+            setRenderedMarkdown((renderedMarkdown) => ({
+              ...renderedMarkdown,
+              [section.title]: {
+                ...renderedMarkdown[section.title],
+                [key]: state[section.title][key],
+              },
+            }));
+          });
+        }
       } else {
         let htmlOfElement = section.ref.current.innerHTML;
         setRenderedMarkdown((renderedMarkdown) => ({
@@ -222,6 +267,22 @@ export default function CreateProfile() {
     }
   };
 
+  const assembleSupportLink = (key) => {
+    if (!state.support || !state.support[key]) {
+      return "";
+    }
+    return `${state.support[key].linkPrefix || ""}${
+      state.support[key].linkSuffix || ""
+    }`;
+  };
+
+  const getSupportPreviewIMG = (key, value) => {
+    if (!supportStore[key]) {
+      return "";
+    }
+    return value?.previewIMG ?? supportStore[key].previewIMG;
+  };
+
   const handleBadgeToggle = (e) => {
     dispatch({
       type: ACTIONS.TOGGLE_BADGE,
@@ -260,8 +321,11 @@ export default function CreateProfile() {
     });
   };
 
-  const handleIconToggle = (iconCategory, iconObj, i) => {
-    const currentIndex = Object.keys(state.skills).reduce((length, iconCategory) => length + state.skills[iconCategory].length,0);
+  const handleIconToggle = (iconCategory, iconObj) => {
+    const currentIndex = Object.keys(state.skills).reduce(
+      (length, iconCategory) => length + state.skills[iconCategory].length,
+      0
+    );
     const isIconAlreadySelectedIndex = state.skills[iconCategory].findIndex(
       (item) => item.name === iconObj.name
     );
@@ -467,11 +531,13 @@ export default function CreateProfile() {
               <h2>{state.introduction.shortDescription}</h2>
             ) : null}
 
-            {state.introduction.longDescription ? (
-              <p className="whitespace-pre-line">
-                {state.introduction.longDescription}
-              </p>
-            ) : null}
+            {state.introduction.longDescription
+              ? state.introduction.longDescription.split("\n").map((line) => (
+                  <p className="whitespace-pre-line" key={line}>
+                    {line}
+                  </p>
+                ))
+              : null}
 
             <ul
               className={`${
@@ -575,60 +641,54 @@ export default function CreateProfile() {
 
           {/* Skills Section Preview */}
           <div ref={skillsTitleRef} className="flex">
-            {state.skills.core.length === 0 &&
-            state.skills.frontend.length === 0 &&
-            state.skills.backend.length === 0 &&
-            state.skills.other.length === 0 &&
-            state.skills.software.length === 0 &&
-            state.skills.web3.length === 0 ? null : (
-              <h3>Skills</h3>
-            )}
+            {skillsEmpty ? null : <h3>Skills</h3>}
           </div>
 
           {/* Skills Section Preview */}
           <div
             ref={skillsRef}
             className={`flex flex-wrap gap-y-1.5 gap-x-1.5 ${
-              state.skills.core.length < 1 &&
-              state.skills.frontend.length < 1 &&
-              state.skills.backend.length < 1 &&
-              state.skills.other.length < 1 &&
-              state.skills.software.length < 1 &&
-              state.skills.web3.length < 1
-                ? "mb-0"
-                : "mb-4"
+              skillsEmpty ? "mb-0" : "mb-4"
             }`}
           >
             {/* Icons Display */}
-            {Object.values(state.skills).some((arr) => arr.length> 0) ? (
+            {Object.values(state.skills).some((arr) => arr.length > 0) ? (
               <div className="flex gap-x-1.5 flex-wrap gap-y-1.5">
-                {Object.values(state.skills).flat().map((icon) => {
-                  return (
-                    <div key={`${icon.path}`} className="relative">
-                      <a href={`${icon.link}`} target="_blank" rel="noreferrer">
-                        {icon.darkPath ? (
-                          <img
-                            src={
-                              theme == "dark"
-                                ? `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored-dark.svg`
-                                : `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored.svg`
-                            }
-                            alt={`${icon.name}`}
-                            width="36"
-                            height="36"
-                          />
-                        ) : (
-                          <img
-                            src={`https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored.svg`}
-                            alt={`${icon.name}`}
-                            width="36"
-                            height="36"
-                          />
-                        )}
-                      </a>
-                    </div>
-                  );
-                })}
+                {Object.values(state.skills)
+                  .flat()
+                  .map((icon) => {
+                    return (
+                      <div key={`${icon.path}`} className="relative">
+                        <a
+                          href={`${icon.link}`}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {icon.darkPath ? (
+                            <img
+                              src={
+                                theme == "dark"
+                                  ? `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored-dark.svg`
+                                  : `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored.svg`
+                              }
+                              alt={`${icon.name}`}
+                              title={`${icon.name}`}
+                              width="36"
+                              height="36"
+                            />
+                          ) : (
+                            <img
+                              src={`https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${icon.iTag}-colored.svg`}
+                              alt={`${icon.name}`}
+                              title={`${icon.name}`}
+                              width="36"
+                              height="36"
+                            />
+                          )}
+                        </a>
+                      </div>
+                    );
+                  })}
               </div>
             ) : null}
           </div>
@@ -651,8 +711,10 @@ export default function CreateProfile() {
                   key={`${profile[0]}`}
                   target="_blank"
                   rel="noreferrer"
-                  href={`${profile[1].linkPrefix}${profile[1].linkSuffix}${
-                    profile[1].linkSuffixTwo
+                  href={`${profile[1]?.linkPrefix || ""}${
+                    profile[1]?.linkSuffix || ""
+                  }${
+                    profile[1]?.linkSuffixTwo
                       ? `${profile[1].linkSuffixTwo}`
                       : ""
                   }`}
@@ -660,6 +722,8 @@ export default function CreateProfile() {
                   <img
                     height="32"
                     width="32"
+                    alt={`${profile[1].label}`}
+                    title={`${profile[1].label}`}
                     src={
                       profile[1].darkPath
                         ? theme == "dark"
@@ -738,7 +802,7 @@ export default function CreateProfile() {
                 rel="noreferrer"
               >
                 <img
-                  src={`https://activity-graph.herokuapp.com/graph?username=${state.socials.github.linkSuffix}&bg_color=${state.badges.cardStyle.bgColor}&color=${state.badges.cardStyle.textColor}&line=${state.badges.cardStyle.iconColor}&point=${state.badges.cardStyle.textColor}&area_color=${state.badges.cardStyle.bgColor}&area=true&hide_border=true&custom_title=GitHub%20Commits%20Graph`}
+                  src={`https://github-readme-activity-graph.vercel.app/graph?username=${state.socials.github.linkSuffix}&bg_color=${state.badges.cardStyle.bgColor}&color=${state.badges.cardStyle.textColor}&line=${state.badges.cardStyle.iconColor}&point=${state.badges.cardStyle.textColor}&area_color=${state.badges.cardStyle.bgColor}&area=true&hide_border=true&custom_title=GitHub%20Commits%20Graph`}
                 />
               </a>
             ) : null}
@@ -819,23 +883,33 @@ export default function CreateProfile() {
           <div
             ref={supportRef}
             className={`flex flex-col gap-x-2 gap-y-2 ${
-              state.support.buymeacoffee.linkSuffix ? "mt-4" : ""
+              !!withSupport ? "mt-4" : ""
             }`}
           >
-            {state.support.buymeacoffee.linkSuffix ? (
+            {!!withSupport && (
               <>
                 <h3>Support</h3>
-                <a
-                  href={`${state.support.buymeacoffee.linkPrefix}${state.support.buymeacoffee.linkSuffix}`}
-                >
-                  <img
-                    src={`https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png`}
-                    className="object-scale-down"
-                    width="150"
-                  />
-                </a>
+                <ul className="list-none">
+                  {Object.entries(renderedMarkdown.support).map(
+                    ([key, value]) =>
+                      value && value.linkSuffix ? (
+                        <li
+                          className="inline-block p-1"
+                          key={assembleSupportLink(key)}
+                        >
+                          <a href={assembleSupportLink(key)}>
+                            <img
+                              src={getSupportPreviewIMG(key, value)}
+                              className="object-scale-down"
+                              width="150"
+                            />
+                          </a>
+                        </li>
+                      ) : null
+                  )}
+                </ul>
               </>
-            ) : null}
+            )}
           </div>
         </article>
 
@@ -857,190 +931,64 @@ export default function CreateProfile() {
                 </p>
               ) : null}
 
-              {!renderedMarkdown.badges.twitterFollowers.selected ? null : (
-                <span className="text-xs break-all whitespace-pre-line">
-                  {`<a href="${state.socials.twitter.linkPrefix}${state.socials.twitter.linkSuffix}" target="_blank" rel="noreferrer"><img
-                  src="https://img.shields.io/twitter/follow/${state.socials.twitter.linkSuffix}?logo=twitter&style=for-the-badge&color=${state.badges.cardStyle.iconColor}&labelColor=${state.badges.cardStyle.bgColor}"
-                /></a>`}
-                </span>
-              )}
               {!renderedMarkdown.badges.githubFollowers.selected ? null : (
                 <span className="text-xs break-all whitespace-pre-line">
-                  {`<a href="${state.socials.github.linkPrefix}${state.socials.github.linkSuffix}" target="_blank" rel="noreferrer"><img
-                  src="https://img.shields.io/github/followers/${state.socials.github.linkSuffix}?logo=github&style=for-the-badge&color=${state.badges.cardStyle.iconColor}&labelColor=${state.badges.cardStyle.bgColor}" /></a>`}
+                  {`<a href="${state.socials?.github?.linkPrefix || ""}${
+                    state.socials?.github?.linkSuffix || ""
+                  }" target="_blank" rel="noreferrer"><img
+                  src="https://img.shields.io/github/followers/${
+                    state.socials?.github?.linkSuffix || ""
+                  }?logo=github&style=for-the-badge&color=${
+                    state.badges?.cardStyle?.iconColor || ""
+                  }&labelColor=${
+                    state.badges?.cardStyle?.bgColor || ""
+                  }" /></a>`}
+                </span>
+              )}
+              {!renderedMarkdown.badges.twitterFollowers.selected ? null : (
+                <span className="text-xs break-all whitespace-pre-line">
+                  {`<a href="${state.socials?.twitter?.linkPrefix || ""}${
+                    state.socials?.twitter?.linkSuffix || ""
+                  }" target="_blank" rel="noreferrer"><img
+                  src="https://img.shields.io/twitter/follow/${
+                    state.socials?.twitter?.linkSuffix || ""
+                  }?logo=twitter&style=for-the-badge&color=${
+                    state.badges?.cardStyle?.iconColor || ""
+                  }&labelColor=${state.badges?.cardStyle?.bgColor || ""}"
+                /></a>`}
                 </span>
               )}
               {!renderedMarkdown.badges.twitchStatus.selected ? null : (
                 <span className="text-xs break-all whitespace-pre-line">
-                  {`<a href="${state.socials.twitch.linkPrefix}${state.socials.twitch.linkSuffix}" target="_blank" rel="noreferrer"><img
-                  src="https://img.shields.io/twitch/status/${state.socials.twitch.linkSuffix}?logo=twitchsx&style=for-the-badge&color=${state.badges.cardStyle.iconColor}&labelColor=${state.badges.cardStyle.bgColor}&label=TWITCH+STATUS" /></a>`}
+                  {`<a href="${state.socials?.twitch?.linkPrefix || ""}${
+                    state.socials?.twitch?.linkSuffix || ""
+                  }" target="_blank" rel="noreferrer"><img
+                  src="https://img.shields.io/twitch/status/${
+                    state.socials?.twitch?.linkSuffix || ""
+                  }?logo=twitchsx&style=for-the-badge&color=${
+                    state.badges?.cardStyle?.iconColor || ""
+                  }&labelColor=${
+                    state.badges?.cardStyle?.bgColor || ""
+                  }&label=TWITCH+STATUS" /></a>`}
                 </span>
               )}
 
               {renderedMarkdown.skillsTitle ? (
-                <p className="mt-4 whitespace-pre-line">{`### Skills`}</p>
+                <p className="mt-4 whitespace-pre-line">{`### Skills \n`}</p>
               ) : null}
 
               <div className="break-all whitespace-pre-line">
-                {renderedMarkdown.skills.core.length < 1 &&
-                renderedMarkdown.skills.frontend.length < 1 &&
-                renderedMarkdown.skills.backend.length < 1 &&
-                renderedMarkdown.skills.other.length < 1 &&
-                renderedMarkdown.skills.software.length < 1 &&
-                renderedMarkdown.skills.web3.length < 1 ? null : (
-                  <span>{`<p align="left">`}</span>
+                {markdownSkillsEmpty ? null : (
+                  <span>{`<p align="left">\n`}</span>
                 )}
 
-                {renderedMarkdown.skills.core.length > 0 ? (
-                  <>
-                    {renderedMarkdown.skills.core.map((icon) => {
-                      return (
-                        <span key={`${icon.path}`}>
-                          {icon.darkPath ? (
-                            <>{`
-                                <a href="${
-                                  icon.link
-                                }" target="_blank" rel="noreferrer"><img src="${
-                              theme == "dark" ? icon.darkPath : icon.path
-                            }" width="36" height="36" alt="${
-                              icon.name
-                            }" /></a>`}</>
-                          ) : (
-                            <>{`
-                                <a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>`}</>
-                          )}
-                        </span>
-                      );
-                    })}
-                  </>
-                ) : null}
+                {Object.keys(renderedMarkdown.skills).map((category) =>
+                  renderedMarkdown.skills[category].length > 0
+                    ? build_markdown_skill(renderedMarkdown.skills[category])
+                    : null
+                )}
 
-                {renderedMarkdown.skills.frontend.length > 0 ? (
-                  <>
-                    {renderedMarkdown.skills.frontend.map((icon) => {
-                      return (
-                        <span key={`${icon.path}`}>
-                          {icon.darkPath ? (
-                            <>{`
-                                <a href="${
-                                  icon.link
-                                }" target="_blank" rel="noreferrer"><img src="${
-                              theme == "dark" ? icon.darkPath : icon.path
-                            }" width="36" height="36" alt="${
-                              icon.name
-                            }" /></a>`}</>
-                          ) : (
-                            <>{`
-                                <a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>`}</>
-                          )}
-                        </span>
-                      );
-                    })}
-                  </>
-                ) : null}
-
-                {renderedMarkdown.skills.backend.length > 0 ? (
-                  <>
-                    {renderedMarkdown.skills.backend.map((icon) => {
-                      return (
-                        <span key={`${icon.path}`}>
-                          {icon.darkPath ? (
-                            <>{`
-                                <a href="${
-                                  icon.link
-                                }" target="_blank" rel="noreferrer"><img src="${
-                              theme == "dark" ? icon.darkPath : icon.path
-                            }" width="36" height="36" alt="${
-                              icon.name
-                            }" /></a>`}</>
-                          ) : (
-                            <>{`
-                                <a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>`}</>
-                          )}
-                        </span>
-                      );
-                    })}
-                  </>
-                ) : null}
-
-                {renderedMarkdown.skills.other.length > 0 ? (
-                  <>
-                    {renderedMarkdown.skills.other.map((icon) => {
-                      return (
-                        <span key={`${icon.path}`}>
-                          {icon.darkPath ? (
-                            <>{`
-                                <a href="${
-                                  icon.link
-                                }" target="_blank" rel="noreferrer"><img src="${
-                              theme == "dark" ? icon.darkPath : icon.path
-                            }" width="36" height="36" alt="${
-                              icon.name
-                            }" /></a>`}</>
-                          ) : (
-                            <>{`
-                                <a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>`}</>
-                          )}
-                        </span>
-                      );
-                    })}
-                  </>
-                ) : null}
-
-                {renderedMarkdown.skills.software.length > 0 ? (
-                  <>
-                    {renderedMarkdown.skills.software.map((icon) => {
-                      return (
-                        <span key={`${icon.path}`}>
-                          {icon.darkPath ? (
-                            <>{`
-                                <a href="${
-                                  icon.link
-                                }" target="_blank" rel="noreferrer"><img src="${
-                              theme == "dark" ? icon.darkPath : icon.path
-                            }" width="36" height="36" alt="${
-                              icon.name
-                            }" /></a>`}</>
-                          ) : (
-                            <>{`
-                                <a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>`}</>
-                          )}
-                        </span>
-                      );
-                    })}
-                  </>
-                ) : null}
-
-                {renderedMarkdown.skills.web3.length > 0 ? (
-                  <>
-                    {renderedMarkdown.skills.web3.map((icon) => {
-                      return (
-                        <span key={`${icon.path}`}>
-                          {icon.darkPath ? (
-                            <>{`
-                                <a href="${
-                                  icon.link
-                                }" target="_blank" rel="noreferrer"><img src="${
-                              theme == "dark" ? icon.darkPath : icon.path
-                            }" width="36" height="36" alt="${
-                              icon.name
-                            }" /></a>`}</>
-                          ) : (
-                            <>{`
-                                <a href="${icon.link}" target="_blank" rel="noreferrer"><img src="${icon.path}" width="36" height="36" alt="${icon.name}" /></a>`}</>
-                          )}
-                        </span>
-                      );
-                    })}
-                  </>
-                ) : null}
-
-                {renderedMarkdown.skills.core.length < 1 &&
-                renderedMarkdown.skills.frontend.length < 1 &&
-                renderedMarkdown.skills.backend.length < 1 &&
-                renderedMarkdown.skills.other.length < 1 &&
-                renderedMarkdown.skills.software.length < 1 &&
-                renderedMarkdown.skills.web3.length < 1 ? null : (
+                {markdownSkillsEmpty ? null : (
                   <span>{`
                     </p>
                     `}</span>
@@ -1062,20 +1010,27 @@ export default function CreateProfile() {
                 return profile[1].linkSuffix ? (
                   <span key={`profile-${profile[0]}`}>
                     {`
-                          
-                      <a href="${profile[1].linkPrefix}${
-                      profile[1].linkSuffix
+                      <a href="${profile[1]?.linkPrefix || ""}${
+                      profile[1]?.linkSuffix || ""
                     }${
-                      profile[1].linkSuffixTwo
+                      profile[1]?.linkSuffixTwo
                         ? `${profile[1].linkSuffixTwo}`
                         : ""
-                    }" target="_blank" rel="noreferrer"><img src="${
-                      profile[1].darkPath
-                        ? theme == "dark"
-                          ? `${profile[1].darkPath}`
-                          : `${profile[1].path}`
-                        : `${profile[1].path}`
-                    }" width="32" height="32" /></a>`}
+                    }" target="_blank" rel="noreferrer">
+                    <picture>
+                    <source media="(prefers-color-scheme: dark)" srcset="${`${
+                      profile[1]?.darkPath || ""
+                    }`}" />
+                    <source media="(prefers-color-scheme: light)" srcset="${`${
+                      profile[1]?.path || ""
+                    }`}" />
+                    <img src="${`${
+                      profile[1]?.path || ""
+                    }`}" width="32" height="32" alt="${
+                      profile[1]?.label || ""
+                    }" title="${profile[1]?.label || ""}" />
+                    </picture>
+                    </a>`}
                   </span>
                 ) : null;
               })}
@@ -1127,12 +1082,12 @@ export default function CreateProfile() {
                 </p>
               )}
 
-              {!renderedMarkdown.badges.githubCommitsGraph.selected ? null : (
+              {/* {!renderedMarkdown.badges.githubCommitsGraph.selected ? null : (
                 <p className="mb-0 break-all">
                   {`<a
-                      href="http://www.github.com/${state.socials.github.linkSuffix}"><img src="https://activity-graph.herokuapp.com/graph?username=${state.socials.github.linkSuffix}&bg_color=${state.badges.cardStyle.bgColor}&color=${state.badges.cardStyle.textColor}&line=${state.badges.cardStyle.iconColor}&point=${state.badges.cardStyle.textColor}&area_color=${state.badges.cardStyle.bgColor}&area=true&hide_border=true&custom_title=GitHub%20Commits%20Graph" alt="GitHub Commits Graph" /></a>`}
+                      href="http://www.github.com/${state.socials.github.linkSuffix}"><img src="https://github-readme-activity-graph.vercel.app/graph?username=${state.socials.github.linkSuffix}&bg_color=${state.badges.cardStyle.bgColor}&color=${state.badges.cardStyle.textColor}&line=${state.badges.cardStyle.iconColor}&point=${state.badges.cardStyle.textColor}&area_color=${state.badges.cardStyle.bgColor}&area=true&hide_border=true&custom_title=GitHub%20Commits%20Graph" alt="GitHub Commits Graph" /></a>`}
                 </p>
-              )}
+              )} */}
 
               {!renderedMarkdown.badges.topLangsCard.selected ? null : (
                 <p className="mb-0 break-all whitespace-pre-line">
@@ -1203,11 +1158,26 @@ export default function CreateProfile() {
                 ) : null}
               </p>
 
-              {!renderedMarkdown.support.buymeacoffee.linkSuffix ? null : (
+              {Object.values(renderedMarkdown.support).every(
+                (value) => value.linkSuffix === ""
+              ) ? null : (
                 <>
                   <p className="mt-4 whitespace-pre-line">### Support Me</p>
-                  {`<a
-                  href="${state.support.buymeacoffee.linkPrefix}${state.support.buymeacoffee.linkSuffix}"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" width="200" /></a>`}
+                  <p>{`<ul style="list-style-type: none; margin: 0;">`}</p>
+                  {Object.entries(renderedMarkdown.support).map(
+                    ([key, value]) =>
+                      !value.linkSuffix ? null : (
+                        <p key={key}>
+                          {`<li style="display: inline-block; margin-right: 0.25rem;"><a href="${assembleSupportLink(
+                            key
+                          )}"><img src="${getSupportPreviewIMG(
+                            key,
+                            value
+                          )}" width="150"/></a></li>`}
+                        </p>
+                      )
+                  )}
+                  {`</ul>`}
                 </>
               )}
             </>

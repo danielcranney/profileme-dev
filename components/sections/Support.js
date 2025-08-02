@@ -1,5 +1,5 @@
 import React, { useRef, useContext } from "react";
-import { ACTIONS } from "../../pages/_app";
+import { ACTIONS } from "../../lib/constants/actions";
 import { StateContext } from "../../pages/_app";
 import PreviousSection from "../buttons/PreviousSection";
 import SectionHeader from "../SectionHeader";

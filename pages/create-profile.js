@@ -1,11 +1,12 @@
 import React, { useEffect, useContext, useRef, useState } from "react";
 import { useTheme } from "next-themes";
 // Import state and actions
-import { ACTIONS, SKILL_CATEGORIES } from "./_app";
-import { StateContext, supportStore } from "./_app";
+import { ACTIONS } from "../lib/constants/actions";
+import { SKILL_CATEGORIES } from "../lib/constants/skillCategories";
+import { StateContext } from "./_app";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
-import { colorStore } from "./_app";
-let TurndownService = require("turndown").default;
+import { colorStore } from "../lib/constants/colorStore";
+import { supportStore } from "../lib/constants/supportStore";
 // Import components
 import Introduction from "../components/sections/Introduction";
 import Skills from "../components/sections/Skills";
@@ -13,6 +14,7 @@ import Socials from "../components/sections/Socials";
 import Badges from "../components/sections/Badges";
 import Support from "../components/sections/Support";
 import FormLayout from "../components/layouts/FormLayout";
+let TurndownService = require("turndown").default;
 
 export default function CreateProfile() {
   const { state, dispatch } = useContext(StateContext);

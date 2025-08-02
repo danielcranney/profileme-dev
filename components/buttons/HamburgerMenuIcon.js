@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { StateContext } from "../../pages/_app";
-import { ACTIONS } from "../../pages/_app";
+import { ACTIONS } from "../../lib/constants/actions";
 
 const HamburgerMenuIcon = () => {
   const { state, dispatch } = useContext(StateContext);

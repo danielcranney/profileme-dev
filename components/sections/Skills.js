@@ -1,10 +1,10 @@
-import React, { useRef } from "react";
+import React from "react";
+import { iconData } from "../../lib/data/iconData";
+import { SKILL_CATEGORIES } from "../../lib/constants/skillCategories";
 import NextSection from "../buttons/NextSection";
 import PreviousSection from "../buttons/PreviousSection";
 import IconSelector from "../IconSelector";
 import SectionHeader from "../SectionHeader";
-import { iconData } from "../../pages/_app";
-import { SKILL_CATEGORIES } from "../../pages/_app";
 
 const Skills = React.forwardRef(({ handleIconToggle }, ref) => {
   return (

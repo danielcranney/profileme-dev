@@ -1,5 +1,5 @@
 import React, { useContext, forwardRef } from "react";
-import { ACTIONS } from "../pages/_app";
+import { ACTIONS } from "../lib/constants/actions";
 import FormLabel from "./forms/FormLabel";
 import FormTextarea from "./forms/FormTextarea";
 

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { useTheme } from "next-themes";
 // Import state and actions
-import { ACTIONS } from "../../pages/_app";
+import { ACTIONS } from "../../lib/constants/actions";
 import { StateContext } from "../../pages/_app";
 import ThemeSwitch from "../buttons/ThemeSwitch";
 

@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
-
-import { ACTIONS } from "../../pages/_app";
+import { ACTIONS } from "../../lib/constants/actions";
 import { StateContext } from "../../pages/_app";
 import { useRouter } from "next/router";
 

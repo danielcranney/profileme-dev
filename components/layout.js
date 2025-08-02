@@ -1,27 +1,20 @@
-import React, { useEffect, useContext, useRef, useState } from "react";
 import Head from "next/head";
-import Image from "next/image";
 import Link from "next/link";
-import { useTheme } from "next-themes";
+import React, { useContext } from "react";
 // Import state and actions
-import { ACTIONS } from "../pages/_app";
+import { ACTIONS } from "../lib/constants/actions";
 import { StateContext } from "../pages/_app";
-import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
-import { colorStore } from "../pages/_app";
 // Import components
-import MenuItem from "../components/buttons/MenuItem";
-import CopyrightLabel from "./misc/SidebarFooter";
-let TurndownService = require("turndown").default;
-import LeaveFeedback from "../components/buttons/LeaveFeedback";
-import CopyModal from "../components/modals/CopyModal";
 import HamburgerMenuIcon from "../components/buttons/HamburgerMenuIcon";
+import LeaveFeedback from "../components/buttons/LeaveFeedback";
+import MenuItem from "../components/buttons/MenuItem";
 import ThemeSwitch from "../components/buttons/ThemeSwitch";
 import Logo from "../components/Logo";
-import { useRouter } from "next/router";
+import CopyModal from "../components/modals/CopyModal";
+import CopyrightLabel from "./misc/SidebarFooter";
 
 export default function Layout({ children }) {
   const { state, dispatch } = useContext(StateContext);
-  const router = useRouter();
 
   return (
     <div className="flex flex-col min-h-screen h-auto md:h-screen relative">
@@ -83,22 +76,22 @@ export default function Layout({ children }) {
 
       {/* Dark Theme Icon */}
       <div className="fixed top-3.5 right-6 z-40 flex gap-x-3 items-center h-9">
-
-        <Link href="/changelog" rel="noreferrer"
-            className={`z-40 hidden sm:flex ${
-              state.sidebarOpen
-                ? "text-dark-800 hover:text-white md:text-brand md:hover:text-dark-800"
-                : "text-brand hover:text-dark-800 md:text-brand md:hover:text-dark-800"
-            } text-xs px-0`}
-            onClick={() => {
-              dispatch({
-                type: ACTIONS.SHOW_SECTION,
-                payload: null,
-              });
-            }}
-          >
-            Changelog
-        
+        <Link
+          href="/changelog"
+          rel="noreferrer"
+          className={`z-40 hidden sm:flex ${
+            state.sidebarOpen
+              ? "text-dark-800 hover:text-white md:text-brand md:hover:text-dark-800"
+              : "text-brand hover:text-dark-800 md:text-brand md:hover:text-dark-800"
+          } text-xs px-0`}
+          onClick={() => {
+            dispatch({
+              type: ACTIONS.SHOW_SECTION,
+              payload: null,
+            });
+          }}
+        >
+          Changelog
         </Link>
 
         <ThemeSwitch />

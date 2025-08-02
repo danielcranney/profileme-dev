@@ -20,6 +20,8 @@ export const STORED_STATE_KEY = "ProfileMe_LocalState";
 const initialState = {
   section: "introduction",
   renderMode: "preview",
+  // Section order for reordering functionality
+  sectionOrder: ["introduction", "skills", "socials", "badges", "support"],
   // Introduction State
   introduction: {
     name: "",
@@ -417,6 +419,53 @@ function reducer(state, action) {
       return {
         ...state,
         [action.payload.elementToClose]: false,
+      };
+    // Section reordering actions
+    case ACTIONS.REORDER_SECTIONS:
+      return {
+        ...state,
+        sectionOrder: action.payload.newOrder,
+      };
+    case ACTIONS.MOVE_SECTION_UP:
+      const { sectionToMove: sectionUp } = action.payload;
+      const currentIndexUp = state.sectionOrder.indexOf(sectionUp);
+      if (currentIndexUp > 0) {
+        const newOrderUp = [...state.sectionOrder];
+        [newOrderUp[currentIndexUp], newOrderUp[currentIndexUp - 1]] = [
+          newOrderUp[currentIndexUp - 1],
+          newOrderUp[currentIndexUp],
+        ];
+        return {
+          ...state,
+          sectionOrder: newOrderUp,
+        };
+      }
+      return state;
+    case ACTIONS.MOVE_SECTION_DOWN:
+      const { sectionToMove: sectionDown } = action.payload;
+      const currentIndexDown = state.sectionOrder.indexOf(sectionDown);
+      if (currentIndexDown < state.sectionOrder.length - 1) {
+        const newOrderDown = [...state.sectionOrder];
+        [newOrderDown[currentIndexDown], newOrderDown[currentIndexDown + 1]] = [
+          newOrderDown[currentIndexDown + 1],
+          newOrderDown[currentIndexDown],
+        ];
+        return {
+          ...state,
+          sectionOrder: newOrderDown,
+        };
+      }
+      return state;
+    case ACTIONS.RESET_SECTION_ORDER:
+      return {
+        ...state,
+        sectionOrder: [
+          "introduction",
+          "skills",
+          "socials",
+          "badges",
+          "support",
+        ],
       };
     default:
       throw new Error();

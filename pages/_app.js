@@ -103,7 +103,7 @@ export const iconData = {
     },
     {
       name: "Lua",
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/lua-colored.svg",
+      path: `${PROJECT_URL}/icons/skills/lua-colored.svg`,
       iTag: "lua",
       link: "https://lua.org/",
     },
@@ -186,7 +186,7 @@ export const iconData = {
     },
     {
       name: "Emacs",
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/emacs-colored.svg",
+      path: `${PROJECT_URL}/icons/skills/emacs-colored.svg`,
       iTag: "emacs",
       link: "https://www.gnu.org/software/emacs/",
     },
@@ -329,9 +329,8 @@ export const iconData = {
     },
     {
       name: "Ember.js",
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/emberjs-colored.svg",
-      darkPath:
-        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/emberjs-dark.svg",
+      path: `${PROJECT_URL}/icons/skills/emberjs-colored.svg`,
+      darkPath: `${PROJECT_URL}/icons/skills/emberjs-dark.svg`,
       iTag: "emberjs",
       link: "https://emberjs.com/",
     },
@@ -352,9 +351,8 @@ export const iconData = {
     },
     {
       name: "Spring Boot",
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/springboot-colored.svg",
-      darkPath:
-        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/springboot-dark.svg",
+      path: `${PROJECT_URL}/icons/skills/springboot-colored.svg`,
+      darkPath: `${PROJECT_URL}/icons/skills/springboot-dark.svg`,
       iTag: "springboot",
       link: "https://spring.io/projects/spring-boot",
     },
@@ -672,7 +670,7 @@ export const iconData = {
     },
     {
       name: "Webflow",
-      path: "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/webflow-colored.svg",
+      path: `${PROJECT_URL}/icons/skills/webflow-colored.svg`,
       iTag: "webflow",
       link: "https://webflow.com/",
     },
@@ -706,8 +704,7 @@ export const iconData = {
     {
       name: "Amazon Web Services",
       path: `${PROJECT_URL}/icons/skills/aws-colored.svg`,
-      darkPath:
-        "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/aws-colored-dark.svg",
+      darkPath: `${PROJECT_URL}/icons/skills/aws-colored-dark.svg`,
       iTag: "aws",
       link: "https://aws.amazon.com",
     },

@@ -1,0 +1,35 @@
+name: Auto Comment on Issues
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  comment:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+
+    steps:
+      - name: Comment on new issue
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issueNumber = context.issue.number;
+            const username = context.payload.issue.user.login;
+
+            const comment = [
+              `👋 Hey @${username} — thanks for opening an issue!`,
+              ``,
+              `Before we dive in, make sure to check out our [contributing guide](CONTRIBUTING.md) and see if this has already been reported.`,
+              ``,
+              `We appreciate your help! 💖`
+            ].join('\n');
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              body: comment
+            });

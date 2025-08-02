@@ -19,6 +19,10 @@ const SocialItem = forwardRef((props, ref) => {
   const { state, dispatch } = useContext(StateContext);
   const { systemTheme, theme, setTheme } = useTheme();
 
+  const PROJECT_URL = process.env.NODE_ENV === 'production'
+    ? 'https://raw.githubusercontent.com/danielcranney/readme-generator/main/public'
+    : 'http://localhost:3000'
+
   return (
     <article className="flex flex-col flex-1 w-full">
       <FormLabel
@@ -28,9 +32,9 @@ const SocialItem = forwardRef((props, ref) => {
             src={
               state[section][account].darkPath
                 ? theme == "dark"
-                  ? `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/${section}/${account}-dark.svg`
-                  : `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/${section}/${account}.svg`
-                : `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/${section}/${account}.svg`
+                  ? `${PROJECT_URL}/icons/${section}/${account}-dark.svg`
+                  : `${PROJECT_URL}/icons/${section}/${account}.svg`
+                : `${PROJECT_URL}/icons/${section}/${account}.svg`
             }
             width={20}
             height={20}

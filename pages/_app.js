@@ -15,8 +15,67 @@ export const StateContext = createContext(null);
 
 export const STORED_STATE_KEY = "ProfileMe_LocalState";
 
+// State migration function to handle structure changes
+function migrateStoredState(storedState, currentInitialState) {
+  // Check if stored state has a version
+  const storedVersion = storedState._version || "0.0.0";
+  const currentVersion = currentInitialState._version;
+
+  // If versions match, just do a deep merge
+  if (storedVersion === currentVersion) {
+    return deepMergeStoredState(storedState, currentInitialState);
+  }
+
+  // For future version migrations, you can add specific migration logic here
+  // For now, we'll just do a deep merge and update the version
+  const migratedState = deepMergeStoredState(storedState, currentInitialState);
+  migratedState._version = currentVersion;
+
+  return migratedState;
+}
+
+// Deep merge function
+function deepMergeStoredState(storedState, currentInitialState) {
+  // Deep merge stored state with current initial state
+  // This ensures all new properties are added with their default values
+  const migratedState = { ...currentInitialState };
+
+  // Recursively merge stored state with current initial state
+  function deepMerge(target, source) {
+    for (const key in source) {
+      if (source.hasOwnProperty(key)) {
+        if (
+          source[key] &&
+          typeof source[key] === "object" &&
+          !Array.isArray(source[key])
+        ) {
+          // If it's an object (not array), recursively merge
+          if (
+            !target[key] ||
+            typeof target[key] !== "object" ||
+            Array.isArray(target[key])
+          ) {
+            target[key] = {};
+          }
+          deepMerge(target[key], source[key]);
+        } else {
+          // For primitives and arrays, use stored value if it exists
+          if (source[key] !== undefined) {
+            target[key] = source[key];
+          }
+        }
+      }
+    }
+  }
+
+  deepMerge(migratedState, storedState);
+  return migratedState;
+}
+
 // Color State
 const initialState = {
+  // State version for migration tracking
+  _version: "1.0.0",
   section: "introduction",
   renderMode: "preview",
   // Section order for reordering functionality
@@ -557,15 +616,28 @@ function MyApp({ Component, pageProps }) {
   }, [router.events]);
 
   useEffect(() => {
-    const retrievedStoredState = JSON.parse(
-      localStorage.getItem(STORED_STATE_KEY)
-    );
+    try {
+      const storedStateString = localStorage.getItem(STORED_STATE_KEY);
 
-    if (retrievedStoredState) {
-      dispatch({
-        type: ACTIONS.HYDRATE_STORED_STATE,
-        value: retrievedStoredState,
-      });
+      if (storedStateString) {
+        const retrievedStoredState = JSON.parse(storedStateString);
+
+        if (retrievedStoredState) {
+          // Migrate stored state to ensure compatibility with current initialState
+          const migratedState = migrateStoredState(
+            retrievedStoredState,
+            initialState
+          );
+          dispatch({
+            type: ACTIONS.HYDRATE_STORED_STATE,
+            value: migratedState,
+          });
+        }
+      }
+    } catch (error) {
+      console.warn("Error loading stored state, using initial state:", error);
+      // If there's an error loading stored state, clear it and use initial state
+      localStorage.removeItem(STORED_STATE_KEY);
     }
   }, []);
 

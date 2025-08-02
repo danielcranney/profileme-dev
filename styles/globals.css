@@ -1255,16 +1255,16 @@ Table Of Contents:
   html.dark .truffle.colored {
     background-image: url("https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/truffle-colored.svg") !important;
   }
-  .springboot.icon-bg {
+  .spring-boot.icon-bg {
     background-image: url("https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/spring-boot.svg") !important;
   }
-  html.dark .springboot {
+  html.dark .spring-boot {
     background-image: url("https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/spring-boot-dark.svg") !important;
   }
-  .springboot.colored {
+  .spring-boot.colored {
     background-image: url("https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/spring-boot-colored.svg") !important;
   }
-  html.dark .springboot.colored {
+  html.dark .spring-boot.colored {
     background-image: url("https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/spring-boot-colored.svg") !important;
   }
   .ipfs.icon-bg {

@@ -76,7 +76,7 @@ export default function Layout({ children }) {
 
       {/* Dark Theme Icon */}
       <div className="fixed top-3.5 right-6 z-40 flex gap-x-3 items-center h-9">
-        <Link
+        {/* <Link
           href="/changelog"
           rel="noreferrer"
           className={`z-40 hidden sm:flex ${
@@ -92,7 +92,7 @@ export default function Layout({ children }) {
           }}
         >
           Changelog
-        </Link>
+        </Link> */}
 
         <ThemeSwitch />
 

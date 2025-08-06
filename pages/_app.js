@@ -590,6 +590,25 @@ function reducer(state, action) {
         ...state,
         skillsOrder: [],
       };
+    case ACTIONS.CLEAR_ALL_SKILLS:
+      return {
+        ...state,
+        skills: {
+          core: [],
+          scripting: [],
+          editors: [],
+          frontend: [],
+          backend: [],
+          software: [],
+          web3: [],
+          cloud: [],
+          cms: [],
+          embedded: [],
+          operatingSystem: [],
+          other: [],
+        },
+        skillsOrder: [],
+      };
     default:
       throw new Error();
   }

@@ -158,7 +158,7 @@ export default function LandingLayout({ children }) {
                       </span>
                     </a>
                   </li>
-                  <li className="border-b border-light-100 dark:border-dark-600 h-10 flex group">
+                  {/* <li className="border-b border-light-100 dark:border-dark-600 h-10 flex group">
                     <Link
                       href="/changelog"
                       className="px-3 flex items-center font-normal no-underline w-full h-full text-dark-400/80 dark:text-light-300 dark:hover:text-white transition-all duration-150 ease-in-out hover:text-dark-700 gap-x-2"
@@ -181,7 +181,7 @@ export default function LandingLayout({ children }) {
                         Changelog
                       </span>
                     </Link>
-                  </li>
+                  </li> */}
                   <li className="border-b border-light-100 dark:border-dark-600 h-10 flex group">
                     <Link
                       className="px-3 flex items-center font-normal no-underline w-full h-full text-dark-400/80 dark:text-light-300 hover:text-dark-700 dark:hover:text-white transition-all duration-150 ease-in-out gap-x-2 group"
@@ -311,9 +311,9 @@ export default function LandingLayout({ children }) {
                 Create Profile
               </Link>
               <span className="text-dark-400 dark:text-white">·</span>
-              <Link href="/changelog" className="text-xs">
+              {/* <Link href="/changelog" className="text-xs">
                 Changelog
-              </Link>
+              </Link> */}
               <span className="text-dark-400 dark:text-white">·</span>
               <a href="mailto:danielcranney@gmail.com" className="text-xs">
                 Leave Feedback

@@ -43,7 +43,7 @@ export default function CreateProfile() {
     renderedMarkdown,
     mounted
   );
-  const { handleIconToggle } = useIconToggle();
+  const { handleIconToggle, clearAllSkills } = useIconToggle();
   const {
     handleBadgeToggle,
     handleBadgeElementToggle,
@@ -128,7 +128,11 @@ export default function CreateProfile() {
         {state.section === "introduction" ? (
           <Introduction ref={introductionAnchorRef} />
         ) : state.section === "skills" ? (
-          <Skills ref={skillsAnchorRef} handleIconToggle={handleIconToggle} />
+          <Skills
+            ref={skillsAnchorRef}
+            handleIconToggle={handleIconToggle}
+            clearAllSkills={clearAllSkills}
+          />
         ) : state.section === "socials" ? (
           <Socials ref={socialsAnchorRef} />
         ) : state.section === "badges" ? (

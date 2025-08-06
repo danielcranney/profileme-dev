@@ -146,7 +146,7 @@ export default function FormLayout({ children }) {
                     </span>
                   </a>
                 </li>
-                <li className="border-b border-light-100 dark:border-dark-600 h-10 px-3 flex group">
+                {/* <li className="border-b border-light-100 dark:border-dark-600 h-10 px-3 flex group">
                   <Link
                     href="/changelog"
                     className="flex items-center font-normal no-underline w-full h-full text-dark-400/80 dark:text-light-300 dark:hover:text-white transition-all duration-150 ease-in-out hover:text-dark-700 gap-x-2"
@@ -169,7 +169,7 @@ export default function FormLayout({ children }) {
                       Changelog
                     </span>
                   </Link>
-                </li>
+                </li> */}
                 <li className="border-b border-light-100 dark:border-dark-600 h-10 flex group">
                   <Link
                     className="px-3 flex items-center font-normal no-underline w-full h-full text-dark-400/80 dark:text-light-300 hover:text-dark-700 dark:hover:text-white transition-all duration-150 ease-in-out gap-x-2 group"

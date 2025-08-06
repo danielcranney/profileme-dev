@@ -34,5 +34,11 @@ export const useIconToggle = () => {
     }
   };
 
-  return { handleIconToggle };
+  const clearAllSkills = () => {
+    dispatch({
+      type: ACTIONS.CLEAR_ALL_SKILLS,
+    });
+  };
+
+  return { handleIconToggle, clearAllSkills };
 };

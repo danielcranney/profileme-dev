@@ -23,14 +23,6 @@ const Skills = React.forwardRef(({ handleIconToggle, clearAllSkills }, ref) => {
       <section className="flex flex-col overflow-y-auto">
         <div ref={ref}></div>
         <section className="flex flex-col px-6 pt-6 pb-6 gap-y-6">
-          <div className="flex justify-end mb-4">
-            <button
-              onClick={clearAllSkills}
-              className="px-3 py-1 text-xs font-medium text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 border border-red-300 dark:border-red-600 rounded-md hover:bg-red-50 dark:hover:bg-red-950 transition-colors duration-200"
-            >
-              Clear All
-            </button>
-          </div>
           {SKILL_CATEGORIES.map((category) => (
             <IconSelector
               key={category.name}
@@ -40,6 +32,14 @@ const Skills = React.forwardRef(({ handleIconToggle, clearAllSkills }, ref) => {
               iconData={iconData}
             />
           ))}
+          <div className="flex justify-center mt-6">
+            <button
+              onClick={clearAllSkills}
+              className="btn-sm btn-gray-outline mr-auto flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-all duration-200 mx-auto"
+            >
+              Clear All Skills
+            </button>
+          </div>
           <section className="flex mt-4">
             <PreviousSection sectionToGoTo={"introduction"} />
             <NextSection sectionToGoTo={"socials"} />

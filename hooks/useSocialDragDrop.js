@@ -22,7 +22,6 @@ export const useSocialDragDrop = () => {
   };
 
   const handleDragOver = (index) => {
-    // We could use this later for visual feedback
   };
 
   const handleDrop = (dropIndex) => {

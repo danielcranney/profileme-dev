@@ -37,7 +37,7 @@ export const useSkillsDragDrop = () => {
   };
 
   const handleDragOver = (index) => {
-    // This can be used for visual feedback if needed
+   
   };
 
   const handleDrop = (dropIndex) => {

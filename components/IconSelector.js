@@ -18,7 +18,7 @@ const IconSelector = ({ handleIconToggle, title, iconType, iconData }) => {
               key={`${icon.path}`}
               className={`relative flex w-auto overflow-visible group text-xs border rounded-md items-center justify-center gap-x-1 p-2 ${
                 state.skills[iconType].some((item) => item.name === icon.name)
-                  ? "border-dark-600 dark:border-dark-400 dark:text-white text-dark-600 dark:bg-dark-600"
+                  ? "border-dark-600 dark:border-dark-400 dark:text-white text-dark-600 dark:bg-dark-600 bg-white"
                   : "border-dark-200 dark:border-dark-800 dark:text-[#9ba1ab] text-[#6f7580]"
               }`}
               alt={`${icon.name}`}

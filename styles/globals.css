@@ -1757,6 +1757,111 @@ Table Of Contents:
   html.dark .framer {
     background-image: url("https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/framer-dark.svg") !important;
   }
+
+  /* New icons added */
+  .astro.icon-bg {
+    background-image: url("https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/astro.svg") !important;
+  }
+  html.dark .astro {
+    background-image: url("https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/astro-dark.svg") !important;
+  }
+  .astro.colored {
+    background-image: url("https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/astro-colored.svg") !important;
+  }
+  html.dark .astro.colored {
+    background-image: url("https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/astro-colored-dark.svg") !important;
+  }
+
+  .quik.icon-bg {
+    background-image: url("https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/quik.svg") !important;
+  }
+  html.dark .quik {
+    background-image: url("https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/quik-dark.svg") !important;
+  }
+  .quik.colored {
+    background-image: url("https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/quik-colored.svg") !important;
+  }
+  html.dark .quik.colored {
+    background-image: url("https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/quik-colored.svg") !important;
+  }
+
+  .solidjs.icon-bg {
+    background-image: url("https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/solidjs.svg") !important;
+  }
+  html.dark .solidjs {
+    background-image: url("https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/solidjs-dark.svg") !important;
+  }
+  .solidjs.colored {
+    background-image: url("https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/solidjs-colored.svg") !important;
+  }
+  html.dark .solidjs.colored {
+    background-image: url("https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/solidjs-colored.svg") !important;
+  }
+
+  .shadcnui.icon-bg {
+    background-image: url("https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/shadcnui.svg") !important;
+  }
+  html.dark .shadcnui {
+    background-image: url("https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/shadcn-dark.svg") !important;
+  }
+  .shadcnui.colored {
+    background-image: url("https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/shadcnui-colored.svg") !important;
+  }
+  html.dark .shadcnui.colored {
+    background-image: url("https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/shadcnui-colored.svg") !important;
+  }
+
+  .planetscale.icon-bg {
+    background-image: url("https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/planetscale.svg") !important;
+  }
+  html.dark .planetscale {
+    background-image: url("https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/planetscale-dark.svg") !important;
+  }
+  .planetscale.colored {
+    background-image: url("https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/planetscale-colored.svg") !important;
+  }
+  html.dark .planetscale.colored {
+    background-image: url("https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/planetscale-colored.svg") !important;
+  }
+
+  .clerk.icon-bg {
+    background-image: url("https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/clerk.svg") !important;
+  }
+  html.dark .clerk {
+    background-image: url("https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/clerk-dark.svg") !important;
+  }
+  .clerk.colored {
+    background-image: url("https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/clerk-colored.svg") !important;
+  }
+  html.dark .clerk.colored {
+    background-image: url("https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/clerk-colored.svg") !important;
+  }
+
+  .resend.icon-bg {
+    background-image: url("https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/resend.svg") !important;
+  }
+  html.dark .resend {
+    background-image: url("https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/resend-dark.svg") !important;
+  }
+  .resend.colored {
+    background-image: url("https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/resend-colored.svg") !important;
+  }
+  html.dark .resend.colored {
+    background-image: url("https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/resend-colored.svg") !important;
+  }
+
+  .huggingface.icon-bg {
+    background-image: url("https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/huggingface.svg") !important;
+  }
+  html.dark .huggingface {
+    background-image: url("https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/huggingface-dark.svg") !important;
+  }
+  .huggingface.colored {
+    background-image: url("https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/huggingface-colored.svg") !important;
+  }
+  html.dark .huggingface.colored {
+    background-image: url("https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/huggingface-colored.svg") !important;
+  }
 }
 
 /*-----------------------

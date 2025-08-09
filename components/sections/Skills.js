@@ -95,7 +95,7 @@ const Skills = React.forwardRef(({ handleIconToggle, clearAllSkills }, ref) => {
               <div className="">
                 <div className="flex items-center justify-between mb-3">
                   <h4 className="text-sm font-semibold text-dark-700 dark:text-white">
-                    Search Results for "{searchQuery}"
+                    Search Results for &quot;{searchQuery}&quot;
                   </h4>
                   <span className="text-xs text-dark-500 dark:text-dark-400">
                     {
@@ -182,7 +182,7 @@ const Skills = React.forwardRef(({ handleIconToggle, clearAllSkills }, ref) => {
                       />
                     </svg>
                     <p className="text-sm text-dark-500 dark:text-dark-400">
-                      No skills found matching "{searchQuery}"
+                      No skills found matching &quot;{searchQuery}&quot;
                     </p>
                     <p className="text-xs text-dark-400 dark:text-dark-500 mt-1">
                       Try a different search term

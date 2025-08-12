@@ -264,6 +264,12 @@ Table Of Contents:
   #markdown-container {
     @apply bg-light-100 dark:bg-dark-900 px-6 pb-6 h-full overflow-y-auto font-code text-dark-500 dark:text-dark-300 text-xs transition-all duration-150 ease-in-out;
   }
+
+  /* Ensure preview and markdown container parents have proper height constraints */
+  .preview-column-wrapper > div:nth-child(2),
+  .preview-column-wrapper > div:nth-child(3) {
+    @apply flex-1 min-h-0;
+  }
 }
 
 /****************************/

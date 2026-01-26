@@ -12,6 +12,8 @@ import ThemeSwitch from "../components/buttons/ThemeSwitch";
 import Logo from "../components/Logo";
 import CopyModal from "../components/modals/CopyModal";
 import CopyrightLabel from "./misc/SidebarFooter";
+import LoginButton from "./auth/LoginButton";
+import UserMenu from "./auth/UserMenu";
 
 export default function Layout({ children }) {
   const { state, dispatch } = useContext(StateContext);
@@ -94,6 +96,8 @@ export default function Layout({ children }) {
           Changelog
         </Link> */}
 
+        <UserMenu />
+        <LoginButton />
         <ThemeSwitch />
 
         <LeaveFeedback />

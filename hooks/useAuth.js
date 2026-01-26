@@ -14,17 +14,52 @@ export function useAuth() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchSession();
-
     const supabase = createClient();
+
+    // Check if we're returning from OAuth callback
+    const isCallback = window.location.search.includes("connected=github");
+    
+    // Get initial session from Supabase client
+    const initSession = async () => {
+      try {
+        const { data: { session }, error } = await supabase.auth.getSession();
+        if (error) {
+          console.error("Error getting session:", error);
+        }
+        
+        console.log("Initial session check:", {
+          hasSession: !!session,
+          userId: session?.user?.id,
+          hasProviderToken: !!session?.provider_token,
+        });
+        
+        setUser(session?.user ?? null);
+        setGithubToken(session?.provider_token ?? null);
+        setLoading(false);
+        
+        // Also fetch from our API route for consistency
+        await fetchSession();
+      } catch (error) {
+        console.error("Error in initSession:", error);
+        setLoading(false);
+      }
+    };
+
+    initSession();
 
     // Listen for auth changes
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange(async (_event, session) => {
+    } = supabase.auth.onAuthStateChange(async (event, session) => {
+      console.log("Auth state changed:", event, session?.user?.id);
       setUser(session?.user ?? null);
       setGithubToken(session?.provider_token ?? null);
       setLoading(false);
+      
+      // If we just got a session (SIGNED_IN event), refresh from API
+      if (event === "SIGNED_IN" || event === "TOKEN_REFRESHED") {
+        await fetchSession();
+      }
     });
 
     return () => subscription.unsubscribe();

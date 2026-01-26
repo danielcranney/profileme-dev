@@ -8,7 +8,7 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "../../hooks/useAuth";
 
 export default function UserMenu() {
-  const { user, logout, loading, isAuthenticated, refresh } = useAuth();
+  const { user, githubToken, logout, loading, isAuthenticated, refresh } = useAuth();
   const [showMenu, setShowMenu] = useState(false);
   const [loggingOut, setLoggingOut] = useState(false);
 
@@ -16,10 +16,17 @@ export default function UserMenu() {
   useEffect(() => {
     if (window.location.search.includes("connected=github")) {
       // Refresh user data after OAuth callback
+      // Give Supabase a moment to set cookies
       setTimeout(() => {
         window.history.replaceState({}, "", window.location.pathname);
         refresh();
-      }, 100);
+        
+        // Also trigger a page reload to ensure cookies are read
+        // This is a workaround for cookie sync issues
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+      }, 200);
     }
   }, [refresh]);
 
@@ -50,6 +57,7 @@ export default function UserMenu() {
   const userAvatar = user.user_metadata?.avatar_url || user.user_metadata?.avatar_url || `https://ui-avatars.com/api/?name=${encodeURIComponent(userName)}&background=0891b2&color=fff`;
   const githubUsername = user.user_metadata?.user_name || user.user_metadata?.preferred_username || "";
   const githubUrl = githubUsername ? `https://github.com/${githubUsername}` : null;
+  const hasGitHubToken = !!githubToken;
 
   return (
     <div className="relative">
@@ -76,6 +84,11 @@ export default function UserMenu() {
               {githubUsername && (
                 <div className="text-xs text-gray-500 dark:text-gray-400">@{githubUsername}</div>
               )}
+              <div className="text-xs mt-1">
+                <span className={`inline-flex items-center gap-1 ${hasGitHubToken ? 'text-green-600' : 'text-red-600'}`}>
+                  {hasGitHubToken ? '✓' : '✗'} GitHub Token: {hasGitHubToken ? 'Available' : 'Missing'}
+                </span>
+              </div>
             </div>
             {githubUrl && (
               <a
@@ -87,6 +100,12 @@ export default function UserMenu() {
                 View on GitHub
               </a>
             )}
+            <a
+              href="/test-auth"
+              className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-dark-700"
+            >
+              Test Auth & API
+            </a>
             <button
               onClick={handleLogout}
               disabled={loggingOut}

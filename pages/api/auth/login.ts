@@ -26,12 +26,21 @@ export default async function handler(
     }
 
     // Use Supabase's GitHub OAuth
-    // Request repo scope to access user's repositories
+    // Request minimal scopes: only public repos and user info
+    // We only need access to the profile repo (username/username), which is typically public
+    const redirectUrl = `${req.headers.origin || process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/api/auth/callback`;
+    
+    console.log("Initiating GitHub OAuth, redirectTo:", redirectUrl);
+    
     const { data, error } = await supabase.auth.signInWithOAuth({
       provider: "github",
       options: {
-        redirectTo: `${req.headers.origin || process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000"}/api/auth/callback`,
-        scopes: "read:user user:email repo", // Request repo access
+        redirectTo: redirectUrl,
+        scopes: "read:user user:email public_repo", // Only public repos, no private repo access
+        queryParams: {
+          // Ensure we get the provider token
+          access_type: "offline",
+        },
       },
     });
 

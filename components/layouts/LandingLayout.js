@@ -8,6 +8,8 @@ import { useTheme } from "next-themes";
 import { ACTIONS } from "../../lib/constants/actions";
 import { StateContext } from "../../pages/_app";
 import ThemeSwitch from "../buttons/ThemeSwitch";
+import LoginButton from "../auth/LoginButton";
+import UserMenu from "../auth/UserMenu";
 
 import { useRouter } from "next/router";
 import { SocialIcons } from "../misc/SocialIcons";
@@ -114,6 +116,10 @@ export default function LandingLayout({ children }) {
             </span>
           </motion.button>
 
+          {/* Auth Components */}
+          <UserMenu />
+          <LoginButton />
+          
           {/* ThemeSwitch */}
           <ThemeSwitch />
 

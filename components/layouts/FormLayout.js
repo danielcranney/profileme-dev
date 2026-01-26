@@ -12,6 +12,8 @@ import ThemeSwitch from "../buttons/ThemeSwitch";
 import Logo from "../Logo";
 import SidebarFooter from "../misc/SidebarFooter";
 import CopyModal from "../modals/CopyModal";
+import LoginButton from "../auth/LoginButton";
+import UserMenu from "../auth/UserMenu";
 
 export default function FormLayout({ children }) {
   const { state, dispatch } = useContext(StateContext);
@@ -111,6 +113,10 @@ export default function FormLayout({ children }) {
         } w-full pr-6 flex justify-end items-center`}
       >
         <div className="flex items-center relative ml-auto justify-end lg:ml-0 gap-x-2">
+          {/* Auth Components */}
+          <UserMenu />
+          <LoginButton />
+          
           {/* ThemeSwitch */}
           <div>
             <ThemeSwitch />

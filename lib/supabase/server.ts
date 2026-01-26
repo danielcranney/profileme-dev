@@ -1,6 +1,6 @@
 /**
  * Supabase Server Client (Pages Router)
- * 
+ *
  * Creates a Supabase client for use in API routes (Pages Router).
  * Handles cookies for session management via req/res.
  */
@@ -19,14 +19,30 @@ export function createClient(req: NextApiRequest, res: NextApiResponse) {
           return req.cookies[name];
         },
         set(name: string, value: string, options: CookieOptions) {
-          res.setHeader(
-            "Set-Cookie",
-            `${name}=${value}; Path=${options.path || "/"}; ${
-              options.maxAge ? `Max-Age=${options.maxAge}; ` : ""
-            }${options.httpOnly ? "HttpOnly; " : ""}${
-              options.secure ? "Secure; " : ""
-            }${options.sameSite ? `SameSite=${options.sameSite}; ` : ""}`
-          );
+          // Build cookie string
+          const cookieParts = [
+            `${name}=${value}`,
+            `Path=${options.path || "/"}`,
+            options.maxAge ? `Max-Age=${options.maxAge}` : "",
+            options.httpOnly ? "HttpOnly" : "",
+            options.secure ? "Secure" : "",
+            options.sameSite ? `SameSite=${options.sameSite}` : "SameSite=Lax",
+          ].filter(Boolean);
+
+          const cookieValue = cookieParts.join("; ");
+
+          // Append to existing Set-Cookie headers if any
+          const existingCookies = res.getHeader("Set-Cookie");
+          if (Array.isArray(existingCookies)) {
+            res.setHeader("Set-Cookie", [...existingCookies, cookieValue]);
+          } else if (existingCookies) {
+            res.setHeader("Set-Cookie", [
+              existingCookies as string,
+              cookieValue,
+            ]);
+          } else {
+            res.setHeader("Set-Cookie", cookieValue);
+          }
         },
         remove(name: string, options: CookieOptions) {
           res.setHeader(
@@ -35,10 +51,10 @@ export function createClient(req: NextApiRequest, res: NextApiResponse) {
               options.httpOnly ? "HttpOnly; " : ""
             }${options.secure ? "Secure; " : ""}${
               options.sameSite ? `SameSite=${options.sameSite}; ` : ""
-            }`
+            }`,
           );
         },
       },
-    }
+    },
   );
 }

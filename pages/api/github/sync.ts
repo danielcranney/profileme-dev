@@ -14,6 +14,7 @@ import { requireToken } from "../../../lib/github/token";
 import { getFileMeta, upsertFile, getUsername, checkProfileRepo } from "../../../lib/github/repo";
 import { profileJsonSchema } from "../../../lib/profile/schema";
 import { renderReadme } from "../../../lib/profile/renderer";
+import { formatGitHubError } from "../../../lib/utils/errors";
 
 export default async function handler(
   req: NextApiRequest,
@@ -51,39 +52,65 @@ export default async function handler(
     // Generate README from JSON
     const readmeMarkdown = renderReadme(profileJson);
 
-    // Get existing file SHAs (if they exist)
-    const profileMeta = await getFileMeta(".profile/profile.json", req, res);
-    const readmeMeta = await getFileMeta("README.md", req, res);
+    // Fetch fresh SHAs right before updating (to avoid race conditions)
+    // Update files sequentially to ensure we have the latest SHA for each
+    let profileResult, readmeResult;
 
-    // Prepare commits
-    const commits: Array<Promise<{ sha: string; commit: any }>> = [];
+    // Helper function to update a file with retry on SHA mismatch
+    const updateFileWithRetry = async (
+      path: string,
+      content: string,
+      message: string,
+      maxRetries = 1
+    ) => {
+      let lastError;
+      
+      for (let attempt = 0; attempt <= maxRetries; attempt++) {
+        try {
+          // Fetch fresh SHA right before update
+          const fileMeta = await getFileMeta(path, req, res);
+          const sha = fileMeta?.sha || undefined; // Use undefined (not null) for new files
+          
+          return await upsertFile(
+            path,
+            content,
+            message,
+            req,
+            res,
+            sha
+          );
+        } catch (error: any) {
+          lastError = error;
+          
+          // If SHA mismatch and we have retries left, try again
+          if (error.message?.includes("but expected") && attempt < maxRetries) {
+            console.log(`SHA mismatch for ${path}, retrying (attempt ${attempt + 1}/${maxRetries + 1})...`);
+            // Small delay before retry
+            await new Promise(resolve => setTimeout(resolve, 100));
+            continue;
+          }
+          
+          // If it's a different error or we're out of retries, throw
+          throw error;
+        }
+      }
+      
+      throw lastError;
+    };
 
-    // Commit profile.json
-    commits.push(
-      upsertFile(
-        ".profile/profile.json",
-        JSON.stringify(profileJson, null, 2),
-        `Update profile.json via ProfileMe.dev`,
-        req,
-        res,
-        profileMeta?.sha || null
-      )
+    // Update profile.json first
+    profileResult = await updateFileWithRetry(
+      ".profile/profile.json",
+      JSON.stringify(profileJson, null, 2),
+      `Update profile.json via ProfileMe.dev`
     );
 
-    // Commit README.md
-    commits.push(
-      upsertFile(
-        "README.md",
-        readmeMarkdown,
-        `Update README.md via ProfileMe.dev`,
-        req,
-        res,
-        readmeMeta?.sha || null
-      )
+    // Update README.md
+    readmeResult = await updateFileWithRetry(
+      "README.md",
+      readmeMarkdown,
+      `Update README.md via ProfileMe.dev`
     );
-
-    // Execute all commits
-    const results = await Promise.all(commits);
 
     // Update LocalStorage cache with new SHA
     // (This will be done client-side)
@@ -91,44 +118,48 @@ export default async function handler(
     return res.status(200).json({
       success: true,
       message: "Profile synced to GitHub successfully",
-      commits: results.map((r) => ({
-        sha: r.sha,
-        url: r.commit.html_url,
-      })),
-      profileJsonSha: results[0].sha,
-      readmeSha: results[1].sha,
+      commits: [
+        {
+          sha: profileResult.sha,
+          url: profileResult.commit.html_url,
+        },
+        {
+          sha: readmeResult.sha,
+          url: readmeResult.commit.html_url,
+        },
+      ],
+      profileJsonSha: profileResult.sha,
+      readmeSha: readmeResult.sha,
     });
   } catch (error: any) {
     console.error("Sync error:", error);
 
-    // Handle specific error cases
+    // Handle validation errors
     if (error.name === "ZodError") {
       return res.status(400).json({
         error: "Invalid profile JSON",
+        message: "Please check your profile data. Some fields may be missing or invalid.",
+        code: "VALIDATION_ERROR",
         details: error.errors,
       });
     }
 
-    if (error.message?.includes("rate limit")) {
-      return res.status(429).json({
-        error: "GitHub API rate limit exceeded. Please try again later.",
-      });
-    }
+    // Format GitHub errors
+    const formattedError = formatGitHubError(error);
+    
+    // Determine status code
+    let statusCode = 500;
+    if (formattedError.code === "RATE_LIMIT") statusCode = 429;
+    else if (formattedError.code === "PERMISSION_DENIED") statusCode = 403;
+    else if (formattedError.code === "REPO_NOT_FOUND" || formattedError.code === "FILE_NOT_FOUND") statusCode = 404;
+    else if (formattedError.code === "SHA_MISMATCH") statusCode = 409;
+    else if (formattedError.code === "VALIDATION_ERROR") statusCode = 400;
 
-    if (error.message?.includes("permission") || error.message?.includes("403")) {
-      return res.status(403).json({
-        error: "Permission denied. Please ensure your GitHub token has repository write access.",
-      });
-    }
-
-    if (error.message?.includes("404") || error.message?.includes("not found")) {
-      return res.status(404).json({
-        error: "Repository or file not found. Please ensure your profile repository exists.",
-      });
-    }
-
-    return res.status(500).json({
-      error: error.message || "Failed to sync to GitHub",
+    return res.status(statusCode).json({
+      error: formattedError.message,
+      code: formattedError.code,
+      retry: formattedError.retry,
+      action: formattedError.action,
     });
   }
 }

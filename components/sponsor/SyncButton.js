@@ -38,7 +38,9 @@ export default function SyncButton() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || "Sync failed");
+        const errorMessage = data.error || "Sync failed";
+        const action = data.action ? ` ${data.action}` : "";
+        throw new Error(`${errorMessage}${action}`);
       }
 
       setStatus({ type: "success", message: "Profile synced to GitHub successfully!" });

@@ -39,6 +39,16 @@ npm install
 npm run dev
 ```
 
+## Architecture
+
+ProfileMe.dev uses a **JSON-first architecture** where:
+- All profile data is stored as canonical JSON
+- Markdown is generated from JSON (not the source of truth)
+- Free users: LocalStorage only
+- Sponsors: GitHub repository as source of truth, LocalStorage as cache
+
+For detailed architecture documentation, see [docs/ARCHITECTURE.md](./docs/ARCHITECTURE.md).
+
 ## Contributing
 
 Contributions are always welcome! Here's a few tips on how to get started.

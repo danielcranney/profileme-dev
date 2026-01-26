@@ -107,7 +107,7 @@ export async function upsertFile(
   message: string,
   req: NextApiRequest,
   res: NextApiResponse,
-  sha?: string | null
+  sha?: string | null | undefined
 ): Promise<{ sha: string; commit: any }> {
   const token = await requireToken(req, res);
   const username = await getGitHubUsername(token);
@@ -121,7 +121,8 @@ export async function upsertFile(
     branch: "main", // Default branch
   };
 
-  // Include sha for updates
+  // Include sha for updates (only if provided and truthy)
+  // undefined/null means create new file, sha means update existing
   if (sha) {
     body.sha = sha;
   }

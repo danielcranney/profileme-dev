@@ -40,7 +40,9 @@ export default function RestoreButton() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || "Restore failed");
+        const errorMessage = data.error || "Restore failed";
+        const action = data.action ? ` ${data.action}` : "";
+        throw new Error(`${errorMessage}${action}`);
       }
 
       // Convert profile JSON to state format

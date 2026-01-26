@@ -11,6 +11,7 @@ import { requireToken } from "../../../lib/github/token";
 import { getFileContent, getFileMeta, checkProfileRepo } from "../../../lib/github/repo";
 import { profileJsonSchema } from "../../../lib/profile/schema";
 import { migrateProfileJson } from "../../../lib/profile/migrate";
+import { formatGitHubError } from "../../../lib/utils/errors";
 
 export default async function handler(
   req: NextApiRequest,
@@ -71,27 +72,20 @@ export default async function handler(
   } catch (error: any) {
     console.error("Restore error:", error);
 
-    // Handle specific error cases
-    if (error.message?.includes("rate limit")) {
-      return res.status(429).json({
-        error: "GitHub API rate limit exceeded. Please try again later.",
-      });
-    }
+    // Format GitHub errors
+    const formattedError = formatGitHubError(error);
+    
+    // Determine status code
+    let statusCode = 500;
+    if (formattedError.code === "RATE_LIMIT") statusCode = 429;
+    else if (formattedError.code === "PERMISSION_DENIED") statusCode = 403;
+    else if (formattedError.code === "REPO_NOT_FOUND" || formattedError.code === "FILE_NOT_FOUND") statusCode = 404;
 
-    if (error.message?.includes("permission") || error.message?.includes("403")) {
-      return res.status(403).json({
-        error: "Permission denied. Please ensure your GitHub token has repository read access.",
-      });
-    }
-
-    if (error.message?.includes("404") || error.message?.includes("not found")) {
-      return res.status(404).json({
-        error: "Profile file not found. Please sync your profile first.",
-      });
-    }
-
-    return res.status(500).json({
-      error: error.message || "Failed to restore from GitHub",
+    return res.status(statusCode).json({
+      error: formattedError.message,
+      code: formattedError.code,
+      retry: formattedError.retry,
+      action: formattedError.action,
     });
   }
 }

@@ -4,6 +4,7 @@ import { ACTIONS } from "../../lib/constants/actions";
 import SectionOrderManager from "../SectionOrderManager";
 import SyncButton from "../sponsor/SyncButton";
 import RestoreButton from "../sponsor/RestoreButton";
+import PortfolioButton from "../sponsor/PortfolioButton";
 
 export default function PreviewControls({
   copySuccess,
@@ -35,6 +36,7 @@ export default function PreviewControls({
       <div className="flex gap-x-2">
         <RestoreButton />
         <SyncButton />
+        <PortfolioButton />
       </div>
       
       <button

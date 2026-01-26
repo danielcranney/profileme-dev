@@ -33,7 +33,22 @@ export default function CreateProfile() {
   const { theme } = useTheme();
   const [copySuccess, setCopySuccess] = useState("Copy");
 
-  // Custom hooks
+  // Generate markdown from JSON (canonical source)
+  const [markdownString, setMarkdownString] = useState("");
+  
+  useEffect(() => {
+    if (!mounted) return;
+    try {
+      const { stateToProfileJson, renderReadme } = require("../lib/profile");
+      const profileJson = stateToProfileJson(state);
+      const markdown = renderReadme(profileJson);
+      setMarkdownString(markdown);
+    } catch (error) {
+      console.error("Error generating markdown:", error);
+    }
+  }, [state, mounted]);
+
+  // Legacy hooks (still needed for preview rendering)
   const { renderedMarkdown, buildMarkdownSkill } = useMarkdownGeneration(
     state,
     mounted,
@@ -191,17 +206,8 @@ export default function CreateProfile() {
           className={state.renderMode === "markdown" ? "relative" : "hidden"}
         >
           <MarkdownRenderer
-            renderedMarkdown={renderedMarkdown}
-            state={state}
-            sectionOrder={state.sectionOrder}
-            socialsShowing={socialsShowing}
-            badgesShowing={badgesShowing}
-            markdownSkillsEmpty={markdownSkillsEmpty}
-            buildMarkdownSkill={buildMarkdownSkill}
-            supportStore={supportStore}
+            markdownString={markdownString}
             markdownRef={markdownRef}
-            socialsOrder={socialsOrder}
-            skillsOrder={skillsOrder}
           />
         </div>
       </section>

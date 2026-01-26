@@ -19,10 +19,12 @@
     "react-dom": "^18.2.0",
     "react-syntax-highlighter": "^15.5.0",
     "simple-icons": "^6.10.0",
-    "turndown": "^7.1.1"
+    "turndown": "^7.1.1",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.3",
+    "@types/turndown": "^5.0.6",
     "autoprefixer": "^10.4.2",
     "eslint": "8.8.0",
     "eslint-config-next": "12.0.10",

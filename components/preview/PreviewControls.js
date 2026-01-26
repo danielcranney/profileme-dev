@@ -101,7 +101,9 @@ export default function PreviewControls({
             type: ACTIONS.SELECT_RENDER_MODE,
             payload: "markdown",
           });
-          copyToClipBoard(markdownRef.current.innerText);
+          // Copy markdown text from the ref
+          const markdownText = markdownRef.current?.innerText || markdownRef.current?.textContent || "";
+          copyToClipBoard(markdownText);
           dispatch({
             type: ACTIONS.TOGGLE_COPY_MODAL,
             payload: true,

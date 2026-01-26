@@ -634,6 +634,24 @@ function MyApp({ Component, pageProps }) {
 
   useEffect(() => {
     try {
+      // Try loading from new JSON format first
+      const { loadJsonToState } = require("../lib/profile/stateBridge");
+      const stateFromJson = loadJsonToState(initialState);
+      
+      if (stateFromJson && stateFromJson !== initialState) {
+        // Migrate stored state to ensure compatibility with current initialState
+        const migratedState = migrateStoredState(
+          stateFromJson,
+          initialState
+        );
+        dispatch({
+          type: ACTIONS.HYDRATE_STORED_STATE,
+          value: migratedState,
+        });
+        return;
+      }
+
+      // Fallback to legacy format
       const storedStateString = localStorage.getItem(STORED_STATE_KEY);
 
       if (storedStateString) {

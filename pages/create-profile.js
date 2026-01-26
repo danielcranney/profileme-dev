@@ -25,6 +25,7 @@ import {
   useScrollHandling,
   useSocialDragDrop,
   useSkillsDragDrop,
+  useAutoRestore,
 } from "../hooks";
 
 export default function CreateProfile() {
@@ -95,6 +96,9 @@ export default function CreateProfile() {
     getOrderedSkills,
     resetSkillsOrder,
   } = useSkillsDragDrop();
+
+  // Auto-restore for sponsors
+  const { checkAndRestore } = useAutoRestore();
 
   // Computed values
   const skillsEmpty = Object.keys(state.skills).every(

@@ -11,6 +11,7 @@ import { createClient } from "../lib/supabase/client";
 export function useAuth() {
   const [user, setUser] = useState(null);
   const [githubToken, setGithubToken] = useState(null);
+  const [isSponsor, setIsSponsor] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -67,20 +68,28 @@ export function useAuth() {
 
   const fetchSession = async () => {
     try {
-      const response = await fetch("/api/auth/session");
-      const data = await response.json();
+      const [sessionResponse, sponsorResponse] = await Promise.all([
+        fetch("/api/auth/session"),
+        fetch("/api/github/sponsor-status"),
+      ]);
       
-      if (data.user) {
-        setUser(data.user);
-        setGithubToken(data.githubToken);
+      const sessionData = await sessionResponse.json();
+      const sponsorData = await sponsorResponse.json();
+      
+      if (sessionData.user) {
+        setUser(sessionData.user);
+        setGithubToken(sessionData.githubToken);
       } else {
         setUser(null);
         setGithubToken(null);
       }
+      
+      setIsSponsor(sponsorData.isSponsor || false);
     } catch (error) {
       console.error("Failed to fetch session:", error);
       setUser(null);
       setGithubToken(null);
+      setIsSponsor(false);
     } finally {
       setLoading(false);
     }
@@ -129,6 +138,7 @@ export function useAuth() {
     loginWithGitHub,
     logout,
     isAuthenticated: !!user,
+    isSponsor,
     refresh: fetchSession,
   };
 }

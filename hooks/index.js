@@ -7,3 +7,4 @@ export { useScrollHandling } from "./useScrollHandling";
 export { useSocialDragDrop } from "./useSocialDragDrop";
 export { useSkillsDragDrop } from "./useSkillsDragDrop";
 export { useAuth } from "./useAuth";
+export { useAutoRestore } from "./useAutoRestore";

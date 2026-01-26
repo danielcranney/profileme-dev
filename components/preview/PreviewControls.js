@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 import { StateContext } from "../../pages/_app";
 import { ACTIONS } from "../../lib/constants/actions";
 import SectionOrderManager from "../SectionOrderManager";
+import SyncButton from "../sponsor/SyncButton";
+import RestoreButton from "../sponsor/RestoreButton";
 
 export default function PreviewControls({
   copySuccess,
@@ -28,6 +30,13 @@ export default function PreviewControls({
   return (
     <div className="buttons-wrapper">
       <SectionOrderManager />
+      
+      {/* Sponsor-only buttons */}
+      <div className="flex gap-x-2">
+        <RestoreButton />
+        <SyncButton />
+      </div>
+      
       <button
         id="PreviewButton"
         onClick={() => {

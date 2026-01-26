@@ -8,7 +8,7 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "../../hooks/useAuth";
 
 export default function UserMenu() {
-  const { user, githubToken, logout, loading, isAuthenticated, refresh } = useAuth();
+  const { user, githubToken, logout, loading, isAuthenticated, isSponsor, refresh } = useAuth();
   const [showMenu, setShowMenu] = useState(false);
   const [loggingOut, setLoggingOut] = useState(false);
 
@@ -84,10 +84,17 @@ export default function UserMenu() {
               {githubUsername && (
                 <div className="text-xs text-gray-500 dark:text-gray-400">@{githubUsername}</div>
               )}
-              <div className="text-xs mt-1">
-                <span className={`inline-flex items-center gap-1 ${hasGitHubToken ? 'text-green-600' : 'text-red-600'}`}>
-                  {hasGitHubToken ? '✓' : '✗'} GitHub Token: {hasGitHubToken ? 'Available' : 'Missing'}
-                </span>
+              <div className="text-xs mt-1 space-y-1">
+                <div>
+                  <span className={`inline-flex items-center gap-1 ${hasGitHubToken ? 'text-green-600' : 'text-red-600'}`}>
+                    {hasGitHubToken ? '✓' : '✗'} GitHub Token: {hasGitHubToken ? 'Available' : 'Missing'}
+                  </span>
+                </div>
+                <div>
+                  <span className={`inline-flex items-center gap-1 ${isSponsor ? 'text-green-600' : 'text-gray-500'}`}>
+                    {isSponsor ? '⭐' : '○'} Sponsor: {isSponsor ? 'Yes' : 'No'}
+                  </span>
+                </div>
               </div>
             </div>
             {githubUrl && (

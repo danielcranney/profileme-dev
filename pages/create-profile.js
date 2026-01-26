@@ -13,10 +13,13 @@ import Support from "../components/sections/Support";
 import FormLayout from "../components/layouts/FormLayout";
 import PreviewRenderer from "../components/preview/PreviewRenderer";
 import MarkdownRenderer from "../components/preview/MarkdownRenderer";
+import PortfolioRenderer from "../components/preview/PortfolioRenderer";
 import PreviewControls from "../components/preview/PreviewControls";
+import GitHubPagesSettings from "../components/sponsor/GitHubPagesSettings";
 
 // Import hooks
 import { StateContext } from "./_app";
+import { useAuth } from "../hooks/useAuth";
 import {
   useMarkdownGeneration,
   usePreviewState,
@@ -30,6 +33,7 @@ import {
 
 export default function CreateProfile() {
   const { state, dispatch } = useContext(StateContext);
+  const { isSponsor } = useAuth();
   const [mounted, setMounted] = useState(false);
   const { theme } = useTheme();
   const [copySuccess, setCopySuccess] = useState("Copy");
@@ -214,6 +218,21 @@ export default function CreateProfile() {
             markdownRef={markdownRef}
           />
         </div>
+
+        {/* Portfolio Section Preview (Sponsors Only) */}
+        {isSponsor && (
+          <>
+            <div
+              className={state.renderMode === "portfolio" ? "relative" : "hidden"}
+            >
+              <PortfolioRenderer />
+            </div>
+            {/* GitHub Pages Settings (fixed at top when in portfolio mode) */}
+            {state.renderMode === "portfolio" && (
+              <GitHubPagesSettings />
+            )}
+          </>
+        )}
       </section>
     </>
   );

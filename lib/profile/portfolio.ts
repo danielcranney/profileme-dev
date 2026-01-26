@@ -38,8 +38,8 @@ export function renderPortfolio(profileJson: ProfileJson): string {
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       line-height: 1.6;
-      color: #333;
-      background: #fff;
+      color: #e5e7eb;
+      background: #1f2937;
     }
     
     .container {
@@ -51,24 +51,24 @@ export function renderPortfolio(profileJson: ProfileJson): string {
     header {
       text-align: center;
       padding: 3rem 0;
-      border-bottom: 2px solid #e0e0e0;
+      border-bottom: 2px solid #374151;
       margin-bottom: 3rem;
     }
     
     h1 {
       font-size: 3rem;
       margin-bottom: 0.5rem;
-      color: #2c3e50;
+      color: #f9fafb;
     }
     
     .subtitle {
       font-size: 1.25rem;
-      color: #7f8c8d;
+      color: #9ca3af;
       margin-bottom: 1rem;
     }
     
     .location {
-      color: #95a5a6;
+      color: #6b7280;
       font-size: 1rem;
     }
     
@@ -79,15 +79,15 @@ export function renderPortfolio(profileJson: ProfileJson): string {
     h2 {
       font-size: 2rem;
       margin-bottom: 1.5rem;
-      color: #2c3e50;
-      border-bottom: 2px solid #3498db;
+      color: #f9fafb;
+      border-bottom: 2px solid #3b82f6;
       padding-bottom: 0.5rem;
     }
     
     .description {
       font-size: 1.1rem;
       line-height: 1.8;
-      color: #555;
+      color: #d1d5db;
       margin-bottom: 2rem;
     }
     
@@ -99,30 +99,36 @@ export function renderPortfolio(profileJson: ProfileJson): string {
     }
     
     .skill-category {
-      background: #f8f9fa;
+      background: #111827;
       padding: 1.5rem;
       border-radius: 8px;
-      border-left: 4px solid #3498db;
+      border-left: 4px solid #3b82f6;
     }
     
     .skill-category h3 {
       font-size: 1.25rem;
       margin-bottom: 1rem;
-      color: #2c3e50;
+      color: #f9fafb;
     }
     
     .skill-items {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.75rem;
+      gap: 0.5rem;
     }
     
     .skill-item {
-      background: #fff;
-      padding: 0.5rem 1rem;
-      border-radius: 4px;
-      border: 1px solid #e0e0e0;
-      font-size: 0.9rem;
+      background: #374151;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      border: 1px solid #4b5563;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #e5e7eb;
+      min-width: 2.5rem;
+      text-align: center;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
     }
     
     .socials {
@@ -137,7 +143,7 @@ export function renderPortfolio(profileJson: ProfileJson): string {
       align-items: center;
       gap: 0.5rem;
       padding: 0.75rem 1.5rem;
-      background: #3498db;
+      background: #3b82f6;
       color: white;
       text-decoration: none;
       border-radius: 6px;
@@ -145,7 +151,7 @@ export function renderPortfolio(profileJson: ProfileJson): string {
     }
     
     .social-link:hover {
-      background: #2980b9;
+      background: #2563eb;
     }
     
     .links {
@@ -158,7 +164,7 @@ export function renderPortfolio(profileJson: ProfileJson): string {
     .link-button {
       display: inline-block;
       padding: 0.75rem 1.5rem;
-      background: #2ecc71;
+      background: #10b981;
       color: white;
       text-decoration: none;
       border-radius: 6px;
@@ -166,7 +172,7 @@ export function renderPortfolio(profileJson: ProfileJson): string {
     }
     
     .link-button:hover {
-      background: #27ae60;
+      background: #059669;
     }
     
     .badges {
@@ -205,8 +211,17 @@ export function renderPortfolio(profileJson: ProfileJson): string {
       text-align: center;
       padding: 2rem 0;
       margin-top: 3rem;
-      border-top: 2px solid #e0e0e0;
-      color: #95a5a6;
+      border-top: 2px solid #374151;
+      color: #6b7280;
+    }
+    
+    footer a {
+      color: #3b82f6;
+      text-decoration: none;
+    }
+    
+    footer a:hover {
+      text-decoration: underline;
     }
     
     @media (max-width: 768px) {
@@ -333,15 +348,35 @@ function renderSkills(skills: ProfileJson["profile"]["skills"], skillsOrder: str
     return "";
   }
 
+  // Helper to get initials from skill name
+  const getInitials = (name: string): string => {
+    // Remove common prefixes/suffixes and get first letters
+    const cleaned = name
+      .replace(/^(GNU|Microsoft|Visual|Code|Studio|Neo|Vim|Neovim)\s+/i, "")
+      .replace(/\s+(Code|Studio|Editor|IDE)$/i, "")
+      .trim();
+    
+    // Get first letter of each word, max 2-3 letters
+    const words = cleaned.split(/\s+/);
+    if (words.length === 1) {
+      // Single word - take first 2-3 letters
+      return cleaned.substring(0, 3).toUpperCase();
+    } else {
+      // Multiple words - take first letter of each, max 2
+      return words.slice(0, 2).map(w => w[0]).join("").toUpperCase();
+    }
+  };
+
   return categories.map(category => {
     const items = skills[category] || [];
     return `
       <div class="skill-category">
         <h3>${escapeHtml(category)}</h3>
         <div class="skill-items">
-          ${items.map(skill => `
-            <span class="skill-item">${escapeHtml(skill.name)}</span>
-          `).join("")}
+          ${items.map(skill => {
+            const initials = getInitials(skill.name);
+            return `<span class="skill-item" title="${escapeHtml(skill.name)}">${initials}</span>`;
+          }).join("")}
         </div>
       </div>
     `;

@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { StateContext } from "../../pages/_app";
 import { ACTIONS } from "../../lib/constants/actions";
+import { useAuth } from "../../hooks/useAuth";
 import SectionOrderManager from "../SectionOrderManager";
 import SyncButton from "../sponsor/SyncButton";
 import RestoreButton from "../sponsor/RestoreButton";
-import PortfolioButton from "../sponsor/PortfolioButton";
 
 export default function PreviewControls({
   copySuccess,
@@ -14,6 +14,7 @@ export default function PreviewControls({
   // resetSkillsOrder,
 }) {
   const { state, dispatch } = useContext(StateContext);
+  const { isSponsor } = useAuth();
 
   const copyToClipBoard = async (copyMe) => {
     try {
@@ -36,7 +37,6 @@ export default function PreviewControls({
       <div className="flex gap-x-2">
         <RestoreButton />
         <SyncButton />
-        <PortfolioButton />
       </div>
       
       <button
@@ -82,7 +82,7 @@ export default function PreviewControls({
             payload: "markdown",
           });
         }}
-        className={`btn-sm mr-auto ${
+        className={`btn-sm ${
           state.renderMode === "markdown" ? "btn-brand" : "btn-gray"
         }`}
       >
@@ -102,6 +102,39 @@ export default function PreviewControls({
         </svg>
         Markdown
       </button>
+
+      {/* Portfolio Button (Sponsors Only) */}
+      {isSponsor && (
+        <button
+          id="PortfolioButton"
+          onClick={() => {
+            dispatch({
+              type: ACTIONS.SELECT_RENDER_MODE,
+              payload: "portfolio",
+            });
+          }}
+          className={`btn-sm mr-auto ${
+            state.renderMode === "portfolio" ? "btn-brand" : "btn-gray"
+          }`}
+          title="Preview portfolio (Sponsors only)"
+        >
+          <svg
+            className="w-4 h-4 mr-1"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
+            ></path>
+          </svg>
+          Portfolio
+        </button>
+      )}
 
       <button
         className={`btn-sm ${

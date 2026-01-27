@@ -2,9 +2,9 @@ import React, { useContext } from "react";
 import { StateContext } from "../../pages/_app";
 import { ACTIONS } from "../../lib/constants/actions";
 import { useAuth } from "../../hooks/useAuth";
-import SectionOrderManager from "../SectionOrderManager";
-import SyncButton from "../sponsor/SyncButton";
-import RestoreButton from "../sponsor/RestoreButton";
+import SyncMenuButton from "../sponsor/SyncMenuButton";
+import ViewModeToggle from "./ViewModeToggle";
+import ActionsMenu from "./ActionsMenu";
 
 export default function PreviewControls({
   copySuccess,
@@ -30,141 +30,29 @@ export default function PreviewControls({
   };
 
   return (
-    <div className="buttons-wrapper">
-      <SectionOrderManager />
+    <div className="buttons-wrapper flex items-center gap-3 flex-wrap">
+      {/* Group 1: View Mode Toggle */}
+      <ViewModeToggle />
       
-      {/* Sponsor-only buttons */}
-      <div className="flex gap-x-2">
-        <RestoreButton />
-        <SyncButton />
-      </div>
+      {/* Visual Separator */}
+      <div className="h-8 w-px bg-gray-300 dark:bg-dark-700" />
       
-      <button
-        id="PreviewButton"
-        onClick={() => {
-          dispatch({
-            type: ACTIONS.SELECT_RENDER_MODE,
-            payload: "preview",
-          });
-        }}
-        className={`btn-sm ${
-          state.renderMode === "preview" ? "btn-brand" : "btn-gray"
-        }`}
-      >
-        <svg
-          className="w-4 h-4 mr-1"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-          ></path>
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-          ></path>
-        </svg>
-        Preview
-      </button>
-
-      <button
-        id="MarkdownButton"
-        onClick={() => {
-          dispatch({
-            type: ACTIONS.SELECT_RENDER_MODE,
-            payload: "markdown",
-          });
-        }}
-        className={`btn-sm ${
-          state.renderMode === "markdown" ? "btn-brand" : "btn-gray"
-        }`}
-      >
-        <svg
-          className="w-4 h-4 mr-1"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M19 14l-7 7m0 0l-7-7m7 7V3"
-          ></path>
-        </svg>
-        Markdown
-      </button>
-
-      {/* Portfolio Button (Sponsors Only) */}
+      {/* Group 2: GitHub Sync (Sponsors Only) */}
       {isSponsor && (
-        <button
-          id="PortfolioButton"
-          onClick={() => {
-            dispatch({
-              type: ACTIONS.SELECT_RENDER_MODE,
-              payload: "portfolio",
-            });
-          }}
-          className={`btn-sm mr-auto ${
-            state.renderMode === "portfolio" ? "btn-brand" : "btn-gray"
-          }`}
-          title="Preview portfolio (Sponsors only)"
-        >
-          <svg
-            className="w-4 h-4 mr-1"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"
-            ></path>
-          </svg>
-          Portfolio
-        </button>
+        <>
+          <SyncMenuButton />
+          
+          {/* Visual Separator */}
+          <div className="h-8 w-px bg-gray-300 dark:bg-dark-700" />
+        </>
       )}
-
-      <button
-        className={`btn-sm ${
-          copySuccess !== "Copy" ? "btn-brand" : "btn-gray"
-        }`}
-        onClick={() => {
-          dispatch({
-            type: ACTIONS.SELECT_RENDER_MODE,
-            payload: "markdown",
-          });
-          // Copy markdown text from the ref
-          const markdownText = markdownRef.current?.innerText || markdownRef.current?.textContent || "";
-          copyToClipBoard(markdownText);
-          dispatch({
-            type: ACTIONS.TOGGLE_COPY_MODAL,
-            payload: true,
-          });
-        }}
-      >
-        <svg
-          className="w-4 h-4 mr-1"
-          fill="currentColor"
-          viewBox="0 0 20 20"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M8 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z"></path>
-          <path d="M6 3a2 2 0 00-2 2v11a2 2 0 002 2h8a2 2 0 002-2V5a2 2 0 00-2-2 3 3 0 01-3 3H9a3 3 0 01-3-3z"></path>
-        </svg>
-        {copySuccess}
-      </button>
+      
+      {/* Group 3: Actions Menu */}
+      <ActionsMenu 
+        copySuccess={copySuccess}
+        setCopySuccess={setCopySuccess}
+        markdownRef={markdownRef}
+      />
 
       {/* 
       

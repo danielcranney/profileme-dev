@@ -170,6 +170,7 @@ const SectionOrderManager = () => {
     <>
       <button
         onClick={() => setIsOpen(true)}
+        data-section-order-trigger
         className={`btn-sm flex items-center gap-x-2 ${
           isOpen ? "btn-brand" : "btn-gray"
         }`}

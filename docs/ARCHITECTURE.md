@@ -50,7 +50,7 @@ username/username/          # Profile repository (must match GitHub username)
 │       ├── avatar.webp
 │       └── icons/*.svg
 ├── README.md              # Generated from profile.json
-└── portfolio.html         # Optional portfolio (GitHub Pages)
+└── index.html             # Portfolio site (GitHub Pages) - generated from profile.json
 ```
 
 #### File Operations

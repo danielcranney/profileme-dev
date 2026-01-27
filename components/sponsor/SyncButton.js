@@ -10,6 +10,7 @@ import { useAuth } from "../../hooks/useAuth";
 import { useContext } from "react";
 import { StateContext } from "../../pages/_app";
 import { stateToProfileJson } from "../../lib/profile/stateBridge";
+import { loadProfileJson } from "../../lib/profile";
 
 export default function SyncButton() {
   const { isSponsor, isAuthenticated } = useAuth();
@@ -26,8 +27,22 @@ export default function SyncButton() {
     setStatus(null);
 
     try {
-      // Convert state to profile JSON
-      const profileJson = stateToProfileJson(state);
+      // Load saved profile JSON (to preserve portfolio template and other JSON-only settings)
+      let profileJson = loadProfileJson();
+      
+      if (!profileJson) {
+        // If no saved JSON exists, create from current state
+        profileJson = stateToProfileJson(state);
+      } else {
+        // Merge current state's profile data with saved JSON (preserves portfolio template, etc.)
+        const stateJson = stateToProfileJson(state);
+        profileJson = {
+          ...profileJson,
+          profile: stateJson.profile, // Update profile data from current state
+          updatedAt: stateJson.updatedAt, // Update timestamp
+          // Keep portfolio, render, and other JSON-only settings from saved JSON
+        };
+      }
 
       const response = await fetch("/api/github/sync", {
         method: "POST",
@@ -43,7 +58,10 @@ export default function SyncButton() {
         throw new Error(`${errorMessage}${action}`);
       }
 
-      setStatus({ type: "success", message: "Profile synced to GitHub successfully!" });
+      setStatus({ 
+        type: "success", 
+        message: "Synced to GitHub: README.md + portfolio site updated!" 
+      });
       
       // Update LocalStorage cache with new SHA
       if (data.profileJsonSha) {
@@ -65,9 +83,16 @@ export default function SyncButton() {
         onClick={handleSync}
         disabled={syncing}
         className="btn-sm btn-brand"
+        title="Syncs profile.json, README.md, and portfolio site (index.html) to GitHub"
       >
         {syncing ? "Syncing..." : "Sync to GitHub"}
       </button>
+      
+      {syncing && (
+        <div className="absolute top-full mt-1 left-0 text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">
+          Syncing README + Portfolio Site...
+        </div>
+      )}
       {status && (
         <div
           className={`absolute top-full mt-2 p-2 rounded text-xs ${

@@ -224,5 +224,9 @@ export function getDefaultProfileJson(): ProfileJson {
       readmeTemplate: "default",
       readmeOptions: {},
     },
+    portfolio: {
+      template: "minimal",
+      options: {},
+    },
   };
 }

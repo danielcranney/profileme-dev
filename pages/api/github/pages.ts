@@ -65,13 +65,30 @@ export default async function handler(
       }
 
       if (!pagesResponse.ok) {
-        throw new Error(`GitHub API error: ${pagesResponse.status}`);
+        // If it's not 404, log the error but still return a config
+        console.error(`GitHub Pages API error: ${pagesResponse.status}`);
+        const errorText = await pagesResponse.text();
+        console.error("Error response:", errorText);
+        
+        // Return a default config instead of throwing
+        return res.status(200).json({
+          enabled: false,
+          url: null,
+          customDomain: null,
+          htmlUrl: `https://${username}.github.io/${username}/`,
+          error: `GitHub API error: ${pagesResponse.status}`,
+        });
       }
 
       const pagesData = await pagesResponse.json();
       
+      // Pages is enabled if status is "built" or if html_url exists
+      const isEnabled = pagesData.status === "built" || 
+                       pagesData.status === "building" || 
+                       !!pagesData.html_url;
+      
       return res.status(200).json({
-        enabled: pagesData.status === "built",
+        enabled: isEnabled,
         url: pagesData.html_url || `https://${username}.github.io/${username}/`,
         customDomain: pagesData.cname || null,
         htmlUrl: pagesData.html_url || `https://${username}.github.io/${username}/`,

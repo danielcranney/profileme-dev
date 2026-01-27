@@ -6,12 +6,18 @@
 
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../../hooks/useAuth";
+import { useContext } from "react";
+import { StateContext } from "../../pages/_app";
+import { stateToProfileJson } from "../../lib/profile/stateBridge";
+import PortfolioSettings from "./PortfolioSettings";
 
 export default function GitHubPagesSettings() {
   const { isSponsor, isAuthenticated } = useAuth();
+  const { state } = useContext(StateContext);
   const [pagesConfig, setPagesConfig] = useState(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [syncingPortfolio, setSyncingPortfolio] = useState(false);
   const [customDomain, setCustomDomain] = useState("");
   const [status, setStatus] = useState(null);
 
@@ -22,50 +28,39 @@ export default function GitHubPagesSettings() {
   }, [isSponsor, isAuthenticated]);
 
   const fetchPagesConfig = async () => {
+    setLoading(true);
     try {
       const response = await fetch("/api/github/pages");
-      if (response.ok) {
-        const data = await response.json();
-        setPagesConfig(data);
-        setCustomDomain(data.customDomain || "");
-      }
+      const data = await response.json();
+      
+      // Always set the config, even if there was an error
+      // The API returns a config object even on errors
+      setPagesConfig(data);
+      setCustomDomain(data.customDomain || "");
     } catch (error) {
       console.error("Failed to fetch Pages config:", error);
+      // Set default config on error
+      setPagesConfig({
+        enabled: false,
+        htmlUrl: null,
+      });
     } finally {
       setLoading(false);
     }
   };
 
   const handleEnablePages = async () => {
+    // This is actually a "refresh status" button now
     setSaving(true);
     setStatus(null);
 
     try {
-      const response = await fetch("/api/github/pages", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          customDomain: customDomain || null,
-        }),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        // If Pages needs to be enabled manually, show instructions
-        if (data.action === "enable_manually" && data.instructions) {
-          const instructionsText = data.instructions.join("\n");
-          throw new Error(`${data.error}\n\n${instructionsText}\n\nAfter enabling, wait a minute and refresh this page.`);
-        }
-        
-        throw new Error(data.error || "Failed to enable GitHub Pages");
-      }
-
-      setPagesConfig(data);
-      setStatus({ type: "success", message: data.message || "GitHub Pages enabled successfully!" });
+      // Just refresh the config
+      await fetchPagesConfig();
+      setStatus({ type: "success", message: "Status refreshed!" });
     } catch (error) {
-      console.error("Failed to enable Pages:", error);
-      setStatus({ type: "error", message: error.message || "Failed to enable GitHub Pages" });
+      console.error("Failed to refresh Pages status:", error);
+      setStatus({ type: "error", message: error.message || "Failed to refresh status" });
     } finally {
       setSaving(false);
     }
@@ -100,6 +95,60 @@ export default function GitHubPagesSettings() {
     }
   };
 
+  const handleSyncPortfolio = async () => {
+    setSyncingPortfolio(true);
+    setStatus(null);
+
+    try {
+      // Load saved profile JSON (to preserve portfolio template and other JSON-only settings)
+      const { loadProfileJson } = require("../../lib/profile");
+      let profileJson = loadProfileJson();
+      
+      if (!profileJson) {
+        // If no saved JSON exists, create from current state
+        profileJson = stateToProfileJson(state);
+      } else {
+        // Merge current state's profile data with saved JSON (preserves portfolio template, etc.)
+        const stateJson = stateToProfileJson(state);
+        profileJson = {
+          ...profileJson,
+          profile: stateJson.profile, // Update profile data from current state
+          updatedAt: stateJson.updatedAt, // Update timestamp
+          // Keep portfolio, render, and other JSON-only settings from saved JSON
+        };
+      }
+
+      const response = await fetch("/api/github/sync", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(profileJson),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        const errorMessage = data.error || "Sync failed";
+        const action = data.action ? ` ${data.action}` : "";
+        throw new Error(`${errorMessage}${action}`);
+      }
+
+      setStatus({ 
+        type: "success", 
+        message: "Portfolio synced! Your portfolio site has been regenerated from your profile JSON." 
+      });
+      
+      // Refresh Pages config after sync
+      setTimeout(() => {
+        fetchPagesConfig();
+      }, 2000);
+    } catch (error) {
+      console.error("Portfolio sync error:", error);
+      setStatus({ type: "error", message: error.message || "Failed to sync portfolio" });
+    } finally {
+      setSyncingPortfolio(false);
+    }
+  };
+
   if (!isAuthenticated || !isSponsor) {
     return null;
   }
@@ -113,8 +162,11 @@ export default function GitHubPagesSettings() {
   }
 
   return (
-    <div className="p-3 border border-gray-300 dark:border-dark-700 rounded bg-white dark:bg-dark-800 shadow-sm fixed top-16 right-4 z-50 w-80 max-h-96 overflow-y-auto">
+    <div className="p-3 border border-gray-300 dark:border-dark-700 rounded bg-white dark:bg-dark-800 shadow-sm fixed top-16 right-4 z-50 w-80 max-h-[calc(100vh-5rem)] overflow-y-auto">
       <h3 className="text-sm font-semibold mb-2">GitHub Pages</h3>
+      
+      {/* Portfolio Template Settings */}
+      <PortfolioSettings />
 
       {pagesConfig?.enabled ? (
         <>
@@ -141,6 +193,25 @@ export default function GitHubPagesSettings() {
                 />
               </svg>
             </a>
+          </div>
+
+          <div className="mb-3 p-2 bg-gray-50 dark:bg-dark-900 rounded border border-gray-200 dark:border-dark-700">
+            <p className="text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">
+              Update Portfolio Site
+            </p>
+            <p className="text-xs text-gray-600 dark:text-gray-400 mb-2">
+              Sync your portfolio to GitHub Pages. This regenerates your portfolio site from your profile JSON.
+            </p>
+            <button
+              onClick={handleSyncPortfolio}
+              disabled={syncingPortfolio}
+              className="btn-sm btn-brand w-full text-xs"
+            >
+              {syncingPortfolio ? "Syncing..." : "Sync Portfolio"}
+            </button>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+              Note: The main "Sync to GitHub" button also updates your portfolio site
+            </p>
           </div>
 
           <div className="mb-3">
@@ -177,8 +248,11 @@ export default function GitHubPagesSettings() {
               <p className="text-xs text-blue-800 dark:text-blue-200 font-medium mb-1">
                 ⓘ Enable Pages Manually First
               </p>
-              <p className="text-xs text-blue-700 dark:text-blue-300">
+              <p className="text-xs text-blue-700 dark:text-blue-300 mb-1">
                 GitHub's API requires Pages to be enabled manually first. After enabling, you can manage settings here.
+              </p>
+              <p className="text-xs text-blue-700 dark:text-blue-300">
+                Once enabled, syncing your profile will automatically regenerate your portfolio site (index.html) from your profile JSON and update README.md.
               </p>
             </div>
           </div>
@@ -194,11 +268,11 @@ export default function GitHubPagesSettings() {
           
           <button
             onClick={handleEnablePages}
-            disabled={saving}
+            disabled={saving || loading}
             className="btn-sm btn-gray w-full text-xs"
-            title="Try to enable via API (may require manual enablement first)"
+            title="Refresh Pages status"
           >
-            {saving ? "Checking..." : "Refresh Status"}
+            {saving || loading ? "Checking..." : "Refresh Status"}
           </button>
         </>
       )}

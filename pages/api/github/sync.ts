@@ -133,12 +133,13 @@ export default async function handler(
       `Update README.md via ProfileMe.dev`,
     );
 
-    // Update portfolio.html (for GitHub Pages)
-    const portfolioMeta = await getFileMeta("portfolio.html", req, res);
-    const portfolioResult = await updateFileWithRetry(
-      "portfolio.html",
+    // Generate index.html (portfolio site for GitHub Pages)
+    // This serves as the main page on GitHub Pages, automatically generated from JSON
+    const indexMeta = await getFileMeta("index.html", req, res);
+    const indexResult = await updateFileWithRetry(
+      "index.html",
       portfolioHtml,
-      `Update portfolio.html via ProfileMe.dev`,
+      `Update portfolio site (generated from profile JSON) via ProfileMe.dev`,
     );
 
     // Update LocalStorage cache with new SHA
@@ -159,14 +160,14 @@ export default async function handler(
           file: "README.md",
         },
         {
-          sha: portfolioResult.sha,
-          url: portfolioResult.commit.html_url,
-          file: "portfolio.html",
+          sha: indexResult.sha,
+          url: indexResult.commit.html_url,
+          file: "index.html",
         },
       ],
       profileJsonSha: profileResult.sha,
       readmeSha: readmeResult.sha,
-      portfolioSha: portfolioResult.sha,
+      indexHtmlSha: indexResult.sha,
     });
   } catch (error: any) {
     console.error("Sync error:", error);

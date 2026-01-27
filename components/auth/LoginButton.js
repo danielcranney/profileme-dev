@@ -8,7 +8,7 @@ import React from "react";
 import { useAuth } from "../../hooks/useAuth";
 
 export default function LoginButton() {
-  const { loginWithGitHub, loading, isAuthenticated } = useAuth();
+  const { loginWithGitHub, loading, isAuthenticated, isFullyAuthenticated } = useAuth();
 
   if (loading) {
     return (
@@ -18,8 +18,10 @@ export default function LoginButton() {
     );
   }
 
-  if (isAuthenticated) {
-    return null; // Don't show if already logged in (UserMenu will show instead)
+  // Only hide if fully authenticated (has both Supabase session AND GitHub token)
+  // If partially authenticated (no GitHub token), UserMenu will show reconnect option
+  if (isFullyAuthenticated) {
+    return null; // Don't show if fully logged in (UserMenu will show instead)
   }
 
   return (

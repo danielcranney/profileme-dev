@@ -9,6 +9,7 @@ import { useContext } from "react";
 import { StateContext } from "../../pages/_app";
 import { stateToProfileJson } from "../../lib/profile/stateBridge";
 import { renderPortfolio } from "../../lib/profile/portfolio";
+import { loadProfileJson } from "../../lib/profile";
 
 export default function PortfolioRenderer() {
   const { state } = useContext(StateContext);
@@ -17,8 +18,25 @@ export default function PortfolioRenderer() {
 
   useEffect(() => {
     try {
-      // Convert state to profile JSON
-      const profileJson = stateToProfileJson(state);
+      // Load from LocalStorage first (to get portfolio template settings)
+      // Then merge with current state
+      const savedJson = loadProfileJson();
+      
+      let profileJson;
+      if (savedJson) {
+        // Use saved JSON but update profile data from current state
+        // This preserves portfolio template and render settings
+        const stateJson = stateToProfileJson(state);
+        profileJson = {
+          ...savedJson,
+          profile: stateJson.profile, // Update profile data from state
+          updatedAt: stateJson.updatedAt, // Update timestamp
+          // Keep portfolio and render from saved JSON
+        };
+      } else {
+        // No saved JSON, create from state (will have default portfolio template)
+        profileJson = stateToProfileJson(state);
+      }
       
       // Generate portfolio HTML
       const html = renderPortfolio(profileJson);

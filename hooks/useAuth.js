@@ -131,13 +131,20 @@ export function useAuth() {
     await fetchSession();
   };
 
+  // Consider user fully authenticated only if they have both Supabase session AND GitHub token
+  // If GitHub token is missing, they're partially authenticated (can use basic site but not sponsor features)
+  const isFullyAuthenticated = !!user && !!githubToken;
+  const isPartiallyAuthenticated = !!user && !githubToken;
+
   return {
     user,
     githubToken,
     loading,
     loginWithGitHub,
     logout,
-    isAuthenticated: !!user,
+    isAuthenticated: !!user, // Keep for backward compatibility
+    isFullyAuthenticated,
+    isPartiallyAuthenticated,
     isSponsor,
     refresh: fetchSession,
   };

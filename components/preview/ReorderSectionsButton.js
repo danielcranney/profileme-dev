@@ -136,7 +136,7 @@ export default function ReorderSectionsButton({ onClose, className = "" }) {
     <>
       <button
         onClick={handleClick}
-        className={`w-full text-left px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-dark-700 flex items-center gap-2 ${className}`}
+        className={`w-full text-left px-3 py-2 text-xs font-semibold uppercase text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-dark-700 flex items-center gap-2 ${className}`}
       >
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 10h16M4 14h16M4 18h16" />

@@ -180,7 +180,7 @@ export default function SyncMenuButton() {
         ref={buttonRef}
         onClick={handleSync}
         disabled={syncing}
-        className="btn-sm btn-brand flex items-center gap-1.5 rounded-r-none border-r border-brand-600 dark:border-brand-400"
+        className="btn-sm btn-brand flex items-center gap-1.5 rounded-r-none border-r border-gray-900/20 dark:border-white/10"
         title="Syncs profile.json, README.md, and portfolio site (index.html) to GitHub"
         onMouseEnter={() => setShowTooltip(true)}
         onMouseLeave={() => setShowTooltip(false)}

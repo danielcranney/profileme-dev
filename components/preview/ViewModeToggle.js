@@ -55,10 +55,10 @@ export default function ViewModeToggle() {
           key={mode.id}
           onClick={() => handleModeChange(mode.id)}
           className={`
-            flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded transition-all
+            flex items-center gap-1.5 px-3 py-2.5 text-xs font-semibold rounded transition-all uppercase
             ${
               currentMode === mode.id
-                ? "bg-brand text-white shadow-sm font-semibold hover:bg-brand-alt"
+                ? "bg-brand text-white shadow-sm hover:bg-brand-alt"
                 : "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-dark-700"
             }
             ${index > 0 ? "ml-1" : ""}

@@ -30,29 +30,29 @@ export default function PreviewControls({
   };
 
   return (
-    <div className="buttons-wrapper flex items-center gap-3 flex-wrap">
-      {/* Group 1: View Mode Toggle */}
+    <div className="buttons-wrapper flex items-center justify-between gap-3 flex-wrap">
+      {/* Left Group: View Mode Toggle */}
       <ViewModeToggle />
       
-      {/* Visual Separator */}
-      <div className="h-8 w-px bg-gray-300 dark:bg-dark-700" />
-      
-      {/* Group 2: GitHub Sync (Sponsors Only) */}
-      {isSponsor && (
-        <>
-          <SyncMenuButton />
-          
-          {/* Visual Separator */}
-          <div className="h-8 w-px bg-gray-300 dark:bg-dark-700" />
-        </>
-      )}
-      
-      {/* Group 3: Actions Menu */}
-      <ActionsMenu 
-        copySuccess={copySuccess}
-        setCopySuccess={setCopySuccess}
-        markdownRef={markdownRef}
-      />
+      {/* Right Group: Action Buttons */}
+      <div className="flex items-center gap-2">
+        {/* GitHub Sync (Sponsors Only) */}
+        {isSponsor && (
+          <>
+            <SyncMenuButton />
+            
+            {/* Visual Separator */}
+            <div className="h-8 w-px bg-gray-300 dark:bg-dark-700" />
+          </>
+        )}
+        
+        {/* Actions Menu */}
+        <ActionsMenu 
+          copySuccess={copySuccess}
+          setCopySuccess={setCopySuccess}
+          markdownRef={markdownRef}
+        />
+      </div>
 
       {/* 
       

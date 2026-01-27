@@ -8,6 +8,50 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { requireToken } from "./token";
 
+/**
+ * Get current branch commit SHA
+ */
+async function getCurrentCommitSha(
+  token: string,
+  username: string
+): Promise<{ commitSha: string; treeSha: string }> {
+  // Get branch reference
+  const refResponse = await fetch(
+    `https://api.github.com/repos/${username}/${username}/git/refs/heads/main`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: "application/vnd.github.v3+json",
+      },
+    }
+  );
+
+  if (!refResponse.ok) {
+    throw new Error(`Failed to get branch reference: ${refResponse.statusText}`);
+  }
+
+  const refData = await refResponse.json();
+  const commitSha = refData.object.sha;
+
+  // Get commit to get tree SHA
+  const commitResponse = await fetch(
+    `https://api.github.com/repos/${username}/${username}/git/commits/${commitSha}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: "application/vnd.github.v3+json",
+      },
+    }
+  );
+
+  if (!commitResponse.ok) {
+    throw new Error(`Failed to get commit: ${commitResponse.statusText}`);
+  }
+
+  const commitData = await commitResponse.json();
+  return { commitSha, treeSha: commitData.tree.sha };
+}
+
 const PROFILE_JSON_PATH = ".profile/profile.json";
 const README_PATH = "README.md";
 const ASSETS_DIR = ".profile/assets";
@@ -310,4 +354,231 @@ export async function deleteFile(
     console.error(`Error deleting file ${path}:`, error);
     throw error;
   }
+}
+
+/**
+ * Get recursive tree from GitHub (all files in repo)
+ */
+async function getRecursiveTree(
+  token: string,
+  username: string,
+  treeSha: string
+): Promise<Array<{ path: string; sha: string; mode: string; type: string }>> {
+  const response = await fetch(
+    `https://api.github.com/repos/${username}/${username}/git/trees/${treeSha}?recursive=1`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        Accept: "application/vnd.github.v3+json",
+      },
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(`Failed to get recursive tree: ${response.statusText}`);
+  }
+
+  const treeData = await response.json();
+  // Return only files (type === "blob"), not directories
+  return (treeData.tree || []).filter((item: any) => item.type === "blob");
+}
+
+/**
+ * Unified batch operation: upload, update, and delete files in ONE commit
+ * This is the fastest approach - all operations in a single atomic commit
+ */
+export async function unifiedBatchSync(
+  filesToUpdate: Array<{ path: string; content: string }>,
+  filesToDelete: Array<{ path: string }>,
+  message: string,
+  req: NextApiRequest,
+  res: NextApiResponse
+): Promise<{ commit: any; tree: any }> {
+  const token = await requireToken(req, res);
+  const username = await getGitHubUsername(token);
+
+  try {
+    const syncStart = Date.now();
+    
+    // Step 1: Get current commit and tree SHA
+    const { commitSha, treeSha } = await getCurrentCommitSha(token, username);
+
+    // Step 2: Get all existing files from current tree (for deletions)
+    const treeFetchStart = Date.now();
+    const existingFiles = await getRecursiveTree(token, username, treeSha);
+    const treeFetchTime = Date.now() - treeFetchStart;
+    console.log(`⏱️  Tree fetch (recursive): ${treeFetchTime}ms (${existingFiles.length} existing files)`);
+
+    // Step 3: Create blobs for all files to update in parallel
+    const blobStart = Date.now();
+    const blobPromises = filesToUpdate.map(async (file) => {
+      const blobResponse = await fetch(
+        `https://api.github.com/repos/${username}/${username}/git/blobs`,
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: "application/vnd.github.v3+json",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            content: Buffer.from(file.content, "utf-8").toString("base64"),
+            encoding: "base64",
+          }),
+        }
+      );
+
+      if (!blobResponse.ok) {
+        const errorData = await blobResponse.json();
+        throw new Error(`Failed to create blob for ${file.path}: ${errorData.message}`);
+      }
+
+      const blobData = await blobResponse.json();
+      return {
+        path: file.path,
+        sha: blobData.sha,
+        mode: "100644",
+        type: "blob",
+      };
+    });
+
+    const newTreeEntries = await Promise.all(blobPromises);
+    const blobTime = Date.now() - blobStart;
+    console.log(`⏱️  Blob creation (parallel): ${blobTime}ms (${filesToUpdate.length} files)`);
+
+    // Step 4: Build final tree
+    // - Include all existing files EXCEPT those being deleted
+    // - Include all new/updated files (they override existing ones)
+    const deletePaths = new Set(filesToDelete.map(f => f.path));
+    const updatePaths = new Set(filesToUpdate.map(f => f.path));
+    
+    const finalTreeEntries: Array<{ path: string; sha: string; mode: string; type: string }> = [];
+    
+    // Add existing files (excluding deletions and updates - updates will be added next)
+    for (const existing of existingFiles) {
+      if (!deletePaths.has(existing.path) && !updatePaths.has(existing.path)) {
+        finalTreeEntries.push({
+          path: existing.path,
+          sha: existing.sha,
+          mode: existing.mode,
+          type: existing.type,
+        });
+      }
+    }
+    
+    // Add all new/updated files (these override any existing ones)
+    finalTreeEntries.push(...newTreeEntries);
+
+    // Step 5: Create tree (single API call)
+    // If we have deletions, we can't use base_tree (it would include deleted files)
+    // Instead, we explicitly list all files we want to keep
+    const treeStart = Date.now();
+    const treeBody: any = {
+      tree: finalTreeEntries,
+    };
+    
+    // Only use base_tree if we're not deleting anything (optimization)
+    // When deleting, we need explicit control over the tree
+    if (filesToDelete.length === 0) {
+      treeBody.base_tree = treeSha;
+    }
+    
+    const treeResponse = await fetch(
+      `https://api.github.com/repos/${username}/${username}/git/trees`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/vnd.github.v3+json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(treeBody),
+      }
+    );
+
+    if (!treeResponse.ok) {
+      const errorData = await treeResponse.json();
+      throw new Error(`Failed to create tree: ${errorData.message}`);
+    }
+
+    const treeData = await treeResponse.json();
+    const treeTime = Date.now() - treeStart;
+    console.log(`⏱️  Tree creation: ${treeTime}ms (${finalTreeEntries.length} total entries, ${filesToDelete.length} deleted)`);
+
+    // Step 6: Create commit (single API call)
+    const commitStart = Date.now();
+    const newCommitResponse = await fetch(
+      `https://api.github.com/repos/${username}/${username}/git/commits`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/vnd.github.v3+json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message,
+          tree: treeData.sha,
+          parents: [commitSha],
+        }),
+      }
+    );
+
+    if (!newCommitResponse.ok) {
+      const errorData = await newCommitResponse.json();
+      throw new Error(`Failed to create commit: ${errorData.message}`);
+    }
+
+    const commitResult = await newCommitResponse.json();
+    const commitTime = Date.now() - commitStart;
+    console.log(`⏱️  Commit creation: ${commitTime}ms`);
+
+    // Step 7: Update branch reference (single API call)
+    const refStart = Date.now();
+    const updateRefResponse = await fetch(
+      `https://api.github.com/repos/${username}/${username}/git/refs/heads/main`,
+      {
+        method: "PATCH",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/vnd.github.v3+json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          sha: commitResult.sha,
+        }),
+      }
+    );
+
+    if (!updateRefResponse.ok) {
+      const errorData = await updateRefResponse.json();
+      throw new Error(`Failed to update branch: ${errorData.message}`);
+    }
+
+    const refTime = Date.now() - refStart;
+    const totalTime = Date.now() - syncStart;
+    console.log(`⏱️  Reference update: ${refTime}ms`);
+    console.log(`⏱️  Unified batch sync: ${totalTime}ms (${filesToUpdate.length} updated, ${filesToDelete.length} deleted in one commit)`);
+
+    return {
+      commit: commitResult,
+      tree: treeData,
+    };
+  } catch (error: any) {
+    console.error("Error in unified batch sync:", error);
+    throw error;
+  }
+}
+
+/**
+ * Batch upload/update files using GitHub Tree API (much faster than individual uploads)
+ * Creates a single commit with all file changes
+ */
+export async function batchUpdateFiles(
+  files: Array<{ path: string; content: string }>,
+  message: string,
+  req: NextApiRequest,
+  res: NextApiResponse
+): Promise<{ commit: any; tree: any }> {
+  return unifiedBatchSync(files, [], message, req, res);
 }

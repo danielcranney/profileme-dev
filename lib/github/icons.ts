@@ -7,7 +7,7 @@
 
 import type { NextApiRequest, NextApiResponse } from "next";
 import { requireToken } from "./token";
-import { upsertFile, getFileMeta, listDirectory, deleteFile } from "./repo";
+import { upsertFile, getFileMeta, listDirectory, deleteFile, batchUpdateFiles } from "./repo";
 
 const ICONS_DIR = ".profile/assets/icons";
 const PRODUCTION_ICON_BASE = "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons";
@@ -173,53 +173,106 @@ export function collectIconsFromProfile(
 }
 
 /**
- * Upload icons to GitHub repository
+ * Upload icons to GitHub repository (optimized with parallel processing and smart retry)
+ * Strategy: Try upload without SHA first (assumes new file), fetch SHA and retry on failure
  */
 export async function uploadIcons(
   icons: Array<{ originalPath: string; localPath: string; url: string }>,
   req: NextApiRequest,
   res: NextApiResponse
 ): Promise<Array<{ path: string; sha: string }>> {
-  const results = [];
-  
-  for (const icon of icons) {
-    try {
-      // Download icon (SVG files are text)
-      // If download fails (404), skip this icon (dark variant might not exist)
-      let iconContent: string;
-      try {
-        iconContent = await downloadIcon(icon.url);
-      } catch (downloadError: any) {
-        // If it's a 404, the dark variant doesn't exist - skip it
-        if (downloadError.message?.includes("404") || downloadError.message?.includes("Failed to download")) {
-          console.log(`Skipping icon ${icon.localPath} - not found at source`);
-          continue;
-        }
-        throw downloadError;
-      }
-      
-      // Check if file already exists
-      const fileMeta = await getFileMeta(icon.localPath, req, res);
-      const sha = fileMeta?.sha || undefined;
-      
-      // Upload to GitHub (upsertFile will handle base64 encoding)
-      const result = await upsertFile(
-        icon.localPath,
-        iconContent,
-        `Add icon: ${icon.localPath.split("/").pop()}`,
-        req,
-        res,
-        sha
-      );
-      
-      results.push({ path: icon.localPath, sha: result.sha });
-    } catch (error: any) {
-      console.error(`Failed to upload icon ${icon.localPath}:`, error);
-      // Continue with other icons even if one fails
-    }
+  if (icons.length === 0) {
+    return [];
   }
+
+  // Step 1: Download all icons in parallel
+  const downloadStart = Date.now();
+  const downloadPromises = icons.map(async (icon) => {
+    try {
+      const content = await downloadIcon(icon.url);
+      return { icon, content, error: null };
+    } catch (downloadError: any) {
+      // If it's a 404, the dark variant doesn't exist - skip it
+      if (downloadError.message?.includes("404") || downloadError.message?.includes("Failed to download") || downloadError.message?.includes("Timeout")) {
+        return { icon, content: null, error: "not_found" };
+      }
+      return { icon, content: null, error: downloadError };
+    }
+  });
+
+  const downloadResults = await Promise.all(downloadPromises);
+  const downloadTime = Date.now() - downloadStart;
+  const validIcons = downloadResults.filter(r => r.content !== null);
+  console.log(`⏱️  Icon downloads: ${downloadTime}ms (${validIcons.length}/${icons.length} successful)`);
+
+  if (validIcons.length === 0) {
+    return [];
+  }
+
+  // Step 2: Batch upload all icons using Tree API (much faster than sequential)
+  const uploadStart = Date.now();
   
-  return results;
+  try {
+    // Use batch update for all icons at once (single commit = much faster)
+    const iconFiles = validIcons.map(({ icon, content }) => ({
+      path: icon.localPath,
+      content: content!,
+    }));
+    
+    await batchUpdateFiles(
+      iconFiles,
+      `Update icons: ${validIcons.length} file(s) via ProfileMe.dev`,
+      req,
+      res
+    );
+    
+    const uploadTime = Date.now() - uploadStart;
+    console.log(`⏱️  Icon uploads (batch): ${uploadTime}ms (${validIcons.length} files in one commit)`);
+    
+    // Return results (we don't have individual SHAs from batch, but that's okay)
+    return validIcons.map(({ icon }) => ({ path: icon.localPath, sha: "" }));
+  } catch (error: any) {
+    // Fallback to sequential if batch fails
+    console.log("Batch upload failed, falling back to sequential:", error.message);
+    
+    // Pre-fetch all SHAs in parallel
+    const shaPromises = validIcons.map(async ({ icon }) => {
+      try {
+        const fileMeta = await getFileMeta(icon.localPath, req, res);
+        return { icon, sha: fileMeta?.sha || undefined };
+      } catch {
+        return { icon, sha: undefined };
+      }
+    });
+    
+    const shaResults = await Promise.all(shaPromises);
+    const shaMap = new Map(shaResults.map(r => [r.icon.localPath, r.sha]));
+    
+    // Upload sequentially as fallback
+    const uploadResults: Array<{ path: string; sha: string }> = [];
+    
+    for (const { icon, content } of validIcons) {
+      try {
+        const sha = shaMap.get(icon.localPath);
+        const result = await upsertFile(
+          icon.localPath,
+          content!,
+          sha ? `Update icon: ${icon.localPath.split("/").pop()}` : `Add icon: ${icon.localPath.split("/").pop()}`,
+          req,
+          res,
+          sha
+        );
+        uploadResults.push({ path: icon.localPath, sha: result.sha });
+      } catch (error: any) {
+        console.error(`Failed to upload icon ${icon.localPath}:`, error);
+      }
+    }
+    
+    const uploadTime = Date.now() - uploadStart;
+    console.log(`⏱️  Icon uploads (fallback): ${uploadTime}ms (${uploadResults.length}/${validIcons.length} successful)`);
+    
+    return uploadResults;
+  }
 }
 
 /**
@@ -309,7 +362,7 @@ export async function getExistingIcons(
 
 /**
  * Clean up unused icons from GitHub repository
- * Removes icons that are no longer in the profile
+ * Removes icons that are no longer in the profile (optimized with parallel deletion)
  */
 export async function cleanupUnusedIcons(
   currentIcons: Array<{ originalPath: string; localPath: string; url: string }>,
@@ -320,18 +373,49 @@ export async function cleanupUnusedIcons(
     // Get all existing icons from GitHub
     const existingIcons = await getExistingIcons(req, res);
     
-    // Create a set of current icon paths (normalized)
+    if (existingIcons.length === 0) {
+      console.log("   No existing icons found in repository");
+      return [];
+    }
+
+    // Create a set of current icon paths (normalized - ensure consistent format)
+    // Normalize by trimming and ensuring consistent path format
+    const normalizePath = (path: string): string => {
+      return path.trim().replace(/^\.\//, ""); // Remove leading ./ if present
+    };
+
     const currentPaths = new Set(
-      currentIcons.map((icon) => icon.localPath)
+      currentIcons.map((icon) => normalizePath(icon.localPath))
     );
     
+    // Normalize existing icon paths for comparison
+    const normalizedExisting = existingIcons.map(icon => ({
+      ...icon,
+      normalizedPath: normalizePath(icon.path)
+    }));
+
     // Find icons that exist in GitHub but not in current profile
-    const iconsToDelete = existingIcons.filter(
-      (existing) => !currentPaths.has(existing.path)
+    const iconsToDelete = normalizedExisting.filter(
+      (existing) => !currentPaths.has(existing.normalizedPath)
     );
+
+    // Debug logging
+    console.log(`   Found ${existingIcons.length} existing icons in repository`);
+    console.log(`   Current profile has ${currentIcons.length} icons`);
+    console.log(`   Icons to delete: ${iconsToDelete.length}`);
     
-    // Delete unused icons
+    if (iconsToDelete.length > 0) {
+      console.log(`   Deleting: ${iconsToDelete.map(i => i.path.split("/").pop()).join(", ")}`);
+    }
+
+    if (iconsToDelete.length === 0) {
+      return [];
+    }
+    
+    // Delete unused icons sequentially with retry logic
+    // Deletions modify repo state, so we need to fetch fresh SHA if mismatch occurs
     const deleted: Array<{ path: string }> = [];
+
     for (const icon of iconsToDelete) {
       try {
         await deleteFile(
@@ -342,9 +426,35 @@ export async function cleanupUnusedIcons(
           icon.sha
         );
         deleted.push({ path: icon.path });
+        console.log(`   ✓ Deleted: ${icon.path.split("/").pop()}`);
       } catch (error: any) {
-        console.error(`Failed to delete icon ${icon.path}:`, error);
-        // Continue with other deletions even if one fails
+        // If SHA mismatch, fetch fresh SHA and retry once
+        if (error.message?.includes("but expected")) {
+          try {
+            // Fetch fresh SHA
+            const fileMeta = await getFileMeta(icon.path, req, res);
+            const freshSha = fileMeta?.sha;
+            
+            if (freshSha) {
+              await deleteFile(
+                icon.path,
+                `Remove unused icon: ${icon.path.split("/").pop()}`,
+                req,
+                res,
+                freshSha
+              );
+              deleted.push({ path: icon.path });
+              console.log(`   ✓ Deleted (retry): ${icon.path.split("/").pop()}`);
+            } else {
+              // File was already deleted
+              console.log(`   ℹ Already deleted: ${icon.path.split("/").pop()}`);
+            }
+          } catch (retryError: any) {
+            console.error(`   ✗ Failed to delete icon ${icon.path} after retry:`, retryError.message || retryError);
+          }
+        } else {
+          console.error(`   ✗ Failed to delete icon ${icon.path}:`, error.message || error);
+        }
       }
     }
     

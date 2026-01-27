@@ -16,6 +16,8 @@ import {
   upsertFile,
   getUsername,
   checkProfileRepo,
+  batchUpdateFiles,
+  unifiedBatchSync,
 } from "../../../lib/github/repo";
 import { profileJsonSchema } from "../../../lib/profile/schema";
 import { renderReadme } from "../../../lib/profile/renderer";
@@ -56,6 +58,9 @@ export default async function handler(
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
+
+  const syncStartTime = Date.now();
+  console.log("🔄 Starting sync process...");
 
   try {
     // Check sponsor status
@@ -102,113 +107,204 @@ export default async function handler(
     }
 
     // Collect icons from profile
+    const iconCollectionStart = Date.now();
     const icons = collectIconsFromProfile(profileJson);
-    let iconUploadResults: Array<{ path: string; sha: string }> = [];
-    let iconCleanupResults: Array<{ path: string }> = [];
+    const iconCollectionTime = Date.now() - iconCollectionStart;
+    console.log(`⏱️  Icon collection: ${iconCollectionTime}ms (${icons.length} icons found)`);
     
-    // Upload new/updated icons (with timeout protection)
-    if (icons.length > 0) {
+    // Download icons and identify which ones to upload
+    const iconDownloadStart = Date.now();
+    // Inline download function (downloadIcon is not exported from icons.ts)
+    const downloadIcon = async (url: string): Promise<string> => {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000);
+      
       try {
-        console.log(`Uploading ${icons.length} icons to repository...`);
-        iconUploadResults = await uploadIcons(icons, req, res);
-        console.log(`Uploaded ${iconUploadResults.length} icons to repository`);
+        const response = await fetch(url, { signal: controller.signal });
+        clearTimeout(timeoutId);
+        
+        if (!response.ok) {
+          throw new Error(`Failed to download: ${response.status} ${response.statusText}`);
+        }
+        
+        return await response.text();
       } catch (error: any) {
-        console.error("Error uploading icons:", error);
-        // Continue even if icon upload fails - icons might already exist
-        // Don't throw - allow sync to complete even if some icons fail
+        clearTimeout(timeoutId);
+        if (error.name === "AbortError") {
+          throw new Error("Timeout downloading icon");
+        }
+        throw error;
       }
-    }
+    };
     
-    // Clean up unused icons (remove icons that are no longer in profile)
-    // This is non-blocking - if it fails, we still complete the sync
-    try {
-      console.log("Checking for unused icons to clean up...");
-      iconCleanupResults = await cleanupUnusedIcons(icons, req, res);
-      if (iconCleanupResults.length > 0) {
-        console.log(`Removed ${iconCleanupResults.length} unused icons from repository`);
+    const downloadPromises = icons.map(async (icon) => {
+      try {
+        const content = await downloadIcon(icon.url);
+        return { icon, content, error: null };
+      } catch (downloadError: any) {
+        if (downloadError.message?.includes("404") || downloadError.message?.includes("Failed to download") || downloadError.message?.includes("Timeout")) {
+          return { icon, content: null, error: "not_found" };
+        }
+        return { icon, content: null, error: downloadError };
       }
-    } catch (error: any) {
-      console.error("Error cleaning up unused icons:", error);
-      // Continue even if cleanup fails - this is a cleanup operation
-    }
+    });
+
+    const downloadResults = await Promise.all(downloadPromises);
+    const downloadTime = Date.now() - iconDownloadStart;
+    const validIcons = downloadResults.filter(r => r.content !== null);
+    console.log(`⏱️  Icon downloads: ${downloadTime}ms (${validIcons.length}/${icons.length} successful)`);
+
+    // Identify icons to delete (unused icons)
+    const { getExistingIcons } = await import("../../../lib/github/icons");
+    const existingIcons = await getExistingIcons(req, res);
+    const normalizePath = (path: string): string => path.trim().replace(/^\.\//, "");
+    const currentPaths = new Set(validIcons.map(({ icon }) => normalizePath(icon.localPath)));
+    const iconsToDelete = existingIcons
+      .filter(existing => !currentPaths.has(normalizePath(existing.path)))
+      .map(icon => ({ path: icon.path }));
 
     // Update profile JSON to use local icon paths
     const profileJsonWithLocalIcons = updateProfileJsonWithLocalIcons(profileJson);
 
     // Create a version of profile JSON with GitHub Pages URLs for rendering
-    // (README and portfolio need GitHub Pages URLs, not relative paths)
     const profileJsonForRendering = JSON.parse(JSON.stringify(profileJsonWithLocalIcons));
-    
-    // Convert icon paths to GitHub Pages URLs for rendering
     const profileJsonForRenderingConverted = convertPathsToGitHubPagesUrls(profileJsonForRendering, username);
 
     // Generate README and Portfolio from JSON (with GitHub Pages URLs)
     const readmeMarkdown = renderReadme(profileJsonForRenderingConverted);
     const portfolioHtml = renderPortfolio(profileJsonForRenderingConverted as any);
 
-    // Fetch fresh SHAs right before updating (to avoid race conditions)
-    // Update files sequentially to ensure we have the latest SHA for each
-    let profileResult, readmeResult;
+    // Prepare ALL files for unified batch operation
+    const filesToUpdate: Array<{ path: string; content: string }> = [
+      {
+        path: ".profile/profile.json",
+        content: JSON.stringify(profileJsonWithLocalIcons, null, 2),
+      },
+      {
+        path: "README.md",
+        content: readmeMarkdown,
+      },
+      {
+        path: "index.html",
+        content: portfolioHtml,
+      },
+      // Add all valid icons
+      ...validIcons.map(({ icon, content }) => ({
+        path: icon.localPath,
+        content: content!,
+      })),
+    ];
 
-    // Helper function to update a file with retry on SHA mismatch
-    const updateFileWithRetry = async (
-      path: string,
-      content: string,
-      message: string,
-      maxRetries = 1,
-    ) => {
-      let lastError;
+    // Perform unified batch sync: uploads, updates, and deletions in ONE commit
+    const unifiedSyncStart = Date.now();
+    let profileResult: { sha: string; commit: any };
+    let readmeResult: { sha: string; commit: any };
+    let indexResult: { sha: string; commit: any };
+    let iconUploadResults: Array<{ path: string; sha: string }> = [];
+    let iconCleanupResults: Array<{ path: string }> = [];
 
-      for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    try {
+      const batchResult = await unifiedBatchSync(
+        filesToUpdate,
+        iconsToDelete,
+        `Update profile via ProfileMe.dev (${validIcons.length} icons, ${iconsToDelete.length} removed)`,
+        req,
+        res
+      );
+
+      // Extract file SHAs
+      const [profileMeta, readmeMeta, indexMeta] = await Promise.all([
+        getFileMeta(".profile/profile.json", req, res),
+        getFileMeta("README.md", req, res),
+        getFileMeta("index.html", req, res),
+      ]);
+
+      profileResult = {
+        sha: profileMeta?.sha || "",
+        commit: batchResult.commit,
+      };
+      readmeResult = {
+        sha: readmeMeta?.sha || "",
+        commit: batchResult.commit,
+      };
+      indexResult = {
+        sha: indexMeta?.sha || "",
+        commit: batchResult.commit,
+      };
+
+      // Prepare icon results (we don't have individual SHAs from batch, but that's okay)
+      iconUploadResults = validIcons.map(({ icon }) => ({ path: icon.localPath, sha: "" }));
+      iconCleanupResults = iconsToDelete;
+
+      const unifiedSyncTime = Date.now() - unifiedSyncStart;
+      console.log(`⏱️  Unified batch sync: ${unifiedSyncTime}ms (all operations in one commit)`);
+    } catch (unifiedError: any) {
+      console.error("Unified batch sync failed, falling back to separate operations:", unifiedError);
+      
+      // Fallback: try separate operations (slower but more reliable)
+      // This is the old approach as a fallback
+      if (validIcons.length > 0) {
         try {
-          // Fetch fresh SHA right before update
-          const fileMeta = await getFileMeta(path, req, res);
-          const sha = fileMeta?.sha || undefined; // Use undefined (not null) for new files
-
-          return await upsertFile(path, content, message, req, res, sha);
+          const { uploadIcons } = await import("../../../lib/github/icons");
+          iconUploadResults = await uploadIcons(icons, req, res);
         } catch (error: any) {
-          lastError = error;
-
-          // If SHA mismatch and we have retries left, try again
-          if (error.message?.includes("but expected") && attempt < maxRetries) {
-            console.log(
-              `SHA mismatch for ${path}, retrying (attempt ${attempt + 1}/${maxRetries + 1})...`,
-            );
-            // Small delay before retry
-            await new Promise((resolve) => setTimeout(resolve, 100));
-            continue;
-          }
-
-          // If it's a different error or we're out of retries, throw
-          throw error;
+          console.error("Error uploading icons (fallback):", error);
         }
       }
 
-      throw lastError;
-    };
+      try {
+        const { cleanupUnusedIcons } = await import("../../../lib/github/icons");
+        iconCleanupResults = await cleanupUnusedIcons(icons, req, res);
+      } catch (error: any) {
+        console.error("Error cleaning up icons (fallback):", error);
+      }
 
-    // Update profile.json with local icon paths
-    profileResult = await updateFileWithRetry(
-      ".profile/profile.json",
-      JSON.stringify(profileJsonWithLocalIcons, null, 2),
-      `Update profile.json via ProfileMe.dev`,
-    );
+      // Fallback file updates
+      try {
+        const batchFiles = [
+          {
+            path: ".profile/profile.json",
+            content: JSON.stringify(profileJsonWithLocalIcons, null, 2),
+          },
+          {
+            path: "README.md",
+            content: readmeMarkdown,
+          },
+          {
+            path: "index.html",
+            content: portfolioHtml,
+          },
+        ];
 
-    // Update README.md
-    readmeResult = await updateFileWithRetry(
-      "README.md",
-      readmeMarkdown,
-      `Update README.md via ProfileMe.dev`,
-    );
+        const batchResult = await batchUpdateFiles(
+          batchFiles,
+          `Update profile files via ProfileMe.dev`,
+          req,
+          res
+        );
 
-    // Generate index.html (portfolio site for GitHub Pages)
-    // This serves as the main page on GitHub Pages, automatically generated from JSON
-    const indexMeta = await getFileMeta("index.html", req, res);
-    const indexResult = await updateFileWithRetry(
-      "index.html",
-      portfolioHtml,
-      `Update portfolio site (generated from profile JSON) via ProfileMe.dev`,
-    );
+        const [profileMeta, readmeMeta, indexMeta] = await Promise.all([
+          getFileMeta(".profile/profile.json", req, res),
+          getFileMeta("README.md", req, res),
+          getFileMeta("index.html", req, res),
+        ]);
+
+        profileResult = {
+          sha: profileMeta?.sha || "",
+          commit: batchResult.commit,
+        };
+        readmeResult = {
+          sha: readmeMeta?.sha || "",
+          commit: batchResult.commit,
+        };
+        indexResult = {
+          sha: indexMeta?.sha || "",
+          commit: batchResult.commit,
+        };
+      } catch (error: any) {
+        throw new Error(`Failed to update files: ${error.message}`);
+      }
+    }
 
     // Update LocalStorage cache with new SHA
     // (This will be done client-side)
@@ -250,8 +346,12 @@ export default async function handler(
       iconsUploaded: iconUploadResults.length,
       iconsDeleted: iconCleanupResults.length,
     });
+
+    const totalSyncTime = Date.now() - syncStartTime;
+    console.log(`✅ Sync completed successfully in ${totalSyncTime}ms (${(totalSyncTime / 1000).toFixed(2)}s)`);
   } catch (error: any) {
-    console.error("Sync error:", error);
+    const totalSyncTime = Date.now() - syncStartTime;
+    console.error(`❌ Sync failed after ${totalSyncTime}ms (${(totalSyncTime / 1000).toFixed(2)}s):`, error);
 
     // Handle validation errors
     if (error.name === "ZodError") {

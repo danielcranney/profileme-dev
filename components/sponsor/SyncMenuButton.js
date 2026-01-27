@@ -69,6 +69,9 @@ export default function SyncMenuButton() {
     setStatus(null);
     setShowMenu(false);
 
+    const syncStartTime = performance.now();
+    console.log("🔄 Starting sync to GitHub...");
+
     try {
       // Load saved profile JSON (to preserve portfolio template and other JSON-only settings)
       let profileJson = loadProfileJson();
@@ -87,11 +90,16 @@ export default function SyncMenuButton() {
         };
       }
 
+      const apiStartTime = performance.now();
       const response = await fetch("/api/github/sync", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(profileJson),
       });
+
+      const apiEndTime = performance.now();
+      const apiDuration = ((apiEndTime - apiStartTime) / 1000).toFixed(2);
+      console.log(`⏱️  API call completed in ${apiDuration}s`);
 
       const data = await response.json();
 
@@ -99,6 +107,17 @@ export default function SyncMenuButton() {
         const errorMessage = data.error || "Sync failed";
         const action = data.action ? ` ${data.action}` : "";
         throw new Error(`${errorMessage}${action}`);
+      }
+
+      const syncEndTime = performance.now();
+      const totalDuration = ((syncEndTime - syncStartTime) / 1000).toFixed(2);
+      
+      console.log(`✅ Sync completed successfully in ${totalDuration}s total`);
+      if (data.iconsUploaded) {
+        console.log(`   📦 ${data.iconsUploaded} icon(s) uploaded`);
+      }
+      if (data.iconsDeleted) {
+        console.log(`   🗑️  ${data.iconsDeleted} unused icon(s) removed`);
       }
 
       setStatus({
@@ -117,7 +136,9 @@ export default function SyncMenuButton() {
         setLastGitHubCheckAt(Date.now());
       }
     } catch (error) {
-      console.error("Sync error:", error);
+      const syncEndTime = performance.now();
+      const totalDuration = ((syncEndTime - syncStartTime) / 1000).toFixed(2);
+      console.error(`❌ Sync failed after ${totalDuration}s:`, error);
       setStatus({
         type: "error",
         message: error.message || "Failed to sync to GitHub",

@@ -10,6 +10,7 @@ import { useContext } from "react";
 import { StateContext } from "../../pages/_app";
 import { ACTIONS } from "../../lib/constants/actions";
 import { loadProfileJson, saveProfileJson } from "../../lib/profile";
+import { usePortfolioChanges } from "../../hooks/usePortfolioChanges";
 
 const TEMPLATES = [
   {
@@ -32,6 +33,7 @@ const TEMPLATES = [
 export default function PortfolioSettings() {
   const { isSponsor, isAuthenticated } = useAuth();
   const { state, dispatch } = useContext(StateContext);
+  const { markAsChanged, initializeBaseline } = usePortfolioChanges();
   const [selectedTemplate, setSelectedTemplate] = useState("minimal");
   const [saving, setSaving] = useState(false);
 
@@ -48,7 +50,15 @@ export default function PortfolioSettings() {
       const defaultJson = stateToProfileJson(state);
       saveProfileJson(defaultJson);
     }
-  }, []);
+    
+    // Initialize baseline after a short delay to ensure JSON is saved
+    // This sets the current state as baseline if no snapshot exists
+    const timer = setTimeout(() => {
+      initializeBaseline();
+    }, 50);
+    
+    return () => clearTimeout(timer);
+  }, [initializeBaseline]);
 
   if (!isAuthenticated || !isSponsor) {
     return null;
@@ -76,6 +86,9 @@ export default function PortfolioSettings() {
 
       // Save to LocalStorage
       saveProfileJson(profileJson);
+
+      // Mark that portfolio settings have changed (needs sync)
+      markAsChanged();
 
       // Force portfolio preview to refresh by triggering a state update
       // The PortfolioRenderer will pick up the new template from JSON

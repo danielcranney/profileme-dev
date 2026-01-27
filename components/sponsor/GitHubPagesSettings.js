@@ -8,16 +8,16 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import { useContext } from "react";
 import { StateContext } from "../../pages/_app";
-import { stateToProfileJson } from "../../lib/profile/stateBridge";
 import PortfolioSettings from "./PortfolioSettings";
+import { usePortfolioChanges } from "../../hooks/usePortfolioChanges";
 
 export default function GitHubPagesSettings() {
   const { isSponsor, isAuthenticated } = useAuth();
   const { state } = useContext(StateContext);
+  const { hasUnsavedChanges } = usePortfolioChanges();
   const [pagesConfig, setPagesConfig] = useState(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
-  const [syncingPortfolio, setSyncingPortfolio] = useState(false);
   const [customDomain, setCustomDomain] = useState("");
   const [status, setStatus] = useState(null);
 
@@ -95,59 +95,6 @@ export default function GitHubPagesSettings() {
     }
   };
 
-  const handleSyncPortfolio = async () => {
-    setSyncingPortfolio(true);
-    setStatus(null);
-
-    try {
-      // Load saved profile JSON (to preserve portfolio template and other JSON-only settings)
-      const { loadProfileJson } = require("../../lib/profile");
-      let profileJson = loadProfileJson();
-      
-      if (!profileJson) {
-        // If no saved JSON exists, create from current state
-        profileJson = stateToProfileJson(state);
-      } else {
-        // Merge current state's profile data with saved JSON (preserves portfolio template, etc.)
-        const stateJson = stateToProfileJson(state);
-        profileJson = {
-          ...profileJson,
-          profile: stateJson.profile, // Update profile data from current state
-          updatedAt: stateJson.updatedAt, // Update timestamp
-          // Keep portfolio, render, and other JSON-only settings from saved JSON
-        };
-      }
-
-      const response = await fetch("/api/github/sync", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(profileJson),
-      });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        const errorMessage = data.error || "Sync failed";
-        const action = data.action ? ` ${data.action}` : "";
-        throw new Error(`${errorMessage}${action}`);
-      }
-
-      setStatus({ 
-        type: "success", 
-        message: "Portfolio synced! Your portfolio site has been regenerated from your profile JSON." 
-      });
-      
-      // Refresh Pages config after sync
-      setTimeout(() => {
-        fetchPagesConfig();
-      }, 2000);
-    } catch (error) {
-      console.error("Portfolio sync error:", error);
-      setStatus({ type: "error", message: error.message || "Failed to sync portfolio" });
-    } finally {
-      setSyncingPortfolio(false);
-    }
-  };
 
   if (!isAuthenticated || !isSponsor) {
     return null;
@@ -162,16 +109,40 @@ export default function GitHubPagesSettings() {
   }
 
   return (
-    <div className="p-3 border border-gray-300 dark:border-dark-700 rounded bg-white dark:bg-dark-800 shadow-sm fixed top-16 right-4 z-50 w-80 max-h-[calc(100vh-5rem)] overflow-y-auto">
-      <h3 className="text-sm font-semibold mb-2">GitHub Pages</h3>
+    <div className="p-4 border border-gray-300 dark:border-dark-700 rounded-lg bg-white dark:bg-dark-800 shadow-lg absolute top-24 right-6 z-40 w-80 max-h-[calc(100vh-8rem)] overflow-y-auto animate-fade-in-slide-right">
+      <div className="flex items-center justify-between mb-3">
+        <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100">Portfolio Settings</h3>
+        {hasUnsavedChanges && (
+          <div className="flex items-center gap-1.5 px-2 py-1 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded">
+            <svg className="w-3 h-3 text-blue-600 dark:text-blue-400 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+            <span className="text-xs font-medium text-blue-800 dark:text-blue-200">Changes pending</span>
+          </div>
+        )}
+      </div>
       
       {/* Portfolio Template Settings */}
-      <PortfolioSettings />
+      <div className="mb-4">
+        <PortfolioSettings />
+      </div>
+
+      {/* Sync Reminder */}
+      {hasUnsavedChanges && (
+        <div className="mb-4 p-2.5 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded">
+          <p className="text-xs text-blue-800 dark:text-blue-200 font-medium mb-1">
+            Ready to publish?
+          </p>
+          <p className="text-xs text-blue-700 dark:text-blue-300">
+            Use the <strong>"Sync with GitHub"</strong> button above to update your portfolio site with these changes.
+          </p>
+        </div>
+      )}
 
       {pagesConfig?.enabled ? (
         <>
-          <div className="mb-3">
-            <label className="block text-xs font-medium mb-1 text-gray-700 dark:text-gray-300">Portfolio URL</label>
+          <div className="mb-4 pt-3 border-t border-gray-200 dark:border-dark-700">
+            <label className="block text-xs font-medium mb-1.5 text-gray-700 dark:text-gray-300">Portfolio URL</label>
             <a
               href={pagesConfig.url}
               target="_blank"
@@ -195,39 +166,20 @@ export default function GitHubPagesSettings() {
             </a>
           </div>
 
-          <div className="mb-3 p-2 bg-gray-50 dark:bg-dark-900 rounded border border-gray-200 dark:border-dark-700">
-            <p className="text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">
-              Update Portfolio Site
-            </p>
-            <p className="text-xs text-gray-600 dark:text-gray-400 mb-2">
-              Sync your portfolio to GitHub Pages. This regenerates your portfolio site from your profile JSON.
-            </p>
-            <button
-              onClick={handleSyncPortfolio}
-              disabled={syncingPortfolio}
-              className="btn-sm btn-brand w-full text-xs"
-            >
-              {syncingPortfolio ? "Syncing..." : "Sync Portfolio"}
-            </button>
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-              Note: The main "Sync to GitHub" button also updates your portfolio site
-            </p>
-          </div>
-
           <div className="mb-3">
-            <label className="block text-xs font-medium mb-1 text-gray-700 dark:text-gray-300">Custom Domain</label>
-            <div className="flex gap-1">
+            <label className="block text-xs font-medium mb-1.5 text-gray-700 dark:text-gray-300">Custom Domain</label>
+            <div className="flex gap-1.5">
               <input
                 type="text"
                 value={customDomain}
                 onChange={(e) => setCustomDomain(e.target.value)}
                 placeholder="example.com"
-                className="flex-1 px-2 py-1 text-xs border border-gray-300 dark:border-dark-700 rounded bg-white dark:bg-dark-900 text-gray-900 dark:text-gray-100"
+                className="flex-1 px-2.5 py-1.5 text-xs border border-gray-300 dark:border-dark-700 rounded bg-white dark:bg-dark-900 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent"
               />
               <button
                 onClick={handleUpdateDomain}
                 disabled={saving}
-                className="btn-sm btn-brand text-xs px-2 py-1"
+                className="btn-sm btn-brand text-xs px-3 py-1.5"
               >
                 {saving ? "..." : "✓"}
               </button>
@@ -236,15 +188,15 @@ export default function GitHubPagesSettings() {
         </>
       ) : (
         <>
-          <div className="mb-3">
+          <div className="mb-4 pt-3 border-t border-gray-200 dark:border-dark-700">
             <p className="text-xs text-gray-600 dark:text-gray-400 mb-2">
               Enable GitHub Pages to publish your portfolio.
             </p>
-            <code className="block p-1.5 bg-gray-100 dark:bg-dark-900 rounded text-xs mb-2 break-all text-gray-800 dark:text-gray-200">
+            <code className="block p-2 bg-gray-100 dark:bg-dark-900 rounded text-xs mb-3 break-all text-gray-800 dark:text-gray-200">
               {pagesConfig?.htmlUrl || "https://your-username.github.io/your-username/"}
             </code>
             
-            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded p-2 mb-2">
+            <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded p-2.5 mb-3">
               <p className="text-xs text-blue-800 dark:text-blue-200 font-medium mb-1">
                 ⓘ Enable Pages Manually First
               </p>
@@ -252,28 +204,28 @@ export default function GitHubPagesSettings() {
                 GitHub's API requires Pages to be enabled manually first. After enabling, you can manage settings here.
               </p>
               <p className="text-xs text-blue-700 dark:text-blue-300">
-                Once enabled, syncing your profile will automatically regenerate your portfolio site (index.html) from your profile JSON and update README.md.
+                Once enabled, use the "Sync with GitHub" button to publish your portfolio site.
               </p>
             </div>
-          </div>
 
-          <a
-            href={`https://github.com/${pagesConfig?.htmlUrl?.match(/github\.io\/([^\/]+)/)?.[1] || "your-username"}/${pagesConfig?.htmlUrl?.match(/github\.io\/([^\/]+)/)?.[1] || "your-username"}/settings/pages`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="block btn-sm btn-brand w-full text-xs mb-2 text-center"
-          >
-            Enable Pages on GitHub →
-          </a>
-          
-          <button
-            onClick={handleEnablePages}
-            disabled={saving || loading}
-            className="btn-sm btn-gray w-full text-xs"
-            title="Refresh Pages status"
-          >
-            {saving || loading ? "Checking..." : "Refresh Status"}
-          </button>
+            <a
+              href={`https://github.com/${pagesConfig?.htmlUrl?.match(/github\.io\/([^\/]+)/)?.[1] || "your-username"}/${pagesConfig?.htmlUrl?.match(/github\.io\/([^\/]+)/)?.[1] || "your-username"}/settings/pages`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block btn-sm btn-brand w-full text-xs mb-2 text-center"
+            >
+              Enable Pages on GitHub →
+            </a>
+            
+            <button
+              onClick={handleEnablePages}
+              disabled={saving || loading}
+              className="btn-sm btn-gray w-full text-xs"
+              title="Refresh Pages status"
+            >
+              {saving || loading ? "Checking..." : "Refresh Status"}
+            </button>
+          </div>
         </>
       )}
 

@@ -14,17 +14,22 @@ import { StateContext } from "../../pages/_app";
 import { ACTIONS } from "../../lib/constants/actions";
 import { stateToProfileJson, profileJsonToState } from "../../lib/profile/stateBridge";
 import { loadProfileJson, saveProfileJson, setLastKnownSha, setLastGitHubCheckAt } from "../../lib/profile";
+import { usePortfolioChanges } from "../../hooks/usePortfolioChanges";
 
 export default function SyncMenuButton() {
   const { isSponsor, isAuthenticated } = useAuth();
   const { checkAndRestore } = useAutoRestore();
   const { state, dispatch } = useContext(StateContext);
+  const { hasUnsavedChanges, markAsSynced } = usePortfolioChanges();
   const [syncing, setSyncing] = useState(false);
   const [status, setStatus] = useState(null);
   const [showMenu, setShowMenu] = useState(false);
   const [showTooltip, setShowTooltip] = useState(false);
   const menuRef = useRef(null);
   const buttonRef = useRef(null);
+  
+  // Check if we're in portfolio mode and have unsaved changes
+  const showGlow = state.renderMode === "portfolio" && hasUnsavedChanges;
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -92,6 +97,11 @@ export default function SyncMenuButton() {
         type: "success", 
         message: "Synced to GitHub: README.md + portfolio site updated!" 
       });
+      
+      // Mark portfolio as synced if we're in portfolio mode
+      if (state.renderMode === "portfolio") {
+        markAsSynced();
+      }
       
       // Update LocalStorage cache with new SHA
       if (data.profileJsonSha) {
@@ -180,8 +190,12 @@ export default function SyncMenuButton() {
         ref={buttonRef}
         onClick={handleSync}
         disabled={syncing}
-        className="btn-sm btn-brand flex items-center gap-1.5 rounded-r-none border-r border-gray-900/20 dark:border-white/10"
-        title="Syncs profile.json, README.md, and portfolio site (index.html) to GitHub"
+        className={`btn-sm btn-brand flex items-center gap-1.5 rounded-r-none border-r border-gray-900/20 dark:border-white/10 transition-all duration-300 ${
+          showGlow
+            ? "animate-pulse shadow-lg shadow-brand/50 ring-2 ring-brand ring-offset-2 dark:ring-offset-dark-800"
+            : ""
+        }`}
+        title={showGlow ? "Portfolio settings changed - sync to update your site" : "Syncs profile.json, README.md, and portfolio site (index.html) to GitHub"}
         onMouseEnter={() => setShowTooltip(true)}
         onMouseLeave={() => setShowTooltip(false)}
       >
@@ -195,7 +209,11 @@ export default function SyncMenuButton() {
       <button
         onClick={handleDropdownClick}
         disabled={syncing}
-        className="btn-sm btn-brand flex items-center justify-center rounded-l-none px-2 min-w-[2.5rem]"
+        className={`btn-sm btn-brand flex items-center justify-center rounded-l-none px-2 min-w-[2.5rem] transition-all duration-300 ${
+          showGlow
+            ? "animate-pulse shadow-lg shadow-brand/50 ring-2 ring-brand ring-offset-2 dark:ring-offset-dark-800"
+            : ""
+        }`}
         title="More sync options"
         aria-label="Sync options menu"
       >

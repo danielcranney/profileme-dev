@@ -1898,6 +1898,22 @@ CHANGELOG STYLES
   display: inline-block;
 }
 
+/* Portfolio Settings Panel Animation */
+@keyframes fade-in-slide-right {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-in-slide-right {
+  animation: fade-in-slide-right 0.3s ease-out;
+}
+
 @keyframes wave-animation {
   0% {
     transform: rotate(0deg);

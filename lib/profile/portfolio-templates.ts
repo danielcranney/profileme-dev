@@ -94,13 +94,28 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
     .skill-items {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem;
+      gap: 0.75rem;
     }
     .skill-item {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       background: #374151;
-      padding: 0.4rem 0.8rem;
-      border-radius: 6px;
+      padding: 0.5rem;
+      border-radius: 8px;
       border: 1px solid #4b5563;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .skill-item:hover {
+      transform: scale(1.05);
+      border-color: #3b82f6;
+    }
+    .skill-icon {
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
+    }
+    .skill-item-text {
       font-size: 0.75rem;
       font-weight: 500;
       color: #e5e7eb;
@@ -289,14 +304,32 @@ function renderModernTemplate(profileJson: ProfileJson): string {
       padding-left: 1rem;
     }
     .skill-item {
+      background: white;
+      padding: 0.5rem;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0.25rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .skill-item:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .skill-icon {
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
+    }
+    .skill-item-text {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
       padding: 0.5rem 1rem;
       border-radius: 20px;
       font-size: 0.85rem;
       font-weight: 600;
-      display: inline-block;
-      margin: 0.25rem;
     }
     .social-link {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -401,11 +434,27 @@ function renderClassicTemplate(profileJson: ProfileJson): string {
     }
     .skill-item {
       background: #ecf0f1;
-      padding: 0.5rem 1rem;
-      border-radius: 4px;
-      display: inline-block;
+      padding: 0.5rem;
+      border-radius: 6px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       margin: 0.25rem;
+      transition: transform 0.2s, background 0.2s;
+    }
+    .skill-item:hover {
+      transform: scale(1.05);
+      background: #d5dbdb;
+    }
+    .skill-icon {
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
+    }
+    .skill-item-text {
+      padding: 0.5rem 1rem;
       font-size: 0.9rem;
+      color: #2c3e50;
     }
     .social-link {
       color: #3498db;
@@ -474,6 +523,31 @@ function renderSkillsSection(
     }
   };
 
+  const renderSkillIcon = (skill: any): string => {
+    // Prioritize skill.path and skill.darkPath (for GitHub Pages hosted icons)
+    // Fallback to iTag-based URL if path not available
+    const iconPath = skill.path || (skill.iTag ? `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${skill.iTag}-colored.svg` : null);
+    const darkIconPath = skill.darkPath || null;
+    
+    if (iconPath) {
+      // Use picture element for dark mode support
+      if (darkIconPath) {
+        return `
+          <picture>
+            <source media="(prefers-color-scheme: dark)" srcset="${escapeHtml(darkIconPath)}">
+            <img src="${escapeHtml(iconPath)}" alt="${escapeHtml(skill.name)}" class="skill-icon" loading="lazy">
+          </picture>
+        `;
+      } else {
+        return `<img src="${escapeHtml(iconPath)}" alt="${escapeHtml(skill.name)}" class="skill-icon" loading="lazy">`;
+      }
+    }
+    
+    // Fallback to text initials if no icon available
+    const initials = getInitials(skill.name);
+    return `<span class="skill-item-text">${initials}</span>`;
+  };
+
   if (template === "minimal") {
     return categories.map(category => {
       const items = skills[category] || [];
@@ -482,8 +556,8 @@ function renderSkillsSection(
           <h3>${escapeHtml(category)}</h3>
           <div class="skill-items">
             ${items.map(skill => {
-              const initials = getInitials(skill.name);
-              return `<span class="skill-item" title="${escapeHtml(skill.name)}">${initials}</span>`;
+              const iconHtml = renderSkillIcon(skill);
+              return `<span class="skill-item" title="${escapeHtml(skill.name)}">${iconHtml}</span>`;
             }).join("")}
           </div>
         </div>
@@ -494,8 +568,8 @@ function renderSkillsSection(
   // For modern and classic, render all skills together
   const allSkills = categories.flatMap(cat => skills[cat] || []);
   return allSkills.map(skill => {
-    const initials = getInitials(skill.name);
-    return `<span class="skill-item" title="${escapeHtml(skill.name)}">${initials}</span>`;
+    const iconHtml = renderSkillIcon(skill);
+    return `<span class="skill-item" title="${escapeHtml(skill.name)}">${iconHtml}</span>`;
   }).join("");
 }
 

@@ -21,6 +21,33 @@ import { profileJsonSchema } from "../../../lib/profile/schema";
 import { renderReadme } from "../../../lib/profile/renderer";
 import { renderPortfolio } from "../../../lib/profile/portfolio";
 import { formatGitHubError } from "../../../lib/utils/errors";
+import {
+  collectIconsFromProfile,
+  uploadIcons,
+  updateProfileJsonWithLocalIcons,
+  convertIconPathToGitHubPagesUrl,
+  cleanupUnusedIcons,
+} from "../../../lib/github/icons";
+
+/**
+ * Convert icon paths to GitHub Pages URLs for rendering
+ */
+function convertPathsToGitHubPagesUrls(obj: any, username: string): any {
+  if (Array.isArray(obj)) {
+    return obj.map((item) => convertPathsToGitHubPagesUrls(item, username));
+  } else if (obj && typeof obj === "object") {
+    const converted: any = {};
+    for (const [key, value] of Object.entries(obj)) {
+      if (key === "path" || key === "darkPath") {
+        converted[key] = convertIconPathToGitHubPagesUrl(value as string, username);
+      } else {
+        converted[key] = convertPathsToGitHubPagesUrls(value, username);
+      }
+    }
+    return converted;
+  }
+  return obj;
+}
 
 export default async function handler(
   req: NextApiRequest,
@@ -74,9 +101,50 @@ export default async function handler(
       };
     }
 
-    // Generate README and Portfolio from JSON
-    const readmeMarkdown = renderReadme(profileJson);
-    const portfolioHtml = renderPortfolio(profileJson as any);
+    // Collect icons from profile
+    const icons = collectIconsFromProfile(profileJson);
+    let iconUploadResults: Array<{ path: string; sha: string }> = [];
+    let iconCleanupResults: Array<{ path: string }> = [];
+    
+    // Upload new/updated icons (with timeout protection)
+    if (icons.length > 0) {
+      try {
+        console.log(`Uploading ${icons.length} icons to repository...`);
+        iconUploadResults = await uploadIcons(icons, req, res);
+        console.log(`Uploaded ${iconUploadResults.length} icons to repository`);
+      } catch (error: any) {
+        console.error("Error uploading icons:", error);
+        // Continue even if icon upload fails - icons might already exist
+        // Don't throw - allow sync to complete even if some icons fail
+      }
+    }
+    
+    // Clean up unused icons (remove icons that are no longer in profile)
+    // This is non-blocking - if it fails, we still complete the sync
+    try {
+      console.log("Checking for unused icons to clean up...");
+      iconCleanupResults = await cleanupUnusedIcons(icons, req, res);
+      if (iconCleanupResults.length > 0) {
+        console.log(`Removed ${iconCleanupResults.length} unused icons from repository`);
+      }
+    } catch (error: any) {
+      console.error("Error cleaning up unused icons:", error);
+      // Continue even if cleanup fails - this is a cleanup operation
+    }
+
+    // Update profile JSON to use local icon paths
+    const profileJsonWithLocalIcons = updateProfileJsonWithLocalIcons(profileJson);
+
+    // Create a version of profile JSON with GitHub Pages URLs for rendering
+    // (README and portfolio need GitHub Pages URLs, not relative paths)
+    const profileJsonForRendering = JSON.parse(JSON.stringify(profileJsonWithLocalIcons));
+    
+    // Convert icon paths to GitHub Pages URLs for rendering
+    const profileJsonForRenderingConverted = convertPathsToGitHubPagesUrls(profileJsonForRendering, username);
+
+    // Generate README and Portfolio from JSON (with GitHub Pages URLs)
+    const readmeMarkdown = renderReadme(profileJsonForRenderingConverted);
+    const portfolioHtml = renderPortfolio(profileJsonForRenderingConverted as any);
 
     // Fetch fresh SHAs right before updating (to avoid race conditions)
     // Update files sequentially to ensure we have the latest SHA for each
@@ -119,10 +187,10 @@ export default async function handler(
       throw lastError;
     };
 
-    // Update profile.json first
+    // Update profile.json with local icon paths
     profileResult = await updateFileWithRetry(
       ".profile/profile.json",
-      JSON.stringify(profileJson, null, 2),
+      JSON.stringify(profileJsonWithLocalIcons, null, 2),
       `Update profile.json via ProfileMe.dev`,
     );
 
@@ -164,10 +232,23 @@ export default async function handler(
           url: indexResult.commit.html_url,
           file: "index.html",
         },
+      ...iconUploadResults.map((icon) => ({
+        sha: icon.sha,
+        url: "", // Icons don't have individual commit URLs
+        file: icon.path,
+      })),
+      ...iconCleanupResults.map((icon) => ({
+        sha: "",
+        url: "",
+        file: icon.path,
+        deleted: true,
+      })),
       ],
       profileJsonSha: profileResult.sha,
       readmeSha: readmeResult.sha,
       indexHtmlSha: indexResult.sha,
+      iconsUploaded: iconUploadResults.length,
+      iconsDeleted: iconCleanupResults.length,
     });
   } catch (error: any) {
     console.error("Sync error:", error);

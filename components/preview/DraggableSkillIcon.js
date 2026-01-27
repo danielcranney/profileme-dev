@@ -77,17 +77,19 @@ export default function DraggableSkillIcon({
     >
       <img
         src={
-          skill.darkPath
-            ? theme == "dark"
-              ? `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${skill.iTag}-colored-dark.svg`
-              : `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${skill.iTag}-colored.svg`
-            : `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${skill.iTag}-colored.svg`
+          skill.darkPath && theme == "dark"
+            ? skill.darkPath
+            : skill.path || `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${skill.iTag || 'unknown'}-colored.svg`
         }
         alt={`${skill.name}`}
         title={`${skill.name} (drag to reorder)`}
         width="36"
         height="36"
         className="select-none pointer-events-none"
+        onError={(e) => {
+          // Fallback if image fails to load
+          console.warn(`Failed to load icon for ${skill.name}:`, skill.path || skill.iTag);
+        }}
       />
     </div>
   );

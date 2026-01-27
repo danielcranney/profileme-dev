@@ -213,3 +213,101 @@ export async function checkProfileRepo(
     return false;
   }
 }
+
+/**
+ * List directory contents (returns array of file paths)
+ */
+export async function listDirectory(
+  path: string,
+  req: NextApiRequest,
+  res: NextApiResponse
+): Promise<Array<{ path: string; sha: string; type: string }>> {
+  const token = await requireToken(req, res);
+  const username = await getGitHubUsername(token);
+
+  try {
+    const response = await fetch(
+      `https://api.github.com/repos/${username}/${username}/contents/${path}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/vnd.github.v3+json",
+        },
+      }
+    );
+
+    if (response.status === 404) {
+      return []; // Directory doesn't exist
+    }
+
+    if (!response.ok) {
+      throw new Error(`GitHub API error: ${response.status} ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    
+    // If it's a single file (not a directory), return empty array
+    if (!Array.isArray(data)) {
+      return [];
+    }
+
+    // Recursively get all files
+    const files: Array<{ path: string; sha: string; type: string }> = [];
+    
+    for (const item of data) {
+      if (item.type === "file") {
+        files.push({ path: item.path, sha: item.sha, type: item.type });
+      } else if (item.type === "dir") {
+        // Recursively list subdirectories
+        const subFiles = await listDirectory(item.path, req, res);
+        files.push(...subFiles);
+      }
+    }
+
+    return files;
+  } catch (error: any) {
+    console.error(`Error listing directory ${path}:`, error);
+    throw error;
+  }
+}
+
+/**
+ * Delete file from GitHub repository
+ */
+export async function deleteFile(
+  path: string,
+  message: string,
+  req: NextApiRequest,
+  res: NextApiResponse,
+  sha: string
+): Promise<void> {
+  const token = await requireToken(req, res);
+  const username = await getGitHubUsername(token);
+
+  try {
+    const response = await fetch(
+      `https://api.github.com/repos/${username}/${username}/contents/${path}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: "application/vnd.github.v3+json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          message,
+          sha,
+          branch: "main",
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || `GitHub API error: ${response.status}`);
+    }
+  } catch (error: any) {
+    console.error(`Error deleting file ${path}:`, error);
+    throw error;
+  }
+}

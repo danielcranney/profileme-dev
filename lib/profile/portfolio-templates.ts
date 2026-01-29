@@ -28,11 +28,30 @@ export function renderPortfolioWithTemplate(
 }
 
 /**
+ * Get Google Fonts URL for a font name
+ */
+function getGoogleFontsUrl(fontName: string): string {
+  // Replace spaces with + for URL encoding
+  const encodedFont = fontName.replace(/\s+/g, "+");
+  return `https://fonts.googleapis.com/css2?family=${encodedFont}:wght@400;600;700&display=swap`;
+}
+
+/**
+ * Get accent color bar HTML (5px high)
+ */
+function getAccentBar(color: string = "#3b82f6"): string {
+  return `<div style="height: 5px; background: ${escapeHtml(color)}; width: 100%; margin: 0;"></div>`;
+}
+
+/**
  * Minimal Template (Dark, clean, minimal)
  */
 function renderMinimalTemplate(profileJson: ProfileJson): string {
-  const { profile } = profileJson;
+  const { profile, portfolio } = profileJson;
   const { introduction, skills, socials, badges, support } = profile;
+  const font = portfolio?.font || "Inter";
+  const accentColor = portfolio?.accentColor || "#3b82f6";
+  const fontUrl = getGoogleFontsUrl(font);
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -40,10 +59,13 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${escapeHtml(introduction.name || "Portfolio")} - Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="${fontUrl}" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+      font-family: '${escapeHtml(font)}', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       line-height: 1.6;
@@ -65,7 +87,7 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
       font-size: 2rem;
       margin-bottom: 1.5rem;
       color: #f9fafb;
-      border-bottom: 2px solid #3b82f6;
+      border-bottom: 2px solid ${escapeHtml(accentColor)};
       padding-bottom: 0.5rem;
     }
     .description {
@@ -84,7 +106,7 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
       background: #111827;
       padding: 1.5rem;
       border-radius: 8px;
-      border-left: 4px solid #3b82f6;
+      border-left: 4px solid ${escapeHtml(accentColor)};
     }
     .skill-category h3 {
       font-size: 1.25rem;
@@ -175,6 +197,7 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
   </style>
 </head>
 <body>
+  ${getAccentBar(accentColor)}
   <div class="container">
     <header>
       <h1>${escapeHtml(introduction.name || "Portfolio")}</h1>
@@ -262,8 +285,11 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
  * Modern Template (Light, colorful, modern)
  */
 function renderModernTemplate(profileJson: ProfileJson): string {
-  const { profile } = profileJson;
+  const { profile, portfolio } = profileJson;
   const { introduction, skills, socials } = profile;
+  const font = portfolio?.font || "Inter";
+  const accentColor = portfolio?.accentColor || "#3b82f6";
+  const fontUrl = getGoogleFontsUrl(font);
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -271,10 +297,13 @@ function renderModernTemplate(profileJson: ProfileJson): string {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${escapeHtml(introduction.name || "Portfolio")} - Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="${fontUrl}" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+      font-family: '${escapeHtml(font)}', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
       -webkit-font-smoothing: antialiased;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: #1f2937;
@@ -299,8 +328,8 @@ function renderModernTemplate(profileJson: ProfileJson): string {
     h2 {
       font-size: 2rem;
       margin-bottom: 1.5rem;
-      color: #667eea;
-      border-left: 4px solid #764ba2;
+      color: ${escapeHtml(accentColor)};
+      border-left: 4px solid ${escapeHtml(accentColor)};
       padding-left: 1rem;
     }
     .skill-item {
@@ -351,6 +380,7 @@ function renderModernTemplate(profileJson: ProfileJson): string {
   </style>
 </head>
 <body>
+  ${getAccentBar(accentColor)}
   <div class="container">
     <header>
       <h1>${escapeHtml(introduction.name || "Portfolio")}</h1>
@@ -392,8 +422,11 @@ function renderModernTemplate(profileJson: ProfileJson): string {
  * Classic Template (Traditional, professional)
  */
 function renderClassicTemplate(profileJson: ProfileJson): string {
-  const { profile } = profileJson;
+  const { profile, portfolio } = profileJson;
   const { introduction, skills, socials } = profile;
+  const font = portfolio?.font || "Inter";
+  const accentColor = portfolio?.accentColor || "#3b82f6";
+  const fontUrl = getGoogleFontsUrl(font);
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -401,10 +434,13 @@ function renderClassicTemplate(profileJson: ProfileJson): string {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${escapeHtml(introduction.name || "Portfolio")} - Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="${fontUrl}" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: 'Georgia', 'Times New Roman', serif;
+      font-family: '${escapeHtml(font)}', 'Georgia', 'Times New Roman', serif;
       line-height: 1.8;
       color: #2c3e50;
       background: #f8f9fa;
@@ -413,7 +449,7 @@ function renderClassicTemplate(profileJson: ProfileJson): string {
     header {
       background: white;
       padding: 3rem;
-      border-bottom: 3px solid #2c3e50;
+      border-bottom: 3px solid ${escapeHtml(accentColor)};
       margin-bottom: 2rem;
       text-align: center;
     }
@@ -466,6 +502,7 @@ function renderClassicTemplate(profileJson: ProfileJson): string {
   </style>
 </head>
 <body>
+  ${getAccentBar(accentColor)}
   <div class="container">
     <header>
       <h1>${escapeHtml(introduction.name || "Portfolio")}</h1>

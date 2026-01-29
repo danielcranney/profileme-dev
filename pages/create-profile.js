@@ -227,10 +227,7 @@ export default function CreateProfile() {
             >
               <PortfolioRenderer />
             </div>
-            {/* GitHub Pages Settings (fixed at top when in portfolio mode) */}
-            {state.renderMode === "portfolio" && (
-              <GitHubPagesSettings />
-            )}
+            {/* Portfolio Settings are now controlled via PreviewControls button */}
           </>
         )}
       </section>

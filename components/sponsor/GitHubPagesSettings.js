@@ -11,7 +11,7 @@ import { StateContext } from "../../pages/_app";
 import PortfolioSettings from "./PortfolioSettings";
 import { usePortfolioChanges } from "../../hooks/usePortfolioChanges";
 
-export default function GitHubPagesSettings() {
+export default function GitHubPagesSettings({ isOpen = true, onClose }) {
   const { isSponsor, isAuthenticated } = useAuth();
   const { state } = useContext(StateContext);
   const { hasUnsavedChanges } = usePortfolioChanges();
@@ -20,7 +20,6 @@ export default function GitHubPagesSettings() {
   const [saving, setSaving] = useState(false);
   const [customDomain, setCustomDomain] = useState("");
   const [status, setStatus] = useState(null);
-  const [isExpanded, setIsExpanded] = useState(true);
 
   useEffect(() => {
     if (isSponsor && isAuthenticated) {
@@ -101,73 +100,59 @@ export default function GitHubPagesSettings() {
     return null;
   }
 
+  if (!isOpen) {
+    return null;
+  }
+
   if (loading) {
     return (
-      <div className="p-3 border border-gray-300 dark:border-dark-700 rounded bg-white dark:bg-dark-800 shadow-sm absolute top-24 left-6 z-50 w-80">
+      <div className="fixed inset-y-0 right-0 w-96 bg-white dark:bg-dark-800 border-l border-gray-300 dark:border-dark-700 shadow-xl z-50 flex items-center justify-center">
         <p className="text-xs text-gray-500 dark:text-gray-400">Loading...</p>
       </div>
     );
   }
 
   return (
-    <div className="absolute top-24 left-6 z-40 w-80">
-      {/* Collapsed State - Compact Button */}
-      {!isExpanded ? (
-        <button
-          onClick={() => setIsExpanded(true)}
-          className="p-3 border border-gray-300 dark:border-dark-700 rounded-lg bg-white dark:bg-dark-800 shadow-lg hover:shadow-xl transition-all duration-200 flex items-center gap-2 w-full group"
-        >
-          <svg 
-            className="w-4 h-4 text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-gray-100 transition-colors" 
-            fill="none" 
-            stroke="currentColor" 
-            viewBox="0 0 24 24"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-          </svg>
-          <span className="text-xs font-semibold text-gray-700 dark:text-gray-300">Portfolio Settings</span>
-          {hasUnsavedChanges && (
-            <div className="ml-auto w-2 h-2 bg-blue-500 rounded-full animate-pulse" />
-          )}
-          <svg 
-            className="w-4 h-4 text-gray-400 ml-auto" 
-            fill="none" 
-            stroke="currentColor" 
-            viewBox="0 0 24 24"
-          >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-          </svg>
-        </button>
-      ) : (
-        /* Expanded State - Full Panel */
-        <div className="border border-gray-300 dark:border-dark-700 rounded-lg bg-white dark:bg-dark-800 shadow-lg max-h-[calc(100vh-8rem)] overflow-y-auto animate-fade-in-slide-right">
-          <div className="sticky top-0 bg-white dark:bg-dark-800 border-b border-gray-200 dark:border-dark-700 p-4 z-10 flex items-center justify-between">
-            <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100">Portfolio Settings</h3>
-            <div className="flex items-center gap-2">
-              {hasUnsavedChanges && (
-                <div className="flex items-center gap-1.5 px-2 py-1 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded">
-                  <svg className="w-3 h-3 text-blue-600 dark:text-blue-400 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
-                  <span className="text-xs font-medium text-blue-800 dark:text-blue-200">Changes pending</span>
-                </div>
-              )}
-              <button
-                onClick={() => setIsExpanded(false)}
-                className="p-1.5 hover:bg-gray-100 dark:hover:bg-dark-700 rounded transition-colors"
-                aria-label="Collapse settings"
-              >
-                <svg 
-                  className="w-4 h-4 text-gray-500 dark:text-gray-400" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+    <>
+      {/* Backdrop */}
+      <div
+        className="fixed inset-0 bg-black/20 dark:bg-black/40 z-40 transition-opacity"
+        onClick={onClose}
+      />
+      
+      {/* Settings Panel - Slide-in from right */}
+      <div className="fixed inset-y-0 right-0 w-96 bg-white dark:bg-dark-800 border-l border-gray-300 dark:border-dark-700 shadow-xl z-50 flex flex-col">
+        {/* Header */}
+        <div className="sticky top-0 bg-white dark:bg-dark-800 border-b border-gray-200 dark:border-dark-700 p-4 z-10 flex items-center justify-between">
+          <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100">Portfolio Settings</h3>
+          <div className="flex items-center gap-2">
+            {hasUnsavedChanges && (
+              <div className="flex items-center gap-1.5 px-2 py-1 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded">
+                <svg className="w-3 h-3 text-blue-600 dark:text-blue-400 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
-              </button>
-            </div>
+                <span className="text-xs font-medium text-blue-800 dark:text-blue-200">Changes pending</span>
+              </div>
+            )}
+            <button
+              onClick={onClose}
+              className="p-1.5 hover:bg-gray-100 dark:hover:bg-dark-700 rounded transition-colors"
+              aria-label="Close settings"
+            >
+              <svg 
+                className="w-4 h-4 text-gray-500 dark:text-gray-400" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
           </div>
+        </div>
+        
+        {/* Content - Scrollable */}
+        <div className="flex-1 overflow-y-auto">
           
           <div className="p-4">
             {/* Portfolio Template Settings */}
@@ -290,7 +275,7 @@ export default function GitHubPagesSettings() {
             )}
           </div>
         </div>
-      )}
-    </div>
+      </div>
+    </>
   );
 }

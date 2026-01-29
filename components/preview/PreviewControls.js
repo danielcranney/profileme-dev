@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { StateContext } from "../../pages/_app";
 import { ACTIONS } from "../../lib/constants/actions";
 import { useAuth } from "../../hooks/useAuth";
 import SyncMenuButton from "../sponsor/SyncMenuButton";
 import ViewModeToggle from "./ViewModeToggle";
 import ActionsMenu from "./ActionsMenu";
+import GitHubPagesSettings from "../sponsor/GitHubPagesSettings";
 
 export default function PreviewControls({
   copySuccess,
@@ -15,6 +16,14 @@ export default function PreviewControls({
 }) {
   const { state, dispatch } = useContext(StateContext);
   const { isSponsor } = useAuth();
+  const [showPortfolioSettings, setShowPortfolioSettings] = useState(false);
+
+  // Close settings panel when switching away from portfolio mode
+  React.useEffect(() => {
+    if (state.renderMode !== "portfolio") {
+      setShowPortfolioSettings(false);
+    }
+  }, [state.renderMode]);
 
   const copyToClipBoard = async (copyMe) => {
     try {
@@ -36,6 +45,39 @@ export default function PreviewControls({
       
       {/* Right Group: Action Buttons */}
       <div className="flex items-center gap-2">
+        {/* Portfolio Settings Button (Sponsors Only, Portfolio Mode Only) */}
+        {isSponsor && state.renderMode === "portfolio" && (
+          <>
+            <button
+              onClick={() => setShowPortfolioSettings(!showPortfolioSettings)}
+              className={`btn-sm flex items-center gap-1.5 ${
+                showPortfolioSettings
+                  ? "btn-brand"
+                  : "btn-gray"
+              }`}
+              title="Portfolio Settings"
+            >
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
+                />
+              </svg>
+              <span className="text-xs uppercase tracking-wide">Settings</span>
+            </button>
+            
+            {/* Visual Separator */}
+            <div className="h-8 w-px bg-gray-300 dark:bg-dark-700" />
+          </>
+        )}
+        
         {/* GitHub Sync (Sponsors Only) */}
         {isSponsor && (
           <>
@@ -53,6 +95,14 @@ export default function PreviewControls({
           markdownRef={markdownRef}
         />
       </div>
+      
+      {/* Portfolio Settings Panel - Slide-in sidebar */}
+      {isSponsor && state.renderMode === "portfolio" && showPortfolioSettings && (
+        <GitHubPagesSettings 
+          isOpen={showPortfolioSettings}
+          onClose={() => setShowPortfolioSettings(false)}
+        />
+      )}
 
       {/* 
       

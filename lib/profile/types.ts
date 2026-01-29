@@ -137,6 +137,8 @@ export interface RenderOptions {
 
 export interface PortfolioOptions {
   template?: string;
+  font?: string; // Google Font name (e.g., "Inter", "Roboto", "Open Sans")
+  accentColor?: string; // Hex color code (e.g., "#3b82f6")
   options?: {
     [key: string]: any;
   };

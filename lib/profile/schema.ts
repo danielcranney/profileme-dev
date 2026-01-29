@@ -114,6 +114,8 @@ const renderOptionsSchema = z.object({
 // Portfolio Options Schema
 const portfolioOptionsSchema = z.object({
   template: z.string().optional(),
+  font: z.string().optional(), // Google Font name
+  accentColor: z.string().optional(), // Hex color code
   options: z.record(z.any(), z.any()).optional(),
 });
 

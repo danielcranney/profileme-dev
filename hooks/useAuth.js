@@ -69,8 +69,8 @@ export function useAuth() {
   const fetchSession = async () => {
     try {
       const [sessionResponse, sponsorResponse] = await Promise.all([
-        fetch("/api/auth/session"),
-        fetch("/api/github/sponsor-status"),
+        fetch("/api/auth/session", { credentials: "include" }),
+        fetch("/api/github/sponsor-status", { credentials: "include" }),
       ]);
       
       const sessionData = await sessionResponse.json();

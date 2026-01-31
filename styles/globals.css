@@ -142,7 +142,7 @@ Table Of Contents:
   }
 
   .preview-column-wrapper .buttons-wrapper {
-    @apply relative flex items-center gap-3 flex-wrap bg-light-100 dark:bg-dark-900 p-6 dark:border-dark-600 border-light-200 w-full transition-all duration-150 ease-in-out;
+    @apply relative flex items-center gap-2 flex-wrap bg-light-100 dark:bg-dark-900 py-2.5 px-4 dark:border-dark-600 border-light-200 w-full transition-all duration-150 ease-in-out;
   }
 }
 

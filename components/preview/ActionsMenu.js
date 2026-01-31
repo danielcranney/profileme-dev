@@ -1,6 +1,6 @@
 /**
  * ActionsMenu Component
- * 
+ *
  * Dropdown menu for Copy and Reorder Sections actions.
  */
 
@@ -10,7 +10,11 @@ import { StateContext } from "../../pages/_app";
 import { ACTIONS } from "../../lib/constants/actions";
 import ReorderSectionsButton from "./ReorderSectionsButton";
 
-export default function ActionsMenu({ copySuccess, setCopySuccess, markdownRef }) {
+export default function ActionsMenu({
+  copySuccess,
+  setCopySuccess,
+  markdownRef,
+}) {
   const { state, dispatch } = useContext(StateContext);
   const [showMenu, setShowMenu] = useState(false);
   const menuRef = useRef(null);
@@ -34,7 +38,8 @@ export default function ActionsMenu({ copySuccess, setCopySuccess, markdownRef }
       payload: "markdown",
     });
     // Copy markdown text from the ref
-    const markdownText = markdownRef.current?.innerText || markdownRef.current?.textContent || "";
+    const markdownText =
+      markdownRef.current?.innerText || markdownRef.current?.textContent || "";
     copyToClipBoard(markdownText);
     dispatch({
       type: ACTIONS.TOGGLE_COPY_MODAL,
@@ -64,15 +69,29 @@ export default function ActionsMenu({ copySuccess, setCopySuccess, markdownRef }
     <div className="relative" ref={menuRef}>
       <button
         onClick={() => setShowMenu(!showMenu)}
-        className="btn-sm btn-gray flex items-center gap-1.5"
+        className={`btn-sm flex items-center justify-end gap-1.5 min-w-[2rem] overflow-hidden transition-[min-width] duration-200 ease-out group hover:min-w-[6.5rem] h-9 ${showMenu ? "btn-brand" : "btn-gray"}`}
         title="More actions"
       >
-        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
-        </svg>
-        Actions
+        <span className="text-xs uppercase tracking-wide whitespace-nowrap max-w-0 overflow-hidden opacity-0 group-hover:max-w-[4.5rem] group-hover:opacity-100 transition-all duration-200 flex items-center self-center -ml-2 group-hover:ml-0">
+          Actions
+        </span>
+        <span className="flex items-center justify-center flex-shrink-0 w-6 h-6">
+          <svg
+            className="w-4 h-4 block translate-y-px"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
+            />
+          </svg>
+        </span>
       </button>
-      
+
       {showMenu && (
         <div className="absolute top-full mt-1 right-0 bg-white dark:bg-dark-800 border border-gray-200 dark:border-dark-700 rounded-md shadow-lg z-50 min-w-[180px]">
           <button

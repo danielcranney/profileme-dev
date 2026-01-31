@@ -21,7 +21,9 @@ const GITHUB_SPONSOR_ACCOUNT = process.env.GITHUB_SPONSOR_ACCOUNT || "";
 const DEV_SPONSOR_OVERRIDE = process.env.DEV_SPONSOR_OVERRIDE === "true";
 
 /**
- * Check if user is a sponsor via GitHub GraphQL API
+ * Check if user is a sponsor via GitHub GraphQL API.
+ * Uses viewer.isSponsoredBy first; falls back to sponsorshipForViewerAsSponsorable
+ * so one-time and active sponsorships are both detected.
  */
 export async function checkSponsorStatus(
   req: NextApiRequest,
@@ -40,47 +42,145 @@ export async function checkSponsorStatus(
 
   try {
     const token = await getToken(req, res);
-    
+
     if (!token) {
+      console.warn("[sponsor] No GitHub token in session");
       return false;
     }
 
-    // GitHub GraphQL query to check sponsor status
-    const query = `
+    const account = GITHUB_SPONSOR_ACCOUNT.trim();
+
+    // 1) viewer.isSponsoredBy – primary check (recurring/active)
+    const viewerQuery = `
       query {
         viewer {
-          isSponsoredBy(accountLogin: "${GITHUB_SPONSOR_ACCOUNT}")
+          login
+          isSponsoredBy(accountLogin: "${account}")
         }
       }
     `;
 
-    const response = await fetch("https://api.github.com/graphql", {
+    const viewerResponse = await fetch("https://api.github.com/graphql", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
         Accept: "application/vnd.github.v4+json",
       },
-      body: JSON.stringify({ query }),
+      body: JSON.stringify({ query: viewerQuery }),
     });
 
-    if (!response.ok) {
-      console.error("GitHub GraphQL error:", response.status, response.statusText);
+    if (!viewerResponse.ok) {
+      console.error(
+        "[sponsor] GraphQL error:",
+        viewerResponse.status,
+        viewerResponse.statusText
+      );
       return false;
     }
 
-    const data = await response.json();
+    const viewerData = await viewerResponse.json();
 
-    if (data.errors) {
-      console.error("GraphQL errors:", data.errors);
+    if (viewerData.errors) {
+      console.error("[sponsor] GraphQL errors (viewer):", viewerData.errors);
       return false;
     }
 
-    const isSponsor = data.data?.viewer?.isSponsoredBy || false;
-    
-    return isSponsor;
+    const isSponsoredBy = viewerData.data?.viewer?.isSponsoredBy === true;
+    const viewerLogin = viewerData.data?.viewer?.login || "(unknown)";
+
+    if (isSponsoredBy) {
+      if (process.env.NODE_ENV === "development") {
+        console.log(
+          "[sponsor] Viewer",
+          viewerLogin,
+          "is sponsor (isSponsoredBy) for",
+          account
+        );
+      }
+      return true;
+    }
+
+    // 2) Fallback: list who the viewer sponsors (viewer.sponsorshipsAsSponsor)
+    // and check if account is in the list – more reliable when isSponsoredBy /
+    // sponsorshipForViewerAsSponsorable return false or null
+    const listQuery = `
+      query {
+        viewer {
+          sponsorshipsAsSponsor(first: 100) {
+            nodes {
+              sponsorable {
+                ... on User { login }
+                ... on Organization { login }
+              }
+            }
+          }
+        }
+      }
+    `;
+
+    const listResponse = await fetch("https://api.github.com/graphql", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+        Accept: "application/vnd.github.v4+json",
+      },
+      body: JSON.stringify({ query: listQuery }),
+    });
+
+    if (!listResponse.ok) {
+      if (process.env.NODE_ENV === "development") {
+        console.warn(
+          "[sponsor] sponsorshipsAsSponsor failed:",
+          listResponse.status,
+          listResponse.statusText
+        );
+      }
+      return false;
+    }
+
+    const listData = await listResponse.json();
+
+    if (listData.errors) {
+      if (process.env.NODE_ENV === "development") {
+        console.warn(
+          "[sponsor] sponsorshipsAsSponsor GraphQL errors:",
+          listData.errors
+        );
+      }
+      return false;
+    }
+
+    const nodes =
+      listData.data?.viewer?.sponsorshipsAsSponsor?.nodes ?? [];
+    const accountLower = account.toLowerCase();
+    const isInList = nodes.some(
+      (n: { sponsorable?: { login?: string } }) =>
+        n?.sponsorable?.login?.toLowerCase() === accountLower
+    );
+
+    if (process.env.NODE_ENV === "development") {
+      const logins = nodes
+        .map((n: { sponsorable?: { login?: string } }) => n?.sponsorable?.login)
+        .filter(Boolean);
+      console.log(
+        "[sponsor] Viewer",
+        viewerLogin,
+        "for account",
+        account,
+        "| isSponsoredBy:",
+        isSponsoredBy,
+        "| sponsorshipsAsSponsor list:",
+        logins.length ? logins.join(", ") : "(none)",
+        "| match:",
+        isInList ? "yes" : "no"
+      );
+    }
+
+    return isInList;
   } catch (error) {
-    console.error("Error checking sponsor status:", error);
+    console.error("[sponsor] Error checking sponsor status:", error);
     return false;
   }
 }

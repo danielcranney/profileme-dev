@@ -26,20 +26,18 @@ export default function ViewModeToggle() {
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
       </svg>
     )},
-  ];
-
-  // Add Portfolio mode for sponsors only
-  if (isSponsor) {
-    modes.push({
+    // Portfolio: visible to all; access gated by sponsor check (PortfolioGate when !isSponsor)
+    {
       id: "portfolio",
       label: "Portfolio",
+      locked: !isSponsor,
       icon: (
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
         </svg>
       ),
-    });
-  }
+    },
+  ];
 
   const handleModeChange = (modeId) => {
     dispatch({
@@ -61,9 +59,14 @@ export default function ViewModeToggle() {
                 ? "bg-brand text-white shadow-sm hover:bg-brand-alt"
                 : "text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-dark-700"
             }
+            ${mode.locked ? " opacity-90" : ""}
             ${index > 0 ? "ml-1" : ""}
           `}
-          title={`Switch to ${mode.label} view`}
+          title={
+            mode.locked
+              ? "Portfolio is for GitHub sponsors — sign in or sponsor to unlock"
+              : `Switch to ${mode.label} view`
+          }
         >
           {mode.icon}
           <span>{mode.label}</span>

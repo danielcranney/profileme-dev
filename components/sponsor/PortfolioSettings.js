@@ -90,13 +90,13 @@ export default function PortfolioSettings() {
       const defaultJson = stateToProfileJson(state);
       saveProfileJson(defaultJson);
     }
-    
+
     // Initialize baseline after a short delay to ensure JSON is saved
     // This sets the current state as baseline if no snapshot exists
     const timer = setTimeout(() => {
       initializeBaseline();
     }, 50);
-    
+
     return () => clearTimeout(timer);
   }, [initializeBaseline]);
 

@@ -14,6 +14,7 @@ import FormLayout from "../components/layouts/FormLayout";
 import PreviewRenderer from "../components/preview/PreviewRenderer";
 import MarkdownRenderer from "../components/preview/MarkdownRenderer";
 import PortfolioRenderer from "../components/preview/PortfolioRenderer";
+import PortfolioGate from "../components/preview/PortfolioGate";
 import PreviewControls from "../components/preview/PreviewControls";
 import GitHubPagesSettings from "../components/sponsor/GitHubPagesSettings";
 
@@ -219,17 +220,16 @@ export default function CreateProfile() {
           />
         </div>
 
-        {/* Portfolio Section Preview (Sponsors Only) */}
-        {isSponsor && (
-          <>
-            <div
-              className={state.renderMode === "portfolio" ? "relative" : "hidden"}
-            >
-              <PortfolioRenderer />
-            </div>
-            {/* Portfolio Settings are now controlled via PreviewControls button */}
-          </>
-        )}
+        {/* Portfolio Section: full access for sponsors, gate prompt for non-sponsors */}
+        <div
+          className={state.renderMode === "portfolio" ? "relative" : "hidden"}
+        >
+          {isSponsor ? (
+            <PortfolioRenderer />
+          ) : (
+            <PortfolioGate />
+          )}
+        </div>
       </section>
     </>
   );

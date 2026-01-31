@@ -181,17 +181,27 @@ NEXT_PUBLIC_SUPABASE_URL=...
 NEXT_PUBLIC_SUPABASE_ANON_KEY=...
 NEXT_PUBLIC_SITE_URL=http://localhost:3000
 
-# Sponsor Verification
+# Sponsor Verification (must match the GitHub login that receives sponsorships, e.g. danielcranney)
 GITHUB_SPONSOR_ACCOUNT=your_github_username_or_org
 DEV_SPONSOR_OVERRIDE=true  # Bypass sponsor checks in dev
 ```
 
 ### Testing Sponsor Features
 
+**With override (no real sponsorship needed):**
+
 1. Set `DEV_SPONSOR_OVERRIDE=true` in `.env.local`
 2. Login with GitHub OAuth
 3. Create profile repository: `username/username`
 4. Test sync/restore/portfolio features
+
+**Testing the real sponsor flow:**
+
+1. Set `DEV_SPONSOR_OVERRIDE=false` (or remove the line) in `.env.local`
+2. Restart the dev server so env is picked up
+3. Sign in with a GitHub account that has **not** sponsored → Portfolio gate should show; Sync/Portfolio settings hidden
+4. Complete a one-time sponsorship on GitHub with that account (or another), then in the app click “Already sponsored? Refresh status” (or sign in with the sponsor account)
+5. Sponsor features should unlock. Sign in with a non-sponsor account again to confirm the gate reappears
 
 ## Security Considerations
 

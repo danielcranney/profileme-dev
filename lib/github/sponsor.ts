@@ -22,8 +22,9 @@ const DEV_SPONSOR_OVERRIDE = process.env.DEV_SPONSOR_OVERRIDE === "true";
 
 /**
  * Check if user is a sponsor via GitHub GraphQL API.
- * Uses viewer.isSponsoredBy first; falls back to sponsorshipForViewerAsSponsorable
- * so one-time and active sponsorships are both detected.
+ * Uses viewer.sponsorshipsAsSponsor to list who the viewer sponsors and checks
+ * if GITHUB_SPONSOR_ACCOUNT is in that list. This is the reliable method
+ * (viewer.isSponsoredBy often returns false for real sponsors, e.g. one-time).
  */
 export async function checkSponsorStatus(
   req: NextApiRequest,
@@ -50,63 +51,11 @@ export async function checkSponsorStatus(
 
     const account = GITHUB_SPONSOR_ACCOUNT.trim();
 
-    // 1) viewer.isSponsoredBy – primary check (recurring/active)
-    const viewerQuery = `
-      query {
-        viewer {
-          login
-          isSponsoredBy(accountLogin: "${account}")
-        }
-      }
-    `;
-
-    const viewerResponse = await fetch("https://api.github.com/graphql", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-        Accept: "application/vnd.github.v4+json",
-      },
-      body: JSON.stringify({ query: viewerQuery }),
-    });
-
-    if (!viewerResponse.ok) {
-      console.error(
-        "[sponsor] GraphQL error:",
-        viewerResponse.status,
-        viewerResponse.statusText
-      );
-      return false;
-    }
-
-    const viewerData = await viewerResponse.json();
-
-    if (viewerData.errors) {
-      console.error("[sponsor] GraphQL errors (viewer):", viewerData.errors);
-      return false;
-    }
-
-    const isSponsoredBy = viewerData.data?.viewer?.isSponsoredBy === true;
-    const viewerLogin = viewerData.data?.viewer?.login || "(unknown)";
-
-    if (isSponsoredBy) {
-      if (process.env.NODE_ENV === "development") {
-        console.log(
-          "[sponsor] Viewer",
-          viewerLogin,
-          "is sponsor (isSponsoredBy) for",
-          account
-        );
-      }
-      return true;
-    }
-
-    // 2) Fallback: list who the viewer sponsors (viewer.sponsorshipsAsSponsor)
-    // and check if account is in the list – more reliable when isSponsoredBy /
-    // sponsorshipForViewerAsSponsorable return false or null
+    // List who the viewer sponsors; check if our account is in the list
     const listQuery = `
       query {
         viewer {
+          login
           sponsorshipsAsSponsor(first: 100) {
             nodes {
               sponsorable {
@@ -119,7 +68,7 @@ export async function checkSponsorStatus(
       }
     `;
 
-    const listResponse = await fetch("https://api.github.com/graphql", {
+    const response = await fetch("https://api.github.com/graphql", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -129,33 +78,26 @@ export async function checkSponsorStatus(
       body: JSON.stringify({ query: listQuery }),
     });
 
-    if (!listResponse.ok) {
-      if (process.env.NODE_ENV === "development") {
-        console.warn(
-          "[sponsor] sponsorshipsAsSponsor failed:",
-          listResponse.status,
-          listResponse.statusText
-        );
-      }
+    if (!response.ok) {
+      console.error(
+        "[sponsor] GraphQL error:",
+        response.status,
+        response.statusText
+      );
       return false;
     }
 
-    const listData = await listResponse.json();
+    const data = await response.json();
 
-    if (listData.errors) {
-      if (process.env.NODE_ENV === "development") {
-        console.warn(
-          "[sponsor] sponsorshipsAsSponsor GraphQL errors:",
-          listData.errors
-        );
-      }
+    if (data.errors) {
+      console.error("[sponsor] GraphQL errors:", data.errors);
       return false;
     }
 
-    const nodes =
-      listData.data?.viewer?.sponsorshipsAsSponsor?.nodes ?? [];
+    const nodes = data.data?.viewer?.sponsorshipsAsSponsor?.nodes ?? [];
+    const viewerLogin = data.data?.viewer?.login || "(unknown)";
     const accountLower = account.toLowerCase();
-    const isInList = nodes.some(
+    const isSponsor = nodes.some(
       (n: { sponsorable?: { login?: string } }) =>
         n?.sponsorable?.login?.toLowerCase() === accountLower
     );
@@ -169,16 +111,14 @@ export async function checkSponsorStatus(
         viewerLogin,
         "for account",
         account,
-        "| isSponsoredBy:",
-        isSponsoredBy,
         "| sponsorshipsAsSponsor list:",
         logins.length ? logins.join(", ") : "(none)",
         "| match:",
-        isInList ? "yes" : "no"
+        isSponsor ? "yes" : "no"
       );
     }
 
-    return isInList;
+    return isSponsor;
   } catch (error) {
     console.error("[sponsor] Error checking sponsor status:", error);
     return false;

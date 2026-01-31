@@ -18,8 +18,8 @@ export default function LoginButton() {
     );
   }
 
-  // Only hide if fully authenticated (has both Supabase session AND GitHub token)
-  // If partially authenticated (no GitHub token), UserMenu will show reconnect option
+  // Only hide when fully authenticated (user + GitHub token). Otherwise show this
+  // so the user sees a single "Login with GitHub" (no reconnect/username when token expired).
   if (isFullyAuthenticated) {
     return null; // Don't show if fully logged in (UserMenu will show instead)
   }

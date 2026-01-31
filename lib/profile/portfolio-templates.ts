@@ -44,7 +44,8 @@ function getAccentBar(color: string = "#3b82f6"): string {
 }
 
 /**
- * Minimal Template (Dark, clean, minimal)
+ * Minimal Template (Dark, transparent sidebar + scrollable main)
+ * Layout: fixed transparent sidebar (avatar, name, basic info) + main (intro line, skills icons only, then rest of profile)
  */
 function renderMinimalTemplate(profileJson: ProfileJson): string {
   const { profile, portfolio } = profileJson;
@@ -53,17 +54,22 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
   const accentColor = portfolio?.accentColor || "#3b82f6";
   const fontUrl = getGoogleFontsUrl(font);
 
+  const displayName = introduction.name || "Portfolio";
+  const introLine = introduction.shortDescription?.trim() || displayName;
+  const sidebarInitials = getInitialsForAvatar(displayName);
+
   return `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${escapeHtml(introduction.name || "Portfolio")} - Portfolio</title>
+  <title>${escapeHtml(displayName)} - Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="${fontUrl}" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; }
     body {
       font-family: '${escapeHtml(font)}', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
       -webkit-font-smoothing: antialiased;
@@ -72,210 +78,217 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
       color: #e5e7eb;
       background: #1f2937;
     }
-    .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
-    header {
+    .layout { display: flex; min-height: 100%; }
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 280px;
+      background: transparent;
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       text-align: center;
-      padding: 3rem 0;
-      border-bottom: 2px solid #374151;
-      margin-bottom: 3rem;
     }
-    h1 { font-size: 3rem; margin-bottom: 0.5rem; color: #f9fafb; }
-    .subtitle { font-size: 1.25rem; color: #9ca3af; margin-bottom: 1rem; }
-    .location { color: #6b7280; font-size: 1rem; }
-    section { margin-bottom: 3rem; }
+    .sidebar-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: #374151;
+      color: #9ca3af;
+      font-size: 2.5rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+      overflow: hidden;
+    }
+    .sidebar-avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .sidebar-name {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #f9fafb;
+      margin-bottom: 0.5rem;
+    }
+    .sidebar-tagline {
+      font-size: 0.95rem;
+      color: #9ca3af;
+      margin-bottom: 0.5rem;
+    }
+    .sidebar-location {
+      font-size: 0.875rem;
+      color: #6b7280;
+    }
+    .main {
+      flex: 1;
+      margin-left: 280px;
+      padding: 2rem 2.5rem;
+      overflow-y: auto;
+    }
+    .main-intro {
+      font-size: 1.25rem;
+      color: #d1d5db;
+      margin-bottom: 2rem;
+    }
+    .skills-icons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+    .skills-icons .skill-icon-wrap {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .skills-icons .skill-icon {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+    }
+    section { margin-bottom: 2.5rem; }
     h2 {
-      font-size: 2rem;
-      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
       color: #f9fafb;
       border-bottom: 2px solid ${escapeHtml(accentColor)};
       padding-bottom: 0.5rem;
     }
     .description {
-      font-size: 1.1rem;
+      font-size: 1rem;
       line-height: 1.8;
       color: #d1d5db;
-      margin-bottom: 2rem;
     }
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 1.5rem;
-      margin-top: 1rem;
-    }
-    .skill-category {
-      background: #111827;
-      padding: 1.5rem;
-      border-radius: 8px;
-      border-left: 4px solid ${escapeHtml(accentColor)};
-    }
-    .skill-category h3 {
-      font-size: 1.25rem;
-      margin-bottom: 1rem;
-      color: #f9fafb;
-    }
-    .skill-items {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-    }
-    .skill-item {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      background: #374151;
-      padding: 0.5rem;
-      border-radius: 8px;
-      border: 1px solid #4b5563;
-      transition: transform 0.2s, border-color 0.2s;
-    }
-    .skill-item:hover {
-      transform: scale(1.05);
-      border-color: #3b82f6;
-    }
-    .skill-icon {
-      width: 36px;
-      height: 36px;
-      object-fit: contain;
-    }
-    .skill-item-text {
-      font-size: 0.75rem;
-      font-weight: 500;
-      color: #e5e7eb;
-      min-width: 2.5rem;
-      text-align: center;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-    .socials {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-top: 1rem;
-    }
+    .socials { display: flex; flex-wrap: wrap; gap: 0.75rem; }
     .social-link {
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 0.75rem 1.5rem;
-      background: #3b82f6;
-      color: white;
+      padding: 0.5rem 1rem;
+      background: #374151;
+      color: #e5e7eb;
       text-decoration: none;
       border-radius: 6px;
-      transition: background 0.3s;
+      font-size: 0.9rem;
+      transition: background 0.2s;
     }
-    .social-link:hover { background: #2563eb; }
-    .links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-top: 1rem;
-    }
+    .social-link:hover { background: #4b5563; }
+    .links { display: flex; flex-wrap: wrap; gap: 0.75rem; }
     .link-button {
       display: inline-block;
-      padding: 0.75rem 1.5rem;
-      background: #10b981;
+      padding: 0.5rem 1rem;
+      background: ${escapeHtml(accentColor)};
       color: white;
       text-decoration: none;
       border-radius: 6px;
-      transition: background 0.3s;
+      font-size: 0.9rem;
+      transition: opacity 0.2s;
     }
-    .link-button:hover { background: #059669; }
+    .link-button:hover { opacity: 0.9; }
     footer {
-      text-align: center;
-      padding: 2rem 0;
-      margin-top: 3rem;
-      border-top: 2px solid #374151;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #374151;
+      font-size: 0.875rem;
       color: #6b7280;
     }
-    footer a { color: #3b82f6; text-decoration: none; }
+    footer a { color: #60a5fa; text-decoration: none; }
     footer a:hover { text-decoration: underline; }
     @media (max-width: 768px) {
-      .container { padding: 1rem; }
-      h1 { font-size: 2rem; }
-      .skills-grid { grid-template-columns: 1fr; }
+      .sidebar { position: relative; width: 100%; padding: 1.5rem; }
+      .main { margin-left: 0; padding: 1.5rem; }
     }
   </style>
 </head>
 <body>
   ${getAccentBar(accentColor)}
-  <div class="container">
-    <header>
-      <h1>${escapeHtml(introduction.name || "Portfolio")}</h1>
-      ${introduction.shortDescription ? `<p class="subtitle">${escapeHtml(introduction.shortDescription)}</p>` : ""}
-      ${introduction.location ? `<p class="location">📍 ${escapeHtml(introduction.location)}</p>` : ""}
-    </header>
-
-    ${introduction.longDescription ? `
-    <section id="about">
-      <h2>About</h2>
-      <div class="description">${formatDescription(introduction.longDescription)}</div>
-    </section>
-    ` : ""}
-
-    ${Object.keys(skills).length > 0 ? `
-    <section id="skills">
-      <h2>Skills</h2>
-      <div class="skills-grid">
-        ${renderSkillsSection(skills, profile.skillsOrder)}
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="sidebar-avatar" aria-hidden="true">${introduction.avatarUrl?.trim()
+    ? `<img src="${escapeHtml(introduction.avatarUrl.trim())}" alt="">`
+    : escapeHtml(sidebarInitials)}</div>
+      <h1 class="sidebar-name">${escapeHtml(displayName)}</h1>
+      ${introduction.shortDescription?.trim() ? `<p class="sidebar-tagline">${escapeHtml(introduction.shortDescription.trim())}</p>` : ""}
+      ${introduction.location?.trim() ? `<p class="sidebar-location">📍 ${escapeHtml(introduction.location.trim())}</p>` : ""}
+    </aside>
+    <main class="main">
+      <p class="main-intro">${escapeHtml(introLine)}</p>
+      ${Object.keys(skills).length > 0 ? `
+      <div class="skills-icons">
+        ${renderSkillsIconsOnly(skills, profile.skillsOrder)}
       </div>
-    </section>
-    ` : ""}
+      ` : ""}
 
-    ${introduction.workingOnTitle && introduction.workingOnLink ? `
-    <section id="projects">
-      <h2>Currently Working On</h2>
-      <div class="links">
-        <a href="${escapeHtml(introduction.workingOnLink)}" class="link-button" target="_blank" rel="noopener noreferrer">
-          ${escapeHtml(introduction.workingOnTitle)}
-        </a>
-      </div>
-    </section>
-    ` : ""}
+      ${introduction.longDescription ? `
+      <section id="about">
+        <h2>About</h2>
+        <div class="description">${formatDescription(introduction.longDescription)}</div>
+      </section>
+      ` : ""}
 
-    ${introduction.portfolioTitle && introduction.portfolioLink ? `
-    <section id="portfolio">
-      <h2>Portfolio</h2>
-      <div class="links">
-        <a href="${escapeHtml(introduction.portfolioLink)}" class="link-button" target="_blank" rel="noopener noreferrer">
-          ${escapeHtml(introduction.portfolioTitle)}
-        </a>
-      </div>
-    </section>
-    ` : ""}
+      ${introduction.workingOnTitle && introduction.workingOnLink ? `
+      <section id="projects">
+        <h2>Currently Working On</h2>
+        <div class="links">
+          <a href="${escapeHtml(introduction.workingOnLink)}" class="link-button" target="_blank" rel="noopener noreferrer">
+            ${escapeHtml(introduction.workingOnTitle)}
+          </a>
+        </div>
+      </section>
+      ` : ""}
 
-    ${introduction.learning ? `
-    <section id="learning">
-      <h2>Currently Learning</h2>
-      <div class="description">${escapeHtml(introduction.learning)}</div>
-    </section>
-    ` : ""}
+      ${introduction.portfolioTitle && introduction.portfolioLink ? `
+      <section id="portfolio">
+        <h2>Portfolio</h2>
+        <div class="links">
+          <a href="${escapeHtml(introduction.portfolioLink)}" class="link-button" target="_blank" rel="noopener noreferrer">
+            ${escapeHtml(introduction.portfolioTitle)}
+          </a>
+        </div>
+      </section>
+      ` : ""}
 
-    ${introduction.collaborateOn ? `
-    <section id="collaborate">
-      <h2>Looking to Collaborate On</h2>
-      <div class="description">${escapeHtml(introduction.collaborateOn)}</div>
-    </section>
-    ` : ""}
+      ${introduction.learning ? `
+      <section id="learning">
+        <h2>Currently Learning</h2>
+        <div class="description">${escapeHtml(introduction.learning)}</div>
+      </section>
+      ` : ""}
 
-    ${Object.keys(socials).length > 0 ? `
-    <section id="socials">
-      <h2>Connect</h2>
-      <div class="socials">
-        ${renderSocialsSection(socials, profile.socialOrder)}
-      </div>
-    </section>
-    ` : ""}
+      ${introduction.collaborateOn ? `
+      <section id="collaborate">
+        <h2>Looking to Collaborate On</h2>
+        <div class="description">${escapeHtml(introduction.collaborateOn)}</div>
+      </section>
+      ` : ""}
 
-    ${introduction.additionalInfo ? `
-    <section id="additional">
-      <h2>Additional Information</h2>
-      <div class="description">${formatDescription(introduction.additionalInfo)}</div>
-    </section>
-    ` : ""}
+      ${Object.keys(socials).length > 0 ? `
+      <section id="socials">
+        <h2>Connect</h2>
+        <div class="socials">
+          ${renderSocialsSection(socials, profile.socialOrder)}
+        </div>
+      </section>
+      ` : ""}
 
-    <footer>
-      <p>Generated by <a href="https://profileme.dev" target="_blank" rel="noopener noreferrer">ProfileMe.dev</a></p>
-    </footer>
+      ${introduction.additionalInfo ? `
+      <section id="additional">
+        <h2>Additional Information</h2>
+        <div class="description">${formatDescription(introduction.additionalInfo)}</div>
+      </section>
+      ` : ""}
+
+      <footer>
+        <p>Generated by <a href="https://profileme.dev" target="_blank" rel="noopener noreferrer">ProfileMe.dev</a></p>
+      </footer>
+    </main>
   </div>
 </body>
 </html>`;
@@ -533,6 +546,56 @@ function renderClassicTemplate(profileJson: ProfileJson): string {
   </div>
 </body>
 </html>`;
+}
+
+// Helper: initials for sidebar avatar (e.g. "John Doe" -> "JD", "Alice" -> "AL")
+function getInitialsForAvatar(name: string): string {
+  const trimmed = (name || "").trim();
+  if (!trimmed) return "?";
+  const words = trimmed.split(/\s+/).filter(Boolean);
+  if (words.length >= 2) {
+    return (words[0][0] + words[words.length - 1][0]).toUpperCase().slice(0, 2);
+  }
+  return trimmed.slice(0, 2).toUpperCase();
+}
+
+// Helper: render skills as icons only (no category boxes, no item boxes)
+function renderSkillsIconsOnly(
+  skills: ProfileJson["profile"]["skills"],
+  skillsOrder: string[]
+): string {
+  const categories = skillsOrder.length > 0
+    ? skillsOrder.filter(cat => skills[cat] && skills[cat].length > 0)
+    : Object.keys(skills).filter(cat => skills[cat] && skills[cat].length > 0);
+  if (categories.length === 0) return "";
+
+  const getInitials = (name: string): string => {
+    const cleaned = name
+      .replace(/^(GNU|Microsoft|Visual|Code|Studio|Neo|Vim|Neovim)\s+/i, "")
+      .replace(/\s+(Code|Studio|Editor|IDE)$/i, "")
+      .trim();
+    const words = cleaned.split(/\s+/);
+    if (words.length === 1) return cleaned.substring(0, 3).toUpperCase();
+    return words.slice(0, 2).map(w => w[0]).join("").toUpperCase();
+  };
+
+  const renderOneIcon = (skill: any): string => {
+    const iconPath = skill.path || (skill.iTag ? `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${skill.iTag}-colored.svg` : null);
+    const darkIconPath = skill.darkPath || null;
+    if (iconPath) {
+      if (darkIconPath) {
+        return `<picture><source media="(prefers-color-scheme: dark)" srcset="${escapeHtml(darkIconPath)}"><img src="${escapeHtml(iconPath)}" alt="${escapeHtml(skill.name)}" class="skill-icon" loading="lazy"></picture>`;
+      }
+      return `<img src="${escapeHtml(iconPath)}" alt="${escapeHtml(skill.name)}" class="skill-icon" loading="lazy">`;
+    }
+    const initials = getInitials(skill.name);
+    return `<span style="font-size: 0.75rem; font-weight: 600; color: #9ca3af; min-width: 2rem; text-align: center;">${escapeHtml(initials)}</span>`;
+  };
+
+  const allSkills = categories.flatMap(cat => (skills[cat] || []).map((s: any) => ({ ...s })));
+  return allSkills.map(skill =>
+    `<span class="skill-icon-wrap" title="${escapeHtml(skill.name)}">${renderOneIcon(skill)}</span>`
+  ).join("");
 }
 
 // Helper functions

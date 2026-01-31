@@ -32,6 +32,7 @@ export interface ProfileData {
 
 export interface IntroductionData {
   name: string;
+  avatarUrl?: string; // optional; defaults to GitHub avatar when user is logged in
   animatedHand: 0 | 1; // 0 = emoji, 1 = animated gif
   shortDescription: string;
   longDescription: string;

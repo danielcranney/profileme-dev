@@ -60,6 +60,7 @@ const cardStyleConfigSchema = z.object({
 // Introduction Schema
 const introductionSchema = z.object({
   name: z.string(),
+  avatarUrl: z.string().optional(),
   animatedHand: z.union([z.literal(0), z.literal(1)]),
   shortDescription: z.string(),
   longDescription: z.string(),

@@ -105,6 +105,7 @@ const initialState = {
   // Introduction State
   introduction: {
     name: "",
+    avatarUrl: "",
     animatedHand: 0,
     shortDescription: "",
     longDescription: "",

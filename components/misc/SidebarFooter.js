@@ -2,10 +2,22 @@ import React from "react";
 import Link from "next/link";
 import GitHubIcon from "./GitHubIcon";
 import XIcon from "./XIcon";
+import { useAuth } from "../../hooks/useAuth";
 
 const SidebarFooter = () => {
+  const { isFullyAuthenticated, isSponsor } = useAuth();
+
   return (
     <div className={`z-40 flex flex-col px-6 gap-y-2`}>
+      <p className="text-xs text-white/80 dark:text-white/80 mb-0">
+        Profile is saved locally in this browser.
+      </p>
+      {isFullyAuthenticated && isSponsor && (
+        <p className="text-xs text-white/80 dark:text-white/80 mb-0">
+          Sync to publish · Restore to load from GitHub
+        </p>
+      )}
+
       <article className="flex gap-x-2 items-center">
         <GitHubIcon />
         <XIcon />

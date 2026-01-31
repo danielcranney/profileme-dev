@@ -20,6 +20,7 @@ import GitHubPagesSettings from "../components/sponsor/GitHubPagesSettings";
 
 // Import hooks
 import { StateContext } from "./_app";
+import { ACTIONS } from "../lib/constants/actions";
 import { useAuth } from "../hooks/useAuth";
 import {
   useMarkdownGeneration,
@@ -34,10 +35,19 @@ import {
 
 export default function CreateProfile() {
   const { state, dispatch } = useContext(StateContext);
-  const { isSponsor } = useAuth();
+  const { isSponsor, user } = useAuth();
   const [mounted, setMounted] = useState(false);
   const { theme } = useTheme();
   const [copySuccess, setCopySuccess] = useState("Copy");
+
+  // Default profile picture to GitHub avatar when user is logged in (if not already set)
+  useEffect(() => {
+    const avatarUrl = user?.user_metadata?.avatar_url;
+    const currentAvatar = state.introduction?.avatarUrl?.trim();
+    if (avatarUrl && !currentAvatar) {
+      dispatch({ type: ACTIONS.ADD_INTRODUCTION, payload: { avatarUrl } });
+    }
+  }, [user?.user_metadata?.avatar_url, state.introduction?.avatarUrl, dispatch]);
 
   // Generate markdown from JSON (canonical source)
   const [markdownString, setMarkdownString] = useState("");

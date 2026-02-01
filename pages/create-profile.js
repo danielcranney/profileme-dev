@@ -35,7 +35,7 @@ import {
 
 export default function CreateProfile() {
   const { state, dispatch } = useContext(StateContext);
-  const { isSponsor, user } = useAuth();
+  const { isSponsor, user, loading: authLoading } = useAuth();
   const [mounted, setMounted] = useState(false);
   const { theme } = useTheme();
   const [copySuccess, setCopySuccess] = useState("Copy");
@@ -47,11 +47,15 @@ export default function CreateProfile() {
     if (avatarUrl && !currentAvatar) {
       dispatch({ type: ACTIONS.ADD_INTRODUCTION, payload: { avatarUrl } });
     }
-  }, [user?.user_metadata?.avatar_url, state.introduction?.avatarUrl, dispatch]);
+  }, [
+    user?.user_metadata?.avatar_url,
+    state.introduction?.avatarUrl,
+    dispatch,
+  ]);
 
   // Generate markdown from JSON (canonical source)
   const [markdownString, setMarkdownString] = useState("");
-  
+
   useEffect(() => {
     if (!mounted) return;
     try {
@@ -232,9 +236,17 @@ export default function CreateProfile() {
 
         {/* Portfolio Section: full access for sponsors, gate prompt for non-sponsors */}
         <div
-          className={state.renderMode === "portfolio" ? "relative" : "hidden"}
+          className={
+            state.renderMode === "portfolio"
+              ? "relative flex flex-1 min-h-0 flex-col my-auto"
+              : "hidden"
+          }
         >
-          {isSponsor ? (
+          {authLoading ? (
+            <div className="flex flex-1 items-center justify-center p-6 text-sm text-gray-500 dark:text-gray-400">
+              Checking access…
+            </div>
+          ) : isSponsor ? (
             <PortfolioRenderer />
           ) : (
             <PortfolioGate />

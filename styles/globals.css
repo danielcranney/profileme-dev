@@ -118,7 +118,7 @@ Table Of Contents:
 /**************************/
 @layer base {
   header {
-    @apply z-20 fixed md:relative flex items-center bg-white dark:bg-dark-800 dark:border-dark-600 border-b border-light-200 w-full h-16 transition-all duration-150 ease-in-out;
+    @apply z-20 fixed md:relative flex items-center bg-white dark:bg-dark-800 border-light-200 dark:border-dark-600 border-b w-full h-16 transition-all duration-150 ease-in-out;
   }
 
   main {
@@ -126,23 +126,23 @@ Table Of Contents:
   }
 
   aside {
-    @apply top-0 left-0 z-30 fixed flex flex-col md:flex-grow bg-dark-700 dark:bg-dark-700 pt-20 pb-6 dark:border-dark-600 border-t-0 border-r-0 border-b md:border-b-0 border-light-200 w-full md:w-64 h-full overflow-hidden transition-all duration-150 ease-in-out transform;
+    @apply top-0 left-0 z-30 fixed flex flex-col md:flex-grow bg-dark-700 dark:bg-dark-700 pt-20 pb-6 border-light-200 dark:border-dark-600 border-t-0 border-r-0 border-b md:border-b-0 w-full md:w-64 h-full overflow-hidden transition-all duration-150 ease-in-out transform;
   }
 
   .section-header-wrapper {
-    @apply relative flex flex-col bg-white dark:bg-dark-800 p-6 dark:border-dark-600 md:border-t-0 border-b border-light-200 transition-all duration-150 ease-in-out;
+    @apply relative flex flex-col bg-white dark:bg-dark-800 p-6 border-light-200 dark:border-dark-600 md:border-t-0 border-b transition-all duration-150 ease-in-out;
   }
 
   .input-column-wrapper {
-    @apply flex flex-col flex-1 bg-white dark:bg-dark-800 dark:border-dark-600 border-r-0 md:border-r border-light-200 transition-all duration-150 ease-in-out;
+    @apply flex flex-col flex-1 bg-white dark:bg-dark-800 border-light-200 dark:border-dark-600 border-r-0 md:border-r transition-all duration-150 ease-in-out;
   }
 
   .preview-column-wrapper {
-    @apply relative flex flex-col flex-1 bg-light-100 dark:bg-dark-800 dark:border-dark-600 border-t md:border-t-0 border-light-200 transition-all duration-150 ease-in-out;
+    @apply relative flex flex-col flex-1 bg-light-100 dark:bg-dark-900 border-light-200 dark:border-dark-600 border-t md:border-t-0 transition-all duration-150 ease-in-out;
   }
 
   .preview-column-wrapper .buttons-wrapper {
-    @apply relative flex items-center gap-2 flex-wrap bg-light-100 dark:bg-dark-900 py-2.5 px-4 dark:border-dark-600 border-light-200 w-full transition-all duration-150 ease-in-out;
+    @apply relative flex flex-wrap items-center gap-2 bg-light-100 dark:bg-dark-900 px-4 py-2.5 border-light-200 dark:border-dark-600 w-full transition-all duration-150 ease-in-out;
   }
 }
 
@@ -185,7 +185,7 @@ Table Of Contents:
   }
 
   .btn-gray-outline {
-    @apply border dark:border-dark-600 border-light-200;
+    @apply border border-light-200 dark:border-dark-600;
   }
 
   .btn-trans {
@@ -265,9 +265,10 @@ Table Of Contents:
     @apply bg-light-100 dark:bg-dark-900 px-6 pb-6 h-full overflow-y-auto font-code text-dark-500 dark:text-dark-300 text-xs transition-all duration-150 ease-in-out;
   }
 
-  /* Ensure preview and markdown container parents have proper height constraints */
+  /* Ensure preview, markdown and portfolio container parents have proper height constraints */
   .preview-column-wrapper > div:nth-child(2),
-  .preview-column-wrapper > div:nth-child(3) {
+  .preview-column-wrapper > div:nth-child(3),
+  .preview-column-wrapper > div:nth-child(4) {
     @apply flex-1 min-h-0;
   }
 }

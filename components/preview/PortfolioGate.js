@@ -2,20 +2,22 @@
  * PortfolioGate Component
  *
  * Shown when the user selects Portfolio view but is not a GitHub sponsor.
- * One straightforward message: sponsor first, then sign in to use.
- * We don't send users to GitHub (OAuth) before they sponsor — only the sponsor page.
+ * Uses isFullyAuthenticated (user + GitHub token) so we only show "Refresh status"
+ * when they can actually refresh; otherwise show "Sign in with GitHub" (handles
+ * stale Supabase session where user exists but token is gone).
  */
 
 import React, { useState } from "react";
 import { useAuth } from "../../hooks/useAuth";
-import LoginButton from "../auth/LoginButton";
 
 const SPONSOR_PAGE_URL =
   process.env.NEXT_PUBLIC_GITHUB_SPONSOR_URL ||
   "https://github.com/sponsors/danielcranney";
 
 export default function PortfolioGate() {
-  const { isAuthenticated, refresh, loading } = useAuth();
+  const { isFullyAuthenticated, refresh, loading, loginWithGitHub } = useAuth();
+  // Only show "Refresh status" when we're sure the user is fully logged in (session validated via API).
+  const showRefreshStatus = isFullyAuthenticated && !loading;
   const [refreshing, setRefreshing] = useState(false);
 
   const handleRefresh = async () => {
@@ -28,7 +30,7 @@ export default function PortfolioGate() {
   };
 
   return (
-    <div className="rounded-xl border border-gray-200 dark:border-dark-700 bg-gray-50 dark:bg-dark-800/50 p-8 text-center max-w-md mx-auto">
+    <div className="rounded-xl border border-gray-200 dark:border-dark-700 bg-gray-50 dark:bg-dark-800/50 p-8 text-center max-w-md mx-auto my-auto">
       <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-amber-100 dark:bg-amber-900/30 mb-4">
         <svg
           className="w-6 h-6 text-amber-600 dark:text-amber-400"
@@ -47,10 +49,19 @@ export default function PortfolioGate() {
       <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
         Portfolio is for GitHub sponsors
       </h3>
-      <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
-        Sponsor the project on GitHub to unlock the Portfolio feature and
-        publish to GitHub Pages. Then sign in with GitHub to use it.
-      </p>
+      {!showRefreshStatus ? (
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
+          Sponsor the project on GitHub to unlock the Portfolio feature and
+          publish to GitHub Pages. If you&apos;ve already sponsored, sign in
+          with GitHub here so we can recognize your account.
+        </p>
+      ) : (
+        <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
+          Your GitHub account is not currently a sponsor. Sponsor the project on
+          GitHub to unlock the Portfolio feature and publish to GitHub Pages. If
+          you just sponsored, refresh status below.
+        </p>
+      )}
       <div className="flex flex-col gap-3">
         <a
           href={SPONSOR_PAGE_URL}
@@ -63,11 +74,18 @@ export default function PortfolioGate() {
           </svg>
           Sponsor on GitHub
         </a>
-        {!isAuthenticated ? (
-          <div className="flex flex-wrap items-center justify-center gap-1.5 text-xs text-gray-500 dark:text-gray-400">
-            <span>Already sponsored?</span>
-            <LoginButton />
-          </div>
+        {!showRefreshStatus ? (
+          <p className="text-xs text-gray-500 dark:text-gray-400">
+            Already sponsored?{" "}
+            <button
+              type="button"
+              onClick={loginWithGitHub}
+              disabled={loading}
+              className="font-semibold text-brand-600 dark:text-brand-400 hover:underline focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 focus:ring-offset-gray-50 dark:focus:ring-offset-dark-800 rounded"
+            >
+              {loading ? "Signing in…" : "Sign in with GitHub"}
+            </button>
+          </p>
         ) : (
           <button
             type="button"

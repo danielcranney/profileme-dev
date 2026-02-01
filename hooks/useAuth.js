@@ -1,14 +1,17 @@
 /**
- * useAuth Hook
- * 
- * Client-side hook for managing Supabase authentication state.
- * Handles GitHub OAuth through Supabase.
+ * useAuth Hook & AuthProvider
+ *
+ * Client-side auth state is shared via React Context so that logout in one
+ * component (e.g. UserMenu) updates all consumers (e.g. LoginButton) and the
+ * Login button appears after logout.
  */
 
-import { useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useContext } from "react";
 import { createClient } from "../lib/supabase/client";
 
-export function useAuth() {
+const AuthContext = createContext(null);
+
+export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [githubToken, setGithubToken] = useState(null);
   const [isSponsor, setIsSponsor] = useState(false);
@@ -17,28 +20,8 @@ export function useAuth() {
   useEffect(() => {
     const supabase = createClient();
 
-    // Check if we're returning from OAuth callback
-    const isCallback = window.location.search.includes("connected=github");
-    
-    // Get initial session from Supabase client
     const initSession = async () => {
       try {
-        const { data: { session }, error } = await supabase.auth.getSession();
-        if (error) {
-          console.error("Error getting session:", error);
-        }
-        
-        console.log("Initial session check:", {
-          hasSession: !!session,
-          userId: session?.user?.id,
-          hasProviderToken: !!session?.provider_token,
-        });
-        
-        setUser(session?.user ?? null);
-        setGithubToken(session?.provider_token ?? null);
-        setLoading(false);
-        
-        // Also fetch from our API route for consistency
         await fetchSession();
       } catch (error) {
         console.error("Error in initSession:", error);
@@ -48,7 +31,6 @@ export function useAuth() {
 
     initSession();
 
-    // Listen for auth changes
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(async (event, session) => {
@@ -56,8 +38,7 @@ export function useAuth() {
       setUser(session?.user ?? null);
       setGithubToken(session?.provider_token ?? null);
       setLoading(false);
-      
-      // If we just got a session (SIGNED_IN event), refresh from API
+
       if (event === "SIGNED_IN" || event === "TOKEN_REFRESHED") {
         await fetchSession();
       }
@@ -72,10 +53,10 @@ export function useAuth() {
         fetch("/api/auth/session", { credentials: "include" }),
         fetch("/api/github/sponsor-status", { credentials: "include" }),
       ]);
-      
+
       const sessionData = await sessionResponse.json();
       const sponsorData = await sponsorResponse.json();
-      
+
       if (sessionData.user) {
         setUser(sessionData.user);
         setGithubToken(sessionData.githubToken);
@@ -83,7 +64,7 @@ export function useAuth() {
         setUser(null);
         setGithubToken(null);
       }
-      
+
       setIsSponsor(sponsorData.isSponsor || false);
     } catch (error) {
       console.error("Failed to fetch session:", error);
@@ -108,7 +89,6 @@ export function useAuth() {
     }
 
     const data = await response.json();
-    // Redirect to GitHub OAuth
     if (data.url) {
       window.location.href = data.url;
     }
@@ -126,26 +106,38 @@ export function useAuth() {
 
     setUser(null);
     setGithubToken(null);
-    
-    // Refresh session
+    setIsSponsor(false);
+
     await fetchSession();
   };
 
-  // Consider user fully authenticated only if they have both Supabase session AND GitHub token
-  // If GitHub token is missing, they're partially authenticated (can use basic site but not sponsor features)
   const isFullyAuthenticated = !!user && !!githubToken;
   const isPartiallyAuthenticated = !!user && !githubToken;
 
-  return {
+  const value = {
     user,
     githubToken,
     loading,
     loginWithGitHub,
     logout,
-    isAuthenticated: !!user, // Keep for backward compatibility
+    isAuthenticated: !!user,
     isFullyAuthenticated,
     isPartiallyAuthenticated,
     isSponsor,
     refresh: fetchSession,
   };
+
+  return (
+    <AuthContext.Provider value={value}>
+      {children}
+    </AuthContext.Provider>
+  );
+}
+
+export function useAuth() {
+  const ctx = useContext(AuthContext);
+  if (!ctx) {
+    throw new Error("useAuth must be used within AuthProvider");
+  }
+  return ctx;
 }

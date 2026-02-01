@@ -4,7 +4,7 @@ import Script from "next/script";
 import { useRouter } from "next/router";
 import * as gtag from "../lib/gtag";
 import { ThemeProvider } from "next-themes";
-import { useReducerWithMiddleware } from "../hooks";
+import { useReducerWithMiddleware, AuthProvider } from "../hooks";
 import storeStateMiddleware from "../middleware/storeStateMiddleware";
 import { SKILL_CATEGORIES } from "../lib/constants/skillCategories";
 import { ACTIONS } from "../lib/constants/actions";
@@ -701,9 +701,11 @@ function MyApp({ Component, pageProps }) {
         }}
       />
       <ThemeProvider enableSystem={true} attribute="class">
-        <StateContext.Provider value={{ state, dispatch }}>
-          {getLayout(<Component {...pageProps} />)}
-        </StateContext.Provider>
+        <AuthProvider>
+          <StateContext.Provider value={{ state, dispatch }}>
+            {getLayout(<Component {...pageProps} />)}
+          </StateContext.Provider>
+        </AuthProvider>
       </ThemeProvider>
     </>
   );

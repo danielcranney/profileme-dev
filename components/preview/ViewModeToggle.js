@@ -1,7 +1,7 @@
 /**
  * ViewModeToggle Component
- * 
- * Segmented control for switching between Preview, Markdown, and Portfolio views.
+ *
+ * Segmented control for switching between Preview, Markdown, and Links page views.
  */
 
 import React, { useContext } from "react";
@@ -26,10 +26,10 @@ export default function ViewModeToggle() {
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
       </svg>
     )},
-    // Portfolio: visible to all; access gated by sponsor check (PortfolioGate when !isSponsor)
+    // Links page: visible to all; access gated by sponsor check (LinksPageGate when !isSponsor)
     {
-      id: "portfolio",
-      label: "Portfolio",
+      id: "linksPage",
+      label: "Links page",
       locked: !isSponsor,
       icon: (
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -64,7 +64,7 @@ export default function ViewModeToggle() {
           `}
           title={
             mode.locked
-              ? "Portfolio is for GitHub sponsors — sign in or sponsor to unlock"
+              ? "Links page is for GitHub sponsors — sign in or sponsor to unlock"
               : `Switch to ${mode.label} view`
           }
         >

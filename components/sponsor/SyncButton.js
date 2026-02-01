@@ -61,7 +61,7 @@ export default function SyncButton() {
 
       setStatus({ 
         type: "success", 
-        message: "Synced to GitHub: README.md + portfolio site updated!" 
+        message: "Synced to GitHub: README.md + links page updated!" 
       });
       
       // Update LocalStorage cache with new SHA
@@ -84,7 +84,7 @@ export default function SyncButton() {
         onClick={handleSync}
         disabled={syncing}
         className="btn-sm btn-brand flex items-center gap-1.5"
-        title="Syncs profile.json, README.md, and portfolio site (index.html) to GitHub"
+        title="Syncs profile.json, README.md, and links page (index.html) to GitHub"
         onMouseEnter={() => setShowTooltip(true)}
         onMouseLeave={() => setShowTooltip(false)}
       >
@@ -97,7 +97,7 @@ export default function SyncButton() {
       {/* Tooltip on hover */}
       {showTooltip && !syncing && (
         <div className="absolute top-full mt-1 left-0 bg-gray-900 dark:bg-gray-700 text-white text-xs rounded px-2 py-1 whitespace-nowrap z-50 shadow-lg">
-          Updates README.md + Portfolio Site
+          Updates README.md + Links page
           <div className="absolute -top-1 left-3 w-2 h-2 bg-gray-900 dark:bg-gray-700 transform rotate-45"></div>
         </div>
       )}

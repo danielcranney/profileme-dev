@@ -1,6 +1,6 @@
 /**
  * Portfolio Templates
- * 
+ *
  * Different portfolio template styles that can be selected.
  */
 
@@ -40,23 +40,38 @@ function getGoogleFontsUrl(fontName: string): string {
  * Get accent color bar HTML (5px high)
  */
 function getAccentBar(color: string = "#3b82f6"): string {
-  return `<div style="height: 5px; background: ${escapeHtml(color)}; width: 100%; margin: 0;"></div>`;
+  return `<div style="height: 5px; background: ${escapeHtml(
+    color
+  )}; width: 100%; margin: 0;"></div>`;
 }
 
 /**
- * Minimal Template (Dark, transparent sidebar + scrollable main)
- * Layout: fixed transparent sidebar (avatar, name, basic info) + main (intro line, skills icons only, then rest of profile)
+ * Minimal Template (Dark two-column: fixed sidebar + scrollable main)
+ * Reference: deep navy (#141921), sidebar (avatar, name, title, bio, email, location, social icons),
+ * main (Core Skills as categorized pills, optional Experience timeline from portfolio.options.experience).
  */
 function renderMinimalTemplate(profileJson: ProfileJson): string {
   const { profile, portfolio } = profileJson;
-  const { introduction, skills, socials, badges, support } = profile;
+  const { introduction, skills, socials } = profile;
   const font = portfolio?.font || "Inter";
   const accentColor = portfolio?.accentColor || "#3b82f6";
   const fontUrl = getGoogleFontsUrl(font);
 
   const displayName = introduction.name || "Portfolio";
-  const introLine = introduction.shortDescription?.trim() || displayName;
+  const title = introduction.shortDescription?.trim() || "";
+  const bio = introduction.longDescription?.trim() || "";
+  const email = introduction.emailMe?.trim() || "";
+  const location = introduction.location?.trim() || "";
   const sidebarInitials = getInitialsForAvatar(displayName);
+  const experience = portfolio?.options?.experience as
+    | ExperienceEntry[]
+    | undefined;
+  const portfolioOgImage = portfolio?.options?.portfolioOgImage as
+    | string
+    | undefined;
+  const featuredRepos = portfolio?.options?.featuredRepos as
+    | FeaturedRepoEntry[]
+    | undefined;
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -71,39 +86,50 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { height: 100%; }
     body {
-      font-family: '${escapeHtml(font)}', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+      font-family: '${escapeHtml(
+        font
+      )}', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       line-height: 1.6;
-      color: #e5e7eb;
-      background: #1f2937;
+      color: #d1d5db;
+      background: #141921;
+      padding-top: 5px;
+    }
+    .accent-bar-fixed {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      z-index: 10;
     }
     .layout { display: flex; min-height: 100%; }
     .sidebar {
       position: fixed;
       left: 0;
-      top: 0;
+      top: 5px;
       bottom: 0;
-      width: 280px;
-      background: transparent;
-      padding: 2rem 1.5rem;
+      width: 320px;
+      background: #141921;
+      padding: 2.5rem 2rem;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
     }
     .sidebar-avatar {
-      width: 120px;
-      height: 120px;
+      width: 140px;
+      height: 140px;
       border-radius: 50%;
-      background: #374151;
+      background: #2c3440;
       color: #9ca3af;
-      font-size: 2.5rem;
+      font-size: 2.75rem;
       font-weight: 600;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.5rem;
       overflow: hidden;
     }
     .sidebar-avatar img {
@@ -112,76 +138,195 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
       object-fit: cover;
     }
     .sidebar-name {
-      font-size: 1.5rem;
+      font-size: 1.75rem;
       font-weight: 700;
-      color: #f9fafb;
-      margin-bottom: 0.5rem;
+      color: #ffffff;
+      margin-bottom: 0.375rem;
+      letter-spacing: -0.02em;
     }
-    .sidebar-tagline {
-      font-size: 0.95rem;
-      color: #9ca3af;
-      margin-bottom: 0.5rem;
-    }
-    .sidebar-location {
-      font-size: 0.875rem;
-      color: #6b7280;
-    }
-    .main {
-      flex: 1;
-      margin-left: 280px;
-      padding: 2rem 2.5rem;
-      overflow-y: auto;
-    }
-    .main-intro {
-      font-size: 1.25rem;
+    .sidebar-title {
+      font-size: 0.9375rem;
+      font-weight: 600;
       color: #d1d5db;
-      margin-bottom: 2rem;
+      margin-bottom: 1rem;
     }
-    .skills-icons {
+    .sidebar-bio {
+      font-size: 0.9375rem;
+      font-weight: 400;
+      color: #d1d5db;
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+      max-width: 260px;
+    }
+    .sidebar-contact {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75rem;
+      width: 100%;
+      max-width: 260px;
+    }
+    .sidebar-contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.875rem;
+      color: #d1d5db;
+    }
+    .sidebar-contact-item svg {
+      flex-shrink: 0;
+      color: #9ca3af;
+    }
+    .sidebar-contact-item a {
+      color: #d1d5db;
+      text-decoration: none;
+    }
+    .sidebar-contact-item a:hover { text-decoration: underline; }
+    .sidebar-socials {
       display: flex;
       flex-wrap: wrap;
       gap: 1rem;
-      margin-bottom: 2.5rem;
+      margin-top: 1.5rem;
+      justify-content: center;
     }
-    .skills-icons .skill-icon-wrap {
+    .sidebar-social-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #d1d5db;
+      transition: opacity 0.2s;
+    }
+    .sidebar-social-icon:hover { opacity: 0.85; }
+    .sidebar-social-icon img {
+      width: 24px;
+      height: 24px;
+      object-fit: contain;
+    }
+    .main {
+      flex: 1;
+      margin-left: 320px;
+      padding: 2.5rem 3rem;
+      overflow-y: auto;
+    }
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #2c3440;
+    }
+    .skills-category,
+    .main .skill-category {
+      margin-bottom: 2rem;
+    }
+    .skills-category-title,
+    .main .skill-category h3 {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: #d1d5db;
+      margin-bottom: 0.75rem;
+    }
+    .main .skill-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .main .skill-item {
       display: inline-flex;
       align-items: center;
       justify-content: center;
     }
-    .skills-icons .skill-icon {
+    .main .skill-icon {
       width: 40px;
       height: 40px;
       object-fit: contain;
     }
-    section { margin-bottom: 2.5rem; }
-    h2 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      color: #f9fafb;
-      border-bottom: 2px solid ${escapeHtml(accentColor)};
-      padding-bottom: 0.5rem;
+    .main .skill-item picture,
+    .main .skill-item .skill-icon {
+      display: block;
     }
-    .description {
-      font-size: 1rem;
-      line-height: 1.8;
+    .main .skill-item-text {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #9ca3af;
+      min-width: 2rem;
+      text-align: center;
+    }
+    .skills-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 0.75rem;
+    }
+    .skill-pill {
+      display: inline-block;
+      padding: 0.375rem 0.875rem;
+      font-size: 0.875rem;
+      font-weight: 500;
       color: #d1d5db;
+      background: #2c3440;
+      border-radius: 9999px;
     }
-    .socials { display: flex; flex-wrap: wrap; gap: 0.75rem; }
-    .social-link {
-      display: inline-flex;
-      align-items: center;
+    .experience-timeline {
+      position: relative;
+      padding-left: 1.5rem;
+      border-left: 2px solid #2c3440;
+      margin-left: 0.25rem;
+    }
+    .experience-entry {
+      position: relative;
+      margin-bottom: 2rem;
+    }
+    .experience-entry:last-child { margin-bottom: 0; }
+    .experience-dot {
+      position: absolute;
+      left: -1.625rem;
+      top: 0.25rem;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #d1d5db;
+    }
+    .experience-content { padding-left: 0; }
+    .experience-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
       gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      background: #374151;
-      color: #e5e7eb;
-      text-decoration: none;
-      border-radius: 6px;
-      font-size: 0.9rem;
-      transition: background 0.2s;
+      margin-bottom: 0.25rem;
     }
-    .social-link:hover { background: #4b5563; }
-    .links { display: flex; flex-wrap: wrap; gap: 0.75rem; }
-    .link-button {
+    .experience-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .experience-dates {
+      font-size: 0.875rem;
+      color: #9ca3af;
+    }
+    .experience-company {
+      font-size: 0.9375rem;
+      color: #9ca3af;
+      margin-bottom: 0.5rem;
+    }
+    .experience-description {
+      font-size: 0.875rem;
+      color: #d1d5db;
+      line-height: 1.6;
+    }
+    .main-section { margin-bottom: 2.5rem; }
+    .main .section-description {
+      font-size: 0.9375rem;
+      color: #d1d5db;
+      line-height: 1.7;
+    }
+    .main .section-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .main .link-button {
       display: inline-block;
       padding: 0.5rem 1rem;
       background: ${escapeHtml(accentColor)};
@@ -191,100 +336,293 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
       font-size: 0.9rem;
       transition: opacity 0.2s;
     }
-    .link-button:hover { opacity: 0.9; }
-    footer {
-      margin-top: 2rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid #374151;
+    .main .link-button:hover { opacity: 0.9; }
+    .main .section-socials {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+    .main .social-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      background: #2c3440;
+      color: #e5e7eb;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+    .main .social-link:hover { background: #374151; }
+    .portfolio-card {
+      display: block;
+      position: relative;
+      height: 180px;
+      border-radius: 12px;
+      overflow: hidden;
+      text-decoration: none;
+      background: #2c3440;
+    }
+    .portfolio-card-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+    }
+    .portfolio-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(20,25,33,0.95) 0%, rgba(20,25,33,0.4) 100%);
+    }
+    .portfolio-card-content {
+      position: relative;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.25rem;
+    }
+    .portfolio-card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+    .project-card {
+      display: block;
+      padding: 1.25rem;
+      background: #2c3440;
+      border-radius: 12px;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .project-card:hover { background: #374151; }
+    .project-card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 0.5rem;
+    }
+    .project-card-desc {
       font-size: 0.875rem;
+      color: #d1d5db;
+      line-height: 1.5;
+      margin-bottom: 0.75rem;
+    }
+    .project-card-meta {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.8125rem;
+      color: #9ca3af;
+    }
+    .project-card-stars,
+    .project-card-lang { display: inline; }
+    footer {
+      margin-top: 2.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #2c3440;
+      font-size: 0.8125rem;
       color: #6b7280;
     }
     footer a { color: #60a5fa; text-decoration: none; }
     footer a:hover { text-decoration: underline; }
     @media (max-width: 768px) {
       .sidebar { position: relative; width: 100%; padding: 1.5rem; }
-      .main { margin-left: 0; padding: 1.5rem; }
+      .main { margin-left: 0; padding: 1.5rem 1.25rem; }
     }
   </style>
 </head>
 <body>
-  ${getAccentBar(accentColor)}
+  <div class="accent-bar-fixed" style="background: ${escapeHtml(
+    accentColor
+  )};"></div>
   <div class="layout">
     <aside class="sidebar">
-      <div class="sidebar-avatar" aria-hidden="true">${introduction.avatarUrl?.trim()
-    ? `<img src="${escapeHtml(introduction.avatarUrl.trim())}" alt="">`
-    : escapeHtml(sidebarInitials)}</div>
+      <div class="sidebar-avatar" aria-hidden="true">${
+        introduction.avatarUrl?.trim()
+          ? `<img src="${escapeHtml(introduction.avatarUrl.trim())}" alt="">`
+          : escapeHtml(sidebarInitials)
+      }</div>
       <h1 class="sidebar-name">${escapeHtml(displayName)}</h1>
-      ${introduction.shortDescription?.trim() ? `<p class="sidebar-tagline">${escapeHtml(introduction.shortDescription.trim())}</p>` : ""}
-      ${introduction.location?.trim() ? `<p class="sidebar-location">📍 ${escapeHtml(introduction.location.trim())}</p>` : ""}
+      ${title ? `<p class="sidebar-title">${escapeHtml(title)}</p>` : ""}
+      ${bio ? `<div class="sidebar-bio">${formatDescription(bio)}</div>` : ""}
+      <div class="sidebar-contact">
+        ${
+          email
+            ? `<div class="sidebar-contact-item">${ICON_ENVELOPE}<a href="mailto:${escapeHtml(
+                email
+              )}">${escapeHtml(email)}</a></div>`
+            : ""
+        }
+        ${
+          location
+            ? `<div class="sidebar-contact-item">${ICON_MAP_PIN}<span>${escapeHtml(
+                location
+              )}</span></div>`
+            : ""
+        }
+      </div>
+      ${
+        Object.keys(socials).length > 0
+          ? `<div class="sidebar-socials">${renderSocialsIconsOnly(
+              socials,
+              profile.socialOrder
+            )}</div>`
+          : ""
+      }
     </aside>
     <main class="main">
-      <p class="main-intro">${escapeHtml(introLine)}</p>
-      ${Object.keys(skills).length > 0 ? `
-      <div class="skills-icons">
-        ${renderSkillsIconsOnly(skills, profile.skillsOrder)}
-      </div>
-      ` : ""}
-
-      ${introduction.longDescription ? `
-      <section id="about">
-        <h2>About</h2>
-        <div class="description">${formatDescription(introduction.longDescription)}</div>
+      ${
+        introduction.longDescription
+          ? `
+      <section class="main-section" id="about">
+        <h2 class="section-title">About</h2>
+        <div class="section-description">${formatDescription(
+          introduction.longDescription
+        )}</div>
       </section>
-      ` : ""}
-
-      ${introduction.workingOnTitle && introduction.workingOnLink ? `
-      <section id="projects">
-        <h2>Currently Working On</h2>
-        <div class="links">
-          <a href="${escapeHtml(introduction.workingOnLink)}" class="link-button" target="_blank" rel="noopener noreferrer">
-            ${escapeHtml(introduction.workingOnTitle)}
-          </a>
+      `
+          : ""
+      }
+      ${
+        Object.keys(skills).length > 0
+          ? `
+      <section class="main-section" id="skills">
+        <h2 class="section-title">Skills</h2>
+        <div class="skill-items">${renderSkillsSection(
+          skills,
+          profile.skillsOrder,
+          "modern"
+        )}</div>
+      </section>
+      `
+          : ""
+      }
+      ${
+        renderExperienceTimeline(experience)
+          ? `
+      <section class="main-section" id="experience">
+        <h2 class="section-title">Experience</h2>
+        ${renderExperienceTimeline(experience)}
+      </section>
+      `
+          : ""
+      }
+      ${
+        introduction.workingOnTitle && introduction.workingOnLink
+          ? `
+      <section class="main-section" id="projects">
+        <h2 class="section-title">Currently Working On</h2>
+        <div class="section-links">
+          <a href="${escapeHtml(
+            introduction.workingOnLink
+          )}" class="link-button" target="_blank" rel="noopener noreferrer">${escapeHtml(
+              introduction.workingOnTitle
+            )}</a>
         </div>
       </section>
-      ` : ""}
-
-      ${introduction.portfolioTitle && introduction.portfolioLink ? `
-      <section id="portfolio">
-        <h2>Portfolio</h2>
-        <div class="links">
-          <a href="${escapeHtml(introduction.portfolioLink)}" class="link-button" target="_blank" rel="noopener noreferrer">
-            ${escapeHtml(introduction.portfolioTitle)}
-          </a>
+      `
+          : ""
+      }
+      ${
+        introduction.portfolioTitle && introduction.portfolioLink
+          ? `
+      <section class="main-section" id="portfolio">
+        <h2 class="section-title">Portfolio</h2>
+        ${
+          portfolioOgImage
+            ? `
+        <a href="${escapeHtml(
+          introduction.portfolioLink
+        )}" class="portfolio-card" target="_blank" rel="noopener noreferrer">
+          <div class="portfolio-card-bg" style="background-image: url(${escapeHtml(
+            portfolioOgImage
+          )});"></div>
+          <div class="portfolio-card-overlay"></div>
+          <div class="portfolio-card-content">
+            <span class="portfolio-card-title">${escapeHtml(
+              introduction.portfolioTitle
+            )}</span>
+          </div>
+        </a>
+        `
+            : `
+        <div class="section-links">
+          <a href="${escapeHtml(
+            introduction.portfolioLink
+          )}" class="link-button" target="_blank" rel="noopener noreferrer">${escapeHtml(
+              introduction.portfolioTitle
+            )}</a>
         </div>
+        `
+        }
       </section>
-      ` : ""}
-
-      ${introduction.learning ? `
-      <section id="learning">
-        <h2>Currently Learning</h2>
-        <div class="description">${escapeHtml(introduction.learning)}</div>
+      `
+          : ""
+      }
+      ${
+        featuredRepos && featuredRepos.length > 0
+          ? `
+      <section class="main-section" id="projects">
+        <h2 class="section-title">Projects</h2>
+        <div class="projects-grid">${renderFeaturedRepos(featuredRepos)}</div>
       </section>
-      ` : ""}
-
-      ${introduction.collaborateOn ? `
-      <section id="collaborate">
-        <h2>Looking to Collaborate On</h2>
-        <div class="description">${escapeHtml(introduction.collaborateOn)}</div>
+      `
+          : ""
+      }
+      ${
+        introduction.learning
+          ? `
+      <section class="main-section" id="learning">
+        <h2 class="section-title">Currently Learning</h2>
+        <div class="section-description">${formatDescription(
+          introduction.learning
+        )}</div>
       </section>
-      ` : ""}
-
-      ${Object.keys(socials).length > 0 ? `
-      <section id="socials">
-        <h2>Connect</h2>
-        <div class="socials">
+      `
+          : ""
+      }
+      ${
+        introduction.collaborateOn
+          ? `
+      <section class="main-section" id="collaborate">
+        <h2 class="section-title">Looking to Collaborate On</h2>
+        <div class="section-description">${formatDescription(
+          introduction.collaborateOn
+        )}</div>
+      </section>
+      `
+          : ""
+      }
+      ${
+        Object.keys(socials).length > 0
+          ? `
+      <section class="main-section" id="connect">
+        <h2 class="section-title">Connect</h2>
+        <div class="section-socials">
           ${renderSocialsSection(socials, profile.socialOrder)}
         </div>
       </section>
-      ` : ""}
-
-      ${introduction.additionalInfo ? `
-      <section id="additional">
-        <h2>Additional Information</h2>
-        <div class="description">${formatDescription(introduction.additionalInfo)}</div>
+      `
+          : ""
+      }
+      ${
+        introduction.additionalInfo
+          ? `
+      <section class="main-section" id="additional">
+        <h2 class="section-title">Additional Information</h2>
+        <div class="section-description">${formatDescription(
+          introduction.additionalInfo
+        )}</div>
       </section>
-      ` : ""}
-
+      `
+          : ""
+      }
       <footer>
         <p>Generated by <a href="https://profileme.dev" target="_blank" rel="noopener noreferrer">ProfileMe.dev</a></p>
       </footer>
@@ -316,7 +654,9 @@ function renderModernTemplate(profileJson: ProfileJson): string {
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      font-family: '${escapeHtml(font)}', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+      font-family: '${escapeHtml(
+        font
+      )}', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
       -webkit-font-smoothing: antialiased;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: #1f2937;
@@ -397,31 +737,49 @@ function renderModernTemplate(profileJson: ProfileJson): string {
   <div class="container">
     <header>
       <h1>${escapeHtml(introduction.name || "Portfolio")}</h1>
-      ${introduction.shortDescription ? `<p class="subtitle">${escapeHtml(introduction.shortDescription)}</p>` : ""}
+      ${
+        introduction.shortDescription
+          ? `<p class="subtitle">${escapeHtml(
+              introduction.shortDescription
+            )}</p>`
+          : ""
+      }
     </header>
     <div class="content">
-      ${introduction.longDescription ? `
+      ${
+        introduction.longDescription
+          ? `
       <section id="about">
         <h2>About</h2>
         <p>${formatDescription(introduction.longDescription)}</p>
       </section>
-      ` : ""}
-      ${Object.keys(skills).length > 0 ? `
+      `
+          : ""
+      }
+      ${
+        Object.keys(skills).length > 0
+          ? `
       <section id="skills">
         <h2>Skills</h2>
         <div>
           ${renderSkillsSection(skills, profile.skillsOrder, "modern")}
         </div>
       </section>
-      ` : ""}
-      ${Object.keys(socials).length > 0 ? `
+      `
+          : ""
+      }
+      ${
+        Object.keys(socials).length > 0
+          ? `
       <section id="socials">
         <h2>Connect</h2>
         <div>
           ${renderSocialsSection(socials, profile.socialOrder, "modern")}
         </div>
       </section>
-      ` : ""}
+      `
+          : ""
+      }
     </div>
     <footer>
       <p>Generated by <a href="https://profileme.dev" target="_blank" rel="noopener noreferrer" style="color: white;">ProfileMe.dev</a></p>
@@ -519,33 +877,198 @@ function renderClassicTemplate(profileJson: ProfileJson): string {
   <div class="container">
     <header>
       <h1>${escapeHtml(introduction.name || "Portfolio")}</h1>
-      ${introduction.shortDescription ? `<p class="subtitle">${escapeHtml(introduction.shortDescription)}</p>` : ""}
+      ${
+        introduction.shortDescription
+          ? `<p class="subtitle">${escapeHtml(
+              introduction.shortDescription
+            )}</p>`
+          : ""
+      }
     </header>
-    ${introduction.longDescription ? `
+    ${
+      introduction.longDescription
+        ? `
     <section id="about">
       <h2>About</h2>
       <p>${formatDescription(introduction.longDescription)}</p>
     </section>
-    ` : ""}
-    ${Object.keys(skills).length > 0 ? `
+    `
+        : ""
+    }
+    ${
+      Object.keys(skills).length > 0
+        ? `
     <section id="skills">
       <h2>Skills</h2>
       <div>
         ${renderSkillsSection(skills, profile.skillsOrder, "classic")}
       </div>
     </section>
-    ` : ""}
-    ${Object.keys(socials).length > 0 ? `
+    `
+        : ""
+    }
+    ${
+      Object.keys(socials).length > 0
+        ? `
     <section id="socials">
       <h2>Connect</h2>
       <div>
         ${renderSocialsSection(socials, profile.socialOrder, "classic")}
       </div>
     </section>
-    ` : ""}
+    `
+        : ""
+    }
   </div>
 </body>
 </html>`;
+}
+
+// Inline SVG icons for sidebar (email, location) – dark theme friendly
+const ICON_ENVELOPE =
+  '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>';
+const ICON_MAP_PIN =
+  '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>';
+
+// Social links as icon-only (for sidebar); uses darkPath when available for dark theme
+function renderSocialsIconsOnly(
+  socials: ProfileJson["profile"]["socials"],
+  socialOrder: string[]
+): string {
+  const ordered =
+    socialOrder.length > 0
+      ? socialOrder.filter((key) => socials[key])
+      : Object.keys(socials);
+  return ordered
+    .map((key) => {
+      const social = socials[key];
+      if (typeof social === "string") return "";
+      const url = `${social.linkPrefix}${social.linkSuffix}${
+        social.linkSuffixTwo || ""
+      }`.trim();
+      if (!url || url === social.linkPrefix) return "";
+      const iconPath = social.darkPath || social.path;
+      return `<a href="${escapeHtml(
+        url
+      )}" class="sidebar-social-icon" target="_blank" rel="noopener noreferrer" title="${escapeHtml(
+        social.label
+      )}" aria-label="${escapeHtml(social.label)}"><img src="${escapeHtml(
+        iconPath
+      )}" alt="" width="24" height="24" loading="lazy"></a>`;
+    })
+    .join("");
+}
+
+// Skills as categorized pills (category name + skill tags)
+function renderSkillsPillsByCategory(
+  skills: ProfileJson["profile"]["skills"],
+  skillsOrder: string[]
+): string {
+  const categories =
+    skillsOrder.length > 0
+      ? skillsOrder.filter((cat) => skills[cat] && skills[cat].length > 0)
+      : Object.keys(skills).filter(
+          (cat) => skills[cat] && skills[cat].length > 0
+        );
+  if (categories.length === 0) return "";
+
+  const categoryLabel = (key: string): string => {
+    const s = key.replace(/([A-Z])/g, " $1").trim();
+    return s
+      ? s
+          .split(/\s+/)
+          .map((w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+          .join(" ")
+      : key;
+  };
+
+  return categories
+    .map(
+      (cat) => `
+    <div class="skills-category">
+      <h3 class="skills-category-title">${escapeHtml(categoryLabel(cat))}</h3>
+      <div class="skills-pills">
+        ${(skills[cat] || [])
+          .map(
+            (skill: { name: string }) =>
+              `<span class="skill-pill">${escapeHtml(skill.name)}</span>`
+          )
+          .join("")}
+      </div>
+    </div>`
+    )
+    .join("");
+}
+
+// Featured repo from portfolio.options.featuredRepos (optional)
+interface FeaturedRepoEntry {
+  name: string;
+  html_url: string;
+  description: string | null;
+  stargazers_count: number;
+  language: string | null;
+}
+function renderFeaturedRepos(repos: FeaturedRepoEntry[] | undefined): string {
+  if (!repos || !Array.isArray(repos) || repos.length === 0) return "";
+  return repos
+    .map(
+      (repo) => `
+    <a href="${escapeHtml(repo.html_url)}" class="project-card" target="_blank" rel="noopener noreferrer">
+      <h4 class="project-card-title">${escapeHtml(repo.name)}</h4>
+      ${repo.description ? `<p class="project-card-desc">${escapeHtml(repo.description)}</p>` : ""}
+      <div class="project-card-meta">
+        ${repo.stargazers_count > 0 ? `<span class="project-card-stars">★ ${repo.stargazers_count}</span>` : ""}
+        ${repo.language ? `<span class="project-card-lang">${escapeHtml(repo.language)}</span>` : ""}
+      </div>
+    </a>`
+    )
+    .join("");
+}
+
+// Experience timeline from portfolio.options.experience (optional)
+interface ExperienceEntry {
+  title?: string;
+  company?: string;
+  startDate?: string;
+  endDate?: string;
+  description?: string;
+}
+function renderExperienceTimeline(
+  experience: ExperienceEntry[] | undefined
+): string {
+  if (!experience || !Array.isArray(experience) || experience.length === 0)
+    return "";
+  return `
+  <div class="experience-timeline">
+    ${experience
+      .map(
+        (entry) => `
+      <div class="experience-entry">
+        <div class="experience-dot" aria-hidden="true"></div>
+        <div class="experience-content">
+          <div class="experience-header">
+            <strong class="experience-title">${escapeHtml(
+              entry.title || ""
+            )}</strong>
+            <span class="experience-dates">${escapeHtml(
+              [entry.startDate, entry.endDate].filter(Boolean).join(" – ") || ""
+            )}</span>
+          </div>
+          <div class="experience-company">${escapeHtml(
+            entry.company || ""
+          )}</div>
+          ${
+            entry.description
+              ? `<div class="experience-description">${formatDescription(
+                  entry.description
+                )}</div>`
+              : ""
+          }
+        </div>
+      </div>`
+      )
+      .join("")}
+  </div>`;
 }
 
 // Helper: initials for sidebar avatar (e.g. "John Doe" -> "JD", "Alice" -> "AL")
@@ -564,9 +1087,12 @@ function renderSkillsIconsOnly(
   skills: ProfileJson["profile"]["skills"],
   skillsOrder: string[]
 ): string {
-  const categories = skillsOrder.length > 0
-    ? skillsOrder.filter(cat => skills[cat] && skills[cat].length > 0)
-    : Object.keys(skills).filter(cat => skills[cat] && skills[cat].length > 0);
+  const categories =
+    skillsOrder.length > 0
+      ? skillsOrder.filter((cat) => skills[cat] && skills[cat].length > 0)
+      : Object.keys(skills).filter(
+          (cat) => skills[cat] && skills[cat].length > 0
+        );
   if (categories.length === 0) return "";
 
   const getInitials = (name: string): string => {
@@ -576,26 +1102,49 @@ function renderSkillsIconsOnly(
       .trim();
     const words = cleaned.split(/\s+/);
     if (words.length === 1) return cleaned.substring(0, 3).toUpperCase();
-    return words.slice(0, 2).map(w => w[0]).join("").toUpperCase();
+    return words
+      .slice(0, 2)
+      .map((w) => w[0])
+      .join("")
+      .toUpperCase();
   };
 
   const renderOneIcon = (skill: any): string => {
-    const iconPath = skill.path || (skill.iTag ? `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${skill.iTag}-colored.svg` : null);
+    const iconPath =
+      skill.path ||
+      (skill.iTag
+        ? `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${skill.iTag}-colored.svg`
+        : null);
     const darkIconPath = skill.darkPath || null;
     if (iconPath) {
       if (darkIconPath) {
-        return `<picture><source media="(prefers-color-scheme: dark)" srcset="${escapeHtml(darkIconPath)}"><img src="${escapeHtml(iconPath)}" alt="${escapeHtml(skill.name)}" class="skill-icon" loading="lazy"></picture>`;
+        return `<picture><source media="(prefers-color-scheme: dark)" srcset="${escapeHtml(
+          darkIconPath
+        )}"><img src="${escapeHtml(iconPath)}" alt="${escapeHtml(
+          skill.name
+        )}" class="skill-icon" loading="lazy"></picture>`;
       }
-      return `<img src="${escapeHtml(iconPath)}" alt="${escapeHtml(skill.name)}" class="skill-icon" loading="lazy">`;
+      return `<img src="${escapeHtml(iconPath)}" alt="${escapeHtml(
+        skill.name
+      )}" class="skill-icon" loading="lazy">`;
     }
     const initials = getInitials(skill.name);
-    return `<span style="font-size: 0.75rem; font-weight: 600; color: #9ca3af; min-width: 2rem; text-align: center;">${escapeHtml(initials)}</span>`;
+    return `<span style="font-size: 0.75rem; font-weight: 600; color: #9ca3af; min-width: 2rem; text-align: center;">${escapeHtml(
+      initials
+    )}</span>`;
   };
 
-  const allSkills = categories.flatMap(cat => (skills[cat] || []).map((s: any) => ({ ...s })));
-  return allSkills.map(skill =>
-    `<span class="skill-icon-wrap" title="${escapeHtml(skill.name)}">${renderOneIcon(skill)}</span>`
-  ).join("");
+  const allSkills = categories.flatMap((cat) =>
+    (skills[cat] || []).map((s: any) => ({ ...s }))
+  );
+  return allSkills
+    .map(
+      (skill) =>
+        `<span class="skill-icon-wrap" title="${escapeHtml(
+          skill.name
+        )}">${renderOneIcon(skill)}</span>`
+    )
+    .join("");
 }
 
 // Helper functions
@@ -604,9 +1153,12 @@ function renderSkillsSection(
   skillsOrder: string[],
   template: "minimal" | "modern" | "classic" = "minimal"
 ): string {
-  const categories = skillsOrder.length > 0 
-    ? skillsOrder.filter(cat => skills[cat] && skills[cat].length > 0)
-    : Object.keys(skills).filter(cat => skills[cat] && skills[cat].length > 0);
+  const categories =
+    skillsOrder.length > 0
+      ? skillsOrder.filter((cat) => skills[cat] && skills[cat].length > 0)
+      : Object.keys(skills).filter(
+          (cat) => skills[cat] && skills[cat].length > 0
+        );
 
   if (categories.length === 0) return "";
 
@@ -619,58 +1171,91 @@ function renderSkillsSection(
     if (words.length === 1) {
       return cleaned.substring(0, 3).toUpperCase();
     } else {
-      return words.slice(0, 2).map(w => w[0]).join("").toUpperCase();
+      return words
+        .slice(0, 2)
+        .map((w) => w[0])
+        .join("")
+        .toUpperCase();
     }
   };
 
   const renderSkillIcon = (skill: any): string => {
     // Prioritize skill.path and skill.darkPath (for GitHub Pages hosted icons)
     // Fallback to iTag-based URL if path not available
-    const iconPath = skill.path || (skill.iTag ? `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${skill.iTag}-colored.svg` : null);
+    const iconPath =
+      skill.path ||
+      (skill.iTag
+        ? `https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/${skill.iTag}-colored.svg`
+        : null);
     const darkIconPath = skill.darkPath || null;
-    
+
     if (iconPath) {
       // Use picture element for dark mode support
       if (darkIconPath) {
         return `
           <picture>
-            <source media="(prefers-color-scheme: dark)" srcset="${escapeHtml(darkIconPath)}">
-            <img src="${escapeHtml(iconPath)}" alt="${escapeHtml(skill.name)}" class="skill-icon" loading="lazy">
+            <source media="(prefers-color-scheme: dark)" srcset="${escapeHtml(
+              darkIconPath
+            )}">
+            <img src="${escapeHtml(iconPath)}" alt="${escapeHtml(
+          skill.name
+        )}" class="skill-icon" loading="lazy">
           </picture>
         `;
       } else {
-        return `<img src="${escapeHtml(iconPath)}" alt="${escapeHtml(skill.name)}" class="skill-icon" loading="lazy">`;
+        return `<img src="${escapeHtml(iconPath)}" alt="${escapeHtml(
+          skill.name
+        )}" class="skill-icon" loading="lazy">`;
       }
     }
-    
+
     // Fallback to text initials if no icon available
     const initials = getInitials(skill.name);
     return `<span class="skill-item-text">${initials}</span>`;
   };
 
   if (template === "minimal") {
-    return categories.map(category => {
-      const items = skills[category] || [];
-      return `
+    const categoryLabel = (key: string): string => {
+      const s = key.replace(/([A-Z])/g, " $1").trim();
+      return s
+        ? s
+            .split(/\s+/)
+            .map((w) => w.charAt(0).toUpperCase() + w.slice(1).toLowerCase())
+            .join(" ")
+        : key;
+    };
+    return categories
+      .map((category) => {
+        const items = skills[category] || [];
+        return `
         <div class="skill-category">
-          <h3>${escapeHtml(category)}</h3>
+          <h3>${escapeHtml(categoryLabel(category))}</h3>
           <div class="skill-items">
-            ${items.map(skill => {
-              const iconHtml = renderSkillIcon(skill);
-              return `<span class="skill-item" title="${escapeHtml(skill.name)}">${iconHtml}</span>`;
-            }).join("")}
+            ${items
+              .map((skill) => {
+                const iconHtml = renderSkillIcon(skill);
+                return `<span class="skill-item" title="${escapeHtml(
+                  skill.name
+                )}">${iconHtml}</span>`;
+              })
+              .join("")}
           </div>
         </div>
       `;
-    }).join("");
+      })
+      .join("");
   }
 
   // For modern and classic, render all skills together
-  const allSkills = categories.flatMap(cat => skills[cat] || []);
-  return allSkills.map(skill => {
-    const iconHtml = renderSkillIcon(skill);
-    return `<span class="skill-item" title="${escapeHtml(skill.name)}">${iconHtml}</span>`;
-  }).join("");
+  const allSkills = categories.flatMap((cat) => skills[cat] || []);
+  return allSkills
+    .map((skill) => {
+      const iconHtml = renderSkillIcon(skill);
+      return `<span class="skill-item" title="${escapeHtml(
+        skill.name
+      )}">${iconHtml}</span>`;
+    })
+    .join("");
 }
 
 function renderSocialsSection(
@@ -678,16 +1263,25 @@ function renderSocialsSection(
   socialOrder: string[],
   template: "minimal" | "modern" | "classic" = "minimal"
 ): string {
-  const ordered = socialOrder.length > 0
-    ? socialOrder.filter(key => socials[key])
-    : Object.keys(socials);
+  const ordered =
+    socialOrder.length > 0
+      ? socialOrder.filter((key) => socials[key])
+      : Object.keys(socials);
 
-  return ordered.map(key => {
-    const social = socials[key];
-    if (typeof social === "string") return "";
-    const url = `${social.linkPrefix}${social.linkSuffix}${social.linkSuffixTwo || ""}`;
-    return `<a href="${escapeHtml(url)}" class="social-link" target="_blank" rel="noopener noreferrer">${escapeHtml(social.label)}</a>`;
-  }).join("");
+  return ordered
+    .map((key) => {
+      const social = socials[key];
+      if (typeof social === "string") return "";
+      const url = `${social.linkPrefix}${social.linkSuffix}${
+        social.linkSuffixTwo || ""
+      }`;
+      return `<a href="${escapeHtml(
+        url
+      )}" class="social-link" target="_blank" rel="noopener noreferrer">${escapeHtml(
+        social.label
+      )}</a>`;
+    })
+    .join("");
 }
 
 function formatDescription(text: string): string {
@@ -697,10 +1291,13 @@ function formatDescription(text: string): string {
 function escapeHtml(text: string): string {
   const div = { innerHTML: "" } as any;
   div.textContent = text;
-  return div.innerHTML || text
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#039;");
+  return (
+    div.innerHTML ||
+    text
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;")
+  );
 }

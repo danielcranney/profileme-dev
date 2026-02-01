@@ -1,7 +1,7 @@
 /**
- * PortfolioGate Component
+ * LinksPageGate Component
  *
- * Shown when the user selects Portfolio view but is not a GitHub sponsor.
+ * Shown when the user selects Links page view but is not a GitHub sponsor.
  * Uses isFullyAuthenticated (user + GitHub token) so we only show "Refresh status"
  * when they can actually refresh; otherwise show "Sign in with GitHub" (handles
  * stale Supabase session where user exists but token is gone).
@@ -14,7 +14,7 @@ const SPONSOR_PAGE_URL =
   process.env.NEXT_PUBLIC_GITHUB_SPONSOR_URL ||
   "https://github.com/sponsors/danielcranney";
 
-export default function PortfolioGate() {
+export default function LinksPageGate() {
   const { isFullyAuthenticated, refresh, loading, loginWithGitHub } = useAuth();
   // Only show "Refresh status" when we're sure the user is fully logged in (session validated via API).
   const showRefreshStatus = isFullyAuthenticated && !loading;
@@ -47,18 +47,18 @@ export default function PortfolioGate() {
         </svg>
       </div>
       <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-        Portfolio is for GitHub sponsors
+        Links page is for GitHub sponsors
       </h3>
       {!showRefreshStatus ? (
         <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
-          Sponsor the project on GitHub to unlock the Portfolio feature and
+          Sponsor the project on GitHub to unlock the Links page and
           publish to GitHub Pages. If you&apos;ve already sponsored, sign in
           with GitHub here so we can recognize your account.
         </p>
       ) : (
         <p className="text-sm text-gray-600 dark:text-gray-400 mb-6">
           Your GitHub account is not currently a sponsor. Sponsor the project on
-          GitHub to unlock the Portfolio feature and publish to GitHub Pages. If
+          GitHub to unlock the Links page and publish to GitHub Pages. If
           you just sponsored, refresh status below.
         </p>
       )}

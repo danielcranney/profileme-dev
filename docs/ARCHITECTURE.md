@@ -50,7 +50,7 @@ username/username/          # Profile repository (must match GitHub username)
 │       ├── avatar.webp
 │       └── icons/*.svg
 ├── README.md              # Generated from profile.json
-└── index.html             # Portfolio site (GitHub Pages) - generated from profile.json
+└── index.html             # Links page (GitHub Pages) - generated from profile.json
 ```
 
 #### File Operations
@@ -141,7 +141,7 @@ GitHub API → Fetch .profile/profile.json → Validate → Migrate → Update S
 - `POST /api/github/restore` - Restore profile from GitHub
 - `GET /api/github/sponsor-status` - Check if user is a sponsor
 - `GET /api/github/file-meta` - Get file metadata (SHA/ETag)
-- `POST /api/github/portfolio` - Generate portfolio HTML
+- `POST /api/github/portfolio` - Generate links page HTML
 
 ## Error Handling
 
@@ -164,10 +164,10 @@ All API routes use centralized error formatting (`lib/utils/errors.ts`):
 - Version 1: Initial JSON schema
 - Future versions: Incremental migrations via `migrateProfileJson()`
 
-## Portfolio
+## Links page
 
-- Generated from the **same Profile JSON**
-- GitHub Pages compatible HTML output
+- Simple shareable page generated from the **same Profile JSON**
+- GitHub Pages compatible HTML output (index.html)
 - Minimal v1 implementation
 - No hosting on our side - users deploy to GitHub Pages
 
@@ -193,13 +193,13 @@ DEV_SPONSOR_OVERRIDE=true  # Bypass sponsor checks in dev
 1. Set `DEV_SPONSOR_OVERRIDE=true` in `.env.local`
 2. Login with GitHub OAuth
 3. Create profile repository: `username/username`
-4. Test sync/restore/portfolio features
+4. Test sync/restore/links page features
 
 **Testing the real sponsor flow:**
 
 1. Set `DEV_SPONSOR_OVERRIDE=false` (or remove the line) in `.env.local`
 2. Restart the dev server so env is picked up
-3. Sign in with a GitHub account that has **not** sponsored → Portfolio gate should show; Sync/Portfolio settings hidden
+3. Sign in with a GitHub account that has **not** sponsored → Links page gate should show; Sync/Links page settings hidden
 4. Complete a one-time sponsorship on GitHub with that account (or another), then in the app click “Already sponsored? Refresh status” (or sign in with the sponsor account)
 5. Sponsor features should unlock. Sign in with a non-sponsor account again to confirm the gate reappears
 
@@ -209,11 +209,11 @@ DEV_SPONSOR_OVERRIDE=true  # Bypass sponsor checks in dev
 - **No client-side token exposure**
 - **Sponsor checks**: Enforced on both client and server
 - **JSON validation**: Zod schemas on all inputs
-- **XSS prevention**: HTML escaping in portfolio renderer
+- **XSS prevention**: HTML escaping in links page renderer
 
 ## Future Enhancements
 
-- Portfolio templates (multiple options)
+- Links page templates (multiple options)
 - Asset upload/sync
 - Multi-repository support
 - Profile versioning/history

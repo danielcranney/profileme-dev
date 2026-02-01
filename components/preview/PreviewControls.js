@@ -16,12 +16,12 @@ export default function PreviewControls({
 }) {
   const { state, dispatch } = useContext(StateContext);
   const { isSponsor } = useAuth();
-  const [showPortfolioSettings, setShowPortfolioSettings] = useState(false);
+  const [showLinksPageSettings, setShowLinksPageSettings] = useState(false);
 
-  // Close settings panel when switching away from portfolio mode
+  // Close settings panel when switching away from Links page mode
   React.useEffect(() => {
-    if (state.renderMode !== "portfolio") {
-      setShowPortfolioSettings(false);
+    if (state.renderMode !== "linksPage") {
+      setShowLinksPageSettings(false);
     }
   }, [state.renderMode]);
 
@@ -45,14 +45,14 @@ export default function PreviewControls({
 
       {/* Right Group: Settings + Actions (grouped), then Sync as main button */}
       <div className="flex items-center gap-2">
-        {/* Portfolio Settings (Sponsors, Portfolio mode only) - cog icon, text on hover */}
-        {isSponsor && state.renderMode === "portfolio" && (
+        {/* Links page Settings (Sponsors, Links page mode only) - cog icon, text on hover */}
+        {isSponsor && state.renderMode === "linksPage" && (
           <button
-            onClick={() => setShowPortfolioSettings(!showPortfolioSettings)}
+            onClick={() => setShowLinksPageSettings(!showLinksPageSettings)}
             className={`btn-sm flex items-center justify-end gap-1.5 min-w-[2.25rem] overflow-hidden transition-[min-width] duration-200 ease-out group hover:min-w-[6.5rem] h-9 ${
-              showPortfolioSettings ? "btn-brand" : "btn-gray"
+              showLinksPageSettings ? "btn-brand" : "btn-gray"
             }`}
-            title="Portfolio Settings"
+            title="Links page Settings"
           >
             <span className="text-xs uppercase tracking-wide whitespace-nowrap max-w-0 overflow-hidden opacity-0 group-hover:max-w-[4.5rem] group-hover:opacity-100 transition-all duration-200 flex items-center self-center -ml-2 group-hover:ml-0">
               Settings
@@ -95,13 +95,13 @@ export default function PreviewControls({
         {isSponsor && <SyncMenuButton />}
       </div>
 
-      {/* Portfolio Settings Panel - Slide-in sidebar */}
+      {/* Links page Settings Panel - Slide-in sidebar */}
       {isSponsor &&
-        state.renderMode === "portfolio" &&
-        showPortfolioSettings && (
+        state.renderMode === "linksPage" &&
+        showLinksPageSettings && (
           <GitHubPagesSettings
-            isOpen={showPortfolioSettings}
-            onClose={() => setShowPortfolioSettings(false)}
+            isOpen={showLinksPageSettings}
+            onClose={() => setShowLinksPageSettings(false)}
           />
         )}
 

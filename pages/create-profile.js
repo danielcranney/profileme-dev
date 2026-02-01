@@ -13,8 +13,8 @@ import Support from "../components/sections/Support";
 import FormLayout from "../components/layouts/FormLayout";
 import PreviewRenderer from "../components/preview/PreviewRenderer";
 import MarkdownRenderer from "../components/preview/MarkdownRenderer";
-import PortfolioRenderer from "../components/preview/PortfolioRenderer";
-import PortfolioGate from "../components/preview/PortfolioGate";
+import LinksPageRenderer from "../components/preview/LinksPageRenderer";
+import LinksPageGate from "../components/preview/LinksPageGate";
 import PreviewControls from "../components/preview/PreviewControls";
 import GitHubPagesSettings from "../components/sponsor/GitHubPagesSettings";
 
@@ -234,10 +234,10 @@ export default function CreateProfile() {
           />
         </div>
 
-        {/* Portfolio Section: full access for sponsors, gate prompt for non-sponsors */}
+        {/* Links page section: full access for sponsors, gate prompt for non-sponsors */}
         <div
           className={
-            state.renderMode === "portfolio"
+            state.renderMode === "linksPage"
               ? "relative flex flex-1 min-h-0 flex-col my-auto"
               : "hidden"
           }
@@ -247,9 +247,9 @@ export default function CreateProfile() {
               Checking access…
             </div>
           ) : isSponsor ? (
-            <PortfolioRenderer />
+            <LinksPageRenderer />
           ) : (
-            <PortfolioGate />
+            <LinksPageGate />
           )}
         </div>
       </section>

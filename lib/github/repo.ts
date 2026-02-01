@@ -9,13 +9,68 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { requireToken } from "./token";
 
 /**
- * Get current branch commit SHA
+ * Create initial commit and refs/heads/main for an empty repo (no branch yet).
+ * Used when repo was created with auto_init: false or ref was deleted.
+ */
+async function createInitialCommitAndRef(
+  token: string,
+  username: string
+): Promise<void> {
+  const base = `https://api.github.com/repos/${username}/${username}`;
+  const headers = {
+    Authorization: `Bearer ${token}`,
+    Accept: "application/vnd.github.v3+json",
+    "Content-Type": "application/json",
+  };
+
+  const treeRes = await fetch(`${base}/git/trees`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({ tree: [] }),
+  });
+  if (!treeRes.ok) {
+    const err = (await treeRes.json().catch(() => ({}))) as { message?: string };
+    throw new Error(err.message || `Failed to create tree: ${treeRes.statusText}`);
+  }
+  const { sha: treeSha } = await treeRes.json();
+
+  const commitRes = await fetch(`${base}/git/commits`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({
+      tree: treeSha,
+      message: "Initial commit",
+      parents: [],
+    }),
+  });
+  if (!commitRes.ok) {
+    const err = (await commitRes.json().catch(() => ({}))) as { message?: string };
+    throw new Error(err.message || `Failed to create commit: ${commitRes.statusText}`);
+  }
+  const { sha: commitSha } = await commitRes.json();
+
+  const refRes = await fetch(`${base}/git/refs`, {
+    method: "POST",
+    headers,
+    body: JSON.stringify({
+      ref: "refs/heads/main",
+      sha: commitSha,
+    }),
+  });
+  if (!refRes.ok) {
+    const err = (await refRes.json().catch(() => ({}))) as { message?: string };
+    throw new Error(err.message || `Failed to create ref: ${refRes.statusText}`);
+  }
+}
+
+/**
+ * Get current branch commit SHA.
+ * If the repo has no branch (empty repo), creates initial commit and ref then retries.
  */
 async function getCurrentCommitSha(
   token: string,
   username: string
 ): Promise<{ commitSha: string; treeSha: string }> {
-  // Get branch reference
   const refResponse = await fetch(
     `https://api.github.com/repos/${username}/${username}/git/refs/heads/main`,
     {
@@ -27,13 +82,17 @@ async function getCurrentCommitSha(
   );
 
   if (!refResponse.ok) {
+    const status = refResponse.status;
+    if (status === 404 || status === 409) {
+      await createInitialCommitAndRef(token, username);
+      return getCurrentCommitSha(token, username);
+    }
     throw new Error(`Failed to get branch reference: ${refResponse.statusText}`);
   }
 
   const refData = await refResponse.json();
   const commitSha = refData.object.sha;
 
-  // Get commit to get tree SHA
   const commitResponse = await fetch(
     `https://api.github.com/repos/${username}/${username}/git/commits/${commitSha}`,
     {
@@ -255,6 +314,35 @@ export async function checkProfileRepo(
     return response.ok;
   } catch (error) {
     return false;
+  }
+}
+
+/**
+ * Create the profile repo (username/username) if it doesn't exist.
+ * Used when sync would otherwise fail with "Profile repository not found".
+ */
+export async function createProfileRepo(
+  token: string,
+  username: string
+): Promise<void> {
+  const response = await fetch("https://api.github.com/user/repos", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      Accept: "application/vnd.github.v3+json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: username,
+      description: "My GitHub profile",
+      private: false,
+      auto_init: true, // required so main branch exists; sync will overwrite README
+    }),
+  });
+
+  if (!response.ok) {
+    const err = (await response.json().catch(() => ({}))) as { message?: string };
+    throw new Error(err.message || `Failed to create repository: ${response.statusText}`);
   }
 }
 

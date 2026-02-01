@@ -1,7 +1,8 @@
 /**
- * Portfolio Settings Component (Sponsors Only)
+ * LinksPage Settings Component (Sponsors Only)
  *
- * Allows users to select portfolio template and configure options.
+ * Allows users to select Links page template and configure options.
+ * (Stored JSON key remains "portfolio" for backward compatibility.)
  */
 
 import React, { useState, useEffect } from "react";
@@ -10,7 +11,7 @@ import { useContext } from "react";
 import { StateContext } from "../../pages/_app";
 import { ACTIONS } from "../../lib/constants/actions";
 import { loadProfileJson, saveProfileJson } from "../../lib/profile";
-import { usePortfolioChanges } from "../../hooks/usePortfolioChanges";
+import { useLinksPageChanges } from "../../hooks/useLinksPageChanges";
 
 const TEMPLATES = [
   {
@@ -58,17 +59,16 @@ const FONTS = [
   },
 ];
 
-export default function PortfolioSettings() {
+export default function LinksPageSettings() {
   const { isSponsor, isAuthenticated } = useAuth();
   const { state, dispatch } = useContext(StateContext);
-  const { markAsChanged, initializeBaseline } = usePortfolioChanges();
+  const { markAsChanged, initializeBaseline } = useLinksPageChanges();
   const [selectedTemplate, setSelectedTemplate] = useState("minimal");
   const [selectedFont, setSelectedFont] = useState("Inter");
   const [accentColor, setAccentColor] = useState("#3b82f6");
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
-    // Load current portfolio settings from profile JSON
     const profileJson = loadProfileJson();
     if (profileJson?.portfolio) {
       if (profileJson.portfolio.template) {
@@ -81,18 +81,14 @@ export default function PortfolioSettings() {
         setAccentColor(profileJson.portfolio.accentColor);
       }
     } else {
-      // If no saved portfolio settings, use defaults and ensure they're saved
       setSelectedTemplate("minimal");
       setSelectedFont("Inter");
       setAccentColor("#3b82f6");
-      // Ensure default portfolio settings are saved
       const { stateToProfileJson } = require("../../lib/profile/stateBridge");
       const defaultJson = stateToProfileJson(state);
       saveProfileJson(defaultJson);
     }
 
-    // Initialize baseline after a short delay to ensure JSON is saved
-    // This sets the current state as baseline if no snapshot exists
     const timer = setTimeout(() => {
       initializeBaseline();
     }, 50);
@@ -104,38 +100,31 @@ export default function PortfolioSettings() {
     return null;
   }
 
-  const updatePortfolioSettings = async (updates) => {
+  const updateLinksPageSettings = async (updates) => {
     setSaving(true);
 
     try {
-      // Load current profile JSON or create from state
       let profileJson = loadProfileJson();
 
       if (!profileJson) {
-        // If no JSON exists, create from current state
         const { stateToProfileJson } = require("../../lib/profile/stateBridge");
         profileJson = stateToProfileJson(state);
       }
 
-      // Update portfolio settings
       profileJson.portfolio = {
         ...profileJson.portfolio,
         ...updates,
       };
 
-      // Save to LocalStorage
       saveProfileJson(profileJson);
-
-      // Mark that portfolio settings have changed (needs sync)
       markAsChanged();
 
-      // Force portfolio preview to refresh by triggering a state update
       dispatch({
         type: ACTIONS.SELECT_RENDER_MODE,
-        payload: state.renderMode, // Re-set current mode to trigger refresh
+        payload: state.renderMode,
       });
     } catch (error) {
-      console.error("Failed to save portfolio settings:", error);
+      console.error("Failed to save links page settings:", error);
     } finally {
       setSaving(false);
     }
@@ -143,25 +132,24 @@ export default function PortfolioSettings() {
 
   const handleTemplateChange = async (templateId) => {
     setSelectedTemplate(templateId);
-    await updatePortfolioSettings({ template: templateId });
+    await updateLinksPageSettings({ template: templateId });
   };
 
   const handleFontChange = async (fontId) => {
     setSelectedFont(fontId);
-    await updatePortfolioSettings({ font: fontId });
+    await updateLinksPageSettings({ font: fontId });
   };
 
   const handleColorChange = async (color) => {
     setAccentColor(color);
-    await updatePortfolioSettings({ accentColor: color });
+    await updateLinksPageSettings({ accentColor: color });
   };
 
   return (
     <>
-      {/* Template Selection */}
       <div className="p-3 border border-gray-300 dark:border-dark-700 rounded bg-white dark:bg-dark-800 shadow-sm mb-3">
         <h4 className="text-xs font-semibold mb-2 text-gray-700 dark:text-gray-300">
-          Portfolio Template
+          Links page template
         </h4>
         <div className="space-y-2">
           {TEMPLATES.map((template) => (
@@ -175,7 +163,7 @@ export default function PortfolioSettings() {
             >
               <input
                 type="radio"
-                name="portfolio-template"
+                name="links-page-template"
                 value={template.id}
                 checked={selectedTemplate === template.id}
                 onChange={(e) => handleTemplateChange(e.target.value)}
@@ -194,7 +182,6 @@ export default function PortfolioSettings() {
         </div>
       </div>
 
-      {/* Font Selection */}
       <div className="p-3 border border-gray-300 dark:border-dark-700 rounded bg-white dark:bg-dark-800 shadow-sm mb-3">
         <h4 className="text-xs font-semibold mb-2 text-gray-700 dark:text-gray-300">
           Font
@@ -212,7 +199,7 @@ export default function PortfolioSettings() {
             >
               <input
                 type="radio"
-                name="portfolio-font"
+                name="links-page-font"
                 value={font.id}
                 checked={selectedFont === font.id}
                 onChange={(e) => handleFontChange(e.target.value)}
@@ -226,7 +213,6 @@ export default function PortfolioSettings() {
         </div>
       </div>
 
-      {/* Accent Color Selection */}
       <div className="p-3 border border-gray-300 dark:border-dark-700 rounded bg-white dark:bg-dark-800 shadow-sm mb-3">
         <h4 className="text-xs font-semibold mb-2 text-gray-700 dark:text-gray-300">
           Accent Color

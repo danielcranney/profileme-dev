@@ -8,13 +8,13 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import { useContext } from "react";
 import { StateContext } from "../../pages/_app";
-import PortfolioSettings from "./PortfolioSettings";
-import { usePortfolioChanges } from "../../hooks/usePortfolioChanges";
+import LinksPageSettings from "./LinksPageSettings";
+import { useLinksPageChanges } from "../../hooks/useLinksPageChanges";
 
 export default function GitHubPagesSettings({ isOpen = true, onClose }) {
   const { isSponsor, isAuthenticated } = useAuth();
   const { state } = useContext(StateContext);
-  const { hasUnsavedChanges } = usePortfolioChanges();
+  const { hasUnsavedChanges } = useLinksPageChanges();
   const [pagesConfig, setPagesConfig] = useState(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -124,7 +124,7 @@ export default function GitHubPagesSettings({ isOpen = true, onClose }) {
       <div className="fixed inset-y-0 right-0 w-96 bg-white dark:bg-dark-800 border-l border-gray-300 dark:border-dark-700 shadow-xl z-50 flex flex-col">
         {/* Header */}
         <div className="sticky top-0 bg-white dark:bg-dark-800 border-b border-gray-200 dark:border-dark-700 p-4 z-10 flex items-center justify-between">
-          <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100">Portfolio Settings</h3>
+          <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100">Links page Settings</h3>
           <div className="flex items-center gap-2">
             {hasUnsavedChanges && (
               <div className="flex items-center gap-1.5 px-2 py-1 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded">
@@ -155,9 +155,9 @@ export default function GitHubPagesSettings({ isOpen = true, onClose }) {
         <div className="flex-1 overflow-y-auto">
           
           <div className="p-4">
-            {/* Portfolio Template Settings */}
+            {/* Links page template and options */}
             <div className="mb-4">
-              <PortfolioSettings />
+              <LinksPageSettings />
             </div>
 
             {/* Sync Reminder */}
@@ -167,7 +167,7 @@ export default function GitHubPagesSettings({ isOpen = true, onClose }) {
                   Ready to publish?
                 </p>
                 <p className="text-xs text-blue-700 dark:text-blue-300">
-                  Use the <strong>"Sync with GitHub"</strong> button above to update your portfolio site with these changes.
+                  Use the <strong>"Sync with GitHub"</strong> button above to update your links page with these changes.
                 </p>
               </div>
             )}
@@ -175,7 +175,7 @@ export default function GitHubPagesSettings({ isOpen = true, onClose }) {
             {pagesConfig?.enabled ? (
               <>
                 <div className="mb-4 pt-3 border-t border-gray-200 dark:border-dark-700">
-                  <label className="block text-xs font-medium mb-1.5 text-gray-700 dark:text-gray-300">Portfolio URL</label>
+                  <label className="block text-xs font-medium mb-1.5 text-gray-700 dark:text-gray-300">Links page URL</label>
                   <a
                     href={pagesConfig.url}
                     target="_blank"
@@ -223,7 +223,7 @@ export default function GitHubPagesSettings({ isOpen = true, onClose }) {
               <>
                 <div className="mb-4 pt-3 border-t border-gray-200 dark:border-dark-700">
                   <p className="text-xs text-gray-600 dark:text-gray-400 mb-2">
-                    Enable GitHub Pages to publish your portfolio.
+                    Enable GitHub Pages to publish your links page.
                   </p>
                   <code className="block p-2 bg-gray-100 dark:bg-dark-900 rounded text-xs mb-3 break-all text-gray-800 dark:text-gray-200">
                     {pagesConfig?.htmlUrl || "https://your-username.github.io/your-username/"}
@@ -237,7 +237,7 @@ export default function GitHubPagesSettings({ isOpen = true, onClose }) {
                       GitHub's API requires Pages to be enabled manually first. After enabling, you can manage settings here.
                     </p>
                     <p className="text-xs text-blue-700 dark:text-blue-300">
-                      Once enabled, use the "Sync with GitHub" button to publish your portfolio site.
+                      Once enabled, use the "Sync with GitHub" button to publish your links page.
                     </p>
                   </div>
 

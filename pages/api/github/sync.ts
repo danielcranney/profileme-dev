@@ -13,12 +13,14 @@ import { checkSponsorStatus } from "../../../lib/github/sponsor";
 import { requireToken } from "../../../lib/github/token";
 import {
   getFileMeta,
-  upsertFile,
   getUsername,
   checkProfileRepo,
+  createProfileRepo,
   batchUpdateFiles,
   unifiedBatchSync,
 } from "../../../lib/github/repo";
+import { getFeaturedRepos } from "../../../lib/github/repos";
+import { getOgImageUrl } from "../../../lib/og-image";
 import { profileJsonSchema } from "../../../lib/profile/schema";
 import { renderReadme } from "../../../lib/profile/renderer";
 import { renderPortfolio } from "../../../lib/profile/portfolio";
@@ -72,22 +74,48 @@ export default async function handler(
       });
     }
 
-    // Require GitHub token
-    await requireToken(req, res);
+    // Require GitHub token (needed for sync and for featured repos)
+    const token = await requireToken(req, res);
 
     // Validate incoming JSON
     let profileJson = profileJsonSchema.parse(req.body);
 
-    // Check if profile repo exists
+    // Check if profile repo exists; create it if missing
+    let username = await getUsername(req, res);
     const repoExists = await checkProfileRepo(req, res);
     if (!repoExists) {
-      return res.status(404).json({
-        error:
-          "Profile repository not found. Please create a repository with the same name as your GitHub username.",
-      });
+      try {
+        await createProfileRepo(token, username);
+      } catch (createErr: any) {
+        return res.status(400).json({
+          error:
+            createErr.message ||
+            "Could not create profile repository. Please create a repository with the same name as your GitHub username.",
+        });
+      }
     }
 
-    const username = await getUsername(req, res);
+    // Enrich with portfolio OG image and featured GitHub repos (for portfolio template)
+    const portfolioLink = profileJson.profile?.introduction?.portfolioLink?.trim();
+    const [ogImage, featuredRepos] = await Promise.all([
+      portfolioLink && !profileJson.portfolio?.options?.portfolioOgImage
+        ? getOgImageUrl(portfolioLink).then((url) => url ?? undefined)
+        : Promise.resolve(undefined),
+      getFeaturedRepos(token, username, 6),
+    ]);
+    if (ogImage !== undefined || featuredRepos.length > 0) {
+      profileJson = {
+        ...profileJson,
+        portfolio: {
+          ...profileJson.portfolio,
+          options: {
+            ...profileJson.portfolio?.options,
+            ...(ogImage !== undefined && { portfolioOgImage: ogImage }),
+            ...(featuredRepos.length > 0 && { featuredRepos }),
+          },
+        },
+      };
+    }
 
     // Ensure animatedHand has a default value if missing
     if (

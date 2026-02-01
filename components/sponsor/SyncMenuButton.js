@@ -22,13 +22,13 @@ import {
   setLastKnownSha,
   setLastGitHubCheckAt,
 } from "../../lib/profile";
-import { usePortfolioChanges } from "../../hooks/usePortfolioChanges";
+import { useLinksPageChanges } from "../../hooks/useLinksPageChanges";
 
 export default function SyncMenuButton() {
   const { isSponsor, isAuthenticated } = useAuth();
   const { checkAndRestore } = useAutoRestore();
   const { state, dispatch } = useContext(StateContext);
-  const { hasUnsavedChanges, markAsSynced } = usePortfolioChanges();
+  const { hasUnsavedChanges, markAsSynced } = useLinksPageChanges();
   const [syncing, setSyncing] = useState(false);
   const [status, setStatus] = useState(null);
   const [showMenu, setShowMenu] = useState(false);
@@ -36,8 +36,8 @@ export default function SyncMenuButton() {
   const menuRef = useRef(null);
   const buttonRef = useRef(null);
 
-  // Check if we're in portfolio mode and have unsaved changes
-  const showGlow = state.renderMode === "portfolio" && hasUnsavedChanges;
+  // Check if we're in Links page mode and have unsaved changes
+  const showGlow = state.renderMode === "linksPage" && hasUnsavedChanges;
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -122,11 +122,11 @@ export default function SyncMenuButton() {
 
       setStatus({
         type: "success",
-        message: "Synced to GitHub: README.md + portfolio site updated!",
+        message: "Synced to GitHub: README.md + links page updated!",
       });
 
-      // Mark portfolio as synced if we're in portfolio mode
-      if (state.renderMode === "portfolio") {
+      // Mark links page as synced if we're in Links page mode
+      if (state.renderMode === "linksPage") {
         markAsSynced();
       }
 
@@ -288,7 +288,7 @@ export default function SyncMenuButton() {
       {/* Tooltip on hover */}
       {showTooltip && !syncing && !showMenu && (
         <div className="absolute top-full mt-1 left-0 bg-gray-900 dark:bg-gray-700 text-white text-xs rounded px-2 py-1 whitespace-nowrap z-50 shadow-lg">
-          Updates README.md + Portfolio Site
+          Updates README.md + Links page
           <div className="absolute -top-1 left-3 w-2 h-2 bg-gray-900 dark:bg-gray-700 transform rotate-45"></div>
         </div>
       )}

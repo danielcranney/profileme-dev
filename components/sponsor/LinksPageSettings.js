@@ -69,6 +69,7 @@ export default function LinksPageSettings() {
   const [accentColor, setAccentColor] = useState("#3b82f6");
   const [showGitHubSection, setShowGitHubSection] = useState(true);
   const [showSkillsSection, setShowSkillsSection] = useState(true);
+  const [youtubeVideoUrl, setYoutubeVideoUrl] = useState("");
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
@@ -89,6 +90,9 @@ export default function LinksPageSettings() {
       }
       if (opts && typeof opts.showSkillsSection === "boolean") {
         setShowSkillsSection(opts.showSkillsSection);
+      }
+      if (opts && typeof opts.youtubeVideoUrl === "string") {
+        setYoutubeVideoUrl(opts.youtubeVideoUrl);
       }
     } else {
       setSelectedTemplate("minimal");
@@ -236,6 +240,12 @@ export default function LinksPageSettings() {
     await updateLinksPageOptions({ showSkillsSection: checked });
   };
 
+  const handleYoutubeVideoUrlChange = async (url) => {
+    const value = (url ?? "").trim();
+    setYoutubeVideoUrl(value);
+    await updateLinksPageOptions({ youtubeVideoUrl: value || undefined });
+  };
+
   return (
     <>
       {/* Template selector temporarily hidden – users cannot change template for now */}
@@ -275,6 +285,23 @@ export default function LinksPageSettings() {
             <span className="text-xs text-gray-700 dark:text-gray-300">Show Skills section</span>
           </label>
         </div>
+      </div>
+
+      <div className="p-3 border border-gray-300 dark:border-dark-700 rounded bg-white dark:bg-dark-800 shadow-sm mb-3">
+        <h4 className="text-xs font-semibold mb-2 text-gray-700 dark:text-gray-300">
+          YouTube video
+        </h4>
+        <input
+          type="url"
+          value={youtubeVideoUrl}
+          onChange={(e) => setYoutubeVideoUrl(e.target.value)}
+          onBlur={(e) => handleYoutubeVideoUrlChange(e.target.value)}
+          placeholder="https://www.youtube.com/watch?v=..."
+          className="w-full px-2.5 py-1.5 text-xs border border-gray-300 dark:border-dark-700 rounded bg-white dark:bg-dark-900 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent"
+        />
+        <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+          Optional. Paste a YouTube video URL to embed it on your Links page (after the links section).
+        </p>
       </div>
 
       <div className="p-3 border border-gray-300 dark:border-dark-700 rounded bg-white dark:bg-dark-800 shadow-sm mb-3">

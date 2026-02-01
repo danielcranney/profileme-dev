@@ -55,7 +55,10 @@ function hexToRgb(hex: string): string {
     return `${r}, ${g}, ${b}`;
   }
   if (h.length === 6) {
-    return `${parseInt(h.slice(0, 2), 16)}, ${parseInt(h.slice(2, 4), 16)}, ${parseInt(h.slice(4, 6), 16)}`;
+    return `${parseInt(h.slice(0, 2), 16)}, ${parseInt(
+      h.slice(2, 4),
+      16
+    )}, ${parseInt(h.slice(4, 6), 16)}`;
   }
   return "59, 130, 246";
 }
@@ -63,7 +66,9 @@ function hexToRgb(hex: string): string {
 /** Return dark or light text color for best contrast on the given hex background */
 function contrastColor(hex: string): string {
   const h = (hex || "#3b82f6").replace(/^#/, "");
-  let r = 0, g = 0, b = 0;
+  let r = 0,
+    g = 0,
+    b = 0;
   if (h.length === 6) {
     r = parseInt(h.slice(0, 2), 16);
     g = parseInt(h.slice(2, 4), 16);
@@ -95,18 +100,55 @@ function contributionLevel(count: number): number {
 /** Format date as short month + year (e.g. Jan 2024) */
 function formatMonthYear(dateStr: string): string {
   const d = new Date(dateStr);
-  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const months = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
   return `${months[d.getMonth()]} ${d.getFullYear()}`;
 }
 
+/**
+ * Extract YouTube video ID from any supported input.
+ * Accepts: watch URL (?v=ID), youtu.be/ID, embed URL (/embed/ID or /embed/ID?si=...), or raw 11-char ID.
+ * We always build the iframe src from this ID using the /embed/ URL format (never use the raw link as src).
+ */
+function getYoutubeVideoId(url: string | undefined): string | null {
+  if (!url || typeof url !== "string") return null;
+  const trimmed = url.trim();
+  if (!trimmed) return null;
+  // Raw video ID (YouTube IDs are 11 chars, alphanumeric, hyphen, underscore)
+  if (/^[a-zA-Z0-9_-]{11}$/.test(trimmed)) return trimmed;
+  try {
+    const u = new URL(trimmed);
+    if (u.hostname === "youtu.be")
+      return (u.pathname.slice(1).split("?")[0] || "").trim() || null;
+    if (
+      u.hostname === "www.youtube.com" ||
+      u.hostname === "youtube.com" ||
+      u.hostname === "m.youtube.com"
+    ) {
+      if (u.pathname === "/watch") return u.searchParams.get("v");
+      const m = u.pathname.match(/^\/embed\/([^/?]+)/);
+      if (m) return m[1];
+    }
+  } catch {
+    return null;
+  }
+  return null;
+}
+
 /** Legend labels for contribution levels (0–4) */
-const CONTRIBUTION_LEGEND_LABELS = [
-  "Less",
-  "1",
-  "2–4",
-  "5–9",
-  "10+",
-] as const;
+const CONTRIBUTION_LEGEND_LABELS = ["Less", "1", "2–4", "5–9", "10+"] as const;
 
 /**
  * Render contribution calendar as a dark-theme block grid (7 rows × N weeks).
@@ -122,7 +164,8 @@ function renderContributionGraph(cal: ContributionCalendarLike): string {
   const firstWeekDays = weeks[0]?.contributionDays ?? [];
   const lastWeekDays = weeks[weeks.length - 1]?.contributionDays ?? [];
   if (firstWeekDays.length > 0) firstDate = firstWeekDays[0].date;
-  if (lastWeekDays.length > 0) lastDate = lastWeekDays[lastWeekDays.length - 1].date;
+  if (lastWeekDays.length > 0)
+    lastDate = lastWeekDays[lastWeekDays.length - 1].date;
   const timelineLabel =
     firstDate && lastDate
       ? `${formatMonthYear(firstDate)} – ${formatMonthYear(lastDate)}`
@@ -155,12 +198,18 @@ function renderContributionGraph(cal: ContributionCalendarLike): string {
 
   const legendItems = CONTRIBUTION_LEGEND_LABELS.map(
     (label, i) =>
-      `<span class="github-graph-legend-item"><span class="github-graph-legend-block github-graph-cell--${i}" aria-hidden="true"></span><span class="github-graph-legend-label">${escapeHtml(label)}</span></span>`
+      `<span class="github-graph-legend-item"><span class="github-graph-legend-block github-graph-cell--${i}" aria-hidden="true"></span><span class="github-graph-legend-label">${escapeHtml(
+        label
+      )}</span></span>`
   ).join("");
 
   return `<div class="github-graph-inner">
-    <p class="github-graph-timeline" aria-hidden="true">${escapeHtml(timelineLabel)}</p>
-    <div class="github-graph-grid" style="grid-template-columns: repeat(${cols}, 1fr);" aria-label="GitHub contribution graph">${cells.join("")}</div>
+    <p class="github-graph-timeline" aria-hidden="true">${escapeHtml(
+      timelineLabel
+    )}</p>
+    <div class="github-graph-grid" style="grid-template-columns: repeat(${cols}, 1fr);" aria-label="GitHub contribution graph">${cells.join(
+    ""
+  )}</div>
     <div class="github-graph-legend" aria-label="Contribution scale">
       ${legendItems}
     </div>
@@ -352,6 +401,10 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
       flex-wrap: wrap;
       align-items: center;
       gap: 0.75rem;
+    }
+    .hero-socials-icons  .sidebar-social-icon {
+      width: 24px;
+      height: 24px;
     }
     .hero-social-icon {
       display: inline-flex;
@@ -668,6 +721,23 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
       padding: 12px;
       border: 1px solid #393950;
     }
+    .youtube-embed-wrap {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #1d1d2b;
+      border: 1px solid #393950;
+    }
+    .youtube-embed-wrap iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
     .github-graph-grid {
       display: grid;
       gap: 3px;
@@ -728,7 +798,6 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
       border-radius: 8px;
     }
     footer {
-      margin-top: 2rem;
       padding: 1.25rem 2rem;
       border-top: 1px solid #393950;
       font-size: 0.8125rem;
@@ -741,14 +810,16 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
     footer a { color: #139ae1; text-decoration: none; }
     footer a:hover { text-decoration: underline; }
     @media (max-width: 768px) {
-      .page-wrapper { padding: 1rem 0.75rem 2rem; }
+      .accent-bar-fixed { display: none; }
+      body { padding-top: 0; }
+      .page-wrapper { padding: 0; }
       .page-card { border-radius: 16px; }
       .hero-gradient { height: 100px; }
-      .hero-body { padding: 0 1.5rem 1.5rem; margin-top: -40px; }
-      footer { padding: 1.25rem 1.5rem; }
+      .hero-body { padding: 0 1rem 1rem; margin-top: -40px; }
+      footer { padding: 1rem; }
       .hero-avatar { width: 88px; height: 88px; font-size: 1.875rem; border-width: 3px; }
       .hero-name { font-size: 1.5rem; }
-      .card-content { padding: 0 1.5rem 0rem; }
+      .card-content { padding: 0 1rem 1.5rem; }
     }
   </style>
 </head>
@@ -763,7 +834,9 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
         <div class="hero-body">
           <div class="hero-avatar" aria-hidden="true">${
             introduction.avatarUrl?.trim()
-              ? `<img src="${escapeHtml(introduction.avatarUrl.trim())}" alt="">`
+              ? `<img src="${escapeHtml(
+                  introduction.avatarUrl.trim()
+                )}" alt="">`
               : escapeHtml(heroInitials)
           }</div>
           <h1 class="hero-name">${escapeHtml(displayName)}</h1>
@@ -783,7 +856,7 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
               location
                 ? `<span class="hero-contact-item">${ICON_MAP_PIN}<span>${escapeHtml(
                     location
-                )}</span></span>`
+                  )}</span></span>`
                 : ""
             }
           </div>`
@@ -809,17 +882,16 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
       </header>
       <div class="card-content">
     <main class="main">
-      ${
-        (() => {
-          const linkOpts = portfolio?.options as LinkOptions | undefined;
-          const blocks = getFeaturedLinkBlocks(
-            introduction,
-            socials,
-            profile.socialOrder ?? [],
-            { linkOrder: linkOpts?.linkOrder, customLinks: linkOpts?.customLinks }
-          );
-          if (blocks.length === 0) return "";
-          return `
+      ${(() => {
+        const linkOpts = portfolio?.options as LinkOptions | undefined;
+        const blocks = getFeaturedLinkBlocks(
+          introduction,
+          socials,
+          profile.socialOrder ?? [],
+          { linkOrder: linkOpts?.linkOrder, customLinks: linkOpts?.customLinks }
+        );
+        if (blocks.length === 0) return "";
+        return `
       <section class="main-section" id="links">
         <div class="link-blocks-grid">
           ${blocks
@@ -831,14 +903,36 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
               const wrapClass = showPill
                 ? "link-block-wrap link-block-wrap--with-pill"
                 : "link-block-wrap";
-              return `<div class="${wrapClass}">${pill}${renderLinkBlock(url, label, accentColor)}</div>`;
+              return `<div class="${wrapClass}">${pill}${renderLinkBlock(
+                url,
+                label,
+                accentColor
+              )}</div>`;
             })
             .join("")}
         </div>
       </section>
       `;
-        })()
-      }
+      })()}
+      ${(() => {
+        const ytUrl = portfolio?.options?.youtubeVideoUrl as string | undefined;
+        const ytId = getYoutubeVideoId(ytUrl);
+        if (!ytId) return "";
+        return `
+      <section class="main-section" id="youtube">
+        <h2 class="section-title">Video</h2>
+        <div class="youtube-embed-wrap">
+          <iframe
+            title="YouTube video player"
+            src="https://www.youtube-nocookie.com/embed/${escapeHtml(ytId)}"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </section>
+      `;
+      })()}
       ${
         showGitHubSection
           ? `<section class="main-section" id="github">
@@ -1400,13 +1494,17 @@ function renderLinkBlock(
     platform.id
   )}" style="--block-color: ${escapeHtml(
     borderColor
-  )};" target="_blank" rel="noopener noreferrer"><span class="link-block-icon" aria-hidden="true">${platform.iconSvg}</span><span class="link-block-label">${escapeHtml(
+  )};" target="_blank" rel="noopener noreferrer"><span class="link-block-icon" aria-hidden="true">${
+    platform.iconSvg
+  }</span><span class="link-block-label">${escapeHtml(
     displayLabel
   )}</span></a>`;
 }
 
 /** Build URL from a social profile entry */
-function getSocialUrl(social: ProfileJson["profile"]["socials"][string]): string {
+function getSocialUrl(
+  social: ProfileJson["profile"]["socials"][string]
+): string {
   if (!social || typeof social === "string") return "";
   const url = `${social.linkPrefix}${social.linkSuffix}${
     social.linkSuffixTwo || ""
@@ -1464,7 +1562,10 @@ function getFeaturedLinkBlocks(
   const out: LinkBlock[] = [];
   const seen = new Set<string>();
 
-  if (introduction.workingOnLink?.trim() && introduction.workingOnTitle?.trim()) {
+  if (
+    introduction.workingOnLink?.trim() &&
+    introduction.workingOnTitle?.trim()
+  ) {
     out.push({
       id: "currentlyWorkingOn",
       url: introduction.workingOnLink.trim(),
@@ -1472,7 +1573,10 @@ function getFeaturedLinkBlocks(
       source: "Currently working on",
     });
   }
-  if (introduction.portfolioLink?.trim() && introduction.portfolioTitle?.trim()) {
+  if (
+    introduction.portfolioLink?.trim() &&
+    introduction.portfolioTitle?.trim()
+  ) {
     out.push({
       id: "portfolio",
       url: introduction.portfolioLink.trim(),
@@ -1518,8 +1622,7 @@ function getFeaturedLinkBlocks(
     const url = getSocialUrl(social);
     if (!url) continue;
     const platform = getLinkPlatform(url);
-    const sourceLabel =
-      SOCIAL_SOURCE_LABELS[key] ?? platform.name ?? key;
+    const sourceLabel = SOCIAL_SOURCE_LABELS[key] ?? platform.name ?? key;
     out.push({
       id: key,
       url,
@@ -1604,7 +1707,9 @@ const SOCIAL_ICON_LIGHT_ONLY = new Set(["gitlab", "cal"]);
 function getCalUrl(socials: ProfileJson["profile"]["socials"]): string | null {
   const cal = socials?.cal;
   if (!cal || typeof cal === "string") return null;
-  const url = `${cal.linkPrefix}${cal.linkSuffix || ""}${cal.linkSuffixTwo || ""}`.trim();
+  const url = `${cal.linkPrefix}${cal.linkSuffix || ""}${
+    cal.linkSuffixTwo || ""
+  }`.trim();
   if (!url || url === cal.linkPrefix) return null;
   return url;
 }
@@ -1713,12 +1818,28 @@ function renderFeaturedRepos(repos: FeaturedRepoEntry[] | undefined): string {
   return repos
     .map(
       (repo) => `
-    <a href="${escapeHtml(repo.html_url)}" class="project-card" target="_blank" rel="noopener noreferrer">
+    <a href="${escapeHtml(
+      repo.html_url
+    )}" class="project-card" target="_blank" rel="noopener noreferrer">
       <h4 class="project-card-title">${escapeHtml(repo.name)}</h4>
-      ${repo.description ? `<p class="project-card-desc">${escapeHtml(repo.description)}</p>` : ""}
+      ${
+        repo.description
+          ? `<p class="project-card-desc">${escapeHtml(repo.description)}</p>`
+          : ""
+      }
       <div class="project-card-meta">
-        ${repo.stargazers_count > 0 ? `<span class="project-card-stars">★ ${repo.stargazers_count}</span>` : ""}
-        ${repo.language ? `<span class="project-card-lang">${escapeHtml(repo.language)}</span>` : ""}
+        ${
+          repo.stargazers_count > 0
+            ? `<span class="project-card-stars">★ ${repo.stargazers_count}</span>`
+            : ""
+        }
+        ${
+          repo.language
+            ? `<span class="project-card-lang">${escapeHtml(
+                repo.language
+              )}</span>`
+            : ""
+        }
       </div>
     </a>`
     )

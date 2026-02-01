@@ -154,28 +154,34 @@ export default function LinksPageRenderer() {
 
   if (error) {
     return (
-      <div className="p-4 text-red-600 dark:text-red-400 text-sm">
-        Failed to generate preview: {error}
+      <div className="w-full flex justify-center">
+        <div className="w-full max-w-[390px] p-4 text-red-600 dark:text-red-400 text-sm">
+          Failed to generate preview: {error}
+        </div>
       </div>
     );
   }
 
   if (!iframeSrc) {
     return (
-      <div className="p-4 text-gray-500 dark:text-gray-400">
-        Generating links page preview…
+      <div className="w-full flex justify-center">
+        <div className="w-full max-w-[390px] p-4 text-gray-500 dark:text-gray-400 text-center">
+          Generating links page preview…
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="relative w-full h-full min-h-[600px] flex flex-col">
-      <iframe
-        src={iframeSrc}
-        className="flex-1 w-full min-h-[600px] border border-gray-300 dark:border-dark-600 bg-white dark:bg-dark-800"
-        title="Links page Preview"
-        sandbox="allow-same-origin allow-scripts allow-popups"
-      />
+    <div className="relative w-full flex flex-col items-center py-2 md:py-4 h-full">
+      <div className="w-full max-w-[390px] aspect-[9/16] flex flex-col shrink-0 shadow-lg rounded-2xl overflow-hidden border border-gray-300 dark:border-dark-600 bg-white dark:bg-dark-800 my-auto">
+        <iframe
+          src={iframeSrc}
+          className="flex-1 w-full min-h-0 border-0"
+          title="Links page Preview"
+          sandbox="allow-same-origin allow-scripts allow-popups"
+        />
+      </div>
     </div>
   );
 }

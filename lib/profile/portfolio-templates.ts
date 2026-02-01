@@ -45,16 +45,36 @@ function getAccentBar(color: string = "#3b82f6"): string {
   )}; width: 100%; margin: 0;"></div>`;
 }
 
+/** Parse hex color to rgba string for hero gradient (e.g. #3b82f6 -> "59, 130, 246") */
+function hexToRgb(hex: string): string {
+  const h = (hex || "#3b82f6").replace(/^#/, "");
+  if (h.length === 3) {
+    const r = parseInt(h[0] + h[0], 16);
+    const g = parseInt(h[1] + h[1], 16);
+    const b = parseInt(h[2] + h[2], 16);
+    return `${r}, ${g}, ${b}`;
+  }
+  if (h.length === 6) {
+    return `${parseInt(h.slice(0, 2), 16)}, ${parseInt(h.slice(2, 4), 16)}, ${parseInt(h.slice(4, 6), 16)}`;
+  }
+  return "59, 130, 246";
+}
+
+/** Hero lightning bolt icon – stylized, works on gradient (light fill + stroke for depth) */
+const HERO_LIGHTNING_SVG =
+  '<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" aria-hidden="true"><defs><linearGradient id="hero-bolt-shine" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:rgba(255,255,255,0.95)"/><stop offset="50%" style="stop-color:rgba(255,255,255,0.7)"/><stop offset="100%" style="stop-color:rgba(255,255,255,0.4)"/></linearGradient><filter id="hero-bolt-shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="1" stdDeviation="0.5" flood-color="rgba(0,0,0,0.25)"/></filter></defs><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="rgba(0,0,0,0.15)" stroke-width="0.5" stroke-linejoin="round" fill="url(#hero-bolt-shine)" filter="url(#hero-bolt-shadow)"/></svg>';
+
 /**
- * Minimal Template (Dark two-column: fixed sidebar + scrollable main)
- * Reference: deep navy (#141921), sidebar (avatar, name, title, bio, email, location, social icons),
- * main (Core Skills as categorized pills, optional Experience timeline from portfolio.options.experience).
+ * Minimal Template (Links page: single card with hero + content)
+ * Hero: gradient from accent color, lightning bolt, avatar, name, title, bio, contact, social icons.
+ * Content: Skills (icons), Experience, link blocks, Connect, etc.
  */
 function renderMinimalTemplate(profileJson: ProfileJson): string {
   const { profile, portfolio } = profileJson;
   const { introduction, skills, socials } = profile;
   const font = portfolio?.font || "Inter";
   const accentColor = portfolio?.accentColor || "#3b82f6";
+  const accentRgb = hexToRgb(accentColor);
   const fontUrl = getGoogleFontsUrl(font);
 
   const displayName = introduction.name || "Portfolio";
@@ -62,7 +82,7 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
   const bio = introduction.longDescription?.trim() || "";
   const email = introduction.emailMe?.trim() || "";
   const location = introduction.location?.trim() || "";
-  const sidebarInitials = getInitialsForAvatar(displayName);
+  const heroInitials = getInitialsForAvatar(displayName);
   const experience = portfolio?.options?.experience as
     | ExperienceEntry[]
     | undefined;
@@ -104,109 +124,152 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
       height: 5px;
       z-index: 10;
     }
-    .layout { display: flex; min-height: 100%; }
-    .sidebar {
-      position: fixed;
-      left: 0;
-      top: 5px;
-      bottom: 0;
-      width: 320px;
-      background: #141921;
-      padding: 2.5rem 2rem;
+    .page-wrapper {
+      min-height: 100%;
+      padding: 1.5rem 1rem 3rem;
       display: flex;
-      flex-direction: column;
-      align-items: center;
+      justify-content: center;
+      align-items: flex-start;
+    }
+    .page-card {
+      width: 100%;
+      max-width: 680px;
+      background: #1a2234;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+    }
+    .hero {
+      position: relative;
       text-align: center;
     }
-    .sidebar-avatar {
-      width: 140px;
-      height: 140px;
+    .hero-gradient {
+      height: 160px;
+      background: linear-gradient(135deg, ${escapeHtml(
+        accentColor
+      )} 0%, rgba(${accentRgb}, 0.5) 35%, rgba(${accentRgb}, 0.12) 70%, transparent 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-bolt {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    .hero-bolt svg {
+      width: 32px;
+      height: 32px;
+      filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
+    }
+    .hero-body {
+      padding: 0 2rem 2rem;
+      margin-top: -52px;
+    }
+    .hero-avatar {
+      width: 104px;
+      height: 104px;
+      margin: 0 auto 1rem;
       border-radius: 50%;
       background: #2c3440;
       color: #9ca3af;
-      font-size: 2.75rem;
+      font-size: 2.25rem;
       font-weight: 600;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 1.5rem;
       overflow: hidden;
+      border: 4px solid #1a2234;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
     }
-    .sidebar-avatar img {
+    .hero-avatar img {
       width: 100%;
       height: 100%;
       object-fit: cover;
     }
-    .sidebar-name {
+    .hero-name {
       font-size: 1.75rem;
       font-weight: 700;
       color: #ffffff;
-      margin-bottom: 0.375rem;
+      margin-bottom: 0.25rem;
       letter-spacing: -0.02em;
+      line-height: 1.2;
     }
-    .sidebar-title {
+    .hero-title {
       font-size: 0.9375rem;
       font-weight: 600;
-      color: #d1d5db;
-      margin-bottom: 1rem;
+      color: #94a3b8;
+      margin-bottom: 0.75rem;
+      line-height: 1.4;
     }
-    .sidebar-bio {
+    .hero-bio {
       font-size: 0.9375rem;
       font-weight: 400;
       color: #d1d5db;
       line-height: 1.7;
-      margin-bottom: 1.5rem;
-      max-width: 260px;
+      max-width: 480px;
+      margin: 0 auto 1.25rem;
     }
-    .sidebar-contact {
+    .hero-contact {
       display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.75rem;
-      width: 100%;
-      max-width: 260px;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem 1.5rem;
+      margin-bottom: 1.25rem;
     }
-    .sidebar-contact-item {
-      display: flex;
+    .hero-contact-item {
+      display: inline-flex;
       align-items: center;
       gap: 0.5rem;
       font-size: 0.875rem;
-      color: #d1d5db;
+      color: #94a3b8;
     }
-    .sidebar-contact-item svg {
+    .hero-contact-item svg {
       flex-shrink: 0;
-      color: #9ca3af;
+      color: #64748b;
     }
-    .sidebar-contact-item a {
-      color: #d1d5db;
+    .hero-contact-item a {
+      color: #94a3b8;
       text-decoration: none;
     }
-    .sidebar-contact-item a:hover { text-decoration: underline; }
-    .sidebar-socials {
+    .hero-contact-item a:hover { color: #e2e8f0; text-decoration: underline; }
+    .hero-socials {
       display: flex;
       flex-wrap: wrap;
-      gap: 1rem;
-      margin-top: 1.5rem;
       justify-content: center;
+      gap: 0.75rem;
     }
-    .sidebar-social-icon {
+    .hero-social-icon {
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: #2c3440;
       color: #d1d5db;
-      transition: opacity 0.2s;
+      transition: background 0.2s, transform 0.15s;
     }
-    .sidebar-social-icon:hover { opacity: 0.85; }
-    .sidebar-social-icon img {
-      width: 24px;
-      height: 24px;
+    .hero-social-icon:hover {
+      background: #374151;
+      transform: translateY(-2px);
+    }
+    .hero-social-icon img {
+      width: 22px;
+      height: 22px;
       object-fit: contain;
     }
+    .card-content {
+      padding: 0 2rem 2.5rem;
+    }
     .main {
-      flex: 1;
-      margin-left: 320px;
-      padding: 2.5rem 3rem;
-      overflow-y: auto;
+      padding: 0;
     }
     .section-title {
       font-size: 1.5rem;
@@ -321,22 +384,6 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
       color: #d1d5db;
       line-height: 1.7;
     }
-    .main .section-links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-    }
-    .main .link-button {
-      display: inline-block;
-      padding: 0.5rem 1rem;
-      background: ${escapeHtml(accentColor)};
-      color: white;
-      text-decoration: none;
-      border-radius: 6px;
-      font-size: 0.9rem;
-      transition: opacity 0.2s;
-    }
-    .main .link-button:hover { opacity: 0.9; }
     .main .section-socials {
       display: flex;
       flex-wrap: wrap;
@@ -355,6 +402,46 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
       transition: background 0.2s;
     }
     .main .social-link:hover { background: #374151; }
+    .link-blocks-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem;
+    }
+    .link-block {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.25rem;
+      background: #2c3440;
+      border-radius: 12px;
+      border-left: 4px solid var(--block-color, ${escapeHtml(accentColor)});
+      text-decoration: none;
+      color: #e5e7eb;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .link-block:hover {
+      background: #374151;
+      transform: translateX(2px);
+    }
+    .link-block-icon {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--block-color, ${escapeHtml(accentColor)});
+    }
+    .link-block-icon svg {
+      width: 24px;
+      height: 24px;
+    }
+    .link-block-label {
+      flex: 1;
+      min-width: 0;
+    }
     .portfolio-card {
       display: block;
       position: relative;
@@ -432,8 +519,13 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
     footer a { color: #60a5fa; text-decoration: none; }
     footer a:hover { text-decoration: underline; }
     @media (max-width: 768px) {
-      .sidebar { position: relative; width: 100%; padding: 1.5rem; }
-      .main { margin-left: 0; padding: 1.5rem 1.25rem; }
+      .page-wrapper { padding: 1rem 0.75rem 2rem; }
+      .page-card { border-radius: 16px; }
+      .hero-gradient { height: 140px; }
+      .hero-body { padding: 0 1.5rem 1.5rem; margin-top: -48px; }
+      .hero-avatar { width: 88px; height: 88px; font-size: 1.875rem; border-width: 3px; }
+      .hero-name { font-size: 1.5rem; }
+      .card-content { padding: 0 1.5rem 2rem; }
     }
   </style>
 </head>
@@ -441,54 +533,53 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
   <div class="accent-bar-fixed" style="background: ${escapeHtml(
     accentColor
   )};"></div>
-  <div class="layout">
-    <aside class="sidebar">
-      <div class="sidebar-avatar" aria-hidden="true">${
-        introduction.avatarUrl?.trim()
-          ? `<img src="${escapeHtml(introduction.avatarUrl.trim())}" alt="">`
-          : escapeHtml(sidebarInitials)
-      }</div>
-      <h1 class="sidebar-name">${escapeHtml(displayName)}</h1>
-      ${title ? `<p class="sidebar-title">${escapeHtml(title)}</p>` : ""}
-      ${bio ? `<div class="sidebar-bio">${formatDescription(bio)}</div>` : ""}
-      <div class="sidebar-contact">
-        ${
-          email
-            ? `<div class="sidebar-contact-item">${ICON_ENVELOPE}<a href="mailto:${escapeHtml(
-                email
-              )}">${escapeHtml(email)}</a></div>`
-            : ""
-        }
-        ${
-          location
-            ? `<div class="sidebar-contact-item">${ICON_MAP_PIN}<span>${escapeHtml(
-                location
-              )}</span></div>`
-            : ""
-        }
-      </div>
-      ${
-        Object.keys(socials).length > 0
-          ? `<div class="sidebar-socials">${renderSocialsIconsOnly(
-              socials,
-              profile.socialOrder
-            )}</div>`
-          : ""
-      }
-    </aside>
+  <div class="page-wrapper">
+    <div class="page-card">
+      <header class="hero">
+        <div class="hero-gradient" aria-hidden="true">
+          <span class="hero-bolt">${HERO_LIGHTNING_SVG}</span>
+        </div>
+        <div class="hero-body">
+          <div class="hero-avatar" aria-hidden="true">${
+            introduction.avatarUrl?.trim()
+              ? `<img src="${escapeHtml(introduction.avatarUrl.trim())}" alt="">`
+              : escapeHtml(heroInitials)
+          }</div>
+          <h1 class="hero-name">${escapeHtml(displayName)}</h1>
+          ${title ? `<p class="hero-title">${escapeHtml(title)}</p>` : ""}
+          ${bio ? `<div class="hero-bio">${formatDescription(bio)}</div>` : ""}
+          ${
+            email || location
+              ? `<div class="hero-contact">
+            ${
+              email
+                ? `<span class="hero-contact-item">${ICON_ENVELOPE}<a href="mailto:${escapeHtml(
+                    email
+                  )}">${escapeHtml(email)}</a></span>`
+                : ""
+            }
+            ${
+              location
+                ? `<span class="hero-contact-item">${ICON_MAP_PIN}<span>${escapeHtml(
+                    location
+                  )}</span></span>`
+                : ""
+            }
+          </div>`
+              : ""
+          }
+          ${
+            Object.keys(socials).length > 0
+              ? `<div class="hero-socials">${renderSocialsIconsOnly(
+                  socials,
+                  profile.socialOrder
+                )}</div>`
+              : ""
+          }
+        </div>
+      </header>
+      <div class="card-content">
     <main class="main">
-      ${
-        introduction.longDescription
-          ? `
-      <section class="main-section" id="about">
-        <h2 class="section-title">About</h2>
-        <div class="section-description">${formatDescription(
-          introduction.longDescription
-        )}</div>
-      </section>
-      `
-          : ""
-      }
       ${
         Object.keys(skills).length > 0
           ? `
@@ -516,14 +607,14 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
       ${
         introduction.workingOnTitle && introduction.workingOnLink
           ? `
-      <section class="main-section" id="projects">
+      <section class="main-section" id="working-on">
         <h2 class="section-title">Currently Working On</h2>
-        <div class="section-links">
-          <a href="${escapeHtml(
-            introduction.workingOnLink
-          )}" class="link-button" target="_blank" rel="noopener noreferrer">${escapeHtml(
-              introduction.workingOnTitle
-            )}</a>
+        <div class="link-blocks-grid">
+          ${renderLinkBlock(
+            introduction.workingOnLink,
+            introduction.workingOnTitle,
+            accentColor
+          )}
         </div>
       </section>
       `
@@ -552,12 +643,12 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
         </a>
         `
             : `
-        <div class="section-links">
-          <a href="${escapeHtml(
-            introduction.portfolioLink
-          )}" class="link-button" target="_blank" rel="noopener noreferrer">${escapeHtml(
-              introduction.portfolioTitle
-            )}</a>
+        <div class="link-blocks-grid">
+          ${renderLinkBlock(
+            introduction.portfolioLink,
+            introduction.portfolioTitle,
+            accentColor
+          )}
         </div>
         `
         }
@@ -604,8 +695,12 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
           ? `
       <section class="main-section" id="connect">
         <h2 class="section-title">Connect</h2>
-        <div class="section-socials">
-          ${renderSocialsSection(socials, profile.socialOrder)}
+        <div class="link-blocks-grid">
+          ${renderSocialsAsLinkBlocks(
+            socials,
+            profile.socialOrder,
+            accentColor
+          )}
         </div>
       </section>
       `
@@ -627,6 +722,8 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
         <p>Generated by <a href="https://profileme.dev" target="_blank" rel="noopener noreferrer">ProfileMe.dev</a></p>
       </footer>
     </main>
+      </div>
+    </div>
   </div>
 </body>
 </html>`;
@@ -929,6 +1026,208 @@ const ICON_ENVELOPE =
   '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>';
 const ICON_MAP_PIN =
   '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>';
+
+// Link platform detection for Links page blocks (YouTube, Twitch, etc.)
+interface LinkPlatform {
+  id: string;
+  name: string;
+  color: string;
+  iconSvg: string;
+}
+const LINK_PLATFORMS: { pattern: RegExp; platform: LinkPlatform }[] = [
+  {
+    pattern: /(?:youtube\.com|youtu\.be)/i,
+    platform: {
+      id: "youtube",
+      name: "YouTube",
+      color: "#FF0000",
+      iconSvg:
+        '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>',
+    },
+  },
+  {
+    pattern: /twitch\.tv/i,
+    platform: {
+      id: "twitch",
+      name: "Twitch",
+      color: "#9146FF",
+      iconSvg:
+        '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.571 4.714h1.715v5.143H11.57V4.714zM18 0H2L0 4.714v12.858h4.286V24l3.429-3.429h2.571L24 12.858V0zm-2.571 11.143l-3.429 3.428h-2.571l-2.5 2.5V14.57H4.286V2.571H15.43v8.572z"/></svg>',
+    },
+  },
+  {
+    pattern: /(?:twitter\.com|x\.com)/i,
+    platform: {
+      id: "twitter",
+      name: "X",
+      color: "#0f1419",
+      iconSvg:
+        '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>',
+    },
+  },
+  {
+    pattern: /linkedin\.com/i,
+    platform: {
+      id: "linkedin",
+      name: "LinkedIn",
+      color: "#0A66C2",
+      iconSvg:
+        '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>',
+    },
+  },
+  {
+    pattern: /github\.com/i,
+    platform: {
+      id: "github",
+      name: "GitHub",
+      color: "#e5e7eb",
+      iconSvg:
+        '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>',
+    },
+  },
+  {
+    pattern: /(?:discord\.gg|discord\.com)/i,
+    platform: {
+      id: "discord",
+      name: "Discord",
+      color: "#5865F2",
+      iconSvg:
+        '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/></svg>',
+    },
+  },
+  {
+    pattern: /dev\.to/i,
+    platform: {
+      id: "devto",
+      name: "Dev.to",
+      color: "#0e0e0e",
+      iconSvg:
+        '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.42 10.05c-.18-.16-.46-.23-.84-.23H6l.02 2.44.04 2.45.56-.02c.41 0 .63-.07.83-.26.24-.24.26-.36.26-2.2 0-1.91-.02-1.96-.29-2.18zM0 4.94v14.12h24V4.94H0zM8.56 15.3c-.44.58-1.06.77-2.53.77H4.71V8.53h1.4c1.67 0 2.16.18 2.6.9.27.43.29.6.29 2.64.01 2.12-.02 2.38-.24 2.94zM17.31 12.5c.44-.58.44-1.16.44-2.64V8.53h1.33c1.67 0 2.16.18 2.6.9.27.43.29.6.29 2.64-.01 2.12.02 2.38.24 2.94.44.58 1.06.77 2.53.77h1.32v-7.54h-1.32c-1.67 0-2.16-.18-2.6-.9-.27-.43-.29-.6-.29-2.64.01-2.12-.02-2.38-.24-2.94z"/></svg>',
+    },
+  },
+  {
+    pattern: /codepen\.io/i,
+    platform: {
+      id: "codepen",
+      name: "CodePen",
+      color: "#000000",
+      iconSvg:
+        '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0L2 7.5v9L12 24l10-7.5v-9L12 0zm0 20.27l-7.5-5.63V9.23L12 14.9v5.37zm0-6.74l-5.5-4.12L12 3.73l5.5 4.12L12 13.53zm7.5-4.63L12 3.73v5.37l7.5-5.63v4.63z"/></svg>',
+    },
+  },
+  {
+    pattern: /stackoverflow\.com/i,
+    platform: {
+      id: "stackoverflow",
+      name: "Stack Overflow",
+      color: "#F48024",
+      iconSvg:
+        '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15.21 17.16v-4.27h2.14v6.38h-8.55v-6.38h2.13v4.27h4.28zM6.76 15.85l.57-2.14 7.14 1.87-.57 2.14-7.14-1.87zm1.14-4.28l1.14-2 6.43 3.71-1.14 2-6.43-3.71zm2.28-4.07l1.57-1.57 5.43 5.43-1.57 1.57-5.43-5.43zm4.57-4.29v2.14h8.55V2.29h-8.55v2.14h6.42v1.71h-6.42z"/></svg>',
+    },
+  },
+  {
+    pattern: /(?:reddit\.com|old\.reddit\.com)/i,
+    platform: {
+      id: "reddit",
+      name: "Reddit",
+      color: "#FF4500",
+      iconSvg:
+        '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.182.18.427.284.692.284.265 0 .51-.104.692-.284a.361.361 0 0 0 .029-.463.334.334 0 0 0-.464-.03c-.01.01-.018.02-.027.03zm4.708 0c-.01-.01-.02-.02-.03-.03a.334.334 0 0 0-.464.03.361.361 0 0 0 .029.463c.182.18.427.284.692.284.265 0 .51-.104.692-.284a.33.33 0 0 0 0-.463.327.327 0 0 0-.231-.094z"/></svg>',
+    },
+  },
+  {
+    pattern: /instagram\.com/i,
+    platform: {
+      id: "instagram",
+      name: "Instagram",
+      color: "#E4405F",
+      iconSvg:
+        '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>',
+    },
+  },
+  {
+    pattern: /tiktok\.com/i,
+    platform: {
+      id: "tiktok",
+      name: "TikTok",
+      color: "#000000",
+      iconSvg:
+        '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.77 0c0-1.6 1.3-2.9 2.9-2.9s2.9 1.3 2.9 2.9v6.93c0 .28.23.5.5.5h3.17a.5.5 0 0 0 .5-.5V9.4a6.5 6.5 0 0 0 3.42 1.04V6.69h-.27z"/></svg>',
+    },
+  },
+  {
+    pattern: /medium\.com/i,
+    platform: {
+      id: "medium",
+      name: "Medium",
+      color: "#000000",
+      iconSvg:
+        '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.54 12a6.8 6.8 0 0 1-6.77 6.77A6.8 6.8 0 0 1 0 12a6.8 6.8 0 0 1 6.77-6.77A6.8 6.8 0 0 1 13.54 12zm7.42 0c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z"/></svg>',
+    },
+  },
+];
+
+const LINK_PLATFORM_GENERIC: LinkPlatform = {
+  id: "generic",
+  name: "Link",
+  color: "#6b7280",
+  iconSvg:
+    '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>',
+};
+
+function getLinkPlatform(url: string): LinkPlatform {
+  if (!url || typeof url !== "string") return LINK_PLATFORM_GENERIC;
+  try {
+    const u = new URL(url);
+    const host = u.hostname.replace(/^www\./, "");
+    const found = LINK_PLATFORMS.find(({ pattern }) => pattern.test(host));
+    return found ? found.platform : LINK_PLATFORM_GENERIC;
+  } catch {
+    return LINK_PLATFORM_GENERIC;
+  }
+}
+
+/** Render a single platform-styled link block (for Links page minimal template) */
+function renderLinkBlock(
+  url: string,
+  label: string,
+  accentColor: string
+): string {
+  const platform = getLinkPlatform(url);
+  const borderColor = platform.color;
+  return `<a href="${escapeHtml(
+    url
+  )}" class="link-block link-block--${escapeHtml(
+    platform.id
+  )}" style="--block-color: ${escapeHtml(
+    borderColor
+  )};" target="_blank" rel="noopener noreferrer"><span class="link-block-icon" aria-hidden="true">${platform.iconSvg}</span><span class="link-block-label">${escapeHtml(
+    label
+  )}</span></a>`;
+}
+
+/** Render Connect socials as platform-styled link blocks (minimal template) */
+function renderSocialsAsLinkBlocks(
+  socials: ProfileJson["profile"]["socials"],
+  socialOrder: string[],
+  accentColor: string
+): string {
+  const ordered =
+    socialOrder.length > 0
+      ? socialOrder.filter((key) => socials[key])
+      : Object.keys(socials);
+  return ordered
+    .map((key) => {
+      const social = socials[key];
+      if (typeof social === "string") return "";
+      const url = `${social.linkPrefix}${social.linkSuffix}${
+        social.linkSuffixTwo || ""
+      }`.trim();
+      if (!url || url === social.linkPrefix) return "";
+      return renderLinkBlock(url, social.label, accentColor);
+    })
+    .join("");
+}
 
 // Social links as icon-only (for sidebar); uses darkPath when available for dark theme
 function renderSocialsIconsOnly(

@@ -45,7 +45,10 @@ export default function CreateProfile() {
     const avatarUrl = user?.user_metadata?.avatar_url;
     const currentAvatar = state.introduction?.avatarUrl?.trim();
     if (avatarUrl && !currentAvatar) {
-      dispatch({ type: ACTIONS.ADD_INTRODUCTION, payload: { avatarUrl } });
+      dispatch({
+        type: ACTIONS.ADD_INTRODUCTION,
+        payload: { title: "avatarUrl", value: avatarUrl },
+      });
     }
   }, [
     user?.user_metadata?.avatar_url,

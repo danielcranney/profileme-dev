@@ -199,6 +199,10 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
   const contributionCalendar = portfolio?.options?.contributionCalendar as
     | ContributionCalendarLike
     | undefined;
+  const showGitHubSection =
+    (portfolio?.options?.showGitHubSection as boolean | undefined) !== false;
+  const showSkillsSection =
+    (portfolio?.options?.showSkillsSection as boolean | undefined) !== false;
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -807,10 +811,12 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
     <main class="main">
       ${
         (() => {
+          const linkOpts = portfolio?.options as LinkOptions | undefined;
           const blocks = getFeaturedLinkBlocks(
             introduction,
             socials,
-            profile.socialOrder
+            profile.socialOrder ?? [],
+            { linkOrder: linkOpts?.linkOrder, customLinks: linkOpts?.customLinks }
           );
           if (blocks.length === 0) return "";
           return `
@@ -833,7 +839,9 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
       `;
         })()
       }
-      <section class="main-section" id="github">
+      ${
+        showGitHubSection
+          ? `<section class="main-section" id="github">
         <h2 class="section-title">GitHub</h2>
         ${
           contributionCalendar
@@ -849,7 +857,9 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
         </div>`
             : `<div class="github-graph-placeholder" role="status">Your contribution graph will appear here when you're signed in with GitHub.</div>`
         }
-      </section>
+      </section>`
+          : ""
+      }
       ${
         renderExperienceTimeline(experience)
           ? `
@@ -873,7 +883,7 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
           : ""
       }
       ${
-        Object.keys(skills).length > 0
+        showSkillsSection && Object.keys(skills).length > 0
           ? `<section class="main-section" id="skills">
         <h2 class="section-title">Skills</h2>
         <div class="skill-items">${renderSkillsSection(
@@ -1426,21 +1436,37 @@ const SOCIAL_SOURCE_LABELS: Record<string, string> = {
   medium: "Medium",
 };
 
+export interface LinkBlock {
+  id: string;
+  url: string;
+  label: string;
+  source: string;
+}
+
+/** Options for link order and custom links (stored in portfolio.options) */
+export interface LinkOptions {
+  linkOrder?: string[];
+  customLinks?: { id: string; url: string; label: string }[];
+}
+
 /**
  * Collect featured link blocks for the Links section: working on, portfolio,
- * GitHub profile, YouTube channel, then other socials. Each gets platform styling (e.g. YouTube = red).
- * Returns { url, label, source } so preview can show which field each block came from.
+ * GitHub profile, YouTube channel, then other socials, then custom links.
+ * Each gets platform styling (e.g. YouTube = red).
+ * If linkOrder is provided, blocks are returned in that order (unknown ids appended).
  */
 function getFeaturedLinkBlocks(
   introduction: ProfileJson["profile"]["introduction"],
   socials: ProfileJson["profile"]["socials"],
-  socialOrder: string[]
-): { url: string; label: string; source: string }[] {
-  const out: { url: string; label: string; source: string }[] = [];
+  socialOrder: string[],
+  linkOptions?: LinkOptions
+): LinkBlock[] {
+  const out: LinkBlock[] = [];
   const seen = new Set<string>();
 
   if (introduction.workingOnLink?.trim() && introduction.workingOnTitle?.trim()) {
     out.push({
+      id: "currentlyWorkingOn",
       url: introduction.workingOnLink.trim(),
       label: introduction.workingOnTitle.trim(),
       source: "Currently working on",
@@ -1448,6 +1474,7 @@ function getFeaturedLinkBlocks(
   }
   if (introduction.portfolioLink?.trim() && introduction.portfolioTitle?.trim()) {
     out.push({
+      id: "portfolio",
       url: introduction.portfolioLink.trim(),
       label: introduction.portfolioTitle.trim(),
       source: "Portfolio",
@@ -1458,6 +1485,7 @@ function getFeaturedLinkBlocks(
     const url = getSocialUrl(github);
     if (url) {
       out.push({
+        id: "github",
         url,
         label: github.label?.trim() || "GitHub Profile",
         source: "GitHub profile",
@@ -1470,6 +1498,7 @@ function getFeaturedLinkBlocks(
     const url = getSocialUrl(youtube);
     if (url) {
       out.push({
+        id: "youtube",
         url,
         label: youtube.label?.trim() || "YouTube Channel",
         source: "YouTube channel",
@@ -1492,12 +1521,53 @@ function getFeaturedLinkBlocks(
     const sourceLabel =
       SOCIAL_SOURCE_LABELS[key] ?? platform.name ?? key;
     out.push({
+      id: key,
       url,
       label: social.label?.trim() || key,
       source: sourceLabel,
     });
   }
-  return out;
+  const customLinks = linkOptions?.customLinks ?? [];
+  for (const custom of customLinks) {
+    if (custom.id && custom.url?.trim()) {
+      out.push({
+        id: custom.id,
+        url: custom.url.trim(),
+        label: (custom.label || "Link").trim() || "Link",
+        source: "Custom",
+      });
+    }
+  }
+
+  const linkOrder = linkOptions?.linkOrder;
+  if (!linkOrder || linkOrder.length === 0) return out;
+
+  const byId = new Map(out.map((b) => [b.id, b]));
+  const orderedOut: LinkBlock[] = [];
+  for (const id of linkOrder) {
+    const block = byId.get(id);
+    if (block) {
+      orderedOut.push(block);
+      byId.delete(id);
+    }
+  }
+  byId.forEach((block) => orderedOut.push(block));
+  return orderedOut;
+}
+
+/**
+ * Get ordered link blocks for a profile (for UI and rendering).
+ * Uses portfolio.options.linkOrder and portfolio.options.customLinks when present.
+ */
+export function getOrderedLinkBlocks(profileJson: ProfileJson): LinkBlock[] {
+  const { profile, portfolio } = profileJson;
+  const opts = portfolio?.options as LinkOptions | undefined;
+  return getFeaturedLinkBlocks(
+    profile.introduction,
+    profile.socials,
+    profile.socialOrder ?? [],
+    { linkOrder: opts?.linkOrder, customLinks: opts?.customLinks }
+  );
 }
 
 /** Render Connect socials as platform-styled link blocks (minimal template) */

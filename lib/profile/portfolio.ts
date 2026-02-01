@@ -8,6 +8,9 @@
 import type { ProfileJson } from "./types";
 import { renderPortfolioWithTemplate } from "./portfolio-templates";
 
+export { getOrderedLinkBlocks } from "./portfolio-templates";
+export type { LinkBlock, LinkOptions } from "./portfolio-templates";
+
 /**
  * Render portfolio HTML from Profile JSON
  */

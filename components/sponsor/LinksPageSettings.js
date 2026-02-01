@@ -1,16 +1,17 @@
 /**
  * LinksPage Settings Component (Sponsors Only)
  *
- * Allows users to select Links page template and configure options.
+ * Allows users to select Links page template, configure options,
+ * reorder links, and add custom links.
  * (Stored JSON key remains "portfolio" for backward compatibility.)
  */
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import { useContext } from "react";
 import { StateContext } from "../../pages/_app";
 import { ACTIONS } from "../../lib/constants/actions";
-import { loadProfileJson, saveProfileJson } from "../../lib/profile";
+import { loadProfileJson, saveProfileJson, getOrderedLinkBlocks, stateToProfileJson } from "../../lib/profile";
 import { useLinksPageChanges } from "../../hooks/useLinksPageChanges";
 
 const TEMPLATES = [
@@ -66,6 +67,8 @@ export default function LinksPageSettings() {
   const [selectedTemplate, setSelectedTemplate] = useState("minimal");
   const [selectedFont, setSelectedFont] = useState("Inter");
   const [accentColor, setAccentColor] = useState("#3b82f6");
+  const [showGitHubSection, setShowGitHubSection] = useState(true);
+  const [showSkillsSection, setShowSkillsSection] = useState(true);
   const [saving, setSaving] = useState(false);
 
   useEffect(() => {
@@ -79,6 +82,13 @@ export default function LinksPageSettings() {
       }
       if (profileJson.portfolio.accentColor) {
         setAccentColor(profileJson.portfolio.accentColor);
+      }
+      const opts = profileJson.portfolio.options;
+      if (opts && typeof opts.showGitHubSection === "boolean") {
+        setShowGitHubSection(opts.showGitHubSection);
+      }
+      if (opts && typeof opts.showSkillsSection === "boolean") {
+        setShowSkillsSection(opts.showSkillsSection);
       }
     } else {
       setSelectedTemplate("minimal");
@@ -145,40 +155,125 @@ export default function LinksPageSettings() {
     await updateLinksPageSettings({ accentColor: color });
   };
 
+  // Merge into portfolio.options (for linkOrder, customLinks)
+  const updateLinksPageOptions = async (optionsUpdate) => {
+    setSaving(true);
+    try {
+      let profileJson = loadProfileJson();
+      if (!profileJson) {
+        profileJson = stateToProfileJson(state);
+      }
+      const currentOptions = profileJson.portfolio?.options || {};
+      profileJson.portfolio = {
+        ...profileJson.portfolio,
+        options: { ...currentOptions, ...optionsUpdate },
+      };
+      saveProfileJson(profileJson);
+      markAsChanged();
+      dispatch({ type: ACTIONS.SELECT_RENDER_MODE, payload: state.renderMode });
+    } catch (err) {
+      console.error("Failed to save links page options:", err);
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  // Build profileJson for link blocks (saved JSON + current state profile)
+  const profileJsonForLinks = useMemo(() => {
+    const saved = loadProfileJson();
+    const stateJson = stateToProfileJson(state);
+    if (!saved) return stateJson;
+    return { ...saved, profile: stateJson.profile };
+  }, [state]);
+
+  const linkBlocks = useMemo(() => getOrderedLinkBlocks(profileJsonForLinks), [profileJsonForLinks]);
+
+  const moveLink = async (index, direction) => {
+    if (index <= 0 && direction === -1) return;
+    if (index >= linkBlocks.length - 1 && direction === 1) return;
+    const newOrder = [...linkBlocks.map((b) => b.id)];
+    const swap = newOrder[index + direction];
+    newOrder[index + direction] = newOrder[index];
+    newOrder[index] = swap;
+    await updateLinksPageOptions({ linkOrder: newOrder });
+  };
+
+  const addCustomLink = async (url, label) => {
+    const opts = profileJsonForLinks.portfolio?.options || {};
+    const customLinks = Array.isArray(opts.customLinks) ? [...opts.customLinks] : [];
+    const newId = `custom-${Date.now()}`;
+    customLinks.push({ id: newId, url: (url || "").trim(), label: (label || "Link").trim() || "Link" });
+    const linkOrder = Array.isArray(opts.linkOrder) ? [...opts.linkOrder] : linkBlocks.map((b) => b.id);
+    linkOrder.push(newId);
+    await updateLinksPageOptions({ customLinks, linkOrder });
+  };
+
+  const removeCustomLink = async (id) => {
+    const opts = profileJsonForLinks.portfolio?.options || {};
+    const customLinks = (Array.isArray(opts.customLinks) ? opts.customLinks : []).filter((c) => c.id !== id);
+    const linkOrder = (Array.isArray(opts.linkOrder) ? opts.linkOrder : linkBlocks.map((b) => b.id)).filter((lid) => lid !== id);
+    await updateLinksPageOptions({ customLinks, linkOrder });
+  };
+
+  const [newLinkUrl, setNewLinkUrl] = useState("");
+  const [newLinkLabel, setNewLinkLabel] = useState("");
+
+  const handleAddCustomLink = async (e) => {
+    e.preventDefault();
+    if (!newLinkUrl.trim()) return;
+    await addCustomLink(newLinkUrl, newLinkLabel);
+    setNewLinkUrl("");
+    setNewLinkLabel("");
+  };
+
+  const handleShowGitHubSectionChange = async (checked) => {
+    setShowGitHubSection(checked);
+    await updateLinksPageOptions({ showGitHubSection: checked });
+  };
+
+  const handleShowSkillsSectionChange = async (checked) => {
+    setShowSkillsSection(checked);
+    await updateLinksPageOptions({ showSkillsSection: checked });
+  };
+
   return (
     <>
-      <div className="p-3 border border-gray-300 dark:border-dark-700 rounded bg-white dark:bg-dark-800 shadow-sm mb-3">
-        <h4 className="text-xs font-semibold mb-2 text-gray-700 dark:text-gray-300">
-          Links page template
-        </h4>
+      {/* Template selector temporarily hidden – users cannot change template for now */}
+      {/* <div className="p-3 border border-gray-300 dark:border-dark-700 rounded bg-white dark:bg-dark-800 shadow-sm mb-3">
+        <h4 className="text-xs font-semibold mb-2 text-gray-700 dark:text-gray-300">Links page template</h4>
         <div className="space-y-2">
           {TEMPLATES.map((template) => (
-            <label
-              key={template.id}
-              className={`flex items-start gap-2 p-2 rounded cursor-pointer border transition-colors ${
-                selectedTemplate === template.id
-                  ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20"
-                  : "border-gray-200 dark:border-dark-700 hover:border-gray-300 dark:hover:border-dark-600"
-              }`}
-            >
-              <input
-                type="radio"
-                name="links-page-template"
-                value={template.id}
-                checked={selectedTemplate === template.id}
-                onChange={(e) => handleTemplateChange(e.target.value)}
-                className="mt-0.5"
-              />
-              <div className="flex-1">
-                <div className="text-xs font-medium text-gray-900 dark:text-gray-100">
-                  {template.name}
-                </div>
-                <div className="text-xs text-gray-500 dark:text-gray-400">
-                  {template.description}
-                </div>
-              </div>
+            <label key={template.id} className={...}>
+              <input type="radio" name="links-page-template" value={template.id} checked={selectedTemplate === template.id} onChange={(e) => handleTemplateChange(e.target.value)} />
+              <div className="flex-1"><div className="text-xs font-medium">...</div><div className="text-xs text-gray-500">...</div></div>
             </label>
           ))}
+        </div>
+      </div> */}
+
+      <div className="p-3 border border-gray-300 dark:border-dark-700 rounded bg-white dark:bg-dark-800 shadow-sm mb-3">
+        <h4 className="text-xs font-semibold mb-2 text-gray-700 dark:text-gray-300">
+          Page sections
+        </h4>
+        <div className="space-y-2">
+          <label className="flex items-center gap-2 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={showGitHubSection}
+              onChange={(e) => handleShowGitHubSectionChange(e.target.checked)}
+              className="rounded border-gray-300 dark:border-dark-600"
+            />
+            <span className="text-xs text-gray-700 dark:text-gray-300">Show GitHub section (contribution graph)</span>
+          </label>
+          <label className="flex items-center gap-2 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={showSkillsSection}
+              onChange={(e) => handleShowSkillsSectionChange(e.target.checked)}
+              className="rounded border-gray-300 dark:border-dark-600"
+            />
+            <span className="text-xs text-gray-700 dark:text-gray-300">Show Skills section</span>
+          </label>
         </div>
       </div>
 
@@ -235,6 +330,87 @@ export default function LinksPageSettings() {
         <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
           Used for accent bar and highlights
         </p>
+      </div>
+
+      <div className="p-3 border border-gray-300 dark:border-dark-700 rounded bg-white dark:bg-dark-800 shadow-sm mb-3">
+        <h4 className="text-xs font-semibold mb-2 text-gray-700 dark:text-gray-300">
+          Links on your page
+        </h4>
+        <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">
+          Reorder or add custom links. Order is reflected in the preview.
+        </p>
+        <div className="space-y-1.5 mb-3">
+          {linkBlocks.map((block, index) => (
+            <div
+              key={block.id}
+              className="flex items-center gap-1.5 py-1.5 px-2 rounded border border-gray-200 dark:border-dark-600 bg-gray-50 dark:bg-dark-900"
+            >
+              <div className="flex flex-col gap-0.5 flex-shrink-0">
+                <button
+                  type="button"
+                  onClick={() => moveLink(index, -1)}
+                  disabled={index === 0}
+                  className="p-0.5 rounded hover:bg-gray-200 dark:hover:bg-dark-600 disabled:opacity-40 disabled:pointer-events-none"
+                  aria-label="Move up"
+                >
+                  <svg className="w-3.5 h-3.5 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 15l7-7 7 7" />
+                  </svg>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => moveLink(index, 1)}
+                  disabled={index === linkBlocks.length - 1}
+                  className="p-0.5 rounded hover:bg-gray-200 dark:hover:bg-dark-600 disabled:opacity-40 disabled:pointer-events-none"
+                  aria-label="Move down"
+                >
+                  <svg className="w-3.5 h-3.5 text-gray-600 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
+              </div>
+              <div className="flex-1 min-w-0">
+                <span className="text-xs font-medium text-gray-900 dark:text-gray-100 truncate block">{block.label}</span>
+                <span className="text-xs text-gray-500 dark:text-gray-400 truncate block">{block.source}</span>
+              </div>
+              {block.source === "Custom" && (
+                <button
+                  type="button"
+                  onClick={() => removeCustomLink(block.id)}
+                  className="flex-shrink-0 p-1 rounded text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20"
+                  aria-label="Remove link"
+                >
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              )}
+            </div>
+          ))}
+        </div>
+        <form onSubmit={handleAddCustomLink} className="flex flex-col gap-2">
+          <input
+            type="url"
+            value={newLinkUrl}
+            onChange={(e) => setNewLinkUrl(e.target.value)}
+            placeholder="https://..."
+            className="px-2.5 py-1.5 text-xs border border-gray-300 dark:border-dark-700 rounded bg-white dark:bg-dark-900 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent"
+          />
+          <input
+            type="text"
+            value={newLinkLabel}
+            onChange={(e) => setNewLinkLabel(e.target.value)}
+            placeholder="Link label"
+            className="px-2.5 py-1.5 text-xs border border-gray-300 dark:border-dark-700 rounded bg-white dark:bg-dark-900 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-brand focus:border-transparent"
+          />
+          <button
+            type="submit"
+            disabled={!newLinkUrl.trim() || saving}
+            className="btn-sm btn-gray text-xs"
+          >
+            Add custom link
+          </button>
+        </form>
       </div>
 
       {saving && (

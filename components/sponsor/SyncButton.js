@@ -5,12 +5,14 @@
  * Only visible to sponsors.
  */
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import { useContext } from "react";
 import { StateContext } from "../../pages/_app";
 import { stateToProfileJson } from "../../lib/profile/stateBridge";
 import { loadProfileJson } from "../../lib/profile";
+
+const TOAST_DURATION_MS = 4000;
 
 export default function SyncButton() {
   const { isSponsor, isAuthenticated } = useAuth();
@@ -18,6 +20,27 @@ export default function SyncButton() {
   const [syncing, setSyncing] = useState(false);
   const [status, setStatus] = useState(null);
   const [showTooltip, setShowTooltip] = useState(false);
+  const statusTimeoutRef = useRef(null);
+
+  const setStatusWithAutoClear = (statusValue) => {
+    if (statusTimeoutRef.current) {
+      clearTimeout(statusTimeoutRef.current);
+      statusTimeoutRef.current = null;
+    }
+    setStatus(statusValue);
+    if (statusValue) {
+      statusTimeoutRef.current = setTimeout(() => {
+        setStatus(null);
+        statusTimeoutRef.current = null;
+      }, TOAST_DURATION_MS);
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      if (statusTimeoutRef.current) clearTimeout(statusTimeoutRef.current);
+    };
+  }, []);
 
   if (!isAuthenticated || !isSponsor) {
     return null;
@@ -59,7 +82,7 @@ export default function SyncButton() {
         throw new Error(`${errorMessage}${action}`);
       }
 
-      setStatus({ 
+      setStatusWithAutoClear({ 
         type: "success", 
         message: "Synced to GitHub: README.md + links page updated!" 
       });
@@ -72,7 +95,7 @@ export default function SyncButton() {
       }
     } catch (error) {
       console.error("Sync error:", error);
-      setStatus({ type: "error", message: error.message || "Failed to sync to GitHub" });
+      setStatusWithAutoClear({ type: "error", message: error.message || "Failed to sync to GitHub" });
     } finally {
       setSyncing(false);
     }

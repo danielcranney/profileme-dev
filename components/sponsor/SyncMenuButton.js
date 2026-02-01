@@ -35,6 +35,29 @@ export default function SyncMenuButton() {
   const [showTooltip, setShowTooltip] = useState(false);
   const menuRef = useRef(null);
   const buttonRef = useRef(null);
+  const statusTimeoutRef = useRef(null);
+
+  const TOAST_DURATION_MS = 4000;
+
+  const setStatusWithAutoClear = (statusValue) => {
+    if (statusTimeoutRef.current) {
+      clearTimeout(statusTimeoutRef.current);
+      statusTimeoutRef.current = null;
+    }
+    setStatus(statusValue);
+    if (statusValue) {
+      statusTimeoutRef.current = setTimeout(() => {
+        setStatus(null);
+        statusTimeoutRef.current = null;
+      }, TOAST_DURATION_MS);
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      if (statusTimeoutRef.current) clearTimeout(statusTimeoutRef.current);
+    };
+  }, []);
 
   // Check if we're in Links page mode and have unsaved changes
   const showGlow = state.renderMode === "linksPage" && hasUnsavedChanges;
@@ -120,7 +143,7 @@ export default function SyncMenuButton() {
         console.log(`   🗑️  ${data.iconsDeleted} unused icon(s) removed`);
       }
 
-      setStatus({
+      setStatusWithAutoClear({
         type: "success",
         message: "Synced to GitHub: README.md + links page updated!",
       });
@@ -139,7 +162,7 @@ export default function SyncMenuButton() {
       const syncEndTime = performance.now();
       const totalDuration = ((syncEndTime - syncStartTime) / 1000).toFixed(2);
       console.error(`❌ Sync failed after ${totalDuration}s:`, error);
-      setStatus({
+      setStatusWithAutoClear({
         type: "error",
         message: error.message || "Failed to sync to GitHub",
       });
@@ -155,9 +178,9 @@ export default function SyncMenuButton() {
 
     try {
       await checkAndRestore();
-      setStatus({ type: "success", message: "Refreshed from GitHub!" });
+      setStatusWithAutoClear({ type: "success", message: "Refreshed from GitHub!" });
     } catch (error) {
-      setStatus({ type: "error", message: error.message || "Refresh failed" });
+      setStatusWithAutoClear({ type: "error", message: error.message || "Refresh failed" });
     } finally {
       setSyncing(false);
     }
@@ -205,10 +228,10 @@ export default function SyncMenuButton() {
         setLastKnownSha(data.sha);
       }
 
-      setStatus({ type: "success", message: "Profile restored from GitHub!" });
+      setStatusWithAutoClear({ type: "success", message: "Profile restored from GitHub!" });
     } catch (error) {
       console.error("Restore error:", error);
-      setStatus({
+      setStatusWithAutoClear({
         type: "error",
         message: error.message || "Failed to restore from GitHub",
       });

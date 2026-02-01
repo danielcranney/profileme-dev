@@ -60,13 +60,99 @@ function hexToRgb(hex: string): string {
   return "59, 130, 246";
 }
 
-/** Hero lightning bolt icon – stylized, works on gradient (light fill + stroke for depth) */
-const HERO_LIGHTNING_SVG =
-  '<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" aria-hidden="true"><defs><linearGradient id="hero-bolt-shine" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:rgba(255,255,255,0.95)"/><stop offset="50%" style="stop-color:rgba(255,255,255,0.7)"/><stop offset="100%" style="stop-color:rgba(255,255,255,0.4)"/></linearGradient><filter id="hero-bolt-shadow" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="1" stdDeviation="0.5" flood-color="rgba(0,0,0,0.25)"/></filter></defs><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" stroke="rgba(0,0,0,0.15)" stroke-width="0.5" stroke-linejoin="round" fill="url(#hero-bolt-shine)" filter="url(#hero-bolt-shadow)"/></svg>';
+/** Contribution calendar shape from GitHub GraphQL (for custom block graph) */
+interface ContributionCalendarLike {
+  totalContributions?: number;
+  weeks: { contributionDays: { date: string; contributionCount: number }[] }[];
+}
+
+/** GitHub-style contribution level from count (0–4 for CSS classes) */
+function contributionLevel(count: number): number {
+  if (count <= 0) return 0;
+  if (count <= 1) return 1;
+  if (count <= 4) return 2;
+  if (count <= 9) return 3;
+  return 4;
+}
+
+/** Format date as short month + year (e.g. Jan 2024) */
+function formatMonthYear(dateStr: string): string {
+  const d = new Date(dateStr);
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  return `${months[d.getMonth()]} ${d.getFullYear()}`;
+}
+
+/** Legend labels for contribution levels (0–4) */
+const CONTRIBUTION_LEGEND_LABELS = [
+  "Less",
+  "1",
+  "2–4",
+  "5–9",
+  "10+",
+] as const;
+
+/**
+ * Render contribution calendar as a dark-theme block grid (7 rows × N weeks).
+ * Includes timeline (date range) and legend (shade key). No external image/package.
+ */
+function renderContributionGraph(cal: ContributionCalendarLike): string {
+  const weeks = cal.weeks ?? [];
+  if (weeks.length === 0) return "";
+
+  // Timeline: first and last date from calendar
+  let firstDate = "";
+  let lastDate = "";
+  const firstWeekDays = weeks[0]?.contributionDays ?? [];
+  const lastWeekDays = weeks[weeks.length - 1]?.contributionDays ?? [];
+  if (firstWeekDays.length > 0) firstDate = firstWeekDays[0].date;
+  if (lastWeekDays.length > 0) lastDate = lastWeekDays[lastWeekDays.length - 1].date;
+  const timelineLabel =
+    firstDate && lastDate
+      ? `${formatMonthYear(firstDate)} – ${formatMonthYear(lastDate)}`
+      : "Last year";
+
+  // Build 7 (rows) × weeks.length (cols): grid[row][col] = contribution count
+  const rows = 7;
+  const cols = weeks.length;
+  const grid: number[][] = Array.from({ length: rows }, () =>
+    Array(cols).fill(0)
+  );
+  for (let c = 0; c < weeks.length; c++) {
+    const contributionDays = weeks[c].contributionDays ?? [];
+    for (const day of contributionDays) {
+      const dayOfWeek = new Date(day.date).getDay(); // 0 = Sun, 6 = Sat
+      grid[dayOfWeek][c] = Math.max(0, day.contributionCount);
+    }
+  }
+
+  const cells: string[] = [];
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      const count = grid[r][c];
+      const level = contributionLevel(count);
+      cells.push(
+        `<div class="github-graph-cell github-graph-cell--${level}" title="${count} contributions" role="img" aria-label="${count} contributions"></div>`
+      );
+    }
+  }
+
+  const legendItems = CONTRIBUTION_LEGEND_LABELS.map(
+    (label, i) =>
+      `<span class="github-graph-legend-item"><span class="github-graph-legend-block github-graph-cell--${i}" aria-hidden="true"></span><span class="github-graph-legend-label">${escapeHtml(label)}</span></span>`
+  ).join("");
+
+  return `<div class="github-graph-inner">
+    <p class="github-graph-timeline" aria-hidden="true">${escapeHtml(timelineLabel)}</p>
+    <div class="github-graph-grid" style="grid-template-columns: repeat(${cols}, 1fr);" aria-label="GitHub contribution graph">${cells.join("")}</div>
+    <div class="github-graph-legend" aria-label="Contribution scale">
+      ${legendItems}
+    </div>
+  </div>`;
+}
 
 /**
  * Minimal Template (Links page: single card with hero + content)
- * Hero: gradient from accent color, lightning bolt, avatar, name, title, bio, contact, social icons.
+ * Hero: gradient from accent color (no image), avatar, name, title, bio, contact, Cal button (if set), social icons.
  * Content: Skills (icons), Experience, link blocks, Connect, etc.
  */
 function renderMinimalTemplate(profileJson: ProfileJson): string {
@@ -91,6 +177,12 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
     | undefined;
   const featuredRepos = portfolio?.options?.featuredRepos as
     | FeaturedRepoEntry[]
+    | undefined;
+  const githubUserStats = portfolio?.options?.githubUserStats as
+    | { publicRepos: number; followers: number; totalStars: number }
+    | undefined;
+  const contributionCalendar = portfolio?.options?.contributionCalendar as
+    | ContributionCalendarLike
     | undefined;
 
   return `<!DOCTYPE html>
@@ -141,41 +233,23 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
     }
     .hero {
       position: relative;
-      text-align: center;
+      text-align: left;
     }
     .hero-gradient {
-      height: 160px;
+      height: 120px;
       background: linear-gradient(135deg, ${escapeHtml(
         accentColor
       )} 0%, rgba(${accentRgb}, 0.5) 35%, rgba(${accentRgb}, 0.12) 70%, transparent 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .hero-bolt {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(8px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    }
-    .hero-bolt svg {
-      width: 32px;
-      height: 32px;
-      filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.2));
     }
     .hero-body {
       padding: 0 2rem 2rem;
-      margin-top: -52px;
+      margin-top: -48px;
+      text-align: left;
     }
     .hero-avatar {
       width: 104px;
       height: 104px;
-      margin: 0 auto 1rem;
+      margin: 0 0 1rem 0;
       border-radius: 50%;
       background: #2c3440;
       color: #9ca3af;
@@ -214,12 +288,12 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
       color: #d1d5db;
       line-height: 1.7;
       max-width: 480px;
-      margin: 0 auto 1.25rem;
+      margin: 0 0 1.25rem 0;
     }
     .hero-contact {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
+      justify-content: flex-start;
       gap: 1rem 1.5rem;
       margin-bottom: 1.25rem;
     }
@@ -242,7 +316,13 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
     .hero-socials {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .hero-socials-icons {
+      display: flex;
+      flex-wrap: wrap;
       gap: 0.75rem;
     }
     .hero-social-icon {
@@ -264,6 +344,26 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
       width: 22px;
       height: 22px;
       object-fit: contain;
+    }
+    .hero-cal-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 40px;
+      padding: 0 1rem;
+      margin-left: auto;
+      background: ${escapeHtml(accentColor)};
+      color: #0f172a;
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 10px;
+      transition: opacity 0.2s, transform 0.15s;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+    .hero-cal-button:hover {
+      opacity: 0.95;
+      transform: translateY(-2px);
     }
     .card-content {
       padding: 0 2rem 2.5rem;
@@ -509,6 +609,94 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
     }
     .project-card-stars,
     .project-card-lang { display: inline; }
+    .github-stats-block {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+      border-radius: 12px;
+      border: 1px solid #374151;
+      background: #252d38;
+      overflow: hidden;
+      margin-bottom: 1.25rem;
+    }
+    .github-stats-block.cols-3 { grid-template-columns: repeat(3, 1fr); }
+    .github-stats-block.cols-4 { grid-template-columns: repeat(4, 1fr); }
+    .github-stats-cell {
+      padding: 1rem 1.25rem;
+      text-align: center;
+      border-right: 1px solid #374151;
+    }
+    .github-stats-cell:last-child { border-right: none; }
+    .github-stats-value {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #ffffff;
+      line-height: 1.2;
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+    .github-stats-label {
+      font-size: 0.8125rem;
+      font-weight: 500;
+      color: #9ca3af;
+    }
+    .github-graph-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      background: #161b22;
+      padding: 12px;
+      border: 1px solid #374151;
+    }
+    .github-graph-grid {
+      display: grid;
+      gap: 3px;
+      grid-template-rows: repeat(7, 1fr);
+      max-width: 100%;
+      margin: 0 auto;
+    }
+    .github-graph-cell {
+      aspect-ratio: 1;
+      border-radius: 3px;
+      min-width: 0;
+    }
+    .github-graph-cell--0 { background: #21262d; }
+    .github-graph-cell--1 { background: #0e4429; }
+    .github-graph-cell--2 { background: #006d32; }
+    .github-graph-cell--3 { background: #26a641; }
+    .github-graph-cell--4 { background: #39d353; }
+    .github-graph-inner { padding: 0; }
+    .github-graph-total {
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: #e5e7eb;
+      margin-bottom: 8px;
+    }
+    .github-graph-timeline {
+      font-size: 0.75rem;
+      color: #9ca3af;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    .github-graph-legend {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px 16px;
+      margin-top: 10px;
+      font-size: 0.6875rem;
+      color: #9ca3af;
+    }
+    .github-graph-legend-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .github-graph-legend-block {
+      width: 12px;
+      height: 12px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .github-graph-legend-label { font-weight: 500; }
     footer {
       margin-top: 2.5rem;
       padding-top: 1.5rem;
@@ -521,11 +709,15 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
     @media (max-width: 768px) {
       .page-wrapper { padding: 1rem 0.75rem 2rem; }
       .page-card { border-radius: 16px; }
-      .hero-gradient { height: 140px; }
-      .hero-body { padding: 0 1.5rem 1.5rem; margin-top: -48px; }
+      .hero-gradient { height: 100px; }
+      .hero-body { padding: 0 1.5rem 1.5rem; margin-top: -40px; }
       .hero-avatar { width: 88px; height: 88px; font-size: 1.875rem; border-width: 3px; }
       .hero-name { font-size: 1.5rem; }
       .card-content { padding: 0 1.5rem 2rem; }
+      .github-stats-block.cols-3,
+      .github-stats-block.cols-4 { grid-template-columns: 1fr; }
+      .github-stats-cell { border-right: none; border-bottom: 1px solid #374151; }
+      .github-stats-cell:last-child { border-bottom: none; }
     }
   </style>
 </head>
@@ -536,9 +728,7 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
   <div class="page-wrapper">
     <div class="page-card">
       <header class="hero">
-        <div class="hero-gradient" aria-hidden="true">
-          <span class="hero-bolt">${HERO_LIGHTNING_SVG}</span>
-        </div>
+        <div class="hero-gradient" aria-hidden="true"></div>
         <div class="hero-body">
           <div class="hero-avatar" aria-hidden="true">${
             introduction.avatarUrl?.trim()
@@ -569,11 +759,19 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
               : ""
           }
           ${
-            Object.keys(socials).length > 0
-              ? `<div class="hero-socials">${renderSocialsIconsOnly(
+            getCalUrl(socials) || Object.keys(socials).length > 0
+              ? `<div class="hero-socials"><div class="hero-socials-icons">${renderSocialsIconsOnly(
                   socials,
-                  profile.socialOrder
-                )}</div>`
+                  profile.socialOrder,
+                  true,
+                  ["polywork", ...(getCalUrl(socials) ? ["cal"] : [])]
+                )}</div>${
+                  getCalUrl(socials)
+                    ? `<a href="${escapeHtml(
+                        getCalUrl(socials)!
+                      )}" class="hero-cal-button" target="_blank" rel="noopener noreferrer">Book a call</a>`
+                    : ""
+                }</div>`
               : ""
           }
         </div>
@@ -590,6 +788,70 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
           profile.skillsOrder,
           "modern"
         )}</div>
+      </section>
+      `
+          : ""
+      }
+      ${
+        githubUserStats || contributionCalendar
+          ? `
+      <section class="main-section" id="github">
+        <h2 class="section-title">GitHub</h2>
+        ${
+          githubUserStats
+            ? (() => {
+                const showContributions =
+                  typeof contributionCalendar?.totalContributions === "number";
+                const cols = showContributions ? "cols-4" : "cols-3";
+                return `
+        <div class="github-stats-block ${cols}">
+          <div class="github-stats-cell">
+            <span class="github-stats-value">${escapeHtml(
+              String(githubUserStats.publicRepos)
+            )}</span>
+            <span class="github-stats-label">Public repos</span>
+          </div>
+          <div class="github-stats-cell">
+            <span class="github-stats-value">${escapeHtml(
+              String(githubUserStats.followers)
+            )}</span>
+            <span class="github-stats-label">Followers</span>
+          </div>
+          <div class="github-stats-cell">
+            <span class="github-stats-value">${escapeHtml(
+              String(githubUserStats.totalStars)
+            )}</span>
+            <span class="github-stats-label">Total stars</span>
+          </div>${
+                  showContributions
+                    ? `
+          <div class="github-stats-cell">
+            <span class="github-stats-value">${escapeHtml(
+              contributionCalendar!.totalContributions!.toLocaleString()
+            )}</span>
+            <span class="github-stats-label">Contributions (12 mo)</span>
+          </div>`
+                    : ""
+                }
+        </div>`;
+              })()
+            : ""
+        }
+        ${
+          contributionCalendar
+            ? `
+        <div class="github-graph-wrap">
+          ${
+            typeof contributionCalendar.totalContributions === "number" && !githubUserStats
+              ? `<p class="github-graph-total">${escapeHtml(
+                  contributionCalendar.totalContributions.toLocaleString()
+                )} contributions in the last 12 months</p>`
+              : ""
+          }
+          ${renderContributionGraph(contributionCalendar)}
+        </div>`
+            : ""
+        }
       </section>
       `
           : ""
@@ -699,7 +961,8 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
           ${renderSocialsAsLinkBlocks(
             socials,
             profile.socialOrder,
-            accentColor
+            accentColor,
+            ["polywork"]
           )}
         </div>
       </section>
@@ -1210,12 +1473,14 @@ function renderLinkBlock(
 function renderSocialsAsLinkBlocks(
   socials: ProfileJson["profile"]["socials"],
   socialOrder: string[],
-  accentColor: string
+  accentColor: string,
+  excludeKeys: string[] = ["polywork"]
 ): string {
-  const ordered =
+  const ordered = (
     socialOrder.length > 0
       ? socialOrder.filter((key) => socials[key])
-      : Object.keys(socials);
+      : Object.keys(socials)
+  ).filter((key) => !excludeKeys.includes(key));
   return ordered
     .map((key) => {
       const social = socials[key];
@@ -1229,15 +1494,52 @@ function renderSocialsAsLinkBlocks(
     .join("");
 }
 
-// Social links as icon-only (for sidebar); uses darkPath when available for dark theme
+// Base URL for social icons (same approach as skills – guaranteed to load in static HTML / GitHub Pages)
+const SOCIAL_ICONS_BASE =
+  "https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials";
+
+// Platforms that only have a single icon file (no -dark.svg) in the CDN
+const SOCIAL_ICON_LIGHT_ONLY = new Set(["gitlab", "cal"]);
+
+/** Get Cal.com booking URL from socials if present and valid */
+function getCalUrl(socials: ProfileJson["profile"]["socials"]): string | null {
+  const cal = socials?.cal;
+  if (!cal || typeof cal === "string") return null;
+  const url = `${cal.linkPrefix}${cal.linkSuffix || ""}${cal.linkSuffixTwo || ""}`.trim();
+  if (!url || url === cal.linkPrefix) return null;
+  return url;
+}
+
+/** Resolve social icon src: use path/darkPath if absolute URL, else fallback to raw GitHub (like skills) */
+function getSocialIconSrc(
+  key: string,
+  social: { path?: string; darkPath?: string },
+  darkTheme: boolean
+): string {
+  const preferred = darkTheme
+    ? social.darkPath || social.path
+    : social.path || social.darkPath;
+  if (preferred && preferred.startsWith("http")) return preferred;
+  // Force show via CDN so icons load in preview iframe and on GitHub Pages
+  const filename =
+    darkTheme && !SOCIAL_ICON_LIGHT_ONLY.has(key)
+      ? `${key}-dark.svg`
+      : `${key}.svg`;
+  return `${SOCIAL_ICONS_BASE}/${filename}`;
+}
+
+// Social links as icon-only (hero/sidebar); uses darkPath when available, fallback to CDN like skills
 function renderSocialsIconsOnly(
   socials: ProfileJson["profile"]["socials"],
-  socialOrder: string[]
+  socialOrder: string[],
+  darkTheme: boolean = true,
+  excludeKeys: string[] = []
 ): string {
-  const ordered =
+  const ordered = (
     socialOrder.length > 0
       ? socialOrder.filter((key) => socials[key])
-      : Object.keys(socials);
+      : Object.keys(socials)
+  ).filter((key) => !excludeKeys.includes(key));
   return ordered
     .map((key) => {
       const social = socials[key];
@@ -1246,7 +1548,7 @@ function renderSocialsIconsOnly(
         social.linkSuffixTwo || ""
       }`.trim();
       if (!url || url === social.linkPrefix) return "";
-      const iconPath = social.darkPath || social.path;
+      const iconPath = getSocialIconSrc(key, social, darkTheme);
       return `<a href="${escapeHtml(
         url
       )}" class="sidebar-social-icon" target="_blank" rel="noopener noreferrer" title="${escapeHtml(

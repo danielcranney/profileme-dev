@@ -27,7 +27,12 @@ export default function LinksPageRenderer() {
   const { githubToken } = useAuth();
   const [iframeSrc, setIframeSrc] = useState(null);
   const [error, setError] = useState(null);
-  const [enriched, setEnriched] = useState({ portfolioOgImage: null, featuredRepos: [] });
+  const [enriched, setEnriched] = useState({
+    portfolioOgImage: null,
+    featuredRepos: [],
+    githubUserStats: null,
+    contributionCalendar: null,
+  });
   const prevBlobUrlRef = useRef(null);
   const lastContentKeyRef = useRef(null);
 
@@ -35,7 +40,12 @@ export default function LinksPageRenderer() {
   const portfolioLink = state?.introduction?.portfolioLink?.trim?.();
   useEffect(() => {
     if (!githubToken) {
-      setEnriched({ portfolioOgImage: null, featuredRepos: [] });
+      setEnriched({
+        portfolioOgImage: null,
+        featuredRepos: [],
+        githubUserStats: null,
+        contributionCalendar: null,
+      });
       return;
     }
     let cancelled = false;
@@ -51,11 +61,19 @@ export default function LinksPageRenderer() {
           setEnriched({
             portfolioOgImage: data.portfolioOgImage ?? null,
             featuredRepos: Array.isArray(data.featuredRepos) ? data.featuredRepos : [],
+            githubUserStats: data.githubUserStats ?? null,
+            contributionCalendar: data.contributionCalendar ?? null,
           });
         }
       })
       .catch(() => {
-        if (!cancelled) setEnriched({ portfolioOgImage: null, featuredRepos: [] });
+        if (!cancelled)
+          setEnriched({
+            portfolioOgImage: null,
+            featuredRepos: [],
+            githubUserStats: null,
+            contributionCalendar: null,
+          });
       });
     return () => { cancelled = true; };
   }, [githubToken, portfolioLink]);
@@ -81,8 +99,13 @@ export default function LinksPageRenderer() {
         profileJson = stateToProfileJson(state);
       }
 
-      // Merge enriched preview data (OG image, featured repos) when available
-      if (enriched.portfolioOgImage || enriched.featuredRepos.length > 0) {
+      // Merge enriched preview data (OG image, featured repos, GitHub stats, contribution graph)
+      if (
+        enriched.portfolioOgImage ||
+        enriched.featuredRepos.length > 0 ||
+        enriched.githubUserStats ||
+        enriched.contributionCalendar
+      ) {
         profileJson = {
           ...profileJson,
           portfolio: {
@@ -91,6 +114,8 @@ export default function LinksPageRenderer() {
               ...profileJson.portfolio?.options,
               ...(enriched.portfolioOgImage && { portfolioOgImage: enriched.portfolioOgImage }),
               ...(enriched.featuredRepos.length > 0 && { featuredRepos: enriched.featuredRepos }),
+              ...(enriched.githubUserStats && { githubUserStats: enriched.githubUserStats }),
+              ...(enriched.contributionCalendar && { contributionCalendar: enriched.contributionCalendar }),
             },
           },
         };

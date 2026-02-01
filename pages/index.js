@@ -398,10 +398,10 @@ Web Developer
               <div className="flex gap-4 mx-auto items-center">
                 <div className="w-10 sm:w-12 md:w-12">
                   <img
-                    src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/polywork.svg"
+                    src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/socials/cal.svg"
                     width="100%"
                     className="scale-100 transition-all duration-300 hover:scale-125 ease-in-out"
-                    alt="Polywork"
+                    alt="Cal.com"
                   />
                 </div>
                 <div className="w-10 sm:w-12 md:w-12">

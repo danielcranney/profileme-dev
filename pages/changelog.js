@@ -601,7 +601,7 @@ export default function Changelog() {
                     <MicroButton buttonStyle={"btn-new"} text={"New"} />
                   </div>
                   <p className="text-sm mb-0">
-                    Polywork profile added to socials section
+                    Cal.com (Book a call) added to socials section
                   </p>
                 </li>
 

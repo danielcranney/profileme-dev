@@ -20,7 +20,7 @@ const MinimalSocialFormInput = forwardRef((props, ref) => {
       "medium",
       "devdotto",
       "linkedin",
-      "polywork",
+      "cal",
       "twitch",
       "youtube",
       "discord",

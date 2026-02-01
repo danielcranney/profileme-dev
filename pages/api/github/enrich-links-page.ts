@@ -10,7 +10,15 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import { getToken } from "../../../lib/github/token";
 import { getUsername } from "../../../lib/github/repo";
 import { getFeaturedRepos } from "../../../lib/github/repos";
+import {
+  getGitHubUserStats,
+  getContributionCalendar,
+} from "../../../lib/github/user";
 import { getOgImageUrl } from "../../../lib/og-image";
+import {
+  getCachedEnrichData,
+  setCachedEnrichData,
+} from "../../../lib/github/enrich-cache";
 
 export default async function handler(
   req: NextApiRequest,
@@ -35,6 +43,27 @@ export default async function handler(
 
   try {
     const username = await getUsername(req, res);
+    const cached = getCachedEnrichData(username);
+
+    let githubUserStats: Awaited<ReturnType<typeof getGitHubUserStats>>;
+    let contributionCalendar: Awaited<ReturnType<typeof getContributionCalendar>>;
+
+    if (cached) {
+      githubUserStats = cached.githubUserStats;
+      contributionCalendar = cached.contributionCalendar;
+    } else {
+      const [stats, cal] = await Promise.all([
+        getGitHubUserStats(token, username),
+        getContributionCalendar(token, username),
+      ]);
+      githubUserStats = stats;
+      contributionCalendar = cal;
+      setCachedEnrichData(username, {
+        githubUserStats: stats,
+        contributionCalendar: cal,
+      });
+    }
+
     const [portfolioOgImage, featuredRepos] = await Promise.all([
       portfolioLink
         ? getOgImageUrl(portfolioLink).then((url) => url ?? null)
@@ -45,6 +74,8 @@ export default async function handler(
     return res.status(200).json({
       portfolioOgImage,
       featuredRepos,
+      githubUserStats: githubUserStats ?? null,
+      contributionCalendar: contributionCalendar ?? null,
     });
   } catch (err: any) {
     console.error("Enrich links page error:", err);

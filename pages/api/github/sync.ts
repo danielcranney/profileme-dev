@@ -20,6 +20,14 @@ import {
   unifiedBatchSync,
 } from "../../../lib/github/repo";
 import { getFeaturedRepos } from "../../../lib/github/repos";
+import {
+  getGitHubUserStats,
+  getContributionCalendar,
+} from "../../../lib/github/user";
+import {
+  getCachedEnrichData,
+  setCachedEnrichData,
+} from "../../../lib/github/enrich-cache";
 import { getOgImageUrl } from "../../../lib/og-image";
 import { profileJsonSchema } from "../../../lib/profile/schema";
 import { renderReadme } from "../../../lib/profile/renderer";
@@ -95,15 +103,35 @@ export default async function handler(
       }
     }
 
-    // Enrich with portfolio OG image and featured GitHub repos (for portfolio template)
+    // Enrich with portfolio OG image, featured repos, GitHub stats, and contribution graph (stats/calendar cached once per day per user)
     const portfolioLink = profileJson.profile?.introduction?.portfolioLink?.trim();
+    const cached = getCachedEnrichData(username);
+    let githubUserStats: Awaited<ReturnType<typeof getGitHubUserStats>>;
+    let contributionCalendar: Awaited<ReturnType<typeof getContributionCalendar>>;
+    if (cached) {
+      githubUserStats = cached.githubUserStats;
+      contributionCalendar = cached.contributionCalendar;
+    } else {
+      const [stats, cal] = await Promise.all([
+        getGitHubUserStats(token, username),
+        getContributionCalendar(token, username),
+      ]);
+      githubUserStats = stats;
+      contributionCalendar = cal;
+      setCachedEnrichData(username, { githubUserStats: stats, contributionCalendar: cal });
+    }
     const [ogImage, featuredRepos] = await Promise.all([
       portfolioLink && !profileJson.portfolio?.options?.portfolioOgImage
         ? getOgImageUrl(portfolioLink).then((url) => url ?? undefined)
         : Promise.resolve(undefined),
       getFeaturedRepos(token, username, 6),
     ]);
-    if (ogImage !== undefined || featuredRepos.length > 0) {
+    if (
+      ogImage !== undefined ||
+      featuredRepos.length > 0 ||
+      githubUserStats !== null ||
+      contributionCalendar !== null
+    ) {
       profileJson = {
         ...profileJson,
         portfolio: {
@@ -112,6 +140,10 @@ export default async function handler(
             ...profileJson.portfolio?.options,
             ...(ogImage !== undefined && { portfolioOgImage: ogImage }),
             ...(featuredRepos.length > 0 && { featuredRepos }),
+            ...(githubUserStats !== null && { githubUserStats }),
+            ...(contributionCalendar !== null && {
+              contributionCalendar,
+            }),
           },
         },
       };

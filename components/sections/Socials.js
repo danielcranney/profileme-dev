@@ -20,7 +20,7 @@ const Socials = React.forwardRef((props, ref) => {
   const githubRef = useRef();
   const gitlabRef = useRef();
   const hashnodeRef = useRef();
-  const polyworkRef = useRef();
+  const calRef = useRef();
   const instagramRef = useRef();
   const linkedinRef = useRef();
   const mediumRef = useRef();
@@ -143,14 +143,14 @@ const Socials = React.forwardRef((props, ref) => {
             action={ACTIONS.ADD_SOCIAL_PROFILE}
           />
 
-          {/* Polywork Input */}
+          {/* Cal.com Input */}
           <SocialItem
-            ref={polyworkRef}
+            ref={calRef}
             section={"socials"}
-            account={"polywork"}
+            account={"cal"}
             inputPlaceholder={"yourname"}
-            formLabelText={"Polywork profile:"}
-            linkPrefix={state.socials.polywork.linkPrefix}
+            formLabelText={"Cal.com / Book a call:"}
+            linkPrefix={state.socials.cal.linkPrefix}
             action={ACTIONS.ADD_SOCIAL_PROFILE}
           />
 

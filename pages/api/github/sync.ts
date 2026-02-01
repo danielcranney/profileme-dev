@@ -19,7 +19,6 @@ import {
   batchUpdateFiles,
   unifiedBatchSync,
 } from "../../../lib/github/repo";
-import { getFeaturedRepos } from "../../../lib/github/repos";
 import {
   getGitHubUserStats,
   getContributionCalendar,
@@ -120,15 +119,12 @@ export default async function handler(
       contributionCalendar = cal;
       setCachedEnrichData(username, { githubUserStats: stats, contributionCalendar: cal });
     }
-    const [ogImage, featuredRepos] = await Promise.all([
+    const ogImage =
       portfolioLink && !profileJson.portfolio?.options?.portfolioOgImage
-        ? getOgImageUrl(portfolioLink).then((url) => url ?? undefined)
-        : Promise.resolve(undefined),
-      getFeaturedRepos(token, username, 6),
-    ]);
+        ? await getOgImageUrl(portfolioLink).then((url) => url ?? undefined)
+        : undefined;
     if (
       ogImage !== undefined ||
-      featuredRepos.length > 0 ||
       githubUserStats !== null ||
       contributionCalendar !== null
     ) {
@@ -139,7 +135,6 @@ export default async function handler(
           options: {
             ...profileJson.portfolio?.options,
             ...(ogImage !== undefined && { portfolioOgImage: ogImage }),
-            ...(featuredRepos.length > 0 && { featuredRepos }),
             ...(githubUserStats !== null && { githubUserStats }),
             ...(contributionCalendar !== null && {
               contributionCalendar,

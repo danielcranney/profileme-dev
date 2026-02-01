@@ -8,7 +8,7 @@
  *
  * When the user is authenticated, we fetch links page OG image and featured
  * GitHub repos from the enrich API and merge them into the preview so the
- * card and Projects section show before the first sync.
+ * card before the first sync.
  *
  * Uses a blob URL for the iframe so the document loads reliably (srcDoc can
  * appear blank in some browsers/sandbox combinations).
@@ -42,7 +42,6 @@ export default function LinksPageRenderer() {
     if (!githubToken) {
       setEnriched({
         portfolioOgImage: null,
-        featuredRepos: [],
         githubUserStats: null,
         contributionCalendar: null,
       });
@@ -99,10 +98,9 @@ export default function LinksPageRenderer() {
         profileJson = stateToProfileJson(state);
       }
 
-      // Merge enriched preview data (OG image, featured repos, GitHub stats, contribution graph)
+      // Merge enriched preview data (OG image, GitHub stats, contribution graph)
       if (
         enriched.portfolioOgImage ||
-        enriched.featuredRepos.length > 0 ||
         enriched.githubUserStats ||
         enriched.contributionCalendar
       ) {
@@ -113,7 +111,6 @@ export default function LinksPageRenderer() {
             options: {
               ...profileJson.portfolio?.options,
               ...(enriched.portfolioOgImage && { portfolioOgImage: enriched.portfolioOgImage }),
-              ...(enriched.featuredRepos.length > 0 && { featuredRepos: enriched.featuredRepos }),
               ...(enriched.githubUserStats && { githubUserStats: enriched.githubUserStats }),
               ...(enriched.contributionCalendar && { contributionCalendar: enriched.contributionCalendar }),
             },
@@ -175,7 +172,7 @@ export default function LinksPageRenderer() {
     <div className="relative w-full h-full min-h-[600px] flex flex-col">
       <iframe
         src={iframeSrc}
-        className="flex-1 w-full min-h-[600px] border border-gray-300 dark:border-dark-600 rounded bg-white dark:bg-dark-800"
+        className="flex-1 w-full min-h-[600px] border border-gray-300 dark:border-dark-600 bg-white dark:bg-dark-800"
         title="Links page Preview"
         sandbox="allow-same-origin allow-scripts allow-popups"
       />

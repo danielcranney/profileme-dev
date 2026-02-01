@@ -1,15 +1,14 @@
 /**
  * Enrich Links Page Preview API
  *
- * Fetches OG image for the links page URL and featured GitHub repos.
- * Used so the in-app Links page preview shows the card and Projects
- * section before the user has synced (data is merged client-side for preview only).
+ * Fetches OG image for the links page URL.
+ * Used so the in-app Links page preview shows the card before the user has synced
+ * (data is merged client-side for preview only).
  */
 
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getToken } from "../../../lib/github/token";
 import { getUsername } from "../../../lib/github/repo";
-import { getFeaturedRepos } from "../../../lib/github/repos";
 import {
   getGitHubUserStats,
   getContributionCalendar,
@@ -64,16 +63,12 @@ export default async function handler(
       });
     }
 
-    const [portfolioOgImage, featuredRepos] = await Promise.all([
-      portfolioLink
-        ? getOgImageUrl(portfolioLink).then((url) => url ?? null)
-        : Promise.resolve(null),
-      getFeaturedRepos(token, username, 6),
-    ]);
+    const portfolioOgImage = portfolioLink
+      ? await getOgImageUrl(portfolioLink).then((url) => url ?? null)
+      : null;
 
     return res.status(200).json({
       portfolioOgImage,
-      featuredRepos,
       githubUserStats: githubUserStats ?? null,
       contributionCalendar: contributionCalendar ?? null,
     });

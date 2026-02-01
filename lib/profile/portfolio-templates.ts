@@ -175,9 +175,6 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
   const portfolioOgImage = portfolio?.options?.portfolioOgImage as
     | string
     | undefined;
-  const featuredRepos = portfolio?.options?.featuredRepos as
-    | FeaturedRepoEntry[]
-    | undefined;
   const githubUserStats = portfolio?.options?.githubUserStats as
     | { publicRepos: number; followers: number; totalStars: number }
     | undefined;
@@ -204,8 +201,8 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
       line-height: 1.6;
-      color: #d1d5db;
-      background: #141921;
+      color: #b5b9d6;
+      background: #181824;
       padding-top: 5px;
     }
     .accent-bar-fixed {
@@ -226,7 +223,7 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
     .page-card {
       width: 100%;
       max-width: 680px;
-      background: #1a2234;
+      background: #1d1d2b;
       border-radius: 20px;
       overflow: hidden;
       box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
@@ -251,15 +248,15 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
       height: 104px;
       margin: 0 0 1rem 0;
       border-radius: 50%;
-      background: #2c3440;
-      color: #9ca3af;
+      background: #29293b;
+      color: #b5b9d6;
       font-size: 2.25rem;
       font-weight: 600;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      border: 4px solid #1a2234;
+      border: 4px solid #1d1d2b;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
     }
     .hero-avatar img {
@@ -278,14 +275,14 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
     .hero-title {
       font-size: 0.9375rem;
       font-weight: 600;
-      color: #94a3b8;
+      color: #b5b9d6;
       margin-bottom: 0.75rem;
       line-height: 1.4;
     }
     .hero-bio {
       font-size: 0.9375rem;
       font-weight: 400;
-      color: #d1d5db;
+      color: #b5b9d6;
       line-height: 1.7;
       max-width: 480px;
       margin: 0 0 1.25rem 0;
@@ -302,17 +299,17 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
       align-items: center;
       gap: 0.5rem;
       font-size: 0.875rem;
-      color: #94a3b8;
+      color: #b5b9d6;
     }
     .hero-contact-item svg {
       flex-shrink: 0;
-      color: #64748b;
+      color: #53566b;
     }
     .hero-contact-item a {
-      color: #94a3b8;
+      color: #b5b9d6;
       text-decoration: none;
     }
-    .hero-contact-item a:hover { color: #e2e8f0; text-decoration: underline; }
+    .hero-contact-item a:hover { color: #b5b9d6; text-decoration: underline; }
     .hero-socials {
       display: flex;
       flex-wrap: wrap;
@@ -332,12 +329,12 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
       width: 40px;
       height: 40px;
       border-radius: 10px;
-      background: #2c3440;
-      color: #d1d5db;
+      background: #29293b;
+      color: #b5b9d6;
       transition: background 0.2s, transform 0.15s;
     }
     .hero-social-icon:hover {
-      background: #374151;
+      background: #393950;
       transform: translateY(-2px);
     }
     .hero-social-icon img {
@@ -377,7 +374,7 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
       color: #ffffff;
       margin-bottom: 0.75rem;
       padding-bottom: 0.5rem;
-      border-bottom: 1px solid #2c3440;
+      border-bottom: 1px solid #393950;
     }
     .skills-category,
     .main .skill-category {
@@ -412,7 +409,7 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
     .main .skill-item-text {
       font-size: 0.75rem;
       font-weight: 600;
-      color: #9ca3af;
+      color: #b5b9d6;
       min-width: 2rem;
       text-align: center;
     }
@@ -426,14 +423,14 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
       padding: 0.375rem 0.875rem;
       font-size: 0.875rem;
       font-weight: 500;
-      color: #d1d5db;
-      background: #2c3440;
+      color: #b5b9d6;
+      background: #29293b;
       border-radius: 9999px;
     }
     .experience-timeline {
       position: relative;
       padding-left: 1.5rem;
-      border-left: 2px solid #2c3440;
+      border-left: 2px solid #393950;
       margin-left: 0.25rem;
     }
     .experience-entry {
@@ -448,7 +445,7 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
       width: 10px;
       height: 10px;
       border-radius: 50%;
-      background: #d1d5db;
+      background: #b5b9d6;
     }
     .experience-content { padding-left: 0; }
     .experience-header {
@@ -466,22 +463,22 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
     }
     .experience-dates {
       font-size: 0.875rem;
-      color: #9ca3af;
+      color: #b5b9d6;
     }
     .experience-company {
       font-size: 0.9375rem;
-      color: #9ca3af;
+      color: #b5b9d6;
       margin-bottom: 0.5rem;
     }
     .experience-description {
       font-size: 0.875rem;
-      color: #d1d5db;
+      color: #b5b9d6;
       line-height: 1.6;
     }
     .main-section { margin-bottom: 2.5rem; }
     .main .section-description {
       font-size: 0.9375rem;
-      color: #d1d5db;
+      color: #b5b9d6;
       line-height: 1.7;
     }
     .main .section-socials {
@@ -494,35 +491,58 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
       align-items: center;
       gap: 0.5rem;
       padding: 0.5rem 1rem;
-      background: #2c3440;
-      color: #e5e7eb;
+      background: #29293b;
+      color: #b5b9d6;
       text-decoration: none;
       border-radius: 6px;
       font-size: 0.9rem;
       transition: background 0.2s;
     }
-    .main .social-link:hover { background: #374151; }
+    .main .social-link:hover { background: #393950; }
     .link-blocks-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1rem;
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+    .link-block-wrap {
+      position: relative;
+      display: block;
+    }
+    .link-block-wrap--with-pill .link-block {
+      padding-right: 3.25rem;
+    }
+    .link-block-pill {
+      position: absolute;
+      top: 50%;
+      right: 0.375rem;
+      transform: translateY(-50%);
+      padding: 0.125rem 0.375rem;
+      font-size: 0.5625rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #9ca3af;
+      background: #393950;
+      border-radius: 9999px;
+      pointer-events: none;
+      z-index: 1;
     }
     .link-block {
       display: flex;
       align-items: center;
       gap: 1rem;
       padding: 1rem 1.25rem;
-      background: #2c3440;
-      border-radius: 12px;
+      background: #29293b;
+      border-radius: 0;
       border-left: 4px solid var(--block-color, ${escapeHtml(accentColor)});
       text-decoration: none;
-      color: #e5e7eb;
+      color: #b5b9d6;
       font-size: 0.9375rem;
       font-weight: 500;
       transition: background 0.2s, transform 0.15s;
     }
     .link-block:hover {
-      background: #374151;
+      background: #393950;
       transform: translateX(2px);
     }
     .link-block-icon {
@@ -549,7 +569,7 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
       border-radius: 12px;
       overflow: hidden;
       text-decoration: none;
-      background: #2c3440;
+      background: #29293b;
     }
     .portfolio-card-bg {
       position: absolute;
@@ -583,12 +603,12 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
     .project-card {
       display: block;
       padding: 1.25rem;
-      background: #2c3440;
+      background: #29293b;
       border-radius: 12px;
       text-decoration: none;
       transition: background 0.2s;
     }
-    .project-card:hover { background: #374151; }
+    .project-card:hover { background: #393950; }
     .project-card-title {
       font-size: 1rem;
       font-weight: 700;
@@ -597,7 +617,7 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
     }
     .project-card-desc {
       font-size: 0.875rem;
-      color: #d1d5db;
+      color: #b5b9d6;
       line-height: 1.5;
       margin-bottom: 0.75rem;
     }
@@ -605,46 +625,16 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
       display: flex;
       gap: 1rem;
       font-size: 0.8125rem;
-      color: #9ca3af;
+      color: #b5b9d6;
     }
     .project-card-stars,
     .project-card-lang { display: inline; }
-    .github-stats-block {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
-      border-radius: 12px;
-      border: 1px solid #374151;
-      background: #252d38;
-      overflow: hidden;
-      margin-bottom: 1.25rem;
-    }
-    .github-stats-block.cols-3 { grid-template-columns: repeat(3, 1fr); }
-    .github-stats-block.cols-4 { grid-template-columns: repeat(4, 1fr); }
-    .github-stats-cell {
-      padding: 1rem 1.25rem;
-      text-align: center;
-      border-right: 1px solid #374151;
-    }
-    .github-stats-cell:last-child { border-right: none; }
-    .github-stats-value {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #ffffff;
-      line-height: 1.2;
-      display: block;
-      margin-bottom: 0.25rem;
-    }
-    .github-stats-label {
-      font-size: 0.8125rem;
-      font-weight: 500;
-      color: #9ca3af;
-    }
     .github-graph-wrap {
       border-radius: 12px;
       overflow: hidden;
-      background: #161b22;
+      background: #1d1d2b;
       padding: 12px;
-      border: 1px solid #374151;
+      border: 1px solid #393950;
     }
     .github-graph-grid {
       display: grid;
@@ -658,21 +648,21 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
       border-radius: 3px;
       min-width: 0;
     }
-    .github-graph-cell--0 { background: #21262d; }
-    .github-graph-cell--1 { background: #0e4429; }
-    .github-graph-cell--2 { background: #006d32; }
-    .github-graph-cell--3 { background: #26a641; }
-    .github-graph-cell--4 { background: #39d353; }
+    .github-graph-cell--0 { background: #393950; }
+    .github-graph-cell--1 { background: rgba(${accentRgb}, 0.35); }
+    .github-graph-cell--2 { background: rgba(${accentRgb}, 0.55); }
+    .github-graph-cell--3 { background: rgba(${accentRgb}, 0.8); }
+    .github-graph-cell--4 { background: ${escapeHtml(accentColor)}; }
     .github-graph-inner { padding: 0; }
     .github-graph-total {
       font-size: 0.8125rem;
       font-weight: 600;
-      color: #e5e7eb;
+      color: #b5b9d6;
       margin-bottom: 8px;
     }
     .github-graph-timeline {
       font-size: 0.75rem;
-      color: #9ca3af;
+      color: #b5b9d6;
       margin-bottom: 8px;
       font-weight: 500;
     }
@@ -683,7 +673,7 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
       gap: 12px 16px;
       margin-top: 10px;
       font-size: 0.6875rem;
-      color: #9ca3af;
+      color: #b5b9d6;
     }
     .github-graph-legend-item {
       display: inline-flex;
@@ -700,11 +690,11 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
     footer {
       margin-top: 2.5rem;
       padding-top: 1.5rem;
-      border-top: 1px solid #2c3440;
+      border-top: 1px solid #393950;
       font-size: 0.8125rem;
-      color: #6b7280;
+      color: #53566b;
     }
-    footer a { color: #60a5fa; text-decoration: none; }
+    footer a { color: #139ae1; text-decoration: none; }
     footer a:hover { text-decoration: underline; }
     @media (max-width: 768px) {
       .page-wrapper { padding: 1rem 0.75rem 2rem; }
@@ -714,10 +704,6 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
       .hero-avatar { width: 88px; height: 88px; font-size: 1.875rem; border-width: 3px; }
       .hero-name { font-size: 1.5rem; }
       .card-content { padding: 0 1.5rem 2rem; }
-      .github-stats-block.cols-3,
-      .github-stats-block.cols-4 { grid-template-columns: 1fr; }
-      .github-stats-cell { border-right: none; border-bottom: 1px solid #374151; }
-      .github-stats-cell:last-child { border-bottom: none; }
     }
   </style>
 </head>
@@ -793,65 +779,20 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
           : ""
       }
       ${
-        githubUserStats || contributionCalendar
+        contributionCalendar
           ? `
       <section class="main-section" id="github">
         <h2 class="section-title">GitHub</h2>
-        ${
-          githubUserStats
-            ? (() => {
-                const showContributions =
-                  typeof contributionCalendar?.totalContributions === "number";
-                const cols = showContributions ? "cols-4" : "cols-3";
-                return `
-        <div class="github-stats-block ${cols}">
-          <div class="github-stats-cell">
-            <span class="github-stats-value">${escapeHtml(
-              String(githubUserStats.publicRepos)
-            )}</span>
-            <span class="github-stats-label">Public repos</span>
-          </div>
-          <div class="github-stats-cell">
-            <span class="github-stats-value">${escapeHtml(
-              String(githubUserStats.followers)
-            )}</span>
-            <span class="github-stats-label">Followers</span>
-          </div>
-          <div class="github-stats-cell">
-            <span class="github-stats-value">${escapeHtml(
-              String(githubUserStats.totalStars)
-            )}</span>
-            <span class="github-stats-label">Total stars</span>
-          </div>${
-                  showContributions
-                    ? `
-          <div class="github-stats-cell">
-            <span class="github-stats-value">${escapeHtml(
-              contributionCalendar!.totalContributions!.toLocaleString()
-            )}</span>
-            <span class="github-stats-label">Contributions (12 mo)</span>
-          </div>`
-                    : ""
-                }
-        </div>`;
-              })()
-            : ""
-        }
-        ${
-          contributionCalendar
-            ? `
         <div class="github-graph-wrap">
           ${
-            typeof contributionCalendar.totalContributions === "number" && !githubUserStats
+            typeof contributionCalendar.totalContributions === "number"
               ? `<p class="github-graph-total">${escapeHtml(
                   contributionCalendar.totalContributions.toLocaleString()
                 )} contributions in the last 12 months</p>`
               : ""
           }
           ${renderContributionGraph(contributionCalendar)}
-        </div>`
-            : ""
-        }
+        </div>
       </section>
       `
           : ""
@@ -867,107 +808,33 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
           : ""
       }
       ${
-        introduction.workingOnTitle && introduction.workingOnLink
-          ? `
-      <section class="main-section" id="working-on">
-        <h2 class="section-title">Currently Working On</h2>
-        <div class="link-blocks-grid">
-          ${renderLinkBlock(
-            introduction.workingOnLink,
-            introduction.workingOnTitle,
-            accentColor
-          )}
-        </div>
-      </section>
-      `
-          : ""
-      }
-      ${
-        introduction.portfolioTitle && introduction.portfolioLink
-          ? `
-      <section class="main-section" id="portfolio">
-        <h2 class="section-title">Portfolio</h2>
-        ${
-          portfolioOgImage
-            ? `
-        <a href="${escapeHtml(
-          introduction.portfolioLink
-        )}" class="portfolio-card" target="_blank" rel="noopener noreferrer">
-          <div class="portfolio-card-bg" style="background-image: url(${escapeHtml(
-            portfolioOgImage
-          )});"></div>
-          <div class="portfolio-card-overlay"></div>
-          <div class="portfolio-card-content">
-            <span class="portfolio-card-title">${escapeHtml(
-              introduction.portfolioTitle
-            )}</span>
-          </div>
-        </a>
-        `
-            : `
-        <div class="link-blocks-grid">
-          ${renderLinkBlock(
-            introduction.portfolioLink,
-            introduction.portfolioTitle,
-            accentColor
-          )}
-        </div>
-        `
-        }
-      </section>
-      `
-          : ""
-      }
-      ${
-        featuredRepos && featuredRepos.length > 0
-          ? `
-      <section class="main-section" id="projects">
-        <h2 class="section-title">Projects</h2>
-        <div class="projects-grid">${renderFeaturedRepos(featuredRepos)}</div>
-      </section>
-      `
-          : ""
-      }
-      ${
-        introduction.learning
-          ? `
-      <section class="main-section" id="learning">
-        <h2 class="section-title">Currently Learning</h2>
-        <div class="section-description">${formatDescription(
-          introduction.learning
-        )}</div>
-      </section>
-      `
-          : ""
-      }
-      ${
-        introduction.collaborateOn
-          ? `
-      <section class="main-section" id="collaborate">
-        <h2 class="section-title">Looking to Collaborate On</h2>
-        <div class="section-description">${formatDescription(
-          introduction.collaborateOn
-        )}</div>
-      </section>
-      `
-          : ""
-      }
-      ${
-        Object.keys(socials).length > 0
-          ? `
-      <section class="main-section" id="connect">
-        <h2 class="section-title">Connect</h2>
-        <div class="link-blocks-grid">
-          ${renderSocialsAsLinkBlocks(
+        (() => {
+          const blocks = getFeaturedLinkBlocks(
+            introduction,
             socials,
-            profile.socialOrder,
-            accentColor,
-            ["polywork"]
-          )}
+            profile.socialOrder
+          );
+          if (blocks.length === 0) return "";
+          return `
+      <section class="main-section" id="links">
+        <h2 class="section-title">Links</h2>
+        <div class="link-blocks-grid">
+          ${blocks
+            .map(({ url, label, source }) => {
+              const showPill = LINK_SOURCES_WITH_PILL.has(source);
+              const pill = showPill
+                ? `<span class="link-block-pill">${escapeHtml(source)}</span>`
+                : "";
+              const wrapClass = showPill
+                ? "link-block-wrap link-block-wrap--with-pill"
+                : "link-block-wrap";
+              return `<div class="${wrapClass}">${pill}${renderLinkBlock(url, label, accentColor)}</div>`;
+            })
+            .join("")}
         </div>
       </section>
-      `
-          : ""
+      `;
+        })()
       }
       ${
         introduction.additionalInfo
@@ -1323,9 +1190,29 @@ const LINK_PLATFORMS: { pattern: RegExp; platform: LinkPlatform }[] = [
     platform: {
       id: "twitter",
       name: "X",
-      color: "#0f1419",
+      color: "#ffffff",
       iconSvg:
         '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>',
+    },
+  },
+  {
+    pattern: /threads\.net/i,
+    platform: {
+      id: "threads",
+      name: "Threads",
+      color: "#ffffff",
+      iconSvg:
+        '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><g transform="scale(0.125)"><path d="M141.537 88.9883C140.71 88.5919 139.87 88.2104 139.019 87.8451C137.537 60.5382 122.616 44.905 97.5619 44.745C97.4484 44.7443 97.3355 44.7443 97.222 44.7443C82.2364 44.7443 69.7731 51.1409 62.102 62.7807L75.881 72.2328C81.6116 63.5383 90.6052 61.6848 97.2286 61.6848C97.3051 61.6848 97.3819 61.6848 97.4576 61.6855C105.707 61.7381 111.932 64.1366 115.961 68.814C118.893 72.2193 120.854 76.925 121.825 82.8638C114.511 81.6207 106.601 81.2385 98.145 81.7233C74.3247 83.0954 59.0111 96.9879 60.0396 116.292C60.5615 126.084 65.4397 134.508 73.775 140.011C80.8224 144.663 89.899 146.938 99.3323 146.423C111.79 145.74 121.563 140.987 128.381 132.296C133.559 125.696 136.834 117.143 138.28 106.366C144.217 109.949 148.617 114.664 151.047 120.332C155.179 129.967 155.42 145.8 142.501 158.708C131.182 170.016 117.576 174.908 97.0135 175.059C74.2042 174.89 56.9538 167.575 45.7381 153.317C35.2355 139.966 29.8077 120.682 29.6052 96C29.8077 71.3178 35.2355 52.0336 45.7381 38.6827C56.9538 24.4249 74.2039 17.11 97.0132 16.9405C119.988 17.1113 137.539 24.4614 149.184 38.788C154.894 45.8136 159.199 54.6488 162.037 64.9503L178.184 60.6422C174.744 47.9622 169.331 37.0357 161.965 27.974C147.036 9.60668 125.202 0.195148 97.0695 0H96.9569C68.8816 0.19447 47.2921 9.6418 32.7883 28.0793C19.8819 44.4864 13.2244 67.3157 13.0007 95.9325L13 96L13.0007 96.0675C13.2244 124.684 19.8819 147.514 32.7883 163.921C47.2921 182.358 68.8816 191.806 96.9569 192H97.0695C122.03 191.827 139.624 185.292 154.118 170.811C173.081 151.866 172.51 128.119 166.26 113.541C161.776 103.087 153.227 94.5962 141.537 88.9883ZM98.4405 129.507C88.0005 130.095 77.1544 125.409 76.6196 115.372C76.2232 107.93 81.9158 99.626 99.0812 98.6368C101.047 98.5234 102.976 98.468 104.871 98.468C111.106 98.468 116.939 99.0737 122.242 100.233C120.264 124.935 108.662 128.946 98.4405 129.507Z"/></g></svg>',
+    },
+  },
+  {
+    pattern: /hashnode\.(dev|com)/i,
+    platform: {
+      id: "hashnode",
+      name: "Hashnode",
+      color: "#2962FF",
+      iconSvg:
+        '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22.351 8.019l-6.37-6.37a5.63 5.63 0 0 0-7.962 0l-6.37 6.37a5.63 5.63 0 0 0 0 7.962l6.37 6.37a5.63 5.63 0 0 0 7.962 0l6.37-6.37a5.63 5.63 0 0 0 0-7.962zM12 15.953a3.953 3.953 0 1 1 0-7.906 3.953 3.953 0 0 1 0 7.906z"/></svg>',
     },
   },
   {
@@ -1454,10 +1341,13 @@ function getLinkPlatform(url: string): LinkPlatform {
 function renderLinkBlock(
   url: string,
   label: string,
-  accentColor: string
+  accentColor: string,
+  options?: { displayLabel?: string }
 ): string {
   const platform = getLinkPlatform(url);
   const borderColor = platform.color;
+  const displayLabel =
+    options?.displayLabel ?? (platform.id === "twitter" ? "X" : label);
   return `<a href="${escapeHtml(
     url
   )}" class="link-block link-block--${escapeHtml(
@@ -1465,8 +1355,113 @@ function renderLinkBlock(
   )}" style="--block-color: ${escapeHtml(
     borderColor
   )};" target="_blank" rel="noopener noreferrer"><span class="link-block-icon" aria-hidden="true">${platform.iconSvg}</span><span class="link-block-label">${escapeHtml(
-    label
+    displayLabel
   )}</span></a>`;
+}
+
+/** Build URL from a social profile entry */
+function getSocialUrl(social: ProfileJson["profile"]["socials"][string]): string {
+  if (!social || typeof social === "string") return "";
+  const url = `${social.linkPrefix}${social.linkSuffix}${
+    social.linkSuffixTwo || ""
+  }`.trim();
+  return url && url !== social.linkPrefix ? url : "";
+}
+
+/** Sources that get a pill label in the top-right of the link block (on published page too) */
+const LINK_SOURCES_WITH_PILL = new Set(["Currently working on", "Portfolio"]);
+
+/** Human-readable source name for a social key */
+const SOCIAL_SOURCE_LABELS: Record<string, string> = {
+  github: "GitHub profile",
+  youtube: "YouTube channel",
+  twitter: "X",
+  threads: "Threads",
+  linkedin: "LinkedIn",
+  hashnode: "Hashnode",
+  instagram: "Instagram",
+  twitch: "Twitch",
+  discord: "Discord",
+  devto: "Dev.to",
+  codepen: "CodePen",
+  stackoverflow: "Stack Overflow",
+  reddit: "Reddit",
+  tiktok: "TikTok",
+  medium: "Medium",
+};
+
+/**
+ * Collect featured link blocks for the Links section: working on, portfolio,
+ * GitHub profile, YouTube channel, then other socials. Each gets platform styling (e.g. YouTube = red).
+ * Returns { url, label, source } so preview can show which field each block came from.
+ */
+function getFeaturedLinkBlocks(
+  introduction: ProfileJson["profile"]["introduction"],
+  socials: ProfileJson["profile"]["socials"],
+  socialOrder: string[]
+): { url: string; label: string; source: string }[] {
+  const out: { url: string; label: string; source: string }[] = [];
+  const seen = new Set<string>();
+
+  if (introduction.workingOnLink?.trim() && introduction.workingOnTitle?.trim()) {
+    out.push({
+      url: introduction.workingOnLink.trim(),
+      label: introduction.workingOnTitle.trim(),
+      source: "Currently working on",
+    });
+  }
+  if (introduction.portfolioLink?.trim() && introduction.portfolioTitle?.trim()) {
+    out.push({
+      url: introduction.portfolioLink.trim(),
+      label: introduction.portfolioTitle.trim(),
+      source: "Portfolio",
+    });
+  }
+  const github = socials?.github;
+  if (github && typeof github !== "string") {
+    const url = getSocialUrl(github);
+    if (url) {
+      out.push({
+        url,
+        label: github.label?.trim() || "GitHub Profile",
+        source: "GitHub profile",
+      });
+      seen.add("github");
+    }
+  }
+  const youtube = socials?.youtube;
+  if (youtube && typeof youtube !== "string") {
+    const url = getSocialUrl(youtube);
+    if (url) {
+      out.push({
+        url,
+        label: youtube.label?.trim() || "YouTube Channel",
+        source: "YouTube channel",
+      });
+      seen.add("youtube");
+    }
+  }
+  const excludeFromRest = new Set(["cal", "polywork", ...Array.from(seen)]);
+  const ordered = (
+    socialOrder?.length > 0
+      ? socialOrder.filter((key) => socials[key])
+      : Object.keys(socials || {})
+  ).filter((key) => !excludeFromRest.has(key));
+  for (const key of ordered) {
+    const social = socials[key];
+    if (typeof social === "string") continue;
+    const url = getSocialUrl(social);
+    if (!url) continue;
+    const platform = getLinkPlatform(url);
+    const sourceLabel =
+      SOCIAL_SOURCE_LABELS[key] ?? platform.name ?? key;
+    out.push({
+      url,
+      label: social.label?.trim() || key,
+      source: sourceLabel,
+    });
+  }
+  return out;
 }
 
 /** Render Connect socials as platform-styled link blocks (minimal template) */
@@ -1485,10 +1480,8 @@ function renderSocialsAsLinkBlocks(
     .map((key) => {
       const social = socials[key];
       if (typeof social === "string") return "";
-      const url = `${social.linkPrefix}${social.linkSuffix}${
-        social.linkSuffixTwo || ""
-      }`.trim();
-      if (!url || url === social.linkPrefix) return "";
+      const url = getSocialUrl(social);
+      if (!url) return "";
       return renderLinkBlock(url, social.label, accentColor);
     })
     .join("");
@@ -1730,7 +1723,7 @@ function renderSkillsIconsOnly(
       )}" class="skill-icon" loading="lazy">`;
     }
     const initials = getInitials(skill.name);
-    return `<span style="font-size: 0.75rem; font-weight: 600; color: #9ca3af; min-width: 2rem; text-align: center;">${escapeHtml(
+    return `<span style="font-size: 0.75rem; font-weight: 600; color: #b5b9d6; min-width: 2rem; text-align: center;">${escapeHtml(
       initials
     )}</span>`;
   };

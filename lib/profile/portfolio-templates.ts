@@ -60,6 +60,23 @@ function hexToRgb(hex: string): string {
   return "59, 130, 246";
 }
 
+/** Return dark or light text color for best contrast on the given hex background */
+function contrastColor(hex: string): string {
+  const h = (hex || "#3b82f6").replace(/^#/, "");
+  let r = 0, g = 0, b = 0;
+  if (h.length === 6) {
+    r = parseInt(h.slice(0, 2), 16);
+    g = parseInt(h.slice(2, 4), 16);
+    b = parseInt(h.slice(4, 6), 16);
+  } else if (h.length === 3) {
+    r = parseInt(h[0] + h[0], 16);
+    g = parseInt(h[1] + h[1], 16);
+    b = parseInt(h[2] + h[2], 16);
+  }
+  const luminance = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+  return luminance > 0.45 ? "#0f172a" : "#ffffff";
+}
+
 /** Contribution calendar shape from GitHub GraphQL (for custom block graph) */
 interface ContributionCalendarLike {
   totalContributions?: number;
@@ -169,6 +186,7 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
   const email = introduction.emailMe?.trim() || "";
   const location = introduction.location?.trim() || "";
   const heroInitials = getInitialsForAvatar(displayName);
+  const calButtonTextColor = contrastColor(accentColor);
   const experience = portfolio?.options?.experience as
     | ExperienceEntry[]
     | undefined;
@@ -230,7 +248,7 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
     }
     .hero {
       position: relative;
-      text-align: left;
+      text-align: center;
     }
     .hero-gradient {
       height: 120px;
@@ -241,12 +259,12 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
     .hero-body {
       padding: 0 2rem 2rem;
       margin-top: -48px;
-      text-align: left;
+      text-align: center;
     }
     .hero-avatar {
       width: 104px;
       height: 104px;
-      margin: 0 0 1rem 0;
+      margin: 0 auto 1.25rem auto;
       border-radius: 50%;
       background: #29293b;
       color: #b5b9d6;
@@ -268,7 +286,7 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
       font-size: 1.75rem;
       font-weight: 700;
       color: #ffffff;
-      margin-bottom: 0.25rem;
+      margin-bottom: 0.375rem;
       letter-spacing: -0.02em;
       line-height: 1.2;
     }
@@ -276,7 +294,7 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
       font-size: 0.9375rem;
       font-weight: 600;
       color: #b5b9d6;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.5rem;
       line-height: 1.4;
     }
     .hero-bio {
@@ -285,14 +303,14 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
       color: #b5b9d6;
       line-height: 1.7;
       max-width: 480px;
-      margin: 0 0 1.25rem 0;
+      margin: 0 auto 1rem auto;
     }
     .hero-contact {
       display: flex;
       flex-wrap: wrap;
-      justify-content: flex-start;
+      justify-content: center;
       gap: 1rem 1.5rem;
-      margin-bottom: 1.25rem;
+      margin-bottom: 1rem;
     }
     .hero-contact-item {
       display: inline-flex;
@@ -313,13 +331,22 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
     .hero-socials {
       display: flex;
       flex-wrap: wrap;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
       gap: 0.75rem;
+      min-height: 40px;
+    }
+    .hero-socials-divider {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #53566b;
+      flex-shrink: 0;
     }
     .hero-socials-icons {
       display: flex;
       flex-wrap: wrap;
+      align-items: center;
       gap: 0.75rem;
     }
     .hero-social-icon {
@@ -346,15 +373,16 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      height: 40px;
-      padding: 0 1rem;
-      margin-left: auto;
+      height: 32px;
+      padding: 0 0.625rem;
+      box-sizing: border-box;
       background: ${escapeHtml(accentColor)};
-      color: #0f172a;
-      font-size: 0.875rem;
+      color: ${escapeHtml(calButtonTextColor)};
+      font-size: 0.75rem;
       font-weight: 600;
+      line-height: 1;
       text-decoration: none;
-      border-radius: 10px;
+      border-radius: 6px;
       transition: opacity 0.2s, transform 0.15s;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     }
@@ -398,8 +426,8 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
       justify-content: center;
     }
     .main .skill-icon {
-      width: 40px;
-      height: 40px;
+      width: 22px;
+      height: 22px;
       object-fit: contain;
     }
     .main .skill-item picture,
@@ -475,7 +503,7 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
       color: #b5b9d6;
       line-height: 1.6;
     }
-    .main-section { margin-bottom: 2.5rem; }
+    .main-section { margin-bottom: 2rem; }
     .main .section-description {
       font-size: 0.9375rem;
       color: #b5b9d6;
@@ -530,14 +558,14 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
     .link-block {
       display: flex;
       align-items: center;
-      gap: 1rem;
-      padding: 1rem 1.25rem;
+      gap: 0.75rem;
+      padding: 0.625rem 1rem;
       background: #29293b;
       border-radius: 0;
       border-left: 4px solid var(--block-color, ${escapeHtml(accentColor)});
       text-decoration: none;
       color: #b5b9d6;
-      font-size: 0.9375rem;
+      font-size: 0.875rem;
       font-weight: 500;
       transition: background 0.2s, transform 0.15s;
     }
@@ -547,16 +575,16 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
     }
     .link-block-icon {
       flex-shrink: 0;
-      width: 28px;
-      height: 28px;
+      width: 22px;
+      height: 22px;
       display: flex;
       align-items: center;
       justify-content: center;
       color: var(--block-color, ${escapeHtml(accentColor)});
     }
     .link-block-icon svg {
-      width: 24px;
-      height: 24px;
+      width: 20px;
+      height: 20px;
     }
     .link-block-label {
       flex: 1;
@@ -687,12 +715,24 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
       flex-shrink: 0;
     }
     .github-graph-legend-label { font-weight: 500; }
+    .github-graph-placeholder {
+      padding: 1.5rem;
+      text-align: center;
+      font-size: 0.875rem;
+      color: #b5b9d6;
+      background: #2a2a3a;
+      border-radius: 8px;
+    }
     footer {
-      margin-top: 2.5rem;
-      padding-top: 1.5rem;
+      margin-top: 2rem;
+      padding: 1.25rem 2rem;
       border-top: 1px solid #393950;
       font-size: 0.8125rem;
       color: #53566b;
+      text-align: center;
+    }
+    footer p {
+      margin: 0;
     }
     footer a { color: #139ae1; text-decoration: none; }
     footer a:hover { text-decoration: underline; }
@@ -701,9 +741,10 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
       .page-card { border-radius: 16px; }
       .hero-gradient { height: 100px; }
       .hero-body { padding: 0 1.5rem 1.5rem; margin-top: -40px; }
+      footer { padding: 1.25rem 1.5rem; }
       .hero-avatar { width: 88px; height: 88px; font-size: 1.875rem; border-width: 3px; }
       .hero-name { font-size: 1.5rem; }
-      .card-content { padding: 0 1.5rem 2rem; }
+      .card-content { padding: 0 1.5rem 0rem; }
     }
   </style>
 </head>
@@ -738,7 +779,7 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
               location
                 ? `<span class="hero-contact-item">${ICON_MAP_PIN}<span>${escapeHtml(
                     location
-                  )}</span></span>`
+                )}</span></span>`
                 : ""
             }
           </div>`
@@ -753,7 +794,7 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
                   ["polywork", ...(getCalUrl(socials) ? ["cal"] : [])]
                 )}</div>${
                   getCalUrl(socials)
-                    ? `<a href="${escapeHtml(
+                    ? `<span class="hero-socials-divider" aria-hidden="true"></span><a href="${escapeHtml(
                         getCalUrl(socials)!
                       )}" class="hero-cal-button" target="_blank" rel="noopener noreferrer">Book a call</a>`
                     : ""
@@ -765,49 +806,6 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
       <div class="card-content">
     <main class="main">
       ${
-        Object.keys(skills).length > 0
-          ? `
-      <section class="main-section" id="skills">
-        <h2 class="section-title">Skills</h2>
-        <div class="skill-items">${renderSkillsSection(
-          skills,
-          profile.skillsOrder,
-          "modern"
-        )}</div>
-      </section>
-      `
-          : ""
-      }
-      ${
-        contributionCalendar
-          ? `
-      <section class="main-section" id="github">
-        <h2 class="section-title">GitHub</h2>
-        <div class="github-graph-wrap">
-          ${
-            typeof contributionCalendar.totalContributions === "number"
-              ? `<p class="github-graph-total">${escapeHtml(
-                  contributionCalendar.totalContributions.toLocaleString()
-                )} contributions in the last 12 months</p>`
-              : ""
-          }
-          ${renderContributionGraph(contributionCalendar)}
-        </div>
-      </section>
-      `
-          : ""
-      }
-      ${
-        renderExperienceTimeline(experience)
-          ? `
-      <section class="main-section" id="experience">
-        <h2 class="section-title">Experience</h2>
-        ${renderExperienceTimeline(experience)}
-      </section>
-      `
-          : ""
-      }
-      ${
         (() => {
           const blocks = getFeaturedLinkBlocks(
             introduction,
@@ -817,7 +815,6 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
           if (blocks.length === 0) return "";
           return `
       <section class="main-section" id="links">
-        <h2 class="section-title">Links</h2>
         <div class="link-blocks-grid">
           ${blocks
             .map(({ url, label, source }) => {
@@ -836,6 +833,33 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
       `;
         })()
       }
+      <section class="main-section" id="github">
+        <h2 class="section-title">GitHub</h2>
+        ${
+          contributionCalendar
+            ? `<div class="github-graph-wrap">
+          ${
+            typeof contributionCalendar.totalContributions === "number"
+              ? `<p class="github-graph-total">${escapeHtml(
+                  contributionCalendar.totalContributions.toLocaleString()
+                )} contributions in the last 12 months</p>`
+              : ""
+          }
+          ${renderContributionGraph(contributionCalendar)}
+        </div>`
+            : `<div class="github-graph-placeholder" role="status">Your contribution graph will appear here when you're signed in with GitHub.</div>`
+        }
+      </section>
+      ${
+        renderExperienceTimeline(experience)
+          ? `
+      <section class="main-section" id="experience">
+        <h2 class="section-title">Experience</h2>
+        ${renderExperienceTimeline(experience)}
+      </section>
+      `
+          : ""
+      }
       ${
         introduction.additionalInfo
           ? `
@@ -848,11 +872,23 @@ function renderMinimalTemplate(profileJson: ProfileJson): string {
       `
           : ""
       }
-      <footer>
-        <p>Generated by <a href="https://profileme.dev" target="_blank" rel="noopener noreferrer">ProfileMe.dev</a></p>
-      </footer>
+      ${
+        Object.keys(skills).length > 0
+          ? `<section class="main-section" id="skills">
+        <h2 class="section-title">Skills</h2>
+        <div class="skill-items">${renderSkillsSection(
+          skills,
+          profile.skillsOrder,
+          "modern"
+        )}</div>
+      </section>`
+          : ""
+      }
     </main>
       </div>
+      <footer>
+        <p>Generated by <a href="https://profileme.dev" target="_blank" rel="noopener noreferrer">ProfileMe.dev</a> · © ${new Date().getFullYear()} ProfileMe.dev</p>
+      </footer>
     </div>
   </div>
 </body>

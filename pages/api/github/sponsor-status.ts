@@ -1,6 +1,6 @@
 /**
  * Sponsor Status API Route
- * 
+ *
  * Returns whether the current user is a sponsor.
  */
 
@@ -18,9 +18,9 @@ export default async function handler(
 
   try {
     const token = await getToken(req, res);
-    
+
     if (!token) {
-      return res.status(200).json({ 
+      return res.status(200).json({
         isSponsor: false,
         connected: false,
         message: "Not connected to GitHub",

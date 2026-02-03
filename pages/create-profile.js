@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from "react";
+import React, { useEffect, useContext, useState, useMemo } from "react";
 import { useTheme } from "next-themes";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 import { colorStore } from "../lib/constants/colorStore";
@@ -13,6 +13,7 @@ import Support from "../components/sections/Support";
 import FormLayout from "../components/layouts/FormLayout";
 import PreviewRenderer from "../components/preview/PreviewRenderer";
 import MarkdownRenderer from "../components/preview/MarkdownRenderer";
+import JsonViewer from "../components/preview/JsonViewer";
 import LinksPageRenderer from "../components/preview/LinksPageRenderer";
 import LinksPageGate from "../components/preview/LinksPageGate";
 import PreviewControls from "../components/preview/PreviewControls";
@@ -32,6 +33,7 @@ import {
   useSkillsDragDrop,
   useAutoRestore,
 } from "../hooks";
+import { loadProfileJson, stateToProfileJson } from "../lib/profile";
 
 export default function CreateProfile() {
   const { state, dispatch } = useContext(StateContext);
@@ -68,6 +70,21 @@ export default function CreateProfile() {
       setMarkdownString(markdown);
     } catch (error) {
       console.error("Error generating markdown:", error);
+    }
+  }, [state, mounted]);
+
+  // Profile JSON for JSON view (only after mount to avoid server/client hydration mismatch)
+  const profileJsonString = useMemo(() => {
+    if (!mounted) return "";
+    try {
+      const saved = loadProfileJson();
+      const stateJson = stateToProfileJson(state);
+      const merged = saved
+        ? { ...saved, profile: stateJson.profile, updatedAt: stateJson.updatedAt }
+        : stateJson;
+      return JSON.stringify(merged, null, 2);
+    } catch (e) {
+      return "";
     }
   }, [state, mounted]);
 
@@ -235,6 +252,17 @@ export default function CreateProfile() {
             markdownString={markdownString}
             markdownRef={markdownRef}
           />
+        </div>
+
+        {/* JSON view (shared data source for profile and Links page) */}
+        <div
+          className={
+            state.renderMode === "json"
+              ? "relative flex flex-1 min-h-0 flex-col my-auto"
+              : "hidden"
+          }
+        >
+          <JsonViewer jsonString={profileJsonString} placeholder={!mounted ? "Loading…" : null} />
         </div>
 
         {/* Links page section: full access for sponsors, gate prompt for non-sponsors */}

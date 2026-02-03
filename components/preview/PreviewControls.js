@@ -18,12 +18,7 @@ export default function PreviewControls({
   const { isSponsor } = useAuth();
   const [showLinksPageSettings, setShowLinksPageSettings] = useState(false);
 
-  // Close settings panel when switching away from Links page mode
-  React.useEffect(() => {
-    if (state.renderMode !== "linksPage") {
-      setShowLinksPageSettings(false);
-    }
-  }, [state.renderMode]);
+  // Settings is always available for sponsors (panel stays open across tab switches)
 
   const copyToClipBoard = async (copyMe) => {
     try {
@@ -43,45 +38,23 @@ export default function PreviewControls({
       {/* Left Group: View Mode Toggle */}
       <ViewModeToggle />
 
-      {/* Right Group: Settings + Actions (grouped), then Sync as main button */}
+      {/* Right Group: Settings (visible) + Menu + Sync */}
       <div className="flex items-center gap-2">
-        {/* Links page Settings (Sponsors, Links page mode only) - cog icon, text on hover */}
-        {isSponsor && state.renderMode === "linksPage" && (
+        {/* Settings – visible so users see it without opening the menu */}
+        {isSponsor && (
           <button
             onClick={() => setShowLinksPageSettings(!showLinksPageSettings)}
-            className={`btn-sm flex items-center justify-end gap-1.5 min-w-[2.25rem] overflow-hidden transition-[min-width] duration-200 ease-out group hover:min-w-[6.5rem] h-9 ${
-              showLinksPageSettings ? "btn-brand" : "btn-gray"
-            }`}
-            title="Links page Settings"
+            className={`btn-sm flex items-center gap-2 px-3 h-9 ${showLinksPageSettings ? "btn-brand" : "btn-gray"}`}
+            title="Settings (appearance & Links page)"
           >
-            <span className="text-xs uppercase tracking-wide whitespace-nowrap max-w-0 overflow-hidden opacity-0 group-hover:max-w-[4.5rem] group-hover:opacity-100 transition-all duration-200 flex items-center self-center -ml-2 group-hover:ml-0">
-              Settings
-            </span>
-            <span className="flex items-center justify-center flex-shrink-0 w-6 h-6">
-              <svg
-                className="w-4 h-4 block translate-y-px"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-                />
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                />
-              </svg>
-            </span>
+            <svg className="w-4 h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            <span className="text-xs font-semibold uppercase tracking-wide">Settings</span>
           </button>
         )}
 
-        {/* Actions Menu - ellipsis icon, text on hover */}
         <ActionsMenu
           copySuccess={copySuccess}
           setCopySuccess={setCopySuccess}
@@ -95,10 +68,8 @@ export default function PreviewControls({
         {isSponsor && <SyncMenuButton />}
       </div>
 
-      {/* Links page Settings Panel - Slide-in sidebar */}
-      {isSponsor &&
-        state.renderMode === "linksPage" &&
-        showLinksPageSettings && (
+      {/* Settings Panel - Slide-in sidebar (appearance + Links page options) */}
+      {isSponsor && showLinksPageSettings && (
           <GitHubPagesSettings
             isOpen={showLinksPageSettings}
             onClose={() => setShowLinksPageSettings(false)}

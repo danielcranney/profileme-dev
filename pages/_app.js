@@ -76,6 +76,7 @@ const initialState = {
   _version: "1.0.0",
   section: "introduction",
   renderMode: "preview",
+  mainTab: "profile",
   // Section order for reordering functionality
   sectionOrder: ["introduction", "skills", "socials", "badges", "support"],
   // Social order for reordering functionality
@@ -342,6 +343,18 @@ function reducer(state, action) {
       return {
         ...state,
         renderMode: action.payload,
+      };
+    // Select Main Tab (Profile vs Links page)
+    case ACTIONS.SELECT_MAIN_TAB:
+      return {
+        ...state,
+        mainTab: action.payload,
+        renderMode:
+          action.payload === "profile"
+            ? "preview"
+            : action.payload === "linksPage"
+              ? "linksPage"
+              : state.renderMode,
       };
     // Introduction Actions
     case ACTIONS.ADD_INTRODUCTION:

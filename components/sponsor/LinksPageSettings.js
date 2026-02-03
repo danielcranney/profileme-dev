@@ -248,6 +248,9 @@ export default function LinksPageSettings() {
 
   return (
     <>
+      <p className="text-xs text-gray-500 dark:text-gray-400 mb-3">
+        Appearance and Links page options. Accent color applies to both profile and Links page; options below apply to your Links page only.
+      </p>
       {/* Template selector temporarily hidden – users cannot change template for now */}
       {/* <div className="p-3 border border-gray-300 dark:border-dark-700 rounded bg-white dark:bg-dark-800 shadow-sm mb-3">
         <h4 className="text-xs font-semibold mb-2 text-gray-700 dark:text-gray-300">Links page template</h4>
@@ -262,8 +265,9 @@ export default function LinksPageSettings() {
       </div> */}
 
       <div className="p-3 border border-gray-300 dark:border-dark-700 rounded bg-white dark:bg-dark-800 shadow-sm mb-3">
-        <h4 className="text-xs font-semibold mb-2 text-gray-700 dark:text-gray-300">
+        <h4 className="text-xs font-semibold mb-2 text-gray-700 dark:text-gray-300 flex items-center gap-2">
           Page sections
+          <span className="text-[10px] font-normal text-gray-400 dark:text-gray-500 uppercase">Links page only</span>
         </h4>
         <div className="space-y-2">
           <label className="flex items-center gap-2 cursor-pointer">
@@ -288,8 +292,9 @@ export default function LinksPageSettings() {
       </div>
 
       <div className="p-3 border border-gray-300 dark:border-dark-700 rounded bg-white dark:bg-dark-800 shadow-sm mb-3">
-        <h4 className="text-xs font-semibold mb-2 text-gray-700 dark:text-gray-300">
+        <h4 className="text-xs font-semibold mb-2 text-gray-700 dark:text-gray-300 flex items-center gap-2">
           YouTube video
+          <span className="text-[10px] font-normal text-gray-400 dark:text-gray-500 uppercase">Links page only</span>
         </h4>
         <input
           type="url"
@@ -305,8 +310,9 @@ export default function LinksPageSettings() {
       </div>
 
       <div className="p-3 border border-gray-300 dark:border-dark-700 rounded bg-white dark:bg-dark-800 shadow-sm mb-3">
-        <h4 className="text-xs font-semibold mb-2 text-gray-700 dark:text-gray-300">
+        <h4 className="text-xs font-semibold mb-2 text-gray-700 dark:text-gray-300 flex items-center gap-2">
           Font
+          <span className="text-[10px] font-normal text-gray-400 dark:text-gray-500 uppercase">Links page only</span>
         </h4>
         <div className="grid grid-cols-2 gap-2">
           {FONTS.map((font) => (
@@ -336,8 +342,9 @@ export default function LinksPageSettings() {
       </div>
 
       <div className="p-3 border border-gray-300 dark:border-dark-700 rounded bg-white dark:bg-dark-800 shadow-sm mb-3">
-        <h4 className="text-xs font-semibold mb-2 text-gray-700 dark:text-gray-300">
-          Accent Color
+        <h4 className="text-xs font-semibold mb-2 text-gray-700 dark:text-gray-300 flex items-center gap-2">
+          Accent color
+          <span className="text-[10px] font-normal text-gray-400 dark:text-gray-500 uppercase">Profile & Links page</span>
         </h4>
         <div className="flex items-center gap-3">
           <input
@@ -360,8 +367,9 @@ export default function LinksPageSettings() {
       </div>
 
       <div className="p-3 border border-gray-300 dark:border-dark-700 rounded bg-white dark:bg-dark-800 shadow-sm mb-3">
-        <h4 className="text-xs font-semibold mb-2 text-gray-700 dark:text-gray-300">
+        <h4 className="text-xs font-semibold mb-2 text-gray-700 dark:text-gray-300 flex items-center gap-2">
           Links on your page
+          <span className="text-[10px] font-normal text-gray-400 dark:text-gray-500 uppercase">Links page only</span>
         </h4>
         <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">
           Reorder or add custom links. Order is reflected in the preview.

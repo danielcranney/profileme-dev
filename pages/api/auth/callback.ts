@@ -1,6 +1,6 @@
 /**
  * OAuth Callback Route
- * 
+ *
  * Handles OAuth callback from Supabase.
  * Supabase redirects here after GitHub OAuth completes.
  * We need to exchange the code for a session.
@@ -23,12 +23,14 @@ export default async function handler(
 
   try {
     const supabase = createClient(req, res);
-    
+
     // Check if we have a code to exchange
     if (code) {
       // Exchange the code for a session
-      const { data, error } = await supabase.auth.exchangeCodeForSession(code as string);
-      
+      const { data, error } = await supabase.auth.exchangeCodeForSession(
+        code as string
+      );
+
       if (error) {
         console.error("OAuth callback error:", error);
         return res.redirect(`/?error=${encodeURIComponent(error.message)}`);
@@ -36,7 +38,9 @@ export default async function handler(
 
       if (!data.session) {
         console.error("No session after code exchange");
-        return res.redirect(`/?error=${encodeURIComponent("Failed to create session")}`);
+        return res.redirect(
+          `/?error=${encodeURIComponent("Failed to create session")}`
+        );
       }
 
       console.log("OAuth callback success (code exchange):", {
@@ -44,7 +48,7 @@ export default async function handler(
         hasProviderToken: !!data.session.provider_token,
         providerTokenPreview: data.session.provider_token?.substring(0, 10),
       });
-      
+
       // Verify session was set in cookies
       const verifySession = await supabase.auth.getSession();
       console.log("Session verification after exchange:", {
@@ -53,8 +57,10 @@ export default async function handler(
       });
     } else {
       // No code - check if session already exists (Supabase might have set it)
-      const { data: { session } } = await supabase.auth.getSession();
-      
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
       if (session) {
         console.log("OAuth callback success (existing session):", {
           userId: session.user?.id,
@@ -63,15 +69,21 @@ export default async function handler(
       } else {
         console.warn("OAuth callback: No code and no existing session");
         console.log("Available query params:", Object.keys(req.query));
-        return res.redirect(`/?error=${encodeURIComponent("No authorization code or session found")}`);
+        return res.redirect(
+          `/?error=${encodeURIComponent(
+            "No authorization code or session found"
+          )}`
+        );
       }
     }
 
     // Session should now be in cookies
     // Redirect to home page - client will detect session
-    return res.redirect("/?connected=github");
+    return res.redirect("/create-profile?connected=github");
   } catch (error: any) {
     console.error("OAuth callback exception:", error);
-    return res.redirect(`/?error=${encodeURIComponent(error.message || "OAuth failed")}`);
+    return res.redirect(
+      `/?error=${encodeURIComponent(error.message || "OAuth failed")}`
+    );
   }
 }

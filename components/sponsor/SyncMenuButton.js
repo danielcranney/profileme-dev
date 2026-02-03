@@ -59,8 +59,9 @@ export default function SyncMenuButton() {
     };
   }, []);
 
-  // Check if we're in Links page mode and have unsaved changes
-  const showGlow = state.renderMode === "linksPage" && hasUnsavedChanges;
+  // Check if we're on Links page tab and have unsaved changes
+  const mainTab = state.mainTab ?? (state.renderMode === "linksPage" ? "linksPage" : "profile");
+  const showGlow = mainTab === "linksPage" && hasUnsavedChanges;
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -148,8 +149,8 @@ export default function SyncMenuButton() {
         message: "Synced to GitHub: README.md + links page updated!",
       });
 
-      // Mark links page as synced if we're in Links page mode
-      if (state.renderMode === "linksPage") {
+      // Mark links page as synced when we're on Links page tab
+      if (mainTab === "linksPage") {
         markAsSynced();
       }
 
@@ -311,7 +312,7 @@ export default function SyncMenuButton() {
       {/* Tooltip on hover */}
       {showTooltip && !syncing && !showMenu && (
         <div className="absolute top-full mt-1 left-0 bg-gray-900 dark:bg-gray-700 text-white text-xs rounded px-2 py-1 whitespace-nowrap z-50 shadow-lg">
-          Updates README.md + Links page
+          Syncs profile README + Links page
           <div className="absolute -top-1 left-3 w-2 h-2 bg-gray-900 dark:bg-gray-700 transform rotate-45"></div>
         </div>
       )}
@@ -320,8 +321,11 @@ export default function SyncMenuButton() {
       {showMenu && (
         <div
           ref={menuRef}
-          className="absolute top-full mt-1 left-0 bg-white dark:bg-dark-800 border border-gray-200 dark:border-dark-700 rounded-md shadow-lg z-50 min-w-[180px]"
+          className="absolute top-full mt-1 left-0 bg-white dark:bg-dark-800 border border-gray-200 dark:border-dark-700 rounded-md shadow-lg z-50 min-w-[200px]"
         >
+          <div className="px-3 py-2 text-xs text-gray-500 dark:text-gray-400 border-b border-gray-200 dark:border-dark-700">
+            Syncs: Profile (README) + Links page
+          </div>
           <button
             onClick={handleRefresh}
             disabled={syncing}
